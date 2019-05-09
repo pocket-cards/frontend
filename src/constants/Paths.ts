@@ -1,11 +1,18 @@
 export const ROUTE_PATH_INDEX = {
-  Main: 0,
-  Study: 1,
+  Regist: 10RegistInit: 11,
+  RegistList: 12,
+  RegistFinish: 13,
+  Study: 20,
 };
 
 export const ROUTE_PATHS = {
   Footer: {
-    [ROUTE_PATH_INDEX.Main]: '/main',
-    [ROUTE_PATH_INDEX.Study]: '/study',
+    [ROUTE_PATH_INDEX.Regist]: '/regist',
+  , , [ROUTE_PATH_INDEX.Study]: '/study',
+},
+  Regist: {
+    [ROUTE_PATH_INDEX.RegistInit]: '/regist/init',
+    [ROUTE_PATH_INDEX.RegistList]: '/regist/list',
+    [ROUTE_PATH_INDEX.RegistFinish]: '/regist/finish',
   },
 };

@@ -1,2 +1,2 @@
-export { default as Camera } from './regist/Main';
-export { default as Study } from './study/Study';
+export { default as RegistMain } from './regist/A000';
+export { default as StudyMain } from './study/B000';

@@ -4,41 +4,17 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { RouteComponentProps, withRouter, Switch, Route } from 'react-router-dom';
 import { WithStyles, StyleRules } from '@material-ui/core/styles';
 import { withStyles, Grid, Fab } from '@material-ui/core';
-import { Camera as CameraIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
 
-const fabButton = () => (
-  <Fab
-    aria-label="Camera"
-    // className={classes.fab}
-    size="large"
-    color="secondary"
-    disableFocusRipple
-    disableTouchRipple
-    disableRipple
-  >
-    <CameraIcon />
-  </Fab>
-);
-
-class Camera extends React.Component<Props, any, any> {
+class A003 extends React.Component<Props, any, any> {
 
   render() {
     const { actions, classes, match } = this.props;
 
     console.log(this.props);
     return (
-      <Grid
-        container
-        alignItems="center"
-        justify="center"
-      >
-        <Switch>
-          <Route path={`${match.url}`} exact component={fabButton}  />
-          <Route path={`${match.url}/regist`} component={Fab} />
-        </Switch>
-      </Grid>
+      <div>111111111</div>
     );
   }
 }
@@ -58,7 +34,7 @@ const styles: StyleRules = {
 export default withRouter(connect<StateFromProps, void, void, IState>(
   mapStateToProps,
   mapDispatchToProps,
-)(withStyles(styles)(Camera)));
+)(withStyles(styles)(A003)));
 
 /** State */
 export interface StateFromProps {

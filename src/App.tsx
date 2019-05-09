@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Footer, Header } from '@containers/com';
-import { Main, Camera } from '@containers/body';
+import { Footer, Header, Main } from '@containers/com';
 import { hot } from 'react-hot-loader/root';
 
 class App extends React.Component {

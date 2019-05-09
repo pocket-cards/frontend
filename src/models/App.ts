@@ -1,4 +1,5 @@
 import { Record } from 'immutable';
+import { ROUTE_PATH_INDEX } from '@constants/Paths';
 
 export interface AppProps {
   tabIndex: number;
@@ -12,7 +13,7 @@ export interface IApp extends AppProps, Record<AppProps> {
  * App共通ステータス
  */
 export default class App extends Record<AppProps>({
-  tabIndex: 0,
+  tabIndex: ROUTE_PATH_INDEX.Regist,
 }) {
 
   tabChange(index: number) {

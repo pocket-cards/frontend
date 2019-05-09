@@ -4,7 +4,7 @@ import { IState } from '@models';
 import { Route, withRouter, RouteComponentProps, Switch } from 'react-router-dom';
 import { StyleRules, WithStyles } from '@material-ui/core/styles';
 import { withStyles, Theme, StyleRulesCallback, Grid } from '@material-ui/core';
-import { Camera, Study} from '@containers/body';
+import { RegistMain, StudyMain } from '@containers/body';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 class Main extends React.Component<Props, any, any> {
@@ -12,7 +12,6 @@ class Main extends React.Component<Props, any, any> {
   render() {
     const { classes, match } = this.props;
 
-    console.log(match, ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study], ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Main]);
     return (
       <Grid
         container
@@ -24,8 +23,8 @@ class Main extends React.Component<Props, any, any> {
         }}
       >
         <Switch>
-          <Route exact path={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Main]} component={Camera} />
-          <Route path={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study]} component={Study} />
+          <Route exact path={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Regist]} component={RegistMain} />
+          <Route path={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study]} component={StudyMain} />
         </Switch>
       </Grid>
     );
