@@ -1,10 +1,10 @@
 import { IApp } from './App';
-import { IRegist } from './Regist';
+import { IA000 } from './Regist';
 import { Record } from 'immutable';
 
 export interface State {
   app: IApp;
-  regist: IRegist;
+  A000: IA000;
 }
 
 export interface IState extends Map<keyof State, Record<any>> {
@@ -12,4 +12,4 @@ export interface IState extends Map<keyof State, Record<any>> {
 }
 
 export { default as App } from './App';
-export { default as Regist } from './Regist';
+export { default as A000 } from './Regist';

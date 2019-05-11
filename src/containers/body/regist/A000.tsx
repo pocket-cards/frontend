@@ -1,20 +1,16 @@
 import * as React from 'react';
-import {
-  RouteComponentProps,
-  withRouter,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import { RouteComponentProps, Switch, Route } from 'react-router-dom';
 import { RegistInit, RegistList, RegistFinish } from '@containers/body/regist';
-import { Grid } from '@material-ui/core';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { withStyles } from '@material-ui/core';
+import { StyleRules, WithStyles } from '@material-ui/core/styles';
 
 class A000 extends React.Component<Props, any, any> {
   render() {
-    const { match, children } = this.props;
+    const { match, children, classes } = this.props;
 
     return (
-      <Grid container alignItems="center" justify="center">
+      <React.Fragment>
         <Switch>
           <Route path={`${match.path}`} exact component={RegistInit} />
           <Route
@@ -27,12 +23,21 @@ class A000 extends React.Component<Props, any, any> {
           />
         </Switch>
         <Route children={children} />
-      </Grid>
+      </React.Fragment>
     );
   }
 }
 
-export default A000;
+const styles: StyleRules = {
+  root: {
+    width: '100%',
+    minHeight: 'calc(100vh - 120px)',
+  },
+};
+
+export default withStyles(styles)(A000);
 
 /** Properties */
-export interface Props extends RouteComponentProps<{}> {}
+export interface Props
+  extends WithStyles<StyleRules>,
+    RouteComponentProps<{}> {}

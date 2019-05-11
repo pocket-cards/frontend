@@ -23,26 +23,22 @@ class App extends React.Component<Props, any> {
         <Grid
           container
           spacing={0}
-          alignItems="center"
-          justify="center"
           classes={{
             container: classes.root,
           }}
         >
-          <Grid>
-            <Switch>
-              <Route
-                path={ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistInit]}
-                component={RegistMain}
-              />
-              <Route
-                path={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study]}
-                component={StudyMain}
-              />
-              <Route component={RegistMain} />
-            </Switch>
-            <Route children={children} />
-          </Grid>
+          <Switch>
+            <Route
+              path={ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistInit]}
+              component={RegistMain}
+            />
+            <Route
+              path={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study]}
+              component={StudyMain}
+            />
+            <Route component={RegistMain} />
+          </Switch>
+          <Route children={children} />
         </Grid>
         <Footer />
       </div>

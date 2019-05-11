@@ -1,20 +1,32 @@
 import * as React from 'react';
+import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { WithStyles, StyleRules } from '@material-ui/core/styles';
 import { withStyles, Grid, Fab } from '@material-ui/core';
 import { Camera as CameraIcon } from '@material-ui/icons';
-import { IState } from '@models';
-import * as AppActions from '@actions/app';
+import * as RegistActions from '@actions/regist';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 単語カメラ画面 */
 class A001 extends React.Component<Props, any, any> {
+  handleClick = () => {
+    const { actions, history } = this.props;
+
+    actions.uploadImage(1);
+
+    history.push(ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistList]);
+  }
+
   render() {
-    const { match } = this.props;
+    const { classes } = this.props;
     return (
-      <Grid container alignItems="center" justify="center">
+      <Grid
+        container
+        alignItems="center"
+        justify="center"
+        // className={classes.root}
+      >
         <Fab
           aria-label="Camera"
           // className={classes.fab}
@@ -23,9 +35,7 @@ class A001 extends React.Component<Props, any, any> {
           disableFocusRipple
           disableTouchRipple
           disableRipple
-          component={(props: any) => (
-            <Link to={`${match.path}/list`} {...props} />
-          )}
+          onClick={this.handleClick}
         >
           <CameraIcon />
         </Fab>
@@ -34,29 +44,23 @@ class A001 extends React.Component<Props, any, any> {
   }
 }
 
-const mapStateToProps = (state: IState) => ({});
+const styles: StyleRules = {};
 
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//   actions: bindActionCreators(AppActions, dispatch),
-// });
+/** Props */
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  actions: bindActionCreators(RegistActions, dispatch),
+});
 
-// const styles: StyleRules = {};
-
-// export default withRouter(
-//   connect<StateFromProps, void, void, IState>(
-//     mapStateToProps,
-//     mapDispatchToProps,
-//   )(withStyles(styles)(A001)),
-// );
-
-export default withRouter(connect(mapStateToProps)(A001));
-/** State */
-export interface StateFromProps {
-  // tabIndex: number;
-}
+export default compose(
+  withRouter,
+  withStyles(styles),
+  connect(
+    null,
+    mapDispatchToProps,
+  ),
+)(A001) as any;
 
 /** Properties */
-export interface Props
-  extends StateFromProps,
-    WithStyles<StyleRules>,
-    RouteComponentProps<{}> {}
+export interface Props extends WithStyles<StyleRules>, RouteComponentProps<{}> {
+  actions: RegistActions.Actions;
+}

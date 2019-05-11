@@ -20,7 +20,7 @@ export const removeWord = createAction<RemoveWordPayload, string>(
 /** 単語一括登録 */
 export const registWords = createAction<RegistWordsPayload, string[]>(
   A000_REGIST_WORDS,
-  words => ({ words }),
+  words => ({}),
 );
 
 /** 画像アップロード */
@@ -34,9 +34,7 @@ export interface RemoveWordPayload {
 }
 
 /** 単語一括登録 */
-export interface RegistWordsPayload {
-  words: string[];
-}
+export interface RegistWordsPayload {}
 
 /** 単語登録画面のActions */
 export interface Actions {

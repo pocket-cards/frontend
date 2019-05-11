@@ -1,17 +1,17 @@
 import { Record } from 'immutable';
 
-export interface RegistProps {
+export interface A000Props {
   words: string[];
 }
 
-export interface IRegist extends RegistProps, Record<RegistProps> {
-  get<K extends keyof RegistProps>(key: K): RegistProps[K];
+export interface IA000 extends A000Props, Record<A000Props> {
+  get<K extends keyof A000Props>(key: K): A000Props[K];
 }
 
 /**
  * App共通ステータス
  */
-export default class Regist extends Record<RegistProps>({
+export default class A000 extends Record<A000Props>({
   words: [],
 }) {
   /**
@@ -21,6 +21,13 @@ export default class Regist extends Record<RegistProps>({
     const result = this.get('words').filter(item => item !== word);
 
     return this.set('words', result);
+  }
+
+  /**
+   * 臨時単語リストをクリアする
+   */
+  clearWords() {
+    return this.set('words', [] as string[]);
   }
 
   /**

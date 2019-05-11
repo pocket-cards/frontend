@@ -2,52 +2,110 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { WithStyles, StyleRules } from '@material-ui/core/styles';
+import {
+  WithStyles,
+  StyleRules,
+  Theme,
+  StyleRulesCallback,
+} from '@material-ui/core/styles';
 import {
   withStyles,
   List,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Checkbox,
   IconButton,
+  Grid,
+  Button,
+  Avatar,
 } from '@material-ui/core';
-import { Comment as CommentIcon } from '@material-ui/icons';
+import { Folder as FolderIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { IState } from '@models';
-import * as AppActions from '@actions/app';
+import * as RegistActions from '@actions/regist';
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 単語登録リスト画面 */
 class A002 extends React.Component<Props, any, any> {
-  render() {
-    const { actions, classes, match } = this.props;
+  /** 単語登録 */
+  handleRegist = () => {
+    const { actions, history } = this.props;
 
-    console.log(this.props);
-    console.log(11111);
+    actions.registWords(['test']);
+
+    history.push(ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistFinish]);
+  }
+
+  /** 単語削除 */
+  handleRemove = (word: string) => {
+    const { actions } = this.props;
+
+    actions.removeWord(word);
+  }
+
+  render() {
+    const { classes, words } = this.props;
+
     return (
-      <List className={classes.root}>
-        {[0, 1, 2, 3].map(value => (
-          <ListItem key={value} role={undefined} dense button>
-            <Checkbox checked tabIndex={-1} disableRipple />
-            <ListItemText primary={`Line item ${value + 1}`} />
-            <ListItemSecondaryAction>
-              <IconButton aria-label="Comments">
-                <CommentIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
+      <Grid container direction="column" wrap="nowrap">
+        <Grid item xs={12}>
+          <List className={classes.root}>
+            {words.map(value => (
+              <ListItem key={value} role={undefined} dense>
+                <Avatar>
+                  <FolderIcon />
+                </Avatar>
+                <ListItemText primary={value} />
+                <ListItemSecondaryAction>
+                  <IconButton
+                    className={classes.deleteButton}
+                    disableRipple
+                    disableTouchRipple
+                    onClick={() => {
+                      this.handleRemove(value);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
+          </List>
+        </Grid>
+        <Grid item xs={12} className={classes.button}>
+          <Button
+            variant="contained"
+            color="secondary"
+            // className={classes.button}
+            onClick={this.handleRegist}
+          >
+            登録
+          </Button>
+        </Grid>
+      </Grid>
     );
   }
 }
 
-const mapStateToProps = (state: IState) => ({});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(AppActions, dispatch),
+/** 単語一覧のProps */
+const mapStateToProps = (state: IState) => ({
+  words: state.get('A000').get('words'),
 });
 
-const styles: StyleRules = {};
+/** 単語一覧のActions */
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  actions: bindActionCreators(RegistActions, dispatch),
+});
+
+/** Styles */
+const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
+  button: {
+    textAlign: 'right',
+    marginRight: unit * 2,
+  },
+  deleteButton: {
+    marginRight: unit * 2,
+  },
+});
 
 export default compose(
   withRouter,
@@ -60,7 +118,7 @@ export default compose(
 
 /** State */
 export interface StateFromProps {
-  // tabIndex: number;
+  words: string[];
 }
 
 /** Properties */
@@ -68,5 +126,5 @@ export interface Props
   extends StateFromProps,
     WithStyles<StyleRules>,
     RouteComponentProps<{}> {
-  actions?: AppActions.Actions;
+  actions: RegistActions.Actions;
 }
