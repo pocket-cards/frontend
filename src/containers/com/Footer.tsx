@@ -3,7 +3,13 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Link } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction, StyleRulesCallback, Theme, withStyles } from '@material-ui/core';
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  StyleRulesCallback,
+  Theme,
+  withStyles,
+} from '@material-ui/core';
 import { StyleRules, WithStyles } from '@material-ui/core/styles';
 import { Camera as CameraIcon, Star as StarIcon } from '@material-ui/icons';
 import { IState } from '@models';
@@ -11,7 +17,6 @@ import * as AppActions from '@actions/app';
 import { ROUTE_PATH_INDEX, ROUTE_PATHS } from '@constants/Paths';
 
 class Footer extends React.Component<Props, any, any> {
-
   handleChange = (_: any, value: any) => {
     const { actions, history } = this.props;
 
@@ -34,18 +39,25 @@ class Footer extends React.Component<Props, any, any> {
         className={classes.root}
       >
         <BottomNavigationAction
-          value={ROUTE_PATH_INDEX.Regist}
+          value={ROUTE_PATH_INDEX.RegistInit}
           icon={<CameraIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Regist]} {...props} />}
+          component={(props: any) => (
+            <Link
+              to={ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistInit]}
+              {...props}
+            />
+          )}
         />
         <BottomNavigationAction
           value={ROUTE_PATH_INDEX.Study}
           icon={<StarIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study]} {...props} />}
+          component={(props: any) => (
+            <Link to={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study]} {...props} />
+          )}
         />
       </BottomNavigation>
     );
@@ -72,10 +84,12 @@ const styles: StyleRulesCallback = (theme: Theme) => ({
   },
 });
 
-export default withRouter(connect<StateFromProps, void, void, IState>(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withStyles(styles)(Footer)));
+export default withRouter(
+  connect<StateFromProps, void, void, IState>(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withStyles(styles)(Footer)),
+);
 
 /** State */
 export interface StateFromProps {
@@ -83,6 +97,9 @@ export interface StateFromProps {
 }
 
 /** Properties */
-export interface Props extends StateFromProps, WithStyles<StyleRules>, RouteComponentProps<any> {
+export interface Props
+  extends StateFromProps,
+    WithStyles<StyleRules>,
+    RouteComponentProps<any> {
   actions?: AppActions.Actions;
 }

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import createstore from './src/store';
 
-import App from './src/App';
+import Router from './src/Router';
 
 const store = createstore();
 const root = document.getElementById('root');
@@ -19,9 +19,9 @@ const root = document.getElementById('root');
 
 render(
   <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider >,
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  </Provider>,
   root,
 );

@@ -13,16 +13,9 @@ export interface IApp extends AppProps, Record<AppProps> {
  * App共通ステータス
  */
 export default class App extends Record<AppProps>({
-  tabIndex: ROUTE_PATH_INDEX.Regist,
+  tabIndex: ROUTE_PATH_INDEX.RegistInit,
 }) {
-
   tabChange(index: number) {
-    console.log(index);
-
-    const t = this.set('tabIndex', index);
-
-    console.log(t);
-
-    return t;
+    return this.set('tabIndex', index);
   }
 }
