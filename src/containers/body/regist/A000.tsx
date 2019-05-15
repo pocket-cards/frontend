@@ -14,11 +14,11 @@ class A000 extends React.Component<Props, any, any> {
         <Switch>
           <Route path={`${match.path}`} exact component={RegistInit} />
           <Route
-            path={ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistList]}
+            path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistList]}
             component={RegistList}
           />
           <Route
-            path={ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistFinish]}
+            path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistFinish]}
             component={RegistFinish}
           />
         </Switch>

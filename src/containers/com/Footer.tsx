@@ -44,19 +44,16 @@ class Footer extends React.Component<Props, any, any> {
           disableRipple
           disableTouchRipple
           component={(props: any) => (
-            <Link
-              to={ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistInit]}
-              {...props}
-            />
+            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />
           )}
         />
         <BottomNavigationAction
-          value={ROUTE_PATH_INDEX.Study}
+          value={ROUTE_PATH_INDEX.StudyInit}
           icon={<StarIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
           component={(props: any) => (
-            <Link to={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study]} {...props} />
+            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} {...props} />
           )}
         />
       </BottomNavigation>

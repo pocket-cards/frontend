@@ -29,11 +29,11 @@ class App extends React.Component<Props, any> {
         >
           <Switch>
             <Route
-              path={ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistInit]}
+              path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]}
               component={RegistMain}
             />
             <Route
-              path={ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Study]}
+              path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]}
               component={StudyMain}
             />
             <Route component={RegistMain} />

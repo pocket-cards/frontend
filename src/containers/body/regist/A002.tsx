@@ -32,7 +32,7 @@ class A002 extends React.Component<Props, any, any> {
 
     actions.registWords(['test']);
 
-    history.push(ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistFinish]);
+    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistFinish]);
   }
 
   /** 単語削除 */
@@ -43,7 +43,13 @@ class A002 extends React.Component<Props, any, any> {
   }
 
   render() {
-    const { classes, words } = this.props;
+    const { classes, words, history } = this.props;
+
+    // 単語データなし
+    if (!words || words.length === 0) {
+      history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]);
+      return <div />;
+    }
 
     return (
       <Grid container direction="column" wrap="nowrap">

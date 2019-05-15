@@ -9,7 +9,7 @@ import * as RegistActions from '@actions/regist';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 単語カメラ画面 */
-class A001 extends React.Component<Props, any, any> {
+class B003 extends React.Component<Props, any, any> {
   handleClick = () => {
     const { actions, history } = this.props;
 
@@ -58,7 +58,7 @@ export default compose(
     null,
     mapDispatchToProps,
   ),
-)(A001) as any;
+)(B003) as any;
 
 /** Properties */
 export interface Props extends WithStyles<StyleRules>, RouteComponentProps<{}> {

@@ -1,61 +1,37 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
+import { RouteComponentProps, Switch, Route } from 'react-router-dom';
 import { WithStyles, StyleRules, withStyles } from '@material-ui/core/styles';
-import { Grid, Fab } from '@material-ui/core';
-import { AccessAlarm as AccessAlarmIcon } from '@material-ui/icons';
-import { IState } from '@models';
-import * as AppActions from '@actions/app';
+import { StudyCards, StudyInit, StudyFinish } from '@containers/body/study';
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
-class Study extends React.Component<Props, any, any> {
-
+class B000 extends React.Component<Props, any, any> {
   render() {
-    const { classes } = this.props;
+    const { match, children } = this.props;
 
     return (
-      <Grid
-        container
-        alignItems="center"
-        justify="center"
-      >
-        <Grid>
-          <Fab
-            aria-label="Camera"
-            className={classes.fab}
-            size="large"
-            color="secondary"
-          >
-            <AccessAlarmIcon />
-          </Fab>
-        </Grid>
-      </Grid>
+      <React.Fragment>
+        <Switch>
+          <Route path={`${match.path}`} exact component={StudyInit} />
+          <Route
+            path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]}
+            component={StudyCards}
+          />
+          <Route
+            path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyFinish]}
+            component={StudyFinish}
+          />
+        </Switch>
+        <Route children={children} />
+      </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = (state: IState) => ({
+const styles: StyleRules = {};
 
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(AppActions, dispatch),
-});
-
-const styles: StyleRules = {
-
-};
-
-export default connect<StateFromProps, void, void, IState>(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withStyles(styles)(Study));
-
-/** State */
-export interface StateFromProps {
-  // tabIndex: number;
-}
+export default withStyles(styles)(B000);
 
 /** Properties */
-export interface Props extends StateFromProps, WithStyles<StyleRules> {
-  actions?: AppActions.Actions;
-}
+export interface Props
+  extends WithStyles<StyleRules>,
+    RouteComponentProps<{}> {}

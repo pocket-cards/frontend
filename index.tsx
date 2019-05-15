@@ -2,11 +2,9 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import createstore from './src/store';
-
+import store from './src/store';
 import Router from './src/Router';
 
-const store = createstore();
 const root = document.getElementById('root');
 
 // Amplify.configure({

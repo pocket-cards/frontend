@@ -19,10 +19,7 @@ class A003 extends React.Component<Props, any, any> {
           color="primary"
           // className={classes.button}
           component={(props: any) => (
-            <Link
-              to={ROUTE_PATHS.Regist[ROUTE_PATH_INDEX.RegistInit]}
-              {...props}
-            />
+            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />
           )}
         >
           登録完了

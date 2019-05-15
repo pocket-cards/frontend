@@ -3,19 +3,18 @@ import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { WithStyles, StyleRules } from '@material-ui/core/styles';
-import { withStyles, Grid, Fab } from '@material-ui/core';
-import { Camera as CameraIcon } from '@material-ui/icons';
-import * as RegistActions from '@actions/regist';
+import { withStyles, Grid, Button } from '@material-ui/core';
+import * as StudyActions from '@actions/study';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 単語カメラ画面 */
-class A001 extends React.Component<Props, any, any> {
+class B001 extends React.Component<Props, any, any> {
   handleClick = () => {
     const { actions, history } = this.props;
 
-    actions.uploadImage(1);
+    actions.studyStart(history);
 
-    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistList]);
+    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]);
   }
 
   render() {
@@ -27,18 +26,14 @@ class A001 extends React.Component<Props, any, any> {
         justify="center"
         // className={classes.root}
       >
-        <Fab
-          aria-label="Camera"
-          // className={classes.fab}
-          size="large"
-          color="secondary"
-          disableFocusRipple
-          disableTouchRipple
-          disableRipple
+        <Button
+          variant="contained"
+          color="primary"
+          // className={classes.button}
           onClick={this.handleClick}
         >
-          <CameraIcon />
-        </Fab>
+          学習開始
+        </Button>
       </Grid>
     );
   }
@@ -48,7 +43,7 @@ const styles: StyleRules = {};
 
 /** Props */
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(RegistActions, dispatch),
+  actions: bindActionCreators(StudyActions, dispatch),
 });
 
 export default compose(
@@ -58,9 +53,9 @@ export default compose(
     null,
     mapDispatchToProps,
   ),
-)(A001) as any;
+)(B001) as any;
 
 /** Properties */
 export interface Props extends WithStyles<StyleRules>, RouteComponentProps<{}> {
-  actions: RegistActions.Actions;
+  actions: StudyActions.Actions;
 }
