@@ -1,15 +1,13 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HappyPack = require('happypack');
+import * as path from 'path';
+import { Configuration, NoEmitOnErrorsPlugin, LoaderOptionsPlugin } from 'webpack';
+import HappyPack from 'happypack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-module.exports = {
-  entry: [
-    './index',
-  ],
+const configs: Configuration = {
+  entry: ['./index'],
   output: {
     filename: 'bundle.min.js',
-    path: path.resolve(__dirname, '../../public'),
+    path: path.resolve(__dirname, '../../build'),
     publicPath: '/',
   },
   resolve: {
@@ -35,28 +33,25 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               cacheDirectory: true,
-              plugins: [
-                'react-hot-loader/babel',
-              ],
+              plugins: ['react-hot-loader/babel'],
             },
           },
           {
             loader: 'ts-loader',
             options: {
               transpileOnly: true,
-              happyPackMode: true
-            }
+              happyPackMode: true,
+            },
           },
         ],
       },
-
-    ]
+    ],
   },
   plugins: [
     new HappyPack({
-      loaders: ['ts-loader'],
+      loaders: ['babel-loader', 'ts-loader'],
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
+    new NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       title: 'Chat',
       filename: 'index.html',
@@ -65,10 +60,11 @@ module.exports = {
       hash: true,
       inject: 'body',
     }),
-    new webpack.LoaderOptionsPlugin({
+    new LoaderOptionsPlugin({
       debug: false,
     }),
   ],
   bail: true,
 };
 
+export default configs;
