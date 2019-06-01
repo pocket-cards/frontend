@@ -4,6 +4,7 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import store from './src/store';
 import Router from './src/Router';
+import { register } from './src/serviceWorker';
 
 const root = document.getElementById('root');
 
@@ -23,3 +24,5 @@ render(
   </Provider>,
   root,
 );
+
+register();

@@ -2,6 +2,7 @@ import * as path from 'path';
 import { Configuration, NoEmitOnErrorsPlugin, LoaderOptionsPlugin } from 'webpack';
 import HappyPack from 'happypack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const configs: Configuration = {
   entry: ['./index'],
@@ -63,6 +64,12 @@ const configs: Configuration = {
     new LoaderOptionsPlugin({
       debug: false,
     }),
+    new CopyWebpackPlugin([
+      {
+        from: 'public',
+        to: 'build',
+      },
+    ]),
   ],
   bail: true,
 };

@@ -3,13 +3,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Link } from 'react-router-dom';
-import {
-  BottomNavigation,
-  BottomNavigationAction,
-  StyleRulesCallback,
-  Theme,
-  withStyles,
-} from '@material-ui/core';
+import { BottomNavigation, BottomNavigationAction, StyleRulesCallback, Theme, withStyles } from '@material-ui/core';
 import { StyleRules, WithStyles } from '@material-ui/core/styles';
 import { Camera as CameraIcon, Star as StarIcon } from '@material-ui/icons';
 import { IState } from '@models';
@@ -33,28 +27,22 @@ class Footer extends React.Component<Props, any, any> {
     const { tabIndex, classes } = this.props;
 
     return (
-      <BottomNavigation
-        value={tabIndex}
-        onChange={this.handleChange}
-        className={classes.root}
-      >
+      <BottomNavigation value={tabIndex} onChange={this.handleChange} className={classes.root}>
         <BottomNavigationAction
+          className={classes.iconBtn}
           value={ROUTE_PATH_INDEX.RegistInit}
           icon={<CameraIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => (
-            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />
-          )}
+          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}
         />
         <BottomNavigationAction
+          className={classes.iconBtn}
           value={ROUTE_PATH_INDEX.StudyInit}
           icon={<StarIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => (
-            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} {...props} />
-          )}
+          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} {...props} />}
         />
       </BottomNavigation>
     );
@@ -69,12 +57,18 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(AppActions, dispatch),
 });
 
-const styles: StyleRulesCallback = (theme: Theme) => ({
+const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }: Theme) => ({
   root: {
     position: 'fixed',
     bottom: '0',
-    width: ' 100%',
-    backgroundColor: theme.palette.primary.dark,
+    width: '100%',
+    height: unit * 9,
+    backgroundColor: primary.dark,
+    alignItems: 'flex-start',
+  },
+  iconBtn: {
+    paddingTop: unit * 1.5,
+    // marginBottom: unit,
   },
   icon: {
     color: 'white',
@@ -94,9 +88,6 @@ export interface StateFromProps {
 }
 
 /** Properties */
-export interface Props
-  extends StateFromProps,
-    WithStyles<StyleRules>,
-    RouteComponentProps<any> {
+export interface Props extends StateFromProps, WithStyles<StyleRules>, RouteComponentProps<any> {
   actions?: AppActions.Actions;
 }

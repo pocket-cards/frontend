@@ -8,20 +8,19 @@ import { IState } from '@models';
 import * as AppActions from '@actions/app';
 
 class Header extends React.Component<Props, any, any> {
-
   render() {
     const { actions, classes } = this.props;
     if (!actions) return;
 
     return (
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             News
-        </Typography>
+          </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
@@ -29,17 +28,13 @@ class Header extends React.Component<Props, any, any> {
   }
 }
 
-const mapStateToProps = (state: IState) => ({
-
-});
+const mapStateToProps = (state: IState) => ({});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(AppActions, dispatch),
 });
 
-const styles: StyleRules = {
-
-};
+const styles: StyleRules = {};
 
 export default connect<StateFromProps, void, void, IState>(
   mapStateToProps,

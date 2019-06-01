@@ -11,4 +11,4 @@ const prod: Configuration = {
   ],
 };
 
-module.exports = merge(baseConfig, prod);
+export default merge(baseConfig, prod);

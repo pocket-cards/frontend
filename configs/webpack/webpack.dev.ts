@@ -14,4 +14,4 @@ const dev: Configuration = {
   ],
 };
 
-module.exports = merge(baseConfig, dev);
+export default merge(baseConfig, dev);
