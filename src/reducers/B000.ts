@@ -1,17 +1,20 @@
-import { handleActions, Action } from 'redux-actions';
 import { B000 } from '@models';
-import { StudyStartPayload, StudyResultPayload } from '@actions/study';
-import { B000_STUDY_START, B000_STUDY_RESULT } from '@constants/ActionTypes';
+import { B001_FAILURE, B001_SUCCESS, B001_REQUEST } from '@constants/ActionTypes';
+import { B001Actions, B001SuccessAction } from '@actions/study';
 
-const reducer = handleActions<any>(
-  {
-    [B000_STUDY_START]: (store: B000, action: Action<StudyStartPayload>) =>
-      store.setWords(action.payload.words),
+const reducer = (store: B000 = new B000(), action: B001Actions) => {
+  switch (action.type) {
+    case B001_REQUEST:
+      return store;
+    case B001_SUCCESS:
+      return b001Success(store, action);
+    case B001_FAILURE:
+      return store;
+    default:
+      return store;
+  }
+};
 
-    [B000_STUDY_RESULT]: (store: B000, action: Action<StudyResultPayload>) =>
-      action.payload.success ? store.success() : store.failure(),
-  },
-  new B000(),
-);
+const b001Success = (store: B000, action: B001SuccessAction) => store.setWords(action.payload.words);
 
 export default reducer;

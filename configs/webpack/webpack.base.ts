@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Configuration, NoEmitOnErrorsPlugin, LoaderOptionsPlugin } from 'webpack';
+import { Configuration, NoEmitOnErrorsPlugin, LoaderOptionsPlugin, EnvironmentPlugin } from 'webpack';
 import HappyPack from 'happypack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
@@ -19,6 +19,7 @@ const configs: Configuration = {
       '@actions': path.resolve(__dirname, '../../src/actions'),
       '@constants': path.resolve(__dirname, '../../src/constants'),
       '@containers': path.resolve(__dirname, '../../src/containers'),
+      '@utils': path.resolve(__dirname, '../../src/utils'),
       // 'typings': path.resolve(__dirname, '../../typings'),
       // '@const': path.resolve(__dirname, '../../src/consts/index.ts'),
       // '@hoc': path.resolve(__dirname, '../../src/components/hoc/index.ts'),
@@ -49,6 +50,7 @@ const configs: Configuration = {
     ],
   },
   plugins: [
+    new EnvironmentPlugin(['API_URL']),
     new HappyPack({
       loaders: ['babel-loader', 'ts-loader'],
     }),
@@ -67,7 +69,7 @@ const configs: Configuration = {
     new CopyWebpackPlugin([
       {
         from: 'public',
-        to: 'build',
+        to: '.',
       },
     ]),
   ],

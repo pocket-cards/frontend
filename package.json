@@ -1,11 +1,13 @@
 {
   "scripts": {
-    "dev": "ts-node configs/server.ts",
-    "build": "webpack --config configs/webpack/webpack.prod.ts"
+    "dev": "cross-env API_URL=https://api.aws-handson.com/cards ts-node configs/server.ts",
+    "build": "webpack --config configs/webpack/webpack.prod.ts",
+    "valid": "tsc --noEmit"
   },
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "axios": "^0.19.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "react": "^16.8.6",
@@ -17,8 +19,8 @@
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
-    "redux-api-middleware": "^3.0.1",
-    "redux-immutable": "^4.0.0"
+    "redux-immutable": "^4.0.0",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
@@ -42,6 +44,7 @@
     "@types/webpack-merge": "^4.1.5",
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^5.0.3",
+    "cross-env": "^5.2.0",
     "express": "^4.16.4",
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^3.2.0",

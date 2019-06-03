@@ -1,21 +1,20 @@
 import { createStore, applyMiddleware } from 'redux';
-import { apiMiddleware as api } from 'redux-api-middleware';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import rootReducer from '../reducers';
+import api from '@utils/API';
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(
-    applyMiddleware(api, logger),
+    applyMiddleware(thunk.withExtraArgument(api), logger),
     // other store enhancers if any
   ),
 );
 
 if (module.hot) {
-  module.hot.accept('../reducers', () =>
-    store.replaceReducer(require('../reducers').default),
-  );
+  module.hot.accept('../reducers', () => store.replaceReducer(require('../reducers').default));
 }
 
 export default store;

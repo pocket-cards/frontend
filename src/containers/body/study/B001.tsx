@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { compose, Dispatch, bindActionCreators } from 'redux';
+import { compose, bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { WithStyles, StyleRules } from '@material-ui/core/styles';
+import { WithStyles, StyleRules, StyleRulesCallback, Theme } from '@material-ui/core/styles';
 import { withStyles, Grid, Button } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
@@ -12,34 +12,55 @@ class B001 extends React.Component<Props, any, any> {
   handleClick = () => {
     const { actions, history } = this.props;
 
-    actions.studyStart(history);
-
-    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]);
+    console.log(process.env);
+    actions.startNew();
+    console.log(222);
+    // history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]);
+    console.log(3333);
   }
 
   render() {
     const { classes } = this.props;
+
+    console.log(this.props);
     return (
-      <Grid
-        container
-        alignItems="center"
-        justify="center"
-        // className={classes.root}
-      >
-        <Button
-          variant="contained"
-          color="primary"
-          // className={classes.button}
-          onClick={this.handleClick}
-        >
-          学習開始
-        </Button>
+      <Grid container alignItems="center" className={classes.root} direction="column">
+        <Grid item className={classes.item}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
+            前回のテスト
+          </Button>
+        </Grid>
+        <Grid item className={classes.item}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
+            今日の学習
+          </Button>
+        </Grid>
+        <Grid item className={classes.item}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
+            今日のテスト
+          </Button>
+        </Grid>
+        <Grid item className={classes.item}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
+            今日の復習
+          </Button>
+        </Grid>
       </Grid>
     );
   }
 }
 
-const styles: StyleRules = {};
+const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
+  root: {
+    padding: `${unit * 2}px 0px`,
+  },
+  item: {
+    padding: `${unit}px 0px`,
+  },
+  button: {
+    width: unit * 20,
+  },
+});
 
 /** Props */
 const mapDispatchToProps = (dispatch: Dispatch) => ({

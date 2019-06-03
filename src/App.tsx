@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { Footer, Header } from '@containers/com';
-import {
-  Switch,
-  Route,
-  RouteComponentProps,
-  withRouter,
-} from 'react-router-dom';
+import { Switch, Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Grid, StyleRulesCallback, Theme, WithStyles } from '@material-ui/core';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { RegistMain, StudyMain } from '@containers/body';
@@ -28,14 +23,8 @@ class App extends React.Component<Props, any> {
           }}
         >
           <Switch>
-            <Route
-              path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]}
-              component={RegistMain}
-            />
-            <Route
-              path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]}
-              component={StudyMain}
-            />
+            <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} component={RegistMain} />
+            <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} component={StudyMain} />
             <Route component={RegistMain} />
           </Switch>
           <Route children={children} />
@@ -46,9 +35,10 @@ class App extends React.Component<Props, any> {
   }
 }
 
-const styles: StyleRulesCallback = (theme: Theme) => ({
+const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   root: {
-    minHeight: 'calc(100vh - 120px)',
+    minHeight: 'calc(100vh - 136px)',
+    marginTop: unit * 8,
   },
   icon: {
     color: 'white',
@@ -64,6 +54,4 @@ export default compose(
 )(App) as any;
 
 /** Properties */
-export interface Props
-  extends WithStyles<StyleRulesCallback>,
-    RouteComponentProps<any> {}
+export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<any> {}

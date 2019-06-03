@@ -2,20 +2,8 @@ import * as React from 'react';
 import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import {
-  WithStyles,
-  StyleRules,
-  Theme,
-  StyleRulesCallback,
-} from '@material-ui/core/styles';
-import {
-  withStyles,
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Fab,
-} from '@material-ui/core';
+import { WithStyles, StyleRules, Theme, StyleRulesCallback } from '@material-ui/core/styles';
+import { withStyles, Grid, Card, CardContent, Typography, Fab } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { IState, WordInfo } from '@models';
@@ -24,7 +12,7 @@ import { IState, WordInfo } from '@models';
 class B002 extends React.Component<Props, any, any> {
   handleClick = (success: boolean) => {
     const { actions } = this.props;
-    actions.studyResult(success);
+    actions.startNew();
   }
 
   render() {
@@ -39,25 +27,17 @@ class B002 extends React.Component<Props, any, any> {
 
     return (
       <Grid container direction="column">
-        <Grid
-          container
-          alignItems="center"
-          justify="center"
-          className={classes.top}
-        >
+        <Grid container alignItems="center" justify="center" className={classes.top}>
           <Card className={classes.card}>
             <CardContent>
-              <Typography
-                className={classes.title}
-                color="textSecondary"
-                gutterBottom
-              >
+              <Typography className={classes.title} color="textSecondary" gutterBottom>
                 {word.word}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {word.pronunciation}
+                {word.pronounce}
               </Typography>
-              <Typography component="p">{word.vocabulary}</Typography>
+              <Typography component="p">{word.vocChn}</Typography>
+              <Typography component="p">{word.vocJpn}</Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -134,9 +114,7 @@ export default compose(
 )(B002) as any;
 
 /** Properties */
-export interface Props
-  extends WithStyles<StyleRulesCallback>,
-    RouteComponentProps<{}> {
+export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<{}> {
   actions: StudyActions.Actions;
   word?: WordInfo;
 }
