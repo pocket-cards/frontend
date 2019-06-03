@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "cross-env API_URL=https://api.aws-handson.com/cards ts-node configs/server.ts",
-    "build": "webpack --config configs/webpack/webpack.prod.ts",
+    "build": "cross-env API_URL=https://api.aws-handson.com/cards webpack --config configs/webpack/webpack.prod.ts",
     "valid": "tsc --noEmit"
   },
   "dependencies": {
