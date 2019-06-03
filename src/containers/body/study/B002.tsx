@@ -2,17 +2,19 @@ import * as React from 'react';
 import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { WithStyles, StyleRules, Theme, StyleRulesCallback } from '@material-ui/core/styles';
+import { WithStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
 import { withStyles, Grid, Card, CardContent, Typography, Fab } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { IState, WordInfo } from '@models';
 
 /** 単語カメラ画面 */
 class B002 extends React.Component<Props, any, any> {
   handleClick = (success: boolean) => {
     const { actions } = this.props;
-    actions.startNew();
+    // actions.startNew();
+
+    // 次の単語
+    actions.next();
   }
 
   render() {
@@ -21,27 +23,30 @@ class B002 extends React.Component<Props, any, any> {
     console.log(this.props);
     // 学習完了
     if (!word) {
-      // history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyFinish]);
       return <div />;
     }
 
     return (
-      <Grid container direction="column">
+      <Grid container direction="column" className={classes.container}>
         <Grid container alignItems="center" justify="center" className={classes.top}>
           <Card className={classes.card}>
             <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography className={classes.title} variant="h3" gutterBottom align="center">
                 {word.word}
               </Typography>
-              <Typography className={classes.pos} color="textSecondary">
-                {word.pronounce}
+              <Typography className={classes.pos} variant="h6" align="center">
+                {word.pronounce ? `/${word.pronounce}/` : undefined}
               </Typography>
-              <Typography component="p">{word.vocChn}</Typography>
-              <Typography component="p">{word.vocJpn}</Typography>
+              <Typography component="p" variant="h6" align="center">
+                {word.vocChn}
+              </Typography>
+              <Typography component="p" variant="h6" align="center">
+                {word.vocJpn}
+              </Typography>
             </CardContent>
           </Card>
         </Grid>
-        <Grid container justify="space-around" className={classes.bottom}>
+        <Grid container justify="center" className={classes.bottom}>
           <Fab
             className={classes.button}
             size="large"
@@ -75,22 +80,27 @@ class B002 extends React.Component<Props, any, any> {
 }
 
 const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
+  container: {
+    backgroundColor: 'whitesmoke',
+  },
   top: {
     width: '100%',
+    height: '280px',
     padding: unit,
-    flexGrow: 1,
   },
   bottom: {
     marginBottom: unit * 2,
+    flexGrow: 1,
   },
   button: {
     width: unit * 12,
     height: unit * 12,
+    margin: `0px ${unit * 3}px`,
   },
   card: {
     width: '80%',
-    height: '50%',
-    borderRadius: 0,
+    height: '80%',
+    borderRadius: 4,
   },
 });
 

@@ -37,8 +37,8 @@ class App extends React.Component<Props, any> {
 
 const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   root: {
-    minHeight: 'calc(100vh - 136px)',
-    marginTop: unit * 8,
+    minHeight: 'calc(100vh - 128px)',
+    marginTop: unit * 7,
   },
   icon: {
     color: 'white',

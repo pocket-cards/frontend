@@ -7,3 +7,8 @@ export const C007_URL = (groupId: string) => `/groups/${groupId}/test`;
 export const C008_URL = (groupId: string) => `/groups/${groupId}/review`;
 
 export const GROUP_ID = 'x001';
+
+export const MODES = {
+  New: '1',
+  NewTest: '2',
+};

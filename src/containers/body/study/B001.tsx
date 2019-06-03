@@ -12,11 +12,7 @@ class B001 extends React.Component<Props, any, any> {
   handleClick = () => {
     const { actions, history } = this.props;
 
-    console.log(process.env);
-    actions.startNew();
-    console.log(222);
-    // history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]);
-    console.log(3333);
+    actions.startNew(history);
   }
 
   render() {

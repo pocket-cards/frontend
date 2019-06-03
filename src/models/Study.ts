@@ -38,28 +38,39 @@ export default class B000 extends Record<B000Props>({
    * 単語情報を登録する
    */
   setWords(words: WordInfo[]) {
-    return this.set('words', words).set('current', words[0]);
+    return this.set('words', words)
+      .set('current', words[0])
+      .set('index', 0);
   }
 
-  /**
-   * 知ってる場合、単語を削除する
-   */
-  success() {
-    console.log(123456);
-    if (this.words.length === 1) {
-      return this.set('words', []).set('current', undefined);
+  /** 次の単語を表示する */
+  next() {
+    const newIdx = this.index + 1 === this.words.length ? this.index : this.index + 1;
+
+    return this.set('current', this.words[newIdx]).set('index', newIdx);
+  }
+
+  /** 学習セットリトライ */
+  retry() {
+    const newIdx = 0;
+
+    return this.set('index', newIdx).set('current', this.words[newIdx]);
+  }
+
+  /** テスト回答(YES/NO) */
+  answer(mode: string, yes: boolean) {
+    if (!yes) {
+      return this.next();
     }
 
     const words = this.words.splice(this.index, 0);
-    console.log(words, 111);
-    return this.set('words', words).set('current', words[this.index]);
-  }
 
-  /**
-   * 知らない場合、次の単語に進む
-   */
-  failure() {
-    const newIdx = this.index === this.words.length - 1 ? 0 : this.index + 1;
-    return this.set('index', newIdx).set('current', this.words[newIdx]);
+    // 学習終了
+    if (words.length === 0) {
+      return this.set('words', []).set('current', undefined);
+    }
+
+    // 次の単語
+    return this.set('words', words).set('current', words[this.index]);
   }
 }

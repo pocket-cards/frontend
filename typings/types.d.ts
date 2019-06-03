@@ -7,7 +7,7 @@ export interface RequestAction<T> {
 
 export interface SuccessAction<T, P = any> {
   type: T;
-  payload: P;
+  payload?: P;
 }
 
 export interface FailureAction<T> {
