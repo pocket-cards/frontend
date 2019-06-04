@@ -16,6 +16,7 @@ export default class App extends Record<AppProps>({
   tabIndex: ROUTE_PATH_INDEX.RegistInit,
 }) {
   tabChange(index: number) {
+    console.log(index);
     return this.set('tabIndex', index);
   }
 }

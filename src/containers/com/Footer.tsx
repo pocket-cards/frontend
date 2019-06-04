@@ -14,12 +14,6 @@ class Footer extends React.Component<Props, any, any> {
   handleChange = (_: any, value: any) => {
     const { actions, history } = this.props;
 
-    // if (value === 0) {
-    //   history.push('/');
-    // } else {
-    //   history.push('/study');
-    // }
-    // history.push(ROUTE_PATHS.Footer[ROUTE_PATH_INDEX.Main]);
     actions && actions.tabChange(Number(value));
   }
 

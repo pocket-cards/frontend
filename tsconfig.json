@@ -58,5 +58,5 @@
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   },
   "include": ["src/**/*", "index.tsx"],
-  "files": ["./typings/types.d.ts", "./typings/external.d.ts"]
+  "files": ["./typings/types.d.ts", "./typings/external.d.ts", "./typings/api.d.ts"]
 }

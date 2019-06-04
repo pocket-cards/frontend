@@ -29,7 +29,7 @@ const reducer = handleActions<B000, any>(
   {
     /** 新規単語 */
     [B0_01_REQUEST]: (store: B000) => store,
-    [B0_01_SUCCESS]: (store: B000, { payload }: Action<B001_SUCCESS_PAYLOAD>) => store.setWords(payload),
+    [B0_01_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B001_SUCCESS_PAYLOAD>) => store.setWords(mode, words),
     [B0_01_FAILURE]: (store: B000) => store,
 
     /** 次の単語 */
@@ -44,22 +44,22 @@ const reducer = handleActions<B000, any>(
 
     /** テスト回答(YES/NO) */
     [B0_04_REQUEST]: (store: B000) => store,
-    [B0_04_SUCCESS]: (store: B000, { payload: { mode, yes } }: Action<B004_SUCCESS_PAYLOAD>) => store.answer(mode, yes),
+    [B0_04_SUCCESS]: (store: B000, { payload: { yes } }: Action<B004_SUCCESS_PAYLOAD>) => store.answer(yes),
     [B0_04_FAILURE]: (store: B000) => store,
 
     /** 単語テスト（当日） */
     [B0_05_REQUEST]: (store: B000) => store,
-    [B0_05_SUCCESS]: (store: B000, { payload }: Action<B005_SUCCESS_PAYLOAD>) => store.setWords(payload),
+    [B0_05_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B005_SUCCESS_PAYLOAD>) => store.setWords(mode, words),
     [B0_05_FAILURE]: (store: B000) => store,
 
     /** 単語復習開始 */
     [B0_06_REQUEST]: (store: B000) => store,
-    [B0_06_SUCCESS]: (store: B000, { payload }: Action<B006_SUCCESS_PAYLOAD>) => store.setWords(payload),
+    [B0_06_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B006_SUCCESS_PAYLOAD>) => store.setWords(mode, words),
     [B0_06_FAILURE]: (store: B000) => store,
 
     /** 単語テスト（全部） */
     [B0_07_REQUEST]: (store: B000) => store,
-    [B0_07_SUCCESS]: (store: B000, { payload }: Action<B007_SUCCESS_PAYLOAD>) => store.setWords(payload),
+    [B0_07_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B007_SUCCESS_PAYLOAD>) => store.setWords(mode, words),
     [B0_07_FAILURE]: (store: B000) => store,
   },
   new B000(),

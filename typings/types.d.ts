@@ -5,12 +5,20 @@ export interface RequestAction<T> {
   type: T;
 }
 
-export interface SuccessAction<T, P = any> {
+export interface SuccessAction1<T> {
   type: T;
-  payload?: P;
 }
 
-export interface FailureAction<T> {
+export interface SuccessAction2<T, P = any> {
   type: T;
-  payload: Error;
+  payload: P;
+}
+
+export interface FailureAction1<T> {
+  type: T;
+}
+
+export interface FailureAction2<T, P = Error> {
+  type: T;
+  payload: P;
 }
