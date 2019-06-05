@@ -3,6 +3,7 @@ import { Configuration, NoEmitOnErrorsPlugin, LoaderOptionsPlugin, EnvironmentPl
 import HappyPack from 'happypack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const configs: Configuration = {
   entry: ['./index'],
@@ -21,9 +22,6 @@ const configs: Configuration = {
       '@containers': path.resolve(__dirname, '../../src/containers'),
       '@utils': path.resolve(__dirname, '../../src/utils'),
       '@components': path.resolve(__dirname, '../../src/components'),
-      // 'typings': path.resolve(__dirname, '../../typings'),
-      // '@const': path.resolve(__dirname, '../../src/consts/index.ts'),
-      // '@hoc': path.resolve(__dirname, '../../src/components/hoc/index.ts'),
     },
   },
   module: {
@@ -73,6 +71,7 @@ const configs: Configuration = {
         to: '.',
       },
     ]),
+    new CleanWebpackPlugin(),
   ],
   bail: true,
 };
