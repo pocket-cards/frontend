@@ -29,10 +29,10 @@ app.use('*', (req, res, next) => {
   });
 });
 
-// app.listen(3000, () => console.log('Example app listening on port 3000!'));
-const opt: https.ServerOptions = {
-  key: fs.readFileSync('./configs/certs/server_key.pem'),
-  cert: fs.readFileSync('./configs/certs/server_crt.pem'),
-};
+app.listen(3000, () => console.log('Example app listening on port 3000!'));
+// const opt: https.ServerOptions = {
+//   key: fs.readFileSync('./configs/certs/server_key.pem'),
+//   cert: fs.readFileSync('./configs/certs/server_crt.pem'),
+// };
 
-https.createServer(opt, app).listen(443);
+// https.createServer(opt, app).listen(443);

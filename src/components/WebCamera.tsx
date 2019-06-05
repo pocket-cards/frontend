@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const isNotSupport = () => !Object.prototype.hasOwnProperty.call(navigator.mediaDevices, 'getUserMedia');
+const isNotSupport = () => navigator.mediaDevices.getUserMedia === undefined;
 
 const FACING_MODE = {
   // 前カメラ
@@ -69,9 +69,9 @@ class WebCamera extends React.Component<any, any, any> {
   }
 
   render() {
-    if (isNotSupport()) {
-      return <div>It is not support camera</div>;
-    }
+    // if (isNotSupport()) {
+    //   return <div>It is not support camera</div>;
+    // }
 
     return (
       <div>
