@@ -9,7 +9,7 @@ export interface SuccessAction1<T> {
   type: T;
 }
 
-export interface SuccessAction2<T, P = any> {
+export interface SuccessAction2<T, P> {
   type: T;
   payload: P;
 }

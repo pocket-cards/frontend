@@ -53,7 +53,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }: Theme) => ({
   root: {
-    // position: 'fixed',
     bottom: '0',
     width: '100%',
     height: unit * 9,
@@ -62,7 +61,6 @@ const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }:
   },
   iconBtn: {
     paddingTop: unit * 1.5,
-    // marginBottom: unit,
   },
   icon: {
     color: 'white',
