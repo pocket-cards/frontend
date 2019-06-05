@@ -3,30 +3,28 @@ import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { WithStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import { withStyles, Grid, Card, CardContent, Typography, Fab } from '@material-ui/core';
+import { withStyles, Grid, Card, CardContent, Typography, Fab, Paper, CircularProgress } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
 import { IState, WordInfo } from '@models';
 import { MODES } from '@constants/Consts';
 
 /** 単語カメラ画面 */
 class B002 extends React.Component<Props, any, any> {
-  /** 学習リトライ */
-  handleRetry = () => {};
   /** 新規単語学習 */
-  handleNext = (mode: string) => {
+  handleNext = () => {
     const { history, actions } = this.props;
-
-    switch (mode) {
-      case MODES.New:
-        actions.startNew(history);
-        break;
-      case MODES.AllTest:
-        actions.startTest(history);
-        break;
-      case MODES.Review:
-        actions.startReview(history);
-        break;
-    }
+    actions.startReview(history);
+    // switch (mode) {
+    //   case MODES.New:
+    //     // actions.startNew(history);
+    //     break;
+    //   case MODES.AllTest:
+    //     // actions.startTest(history);
+    //     break;
+    //   case MODES.Review:
+    //     // actions.startReview(history);
+    //     break;
+    // }
   }
 
   handleAnswer = (word: string, yes: boolean) => this.props.actions.answer(word, yes);
@@ -34,41 +32,69 @@ class B002 extends React.Component<Props, any, any> {
   getButtons = (mode: string, classes: any, word?: WordInfo) => {
     const buttons = [];
 
-    const text1 = word ? '知らない' : 'Retry';
-    const text2 = word ? '知ってる' : 'Next';
-    const action1 = word
-      ? () => {
-        this.handleAnswer(word.word, false);
-      }
-      : () => {
-        this.handleRetry();
-      };
-    const action2 = word
-      ? () => {
-        this.handleAnswer(word.word, true);
-      }
-      : () => {
-        this.handleNext(mode);
-      };
+    // 単語あり
+    if (word) {
+      buttons.push(
+        <Fab
+          key={2}
+          className={classes.button}
+          size="large"
+          color="primary"
+          disableFocusRipple
+          disableTouchRipple
+          disableRipple
+          onClick={() => {
+            this.handleAnswer(word.word, true);
+          }}
+        >
+          知ってる
+        </Fab>,
+      );
+      buttons.push(
+        <Fab
+          key={1}
+          className={classes.button}
+          size="large"
+          color="secondary"
+          disableFocusRipple
+          disableTouchRipple
+          disableRipple
+          onClick={() => {
+            this.handleAnswer(word.word, false);
+          }}
+        >
+          知らない
+        </Fab>,
+      );
+      return buttons;
+    }
 
-    buttons.push(
-      <Fab key={1} className={classes.button} size="large" color="secondary" disableFocusRipple disableTouchRipple disableRipple onClick={action1}>
-        {text1}
-      </Fab>,
-    );
-    buttons.push(
-      <Fab key={2} className={classes.button} size="large" color="primary" disableFocusRipple disableTouchRipple disableRipple onClick={action2}>
-        {text2}
-      </Fab>,
-    );
+    // 単語なし
+    if (mode === MODES.Review) {
+      console.log(this.handleNext);
+      buttons.push(
+        <Fab key={3} className={classes.button} size="large" color="secondary" disableFocusRipple disableTouchRipple disableRipple onClick={this.handleNext}>
+          Retry
+        </Fab>,
+      );
+    }
 
     return buttons;
   }
 
   render() {
-    const { classes, word, mode } = this.props;
+    const { classes, word, mode, isLoading } = this.props;
 
-    console.log(this.props);
+    // Loading中
+    if (isLoading) {
+      return (
+        <Grid container alignItems="center" justify="center" className={classes.container}>
+          <Paper className={classes.paper}>
+            <CircularProgress size={96} className={classes.progress} />
+          </Paper>
+        </Grid>
+      );
+    }
 
     return (
       <Grid container direction="column" className={classes.container}>
@@ -129,12 +155,17 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
     height: '80%',
     borderRadius: 4,
   },
+  paper: {
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+  },
 });
 
 /** Props */
 const mapStateToProps = (state: IState) => ({
   word: state.get('B000').get('current'),
   mode: state.get('B000').get('mode'),
+  isLoading: state.get('B000').get('isLoading'),
 });
 
 /** Actions */
@@ -156,4 +187,5 @@ export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentPro
   actions: StudyActions.Actions;
   word?: WordInfo;
   mode: string;
+  isLoading: boolean;
 }

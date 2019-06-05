@@ -19,9 +19,9 @@ import {
 const reducer = handleActions<B000, any>(
   {
     /** 新規単語 */
-    [B0_01_REQUEST]: (store: B000) => store,
-    [B0_01_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B001_SUCCESS_PAYLOAD>) => store.setWords(mode, words),
-    [B0_01_FAILURE]: (store: B000) => store,
+    [B0_01_REQUEST]: (store: B000) => store.clear().startLoading(),
+    [B0_01_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B001_SUCCESS_PAYLOAD>) => store.setWords(mode, words).endLoading(),
+    [B0_01_FAILURE]: (store: B000) => store.endLoading(),
 
     /** 次の単語 */
     // [B0_02_REQUEST]: (store: B000) => store,
@@ -43,15 +43,15 @@ const reducer = handleActions<B000, any>(
     // [B0_05_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B005_SUCCESS_PAYLOAD>) => store.setWords(mode, words),
     // [B0_05_FAILURE]: (store: B000) => store,
 
-    /** 単語復習開始 */
-    [B0_06_REQUEST]: (store: B000) => store,
-    [B0_06_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B006_SUCCESS_PAYLOAD>) => store.setWords(mode, words),
-    [B0_06_FAILURE]: (store: B000) => store,
+    /** 単語復習 */
+    [B0_06_REQUEST]: (store: B000) => store.clear().startLoading(),
+    [B0_06_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B006_SUCCESS_PAYLOAD>) => store.setWords(mode, words).endLoading(),
+    [B0_06_FAILURE]: (store: B000) => store.endLoading(),
 
-    /** 単語テスト（全部） */
-    [B0_07_REQUEST]: (store: B000) => store,
-    [B0_07_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B007_SUCCESS_PAYLOAD>) => store.setWords(mode, words),
-    [B0_07_FAILURE]: (store: B000) => store,
+    /** 単語テスト */
+    [B0_07_REQUEST]: (store: B000) => store.clear().startLoading(),
+    [B0_07_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B007_SUCCESS_PAYLOAD>) => store.setWords(mode, words).endLoading(),
+    [B0_07_FAILURE]: (store: B000) => store.endLoading(),
   },
   new B000(),
 );

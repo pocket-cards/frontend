@@ -20,6 +20,7 @@ const configs: Configuration = {
       '@constants': path.resolve(__dirname, '../../src/constants'),
       '@containers': path.resolve(__dirname, '../../src/containers'),
       '@utils': path.resolve(__dirname, '../../src/utils'),
+      '@components': path.resolve(__dirname, '../../src/components'),
       // 'typings': path.resolve(__dirname, '../../typings'),
       // '@const': path.resolve(__dirname, '../../src/consts/index.ts'),
       // '@hoc': path.resolve(__dirname, '../../src/components/hoc/index.ts'),

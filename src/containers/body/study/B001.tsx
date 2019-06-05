@@ -3,9 +3,9 @@ import { compose, bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { WithStyles, StyleRules, StyleRulesCallback, Theme } from '@material-ui/core/styles';
-import { withStyles, Grid, Button } from '@material-ui/core';
+import { withStyles, Grid } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import Button from '@components/buttons/Button';
 
 /** 単語カメラ画面 */
 class B001 extends React.Component<Props, any, any> {

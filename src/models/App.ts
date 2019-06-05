@@ -3,6 +3,7 @@ import { ROUTE_PATH_INDEX } from '@constants/Paths';
 
 export interface AppProps {
   tabIndex: number;
+  isLoading: boolean;
 }
 
 export interface IApp extends AppProps, Record<AppProps> {
@@ -14,6 +15,7 @@ export interface IApp extends AppProps, Record<AppProps> {
  */
 export default class App extends Record<AppProps>({
   tabIndex: ROUTE_PATH_INDEX.RegistInit,
+  isLoading: false,
 }) {
   tabChange(index: number) {
     console.log(index);

@@ -1,8 +1,9 @@
 import { B004RequestAction, B004SuccessAction, B004FailureAction, AnswerAction } from '.';
 import { B0_04_REQUEST, B0_04_SUCCESS, B0_04_FAILURE } from '@constants/ActionTypes';
 import * as startNew from '@actions/study/B001';
-import { C006_URL, GROUP_ID, C004_URL } from '@constants/Consts';
-import { C004Response, C004Request, C006Response } from 'typings/api';
+import { C006_URL, GROUP_ID, C004_URL, MODES, C007_URL } from '@constants/Consts';
+import { C004Response, C004Request, C006Response, C007Response } from 'typings/api';
+import { AxiosInstance } from 'axios';
 
 /** テスト回答(YES/NO) */
 export const request: B004RequestAction = dispatch =>
@@ -29,34 +30,71 @@ export const failure: B004FailureAction = error => dispatch =>
 /** テスト回答(YES/NO) */
 const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, getState, api) => {
   const b000 = getState().get('B000');
+  const { mode, current } = b000;
 
   // Request start
   dispatch(request);
 
-  try {
-    // 正解の場合、単語の状態を更新する
-    if (yes && b000.current) {
-      const times = b000.current.times;
+  // 復習モードの場合、サーバ更新しない
+  if (mode === MODES.Review) {
+    dispatch(success(yes));
+    return;
+  }
 
-      await api.put<C004Response>(C004_URL(GROUP_ID, word), {
-        correct: yes,
-        times,
-      } as C004Request);
+  // 不正解の場合
+  if (!yes) {
+    // 単語状態を設定する
+    updateStatus(api, word, yes, 0);
+    // Client状態管理
+    dispatch(success(yes));
+
+    return;
+  }
+
+  // データなしの場合、処理しない
+  if (!current) return;
+
+  try {
+    const times = current.times;
+
+    // 最後の単語ではない場合
+    if (b000.words.length !== 1) {
+      // 単語状態を設定する
+      updateStatus(api, word, yes, times);
+      // Client状態管理
+      dispatch(success(yes));
+
+      return;
     }
 
-    // 後続の判断
-    if (yes && b000.words.length === 1) {
-      // 単語の取得
+    // 単語状態更新後、次の対象を取得する
+    await updateStatus(api, word, yes, times);
+
+    let words;
+
+    // 新規の場合
+    if (mode === MODES.New) {
       const res = await api.get<C006Response>(C006_URL(GROUP_ID));
 
-      // 新規単語の追加
-      dispatch(startNew.success(res.data.words));
+      words = res.data;
     } else {
-      dispatch(success(yes));
+      // テストの場合
+      const res = await api.get<C007Response>(C007_URL(GROUP_ID));
+
+      words = res.data;
     }
+
+    // 新規単語の追加
+    dispatch(startNew.success(words));
   } catch (error) {
     dispatch(failure(error));
   }
 };
+
+const updateStatus = (api: AxiosInstance, word: string, yes: boolean, times: number) =>
+  api.put<C004Response>(C004_URL(GROUP_ID, word), {
+    correct: yes,
+    times,
+  } as C004Request);
 
 export default answer;

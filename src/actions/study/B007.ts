@@ -30,10 +30,11 @@ export const failure: B007FailureAction = error => dispatch =>
 
 /** 単語テスト */
 const startTest: StartTestAction = (history?: History<any>) => async (dispatch, _, api) => {
+  // 既存単語クリア
+  dispatch(request);
+
   // 画面遷移
   history && history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]);
-
-  dispatch(request);
 
   try {
     const res = await api.get<C007Response>(C007_URL(GROUP_ID));
