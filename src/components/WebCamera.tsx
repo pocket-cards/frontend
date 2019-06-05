@@ -88,13 +88,14 @@ class WebCamera extends React.Component<Props, State, any> {
   /** カメラ終了 */
   stopCamera = () => {
     const { beforeStartCamera, afterStopCamera } = this.props;
+    const { stream } = this.state;
 
     try {
       // カメラ終了前イベント
       beforeStartCamera && beforeStartCamera();
 
       // カメラ閉じる
-      this.state.stream.getTracks().forEach(track => track.stop());
+      stream && stream.getTracks().forEach(track => track.stop());
       // 状態変更
       this.setState({ onAir: false, stream: undefined });
 
@@ -157,6 +158,7 @@ class WebCamera extends React.Component<Props, State, any> {
 const styles: StyleRulesCallback = () => ({
   video: {
     width: '100%',
+    height: '450px',
   },
 });
 

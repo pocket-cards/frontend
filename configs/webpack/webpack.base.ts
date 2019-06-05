@@ -3,7 +3,6 @@ import { Configuration, NoEmitOnErrorsPlugin, LoaderOptionsPlugin, EnvironmentPl
 import HappyPack from 'happypack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const configs: Configuration = {
   entry: ['./index'],
@@ -71,7 +70,6 @@ const configs: Configuration = {
         to: '.',
       },
     ]),
-    new CleanWebpackPlugin(),
   ],
   bail: true,
 };

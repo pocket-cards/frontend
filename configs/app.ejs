@@ -14,5 +14,21 @@
 
   <body style="margin: 0px">
     <div id="root"></div>
+    <script>
+      // body読み込み時に一度だけbodyサイズを設定
+      document.body.onload = () => {
+        document.body.style.minHeight = window.innerHeight + 'px';
+      };
+
+      // リサイズを停止して500ms後にbodyサイズを設定
+      let timeoutId;
+      window.addEventListener('resize', () => {
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(() => {
+          document.body.style.minHeight = window.innerHeight + 'px';
+        }, 500);
+      });
+    </script>
   </body>
 </html>

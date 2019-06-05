@@ -13,13 +13,13 @@ class App extends React.Component<Props, any> {
     const { children, classes, match } = this.props;
 
     return (
-      <div>
+      <Grid container direction="column" className={classes.container}>
         <Header />
         <Grid
           container
           spacing={0}
           classes={{
-            container: classes.root,
+            container: classes.body,
           }}
         >
           <Switch>
@@ -30,15 +30,18 @@ class App extends React.Component<Props, any> {
           <Route children={children} />
         </Grid>
         <Footer />
-      </div>
+      </Grid>
     );
   }
 }
 
 const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
-  root: {
-    minHeight: 'calc(100vh - 128px)',
-    marginTop: unit * 7,
+  container: {
+    minHeight: 'calc(100vh - 112px)',
+  },
+  body: {
+    // minHeight: 'calc(100vh - 128px)',
+    flexGrow: 1,
   },
   icon: {
     color: 'white',

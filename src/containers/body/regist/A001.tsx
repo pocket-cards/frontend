@@ -23,19 +23,26 @@ class A001 extends React.Component<Props, any, any> {
 
     console.log(this.state);
 
-    const isShow = onAir ? 'none' : '';
+    const isShow = !onAir;
+    const justify = onAir ? 'flex-start' : 'center';
 
     return (
       <Grid
         container
         alignItems="center"
-        justify="center"
+        justify={justify}
         direction="column"
         // className={classes.root}
       >
-        <Button variant="contained" color="primary" onClick={this.startCamera} style={{ display: isShow }}>
-          カメラ開始
-        </Button>
+        {(() => {
+          if (!isShow) return <div />;
+
+          return (
+            <Button variant="contained" color="primary" onClick={this.startCamera}>
+              カメラ開始
+            </Button>
+          );
+        })()}
         <WebCamera
           onAir={onAir}
           takePhoto={(dataUri: string) => {

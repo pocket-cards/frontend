@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { WithStyles, StyleRules } from '@material-ui/core/styles';
+import { WithStyles, StyleRules, StyleRulesCallback } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, Button, withStyles } from '@material-ui/core';
 import { Menu as MenuIcon, Star as StarIcon } from '@material-ui/icons';
 import { IState } from '@models';
@@ -13,7 +13,7 @@ class Header extends React.Component<Props, any, any> {
     if (!actions) return;
 
     return (
-      <AppBar position="fixed">
+      <AppBar position="static" className={classes.app}>
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
@@ -34,7 +34,11 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(AppActions, dispatch),
 });
 
-const styles: StyleRules = {};
+const styles: StyleRulesCallback = () => ({
+  app: {
+    boxShadow: 'none',
+  },
+});
 
 export default connect<StateFromProps, void, void, IState>(
   mapStateToProps,
@@ -47,6 +51,6 @@ export interface StateFromProps {
 }
 
 /** Properties */
-export interface Props extends StateFromProps, WithStyles<StyleRules> {
+export interface Props extends StateFromProps, WithStyles<StyleRulesCallback> {
   actions?: AppActions.Actions;
 }
