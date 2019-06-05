@@ -5,18 +5,9 @@ import {
   B0_01_REQUEST,
   B0_01_SUCCESS,
   B0_01_FAILURE,
-  B0_02_SUCCESS,
-  B0_02_REQUEST,
-  B0_02_FAILURE,
-  B0_03_REQUEST,
-  B0_03_SUCCESS,
-  B0_03_FAILURE,
   B0_04_REQUEST,
   B0_04_SUCCESS,
   B0_04_FAILURE,
-  B0_05_REQUEST,
-  B0_05_SUCCESS,
-  B0_05_FAILURE,
   B0_06_REQUEST,
   B0_06_SUCCESS,
   B0_06_FAILURE,
@@ -25,123 +16,52 @@ import {
   B0_07_FAILURE,
 } from '@constants/ActionTypes';
 import { WordInfo, IState } from '@models';
-import { GROUP_ID, C007_URL, C008_URL, MODES } from '@constants/Consts';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { RequestAction, SuccessAction2, SuccessAction1, FailureAction1, FailureAction2 } from 'typings/types';
+import { MODES } from '@constants/Consts';
+import { RequestAction, SuccessAction2, FailureAction2 } from 'typings/types';
 import { ActionCreator, Action } from 'redux';
 
 export { default as startNew } from './B001';
 export { default as answer } from './B004';
+export { default as startReview } from './B006';
+export { default as startTest } from './B007';
 
 /** 次の単語 */
-export const next = (): NextAction => dispatch =>
-  dispatch({
-    type: B0_02_SUCCESS,
-  });
+// export const next = (): NextAction => dispatch =>
+//   dispatch({
+//     type: B0_02_SUCCESS,
+//   });
 
-/** 単語のリトライ */
-export const retry = (): RetryAction => dispatch =>
-  dispatch({
-    type: B0_03_SUCCESS,
-  });
-
-/** 単語テスト（当日） */
-export const startNewTest = (history?: History<any>): StartNewTestAction => async (dispatch, _: any, api) => {
-  dispatch({ type: B0_05_REQUEST });
-
-  try {
-    const res = await api.get(C007_URL(GROUP_ID));
-
-    history && history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]);
-
-    return dispatch({
-      type: B0_05_SUCCESS,
-      payload: {
-        mode: MODES.NewTest,
-        words: res.data,
-      },
-    });
-  } catch (err) {
-    return dispatch({
-      type: B0_05_FAILURE,
-      payload: err,
-    });
-  }
-};
-
-/** 単語復習開始 */
-export const startReview = (history: History<any>): StartReviewAction => async (dispatch, _: any, api) => {
-  dispatch({ type: B0_06_REQUEST });
-
-  try {
-    const res = await api.get(C008_URL(GROUP_ID));
-
-    history && history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]);
-
-    return dispatch({
-      type: B0_06_SUCCESS,
-      payload: {
-        mode: MODES.Review,
-        words: res.data,
-      },
-    });
-  } catch (err) {
-    return dispatch({
-      type: B0_06_FAILURE,
-      payload: err,
-    });
-  }
-};
-
-/** 単語テスト（全部） */
-export const startTest = (history: History<any>): StartTestAction => async (dispatch, _: any, api) => {
-  dispatch({ type: B0_07_REQUEST });
-
-  try {
-    const res = await api.get(C007_URL(GROUP_ID));
-
-    history && history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]);
-
-    return dispatch({
-      type: B0_07_SUCCESS,
-      payload: {
-        mode: MODES.AllTest,
-        words: res.data,
-      },
-    });
-  } catch (err) {
-    return dispatch({
-      type: B0_07_FAILURE,
-      payload: err,
-    });
-  }
-};
+// /** 単語のリトライ */
+// export const retry = (): RetryAction => dispatch =>
+//   dispatch({
+//     type: B0_03_SUCCESS,
+//   });
 
 // ------------------------------
 // TypeScript Definetion
 // ------------------------------
-export type MODE = typeof MODES.New | typeof MODES.NewTest | typeof MODES.AllTest | typeof MODES.Review;
+export type MODE = typeof MODES.New | typeof MODES.AllTest | typeof MODES.Review;
 
 export type StartNewAction = ActionCreator<ThunkAction<Promise<void>, any, AxiosInstance, Action<B001Actions>>>;
-export type NextAction = ThunkAction<B002Actions, any, AxiosInstance, B002Actions>;
-export type RetryAction = ThunkAction<B003Actions, any, AxiosInstance, B003Actions>;
-export type AnswerAction = ActionCreator<ThunkAction<Promise<void>, IState, AxiosInstance, Action<B004Actions>>> ; 
-export type StartNewTestAction = ThunkAction<Promise<B005Actions>, any, AxiosInstance, B005Actions>;
-export type StartReviewAction = ThunkAction<Promise<B006Actions>, any, AxiosInstance, B006Actions>;
-export type StartTestAction = ThunkAction<Promise<B007Actions>, any, AxiosInstance, B007Actions>;
+// export type NextAction = ThunkAction<B002Actions, any, AxiosInstance, B002Actions>;
+// export type RetryAction = ThunkAction<B003Actions, any, AxiosInstance, B003Actions>;
+export type AnswerAction = ActionCreator<ThunkAction<Promise<void>, IState, AxiosInstance, Action<B004Actions>>>;
+// export type StartNewTestAction = ActionCreator<ThunkAction<Promise<void>, any, AxiosInstance, Action<B005Actions>>>;
+export type StartReviewAction = ActionCreator<ThunkAction<Promise<void>, any, AxiosInstance, Action<B006Actions>>>;
+export type StartTestAction = ActionCreator<ThunkAction<Promise<void>, any, AxiosInstance, Action<B007Actions>>>;
 
 /** 単語学習画面のActions */
 export interface Actions {
   /** 新規単語学習 */
   startNew: (history: History<any>) => void;
-  /** 次の単語 */
-  next: () => NextAction;
-  /** 学習リトライ */
-  retry: () => RetryAction;
+  // /** 次の単語 */
+  // next: () => NextAction;
+  // /** 学習リトライ */
+  // retry: () => RetryAction;
   /** テスト回答(YES/NO) */
   answer: (word: string, yes: boolean) => AnswerAction;
   /** 単語テスト（当日）*/
-  startNewTest: (history: History<any>) => StartNewTestAction;
+  // startNewTest: (history: History<any>) => StartNewTestAction;
   /** 単語復習 */
   startReview: (history: History<any>) => StartReviewAction;
   /** 単語テスト（全部）*/
@@ -157,23 +77,23 @@ export type B001_SUCCESS_PAYLOAD = {
 export type B001RequestBaseAction = RequestAction<typeof B0_01_REQUEST>;
 export type B001SuccessBaseAction = SuccessAction2<typeof B0_01_SUCCESS, B001_SUCCESS_PAYLOAD>;
 export type B001FailureBaseAction = FailureAction2<typeof B0_01_FAILURE>;
-export type B001RequestAction = ThunkAction<B001RequestBaseAction, void, AxiosInstance, B001RequestBaseAction>;
-export type B001SuccessAction = ActionCreator<ThunkAction<B001SuccessBaseAction, void, AxiosInstance, B001SuccessBaseAction>>;
-export type B001FailureAction = ActionCreator<ThunkAction<B001FailureBaseAction, void, AxiosInstance, B001FailureBaseAction>>;
+export type B001RequestAction = ThunkAction<B001RequestBaseAction, IState, AxiosInstance, B001RequestBaseAction>;
+export type B001SuccessAction = ActionCreator<ThunkAction<B001SuccessBaseAction, IState, AxiosInstance, B001SuccessBaseAction>>;
+export type B001FailureAction = ActionCreator<ThunkAction<B001FailureBaseAction, IState, AxiosInstance, B001FailureBaseAction>>;
 
 export type B001Actions = B001RequestAction | B001SuccessAction | B001FailureAction;
 
 /** 次の単語 */
-export type B002RequestAction = RequestAction<typeof B0_02_REQUEST>;
-export type B002SuccessAction = SuccessAction1<typeof B0_02_SUCCESS>;
-export type B002FailureAction = FailureAction1<typeof B0_02_FAILURE>;
-export type B002Actions = B002RequestAction | B002SuccessAction | B002FailureAction;
+// export type B002RequestAction = RequestAction<typeof B0_02_REQUEST>;
+// export type B002SuccessAction = SuccessAction1<typeof B0_02_SUCCESS>;
+// export type B002FailureAction = FailureAction1<typeof B0_02_FAILURE>;
+// export type B002Actions = B002RequestAction | B002SuccessAction | B002FailureAction;
 
-/** 単語リトライ */
-export type B003RequestAction = RequestAction<typeof B0_03_REQUEST>;
-export type B003SuccessAction = SuccessAction1<typeof B0_03_SUCCESS>;
-export type B003FailureAction = FailureAction1<typeof B0_03_FAILURE>;
-export type B003Actions = B003RequestAction | B003SuccessAction | B003FailureAction;
+// /** 単語リトライ */
+// export type B003RequestAction = RequestAction<typeof B0_03_REQUEST>;
+// export type B003SuccessAction = SuccessAction1<typeof B0_03_SUCCESS>;
+// export type B003FailureAction = FailureAction1<typeof B0_03_FAILURE>;
+// export type B003Actions = B003RequestAction | B003SuccessAction | B003FailureAction;
 
 /** テスト結果(YES/NO) */
 export type B004_SUCCESS_PAYLOAD = {
@@ -183,21 +103,24 @@ export type B004_SUCCESS_PAYLOAD = {
 export type B004RequestBaseAction = RequestAction<typeof B0_04_REQUEST>;
 export type B004SuccessBaseAction = SuccessAction2<typeof B0_04_SUCCESS, B004_SUCCESS_PAYLOAD>;
 export type B004FailureBaseAction = FailureAction2<typeof B0_04_FAILURE, Error>;
-export type B004RequestAction = ThunkAction<B004RequestBaseAction, void, AxiosInstance, B004RequestBaseAction>;
-export type B004SuccessAction = ActionCreator<ThunkAction<B004SuccessBaseAction, void, AxiosInstance, B004SuccessBaseAction>>;
-export type B004FailureAction = ActionCreator<ThunkAction<B004FailureBaseAction, void, AxiosInstance, B004FailureBaseAction>>;
+export type B004RequestAction = ThunkAction<B004RequestBaseAction, IState, AxiosInstance, B004RequestBaseAction>;
+export type B004SuccessAction = ActionCreator<ThunkAction<B004SuccessBaseAction, IState, AxiosInstance, B004SuccessBaseAction>>;
+export type B004FailureAction = ActionCreator<ThunkAction<B004FailureBaseAction, IState, AxiosInstance, B004FailureBaseAction>>;
 export type B004Actions = B004RequestAction | B004SuccessAction | B004FailureAction;
 
-/** 新規単語テスト開始 */
-export type B005_SUCCESS_PAYLOAD = {
-  mode: string;
-  words: WordInfo[];
-};
+// /** 新規単語テスト開始 */
+// export type B005_SUCCESS_PAYLOAD = {
+//   mode: string;
+//   words: WordInfo[];
+// };
 
-export type B005RequestAction = RequestAction<typeof B0_05_REQUEST>;
-export type B005SuccessAction = SuccessAction2<typeof B0_05_SUCCESS, B005_SUCCESS_PAYLOAD>;
-export type B005FailureAction = FailureAction1<typeof B0_05_FAILURE>;
-export type B005Actions = B005RequestAction | B005SuccessAction | B005FailureAction;
+// export type B005RequestBaseAction = RequestAction<typeof B0_05_REQUEST>;
+// export type B005SuccessBaseAction = SuccessAction2<typeof B0_05_SUCCESS, B005_SUCCESS_PAYLOAD>;
+// export type B005FailureBaseAction = FailureAction2<typeof B0_05_FAILURE, Error>;
+// export type B005RequestAction = ThunkAction<B005RequestBaseAction, void, AxiosInstance, B005RequestBaseAction>;
+// export type B005SuccessAction = ActionCreator<ThunkAction<B005SuccessBaseAction, void, AxiosInstance, B005SuccessBaseAction>>;
+// export type B005FailureAction = ActionCreator<ThunkAction<B005FailureBaseAction, void, AxiosInstance, B005FailureBaseAction>>;
+// export type B005Actions = B005RequestAction | B005SuccessAction | B005FailureAction;
 
 /** 単語復習開始 */
 export type B006_SUCCESS_PAYLOAD = {
@@ -205,9 +128,12 @@ export type B006_SUCCESS_PAYLOAD = {
   words: WordInfo[];
 };
 
-export type B006RequestAction = RequestAction<typeof B0_06_REQUEST>;
-export type B006SuccessAction = SuccessAction2<typeof B0_06_SUCCESS, B006_SUCCESS_PAYLOAD>;
-export type B006FailureAction = FailureAction1<typeof B0_06_FAILURE>;
+export type B006RequestBaseAction = RequestAction<typeof B0_06_REQUEST>;
+export type B006SuccessBaseAction = SuccessAction2<typeof B0_06_SUCCESS, B006_SUCCESS_PAYLOAD>;
+export type B006FailureBaseAction = FailureAction2<typeof B0_06_FAILURE, Error>;
+export type B006RequestAction = ThunkAction<B006RequestBaseAction, void, AxiosInstance, B006RequestBaseAction>;
+export type B006SuccessAction = ActionCreator<ThunkAction<B006SuccessBaseAction, void, AxiosInstance, B006SuccessBaseAction>>;
+export type B006FailureAction = ActionCreator<ThunkAction<B006FailureBaseAction, void, AxiosInstance, B006FailureBaseAction>>;
 export type B006Actions = B006RequestAction | B006SuccessAction | B006FailureAction;
 
 /** 単語テスト（全部） */
@@ -216,7 +142,10 @@ export type B007_SUCCESS_PAYLOAD = {
   words: WordInfo[];
 };
 
-export type B007RequestAction = RequestAction<typeof B0_07_REQUEST>;
-export type B007SuccessAction = SuccessAction2<typeof B0_07_SUCCESS, B007_SUCCESS_PAYLOAD>;
-export type B007FailureAction = FailureAction1<typeof B0_07_FAILURE>;
+export type B007RequestBaseAction = RequestAction<typeof B0_07_REQUEST>;
+export type B007SuccessBaseAction = SuccessAction2<typeof B0_07_SUCCESS, B007_SUCCESS_PAYLOAD>;
+export type B007FailureBaseAction = FailureAction2<typeof B0_07_FAILURE, Error>;
+export type B007RequestAction = ThunkAction<B007RequestBaseAction, void, AxiosInstance, B007RequestBaseAction>;
+export type B007SuccessAction = ActionCreator<ThunkAction<B007SuccessBaseAction, void, AxiosInstance, B007SuccessBaseAction>>;
+export type B007FailureAction = ActionCreator<ThunkAction<B007FailureBaseAction, void, AxiosInstance, B007FailureBaseAction>>;
 export type B007Actions = B007RequestAction | B007SuccessAction | B007FailureAction;

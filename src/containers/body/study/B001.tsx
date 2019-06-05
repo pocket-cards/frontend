@@ -9,11 +9,9 @@ import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 単語カメラ画面 */
 class B001 extends React.Component<Props, any, any> {
-  handleClick = () => {
-    const { actions, history } = this.props;
-
-    actions.startNew(history);
-  }
+  handleNew = () => this.props.actions.startNew(this.props.history);
+  handleReview = () => this.props.actions.startReview(this.props.history);
+  handleTest = () => this.props.actions.startTest(this.props.history);
 
   render() {
     const { classes } = this.props;
@@ -22,23 +20,18 @@ class B001 extends React.Component<Props, any, any> {
     return (
       <Grid container alignItems="center" className={classes.root} direction="column">
         <Grid item className={classes.item}>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
-            前回のテスト
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleTest}>
+            単語テスト
           </Button>
         </Grid>
         <Grid item className={classes.item}>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
-            今日の学習
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleNew}>
+            単語の学習
           </Button>
         </Grid>
         <Grid item className={classes.item}>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
-            今日のテスト
-          </Button>
-        </Grid>
-        <Grid item className={classes.item}>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
-            今日の復習
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleReview}>
+            単語の復習
           </Button>
         </Grid>
       </Grid>

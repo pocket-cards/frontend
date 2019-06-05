@@ -35,9 +35,9 @@ export const B0_04_SUCCESS = 'B0_04_SUCCESS';
 export const B0_04_FAILURE = 'B0_04_FAILURE';
 
 /** 単語テスト（当日） */
-export const B0_05_REQUEST = 'B0_05_REQUEST';
-export const B0_05_SUCCESS = 'B0_05_SUCCESS';
-export const B0_05_FAILURE = 'B0_05_FAILURE';
+// export const B0_05_REQUEST = 'B0_05_REQUEST';
+// export const B0_05_SUCCESS = 'B0_05_SUCCESS';
+// export const B0_05_FAILURE = 'B0_05_FAILURE';
 
 /** 単語復習開始 */
 export const B0_06_REQUEST = 'B0_06_REQUEST';

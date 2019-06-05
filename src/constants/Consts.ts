@@ -12,7 +12,7 @@ export const GROUP_ID = 'x001';
 
 export const MODES = {
   New: '1',
-  NewTest: '2',
+  // NewTest: '2',
   AllTest: '3',
   Review: '4',
 };

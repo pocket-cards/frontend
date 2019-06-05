@@ -1,7 +1,7 @@
 import { Record } from 'immutable';
-import { C004Request } from 'typings/api';
+import { WordItem } from 'typings/api';
 
-export type WordInfo = C004Request;
+export type WordInfo = WordItem;
 
 export interface B000UIProps {
   current?: WordInfo;
@@ -11,12 +11,10 @@ export interface B000UIProps {
 export interface B000Props extends B000UIProps {
   words: WordInfo[];
   index: number;
-  getNext: boolean;
 }
 
 export interface IB000 extends B000Props, Record<B000Props> {
   get<K extends keyof B000UIProps>(key: K): B000UIProps[K];
-  getMore(): boolean;
 }
 
 /**
@@ -27,30 +25,18 @@ export default class B000 extends Record<B000Props>({
   index: 0,
   current: undefined,
   mode: undefined,
-  getNext: false,
 }) {
   /**
    * 単語情報を登録する
    */
   setWords(mode: string, words: WordInfo[]) {
-    console.log(mode, words);
-    // 単語追加の場合
-    if (mode === this.mode && words.length === 0) {
-      return this.set('getNext', false);
-    }
+    console.log(mode, words, words[0]);
 
-    // モード変換の場合、単語リセットする
-    if (mode !== this.mode) {
-      return this.set('words', words)
-        .set('current', words[0])
-        .set('index', 0)
-        .set('mode', mode)
-        .set('getNext', true);
-    }
-
-    const newWords = [...this.words, ...words];
-
-    return this.set('words', newWords);
+    // モード変わった、或いは、既存データ存在しない
+    return this.set('words', words)
+      .set('current', words[0])
+      .set('index', 0)
+      .set('mode', mode);
   }
 
   /** 次の単語を表示する */
@@ -67,13 +53,6 @@ export default class B000 extends Record<B000Props>({
     return this.set('current', this.words[newIdx]).set('index', newIdx);
   }
 
-  /** 学習セットリトライ */
-  retry() {
-    const newIdx = 0;
-
-    return this.set('index', newIdx).set('current', this.words[newIdx]);
-  }
-
   /** テスト回答(YES/NO) */
   answer(yes: boolean) {
     if (!yes) {
@@ -86,18 +65,10 @@ export default class B000 extends Record<B000Props>({
     this.words.splice(this.index, 1);
 
     // １件のみの場合、そのまま表示
-    const newIdx = this.words.length === 1 ? 0 : this.index - 1;
+    const newIdx = this.words.length === 1 ? 0 : this.index;
 
     return this.set('words', this.words)
       .set('index', newIdx)
       .set('current', this.words[newIdx]);
-  }
-
-  /** 新規単語検索追加判断条件 */
-  getMore() {
-    if (!this.getNext) return false;
-
-    // ５件以下の場合、追加する
-    if (this.words.length <= 5) return true;
   }
 }

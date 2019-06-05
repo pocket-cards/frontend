@@ -11,7 +11,7 @@ import { MODES } from '@constants/Consts';
 /** 単語カメラ画面 */
 class B002 extends React.Component<Props, any, any> {
   /** 学習リトライ */
-  handleRetry = () => this.props.actions.retry();
+  handleRetry = () => {};
   /** 新規単語学習 */
   handleNext = (mode: string) => {
     const { history, actions } = this.props;
@@ -19,9 +19,6 @@ class B002 extends React.Component<Props, any, any> {
     switch (mode) {
       case MODES.New:
         actions.startNew(history);
-        break;
-      case MODES.NewTest:
-        actions.startNewTest(history);
         break;
       case MODES.AllTest:
         actions.startTest(history);
@@ -55,12 +52,12 @@ class B002 extends React.Component<Props, any, any> {
       };
 
     buttons.push(
-      <Fab className={classes.button} size="large" color="secondary" disableFocusRipple disableTouchRipple disableRipple onClick={action1}>
+      <Fab key={1} className={classes.button} size="large" color="secondary" disableFocusRipple disableTouchRipple disableRipple onClick={action1}>
         {text1}
       </Fab>,
     );
     buttons.push(
-      <Fab className={classes.button} size="large" color="primary" disableFocusRipple disableTouchRipple disableRipple onClick={action2}>
+      <Fab key={2} className={classes.button} size="large" color="primary" disableFocusRipple disableTouchRipple disableRipple onClick={action2}>
         {text2}
       </Fab>,
     );
