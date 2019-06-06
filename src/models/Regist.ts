@@ -2,6 +2,7 @@ import { Record } from 'immutable';
 
 export interface A000Props {
   words: string[];
+  isLoading: boolean;
 }
 
 export interface IA000 extends A000Props, Record<A000Props> {
@@ -13,6 +14,7 @@ export interface IA000 extends A000Props, Record<A000Props> {
  */
 export default class A000 extends Record<A000Props>({
   words: [],
+  isLoading: false,
 }) {
   /**
    * 登録しない単語を削除する
@@ -26,8 +28,8 @@ export default class A000 extends Record<A000Props>({
   /**
    * 臨時単語リストをクリアする
    */
-  clearWords() {
-    return this.set('words', [] as string[]);
+  clear() {
+    return this.set('words', []);
   }
 
   /**
@@ -35,5 +37,14 @@ export default class A000 extends Record<A000Props>({
    */
   setWords(words: string[]) {
     return this.set('words', words);
+  }
+
+  /** 取込中 */
+  startLoading() {
+    return this.set('isLoading', true);
+  }
+
+  endLoading() {
+    return this.set('isLoading', false);
   }
 }

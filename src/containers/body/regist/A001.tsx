@@ -17,6 +17,14 @@ class A001 extends React.Component<Props, any, any> {
   startCamera = (): void => this.setState({ onAir: true });
   afterStopCamera = (): void => this.setState({ onAir: false });
 
+  handleClick = (image: string) => {
+    const { actions, history } = this.props;
+    const type = 'image/jpeg';
+
+    // 画像アップロード
+    actions.uploadImage(type, image, history);
+  }
+
   render() {
     const { classes } = this.props;
     const { onAir } = this.state;
@@ -43,13 +51,7 @@ class A001 extends React.Component<Props, any, any> {
             </Button>
           );
         })()}
-        <WebCamera
-          onAir={onAir}
-          takePhoto={(dataUri: string) => {
-            console.log(dataUri);
-          }}
-          afterStopCamera={this.afterStopCamera}
-        />
+        <WebCamera onAir={onAir} takePhoto={this.handleClick} afterStopCamera={this.afterStopCamera} />
       </Grid>
     );
   }

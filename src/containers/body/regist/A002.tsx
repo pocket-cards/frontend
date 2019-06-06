@@ -2,37 +2,19 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import {
-  WithStyles,
-  StyleRules,
-  Theme,
-  StyleRulesCallback,
-} from '@material-ui/core/styles';
-import {
-  withStyles,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton,
-  Grid,
-  Button,
-  Avatar,
-} from '@material-ui/core';
+import { WithStyles, StyleRules, Theme, StyleRulesCallback } from '@material-ui/core/styles';
+import { withStyles, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Grid, Button, Avatar } from '@material-ui/core';
 import { Folder as FolderIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as RegistActions from '@actions/regist';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 単語登録リスト画面 */
 class A002 extends React.Component<Props, any, any> {
   /** 単語登録 */
   handleRegist = () => {
-    const { actions, history } = this.props;
+    const { actions, words, history } = this.props;
 
-    actions.registWords(['test']);
-
-    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistFinish]);
+    actions.registWords(words, history);
   }
 
   /** 単語削除 */
@@ -46,8 +28,9 @@ class A002 extends React.Component<Props, any, any> {
     const { classes, words, history } = this.props;
 
     // 単語データなし
-    if (!words || words.length === 0) {
-      history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]);
+    if (words.length === 0) {
+      // history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]);
+      console.log('Do no have any more words');
       return <div />;
     }
 
@@ -128,9 +111,6 @@ export interface StateFromProps {
 }
 
 /** Properties */
-export interface Props
-  extends StateFromProps,
-    WithStyles<StyleRules>,
-    RouteComponentProps<{}> {
+export interface Props extends StateFromProps, WithStyles<StyleRules>, RouteComponentProps<{}> {
   actions: RegistActions.Actions;
 }
