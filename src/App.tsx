@@ -41,6 +41,8 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   },
   body: {
     // minHeight: 'calc(100vh - 128px)',
+    maxHeight: 'calc(100vh - 128px)',
+    overflowY: 'scroll',
     flexGrow: 1,
   },
   icon: {
