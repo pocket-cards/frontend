@@ -106,6 +106,7 @@ class B002 extends React.Component<Props, any, any> {
           return (
             <Grid container alignItems="center" justify="center" className={classes.top}>
               <Card className={classes.card}>
+                <audio autoPlay src={`https://cards.aws-handson.com/${word.mp3}`} />
                 <CardContent>
                   <Typography className={classes.title} variant="h3" gutterBottom align="center">
                     {word.word}
