@@ -100,12 +100,18 @@ class B002 extends React.Component<Props, any, any> {
       <Grid container direction="column">
         {(() => {
           if (!word) {
-            return undefined;
+            return <div>学習できる単語がありません</div>;
           }
 
           return (
             <Grid container alignItems="center" justify="center" className={classes.top}>
               <Card className={classes.card}>
+                <iframe
+                  src="https://raw.githubusercontent.com/anars/blank-audio/master/500-milliseconds-of-silence.mp3"
+                  allow="autoplay"
+                  id="audio"
+                  style={{ display: 'none' }}
+                />
                 <audio autoPlay src={`https://cards.aws-handson.com/${word.mp3}`} />
                 <CardContent>
                   <Typography className={classes.title} variant="h3" gutterBottom align="center">

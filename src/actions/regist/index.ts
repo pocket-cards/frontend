@@ -27,7 +27,7 @@ export { default as clear } from './A004';
 
 /** 単語登録画面のActions */
 export interface Actions {
-  uploadImage: (type: string, image: string, history?: History<any>) => UploadImageAction;
+  uploadImage: (image: string, history?: History<any>) => UploadImageAction;
 
   // 指定単語削除
   removeWord: (word: string) => RemoveWordAction;
@@ -40,7 +40,7 @@ export interface Actions {
 
 /** 画像アップロード */
 export type UploadImageThunkAction = ThunkAction<Promise<void>, IState, AxiosInstance, Action<A001Actions>>;
-export type UploadImageAction = ActionFunction3<string, string, History<any>, UploadImageThunkAction>;
+export type UploadImageAction = ActionFunction2<string, History<any>, UploadImageThunkAction>;
 /** 単語削除 */
 export type RemoveWordThunkAction = ThunkAction<void, IState, AxiosInstance, Action<A002Actions>>;
 export type RemoveWordAction = ActionFunction1<string, RemoveWordThunkAction>;

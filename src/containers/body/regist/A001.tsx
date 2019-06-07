@@ -22,17 +22,18 @@ class A001 extends React.Component<Props, any, any> {
     const type = 'image/jpeg';
 
     // 画像アップロード
-    actions.uploadImage(type, test, history);
+    actions.uploadImage(test, history);
   }
 
+  /** カメラ起動 */
   handleCamera = (image: string) => {
     const { actions, history } = this.props;
-    const type = 'image/jpeg';
 
     // 画像アップロード
-    actions.uploadImage(type, image, history);
+    actions.uploadImage(image, history);
   }
 
+  /** ファイルアップロードイベント */
   handleUpload = () => {
     const element = document.getElementById('upload') as HTMLInputElement;
 
@@ -41,6 +42,7 @@ class A001 extends React.Component<Props, any, any> {
     element.click();
   }
 
+  /** ファイルアップロード */
   handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
 
@@ -56,9 +58,8 @@ class A001 extends React.Component<Props, any, any> {
       if (!env.target) return;
 
       const base64: string = (env.target as any).result;
-      const type = base64.split(';')[0].split(':');
 
-      actions.uploadImage(type, (env.target as any).result, history);
+      actions.uploadImage(base64, history);
     };
 
     fr.readAsDataURL(files[0]);
@@ -79,7 +80,7 @@ class A001 extends React.Component<Props, any, any> {
           return (
             <React.Fragment>
               <Grid item className={classes.item}>
-                <Button variant="contained" color="primary" className={classes.button} onClick={this.handleClick}>
+                <Button variant="contained" color="primary" className={classes.button} onClick={this.handleTest}>
                   Test
                 </Button>
               </Grid>

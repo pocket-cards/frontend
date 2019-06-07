@@ -22,11 +22,11 @@ const reducer = handleActions<any>(
     [A0_01_SUCCESS]: (store: A000, action: Action<A001_SUCCESS_PAYLOAD>) => store.setWords(action.payload).endLoading(),
     [A0_01_FAILURE]: (store: A000) => store.endLoading(),
 
-    [A0_02_REQUEST]: (store: A000) => store.endLoading(),
+    [A0_02_REQUEST]: (store: A000) => store.startLoading(),
     [A0_02_SUCCESS]: (store: A000, action: Action<A002_SUCCESS_PAYLOAD>) => store.removeWord(action.payload.word).endLoading(),
     [A0_02_FAILURE]: (store: A000) => store.endLoading(),
 
-    [A0_03_REQUEST]: (store: A000) => store.endLoading(),
+    [A0_03_REQUEST]: (store: A000) => store.startLoading(),
     [A0_03_SUCCESS]: (store: A000) => store.clear().endLoading(),
     [A0_03_FAILURE]: (store: A000) => store.endLoading(),
 

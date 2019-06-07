@@ -5,14 +5,14 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { Link } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, StyleRulesCallback, Theme, withStyles } from '@material-ui/core';
 import { StyleRules, WithStyles } from '@material-ui/core/styles';
-import { Camera as CameraIcon, Star as StarIcon } from '@material-ui/icons';
+import { Camera as CameraIcon, Home as HomeIcon, Settings as SettingsIcon, Face as FaceIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
 import { ROUTE_PATH_INDEX, ROUTE_PATHS } from '@constants/Paths';
 
 class Footer extends React.Component<Props, any, any> {
   handleChange = (_: any, value: any) => {
-    const { actions, history } = this.props;
+    const { actions } = this.props;
 
     actions && actions.tabChange(Number(value));
   }
@@ -23,11 +23,23 @@ class Footer extends React.Component<Props, any, any> {
     return (
       <BottomNavigation value={tabIndex} onChange={this.handleChange} className={classes.root}>
         <BottomNavigationAction
-          // className={classes.iconBtn}
           className={classes.action}
-          // classes={{
-          //   selected: classes.iconSelected,
-          // }}
+          value={ROUTE_PATH_INDEX.StudyInit}
+          icon={<HomeIcon className={classes.icon} />}
+          disableRipple
+          disableTouchRipple
+          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} {...props} />}
+        />
+        <BottomNavigationAction
+          className={classes.action}
+          value={ROUTE_PATH_INDEX.RegistInit}
+          icon={<FaceIcon className={classes.icon} />}
+          disableRipple
+          disableTouchRipple
+          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}
+        />
+        <BottomNavigationAction
+          className={classes.action}
           value={ROUTE_PATH_INDEX.RegistInit}
           icon={<CameraIcon className={classes.icon} />}
           disableRipple
@@ -35,15 +47,12 @@ class Footer extends React.Component<Props, any, any> {
           component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}
         />
         <BottomNavigationAction
-          // classes={{
-          //   selected: classes.iconSelected,
-          // }}
           className={classes.action}
-          value={ROUTE_PATH_INDEX.StudyInit}
-          icon={<StarIcon className={classes.icon} />}
+          value={ROUTE_PATH_INDEX.RegistInit}
+          icon={<SettingsIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} {...props} />}
+          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}
         />
       </BottomNavigation>
     );
@@ -63,7 +72,7 @@ const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }:
     bottom: '0',
     width: '100%',
     height: unit * 9,
-    backgroundColor: primary.dark,
+    backgroundColor: primary.light,
     alignItems: 'flex-start',
   },
   action: {

@@ -4,6 +4,7 @@ import * as startNew from '@actions/study/B001';
 import { C006_URL, GROUP_ID, C004_URL, MODES, C007_URL } from '@constants/Consts';
 import { C004Response, C004Request, C006Response, C007Response } from 'typings/api';
 import { AxiosInstance } from 'axios';
+import { WordInfo } from '@models';
 
 /** テスト回答(YES/NO) */
 export const request: B004RequestAction = dispatch =>
@@ -70,24 +71,27 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
     // 単語状態更新後、次の対象を取得する
     await updateStatus(api, word, yes, times);
 
-    let words;
+    let words: WordInfo[];
 
+    // Loading
+    dispatch(startNew.request);
     // 新規の場合
     if (mode === MODES.New) {
       const res = await api.get<C006Response>(C006_URL(GROUP_ID));
 
-      words = res.data;
+      words = res.data.words;
     } else {
       // テストの場合
       const res = await api.get<C007Response>(C007_URL(GROUP_ID));
 
-      words = res.data;
+      words = res.data.words;
     }
 
     // 新規単語の追加
     dispatch(startNew.success(words));
   } catch (error) {
     dispatch(failure(error));
+    dispatch(startNew.failure(error));
   }
 };
 

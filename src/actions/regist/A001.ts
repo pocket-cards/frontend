@@ -4,6 +4,7 @@ import { A0_01_REQUEST, A0_01_SUCCESS, A0_01_FAILURE } from '@constants/ActionTy
 import { D001_URL } from '@constants/Consts';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { D001Request, D001Response } from 'typings/api';
+import * as loadsh from 'lodash';
 
 /** 画像アップロード */
 export const request: A001RequestAction = dispatch =>
@@ -26,11 +27,18 @@ export const failure: A001FailureAction = error => dispatch =>
   });
 
 /** 画像アップロード */
-const uploadImage: UploadImageAction = (type: string, image: string, history?: History<any>) => async (dispatch, _, api) => {
-  const imageSrc = image.replace(/^.*,/, '');
-
+const uploadImage: UploadImageAction = (image: string, history?: History<any>) => async (dispatch, _, api) => {
   // 画像アップロード開始イベント
   dispatch(request);
+
+  // データチェック
+  if (loadsh.isEmpty(image) || image.split(';').length <= 1) {
+    dispatch(failure((null as unknown) as Error));
+    return;
+  }
+
+  const type = image.split(';')[0].split(':')[1];
+  const imageSrc = image.replace(/^.*,/, '');
 
   // 画面遷移
   history && history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistList]);

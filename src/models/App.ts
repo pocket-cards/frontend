@@ -18,7 +18,6 @@ export default class App extends Record<AppProps>({
   isLoading: false,
 }) {
   tabChange(index: number) {
-    console.log(index);
     return this.set('tabIndex', index);
   }
 }

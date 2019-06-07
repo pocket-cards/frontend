@@ -7,6 +7,7 @@ import { withStyles, List, ListItem, ListItemText, ListItemSecondaryAction, Icon
 import { Edit as EditIcon, Delete as DeleteIcon, Star as StartIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as RegistActions from '@actions/regist';
+import Loading from '@components/Loading';
 
 /** 単語登録リスト画面 */
 class A002 extends React.Component<Props, any, any> {
@@ -24,22 +25,24 @@ class A002 extends React.Component<Props, any, any> {
     actions.removeWord(word);
   }
 
+  /** クリア */
   componentWillUnmount() {
     this.props.actions.clear();
   }
 
   render() {
-    const { classes, words, history } = this.props;
+    const { classes, words, isLoading } = this.props;
 
     // 単語データなし
-    if (words.length === 0) {
+    if (!isLoading && words.length === 0) {
       // history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]);
       console.log('Do no have any more words');
       return <div />;
     }
 
     return (
-      <Grid container direction="column" wrap="nowrap">
+      <Grid container direction="column" wrap="nowrap" className={classes.container}>
+        {(() => (isLoading ? <Loading /> : undefined))()}
         <Grid item xs={12} className={classes.root}>
           <List className={classes.list}>
             {words.map(value => (
@@ -95,6 +98,7 @@ class A002 extends React.Component<Props, any, any> {
 /** 単語一覧のProps */
 const mapStateToProps = (state: IState) => ({
   words: state.get('A000').get('words'),
+  isLoading: state.get('A000').get('isLoading'),
 });
 
 /** 単語一覧のActions */
@@ -104,7 +108,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 /** Styles */
 const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }: Theme) => ({
-  container: {},
+  container: {
+    position: 'relative',
+  },
   root: {
     paddingLeft: unit,
     paddingRight: unit * 2,
@@ -164,4 +170,5 @@ export interface StateFromProps {
 /** Properties */
 export interface Props extends StateFromProps, WithStyles<StyleRules>, RouteComponentProps<{}> {
   actions: RegistActions.Actions;
+  isLoading: boolean;
 }
