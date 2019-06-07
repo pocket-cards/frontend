@@ -24,9 +24,10 @@ class Footer extends React.Component<Props, any, any> {
       <BottomNavigation value={tabIndex} onChange={this.handleChange} className={classes.root}>
         <BottomNavigationAction
           // className={classes.iconBtn}
-          classes={{
-            selected: classes.iconSelected,
-          }}
+          className={classes.action}
+          // classes={{
+          //   selected: classes.iconSelected,
+          // }}
           value={ROUTE_PATH_INDEX.RegistInit}
           icon={<CameraIcon className={classes.icon} />}
           disableRipple
@@ -34,9 +35,10 @@ class Footer extends React.Component<Props, any, any> {
           component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}
         />
         <BottomNavigationAction
-          classes={{
-            selected: classes.iconSelected,
-          }}
+          // classes={{
+          //   selected: classes.iconSelected,
+          // }}
+          className={classes.action}
           value={ROUTE_PATH_INDEX.StudyInit}
           icon={<StarIcon className={classes.icon} />}
           disableRipple
@@ -64,11 +66,12 @@ const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }:
     backgroundColor: primary.dark,
     alignItems: 'flex-start',
   },
-  iconSelected: {
-    paddingTop: '16px !important',
+  action: {
+    paddingTop: '8px !important',
   },
   icon: {
     color: 'white',
+    fontSize: '32px',
   },
 });
 
