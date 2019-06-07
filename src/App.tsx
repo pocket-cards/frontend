@@ -37,13 +37,16 @@ class App extends React.Component<Props, any> {
 
 const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   container: {
-    minHeight: 'calc(100vh - 112px)',
+    // minHeight: 'calc(100vh - 112px)',
   },
   body: {
-    // minHeight: 'calc(100vh - 128px)',
+    minHeight: 'calc(100vh - 128px)',
     maxHeight: 'calc(100vh - 128px)',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     flexGrow: 1,
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
   icon: {
     color: 'white',

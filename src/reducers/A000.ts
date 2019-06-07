@@ -10,6 +10,9 @@ import {
   A0_03_REQUEST,
   A0_03_SUCCESS,
   A0_03_FAILURE,
+  A0_04_REQUEST,
+  A0_04_SUCCESS,
+  A0_04_FAILURE,
 } from '@constants/ActionTypes';
 import { A001_SUCCESS_PAYLOAD, A002_SUCCESS_PAYLOAD } from '@actions/regist';
 
@@ -26,6 +29,10 @@ const reducer = handleActions<any>(
     [A0_03_REQUEST]: (store: A000) => store.endLoading(),
     [A0_03_SUCCESS]: (store: A000) => store.clear().endLoading(),
     [A0_03_FAILURE]: (store: A000) => store.endLoading(),
+
+    [A0_04_REQUEST]: (store: A000) => store,
+    [A0_04_SUCCESS]: (store: A000) => store.clear(),
+    [A0_04_FAILURE]: (store: A000) => store,
   },
   new A000(),
 );

@@ -3,10 +3,11 @@
   <head>
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" />
     <!-- <meta name="format-detection" content="telephone=no" /> -->
     <!-- <meta name="msapplication-tap-highlight" content="no" /> -->
     <meta name="apple-mobile-web-app-capable" content="no" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
     <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" /> -->
     <title>Hello World</title>
@@ -14,21 +15,5 @@
 
   <body style="margin: 0px">
     <div id="root"></div>
-    <script>
-      // body読み込み時に一度だけbodyサイズを設定
-      document.body.onload = () => {
-        document.body.style.minHeight = window.innerHeight + 'px';
-      };
-
-      // リサイズを停止して500ms後にbodyサイズを設定
-      let timeoutId;
-      window.addEventListener('resize', () => {
-        clearTimeout(timeoutId);
-
-        timeoutId = setTimeout(() => {
-          document.body.style.minHeight = window.innerHeight + 'px';
-        }, 500);
-      });
-    </script>
   </body>
 </html>

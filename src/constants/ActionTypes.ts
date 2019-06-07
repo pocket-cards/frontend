@@ -29,6 +29,11 @@ export const A0_03_REQUEST = 'A0_03_REQUEST';
 export const A0_03_SUCCESS = 'A0_03_SUCCESS';
 export const A0_03_FAILURE = 'A0_03_FAILURE';
 
+/** 単語クリア */
+export const A0_04_REQUEST = 'A0_04_REQUEST';
+export const A0_04_SUCCESS = 'A0_04_SUCCESS';
+export const A0_04_FAILURE = 'A0_04_FAILURE';
+
 /** 新規単語 */
 export const B0_01_REQUEST = 'B0_01_REQUEST';
 export const B0_01_SUCCESS = 'B0_01_SUCCESS';

@@ -9,13 +9,12 @@
   "prettier.tslintIntegration": true,
   "prettier.singleQuote": true,
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "node_modules": true,
     ".babelrc": true,
+    "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/CVS": true,
     "tslint.json": true
   }
 }

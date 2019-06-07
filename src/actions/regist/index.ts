@@ -14,12 +14,16 @@ import {
   A0_03_REQUEST,
   A0_03_SUCCESS,
   A0_03_FAILURE,
+  A0_04_REQUEST,
+  A0_04_SUCCESS,
+  A0_04_FAILURE,
 } from '@constants/ActionTypes';
 import { D001Response } from 'typings/api';
 
 export { default as uploadImage } from './A001';
 export { default as removeWord } from './A002';
 export { default as registWords } from './A003';
+export { default as clear } from './A004';
 
 /** 単語登録画面のActions */
 export interface Actions {
@@ -30,6 +34,8 @@ export interface Actions {
 
   // 単語一括登録
   registWords: (words: string[], history?: History<any>) => RegistWordsAction;
+
+  clear: () => ClearAction;
 }
 
 /** 画像アップロード */
@@ -41,6 +47,9 @@ export type RemoveWordAction = ActionFunction1<string, RemoveWordThunkAction>;
 /** 単語登録 */
 export type RegistWordsThunkAction = ThunkAction<Promise<void>, IState, AxiosInstance, Action<A003Actions>>;
 export type RegistWordsAction = ActionFunction2<string[], History<any>, RegistWordsThunkAction>;
+/** 単語登録 */
+export type ClearThunkAction = ThunkAction<void, IState, AxiosInstance, Action<A004Actions>>;
+export type ClearAction = ActionFunction0<ClearThunkAction>;
 
 /** 画像アップロード */
 export type A001_SUCCESS_PAYLOAD = D001Response;
@@ -76,3 +85,13 @@ export type A003SuccessAction = ActionFunction0<ThunkAction<A003SuccessBaseActio
 export type A003FailureAction = ActionFunction1<Error, ThunkAction<A003FailureBaseAction, IState, AxiosInstance, A003FailureBaseAction>>;
 
 export type A003Actions = A003RequestAction | A003SuccessAction | A003FailureAction;
+
+/** 単語クリア */
+export type A004RequestBaseAction = RequestAction<typeof A0_04_REQUEST>;
+export type A004SuccessBaseAction = SuccessAction1<typeof A0_04_SUCCESS>;
+export type A004FailureBaseAction = FailureAction2<typeof A0_04_FAILURE, Error>;
+export type A004RequestAction = ThunkAction<A004RequestBaseAction, IState, AxiosInstance, A004RequestBaseAction>;
+export type A004SuccessAction = ThunkAction<A004SuccessBaseAction, IState, AxiosInstance, A004SuccessBaseAction>;
+export type A004FailureAction = ActionFunction1<Error, ThunkAction<A004FailureBaseAction, IState, AxiosInstance, A004FailureBaseAction>>;
+
+export type A004Actions = A004RequestAction | A004SuccessAction | A004FailureAction;

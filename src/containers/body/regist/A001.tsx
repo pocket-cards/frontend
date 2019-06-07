@@ -48,6 +48,10 @@ class A001 extends React.Component<Props, any, any> {
         <Button variant="contained" color="primary" onClick={this.handleClick}>
           Take Photo
         </Button>
+        <Button variant="contained" color="primary">
+          Upload Photo
+        </Button>
+        <input type="file" name="upfile" id="upfile" accept="image/*" style={{ display: 'none' }} />
         {(() => {
           if (!isShow) return <div />;
 

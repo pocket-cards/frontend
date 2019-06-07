@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { WithStyles, StyleRules, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import { withStyles, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Grid, Button, Avatar } from '@material-ui/core';
-import { Folder as FolderIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import { withStyles, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Grid, Button, Avatar, ListItemIcon, Divider } from '@material-ui/core';
+import { Edit as EditIcon, Delete as DeleteIcon, Star as StartIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as RegistActions from '@actions/regist';
 
@@ -24,6 +24,10 @@ class A002 extends React.Component<Props, any, any> {
     actions.removeWord(word);
   }
 
+  componentWillUnmount() {
+    this.props.actions.clear();
+  }
+
   render() {
     const { classes, words, history } = this.props;
 
@@ -36,37 +40,50 @@ class A002 extends React.Component<Props, any, any> {
 
     return (
       <Grid container direction="column" wrap="nowrap">
-        <Grid item xs={12}>
-          <List className={classes.root}>
+        <Grid item xs={12} className={classes.root}>
+          <List className={classes.list}>
             {words.map(value => (
-              <ListItem key={value} role={undefined} dense>
-                <Avatar>
-                  <FolderIcon />
-                </Avatar>
-                <ListItemText primary={value} />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    className={classes.deleteButton}
-                    disableRipple
-                    disableTouchRipple
-                    onClick={() => {
-                      this.handleRemove(value);
+              <React.Fragment>
+                <ListItem
+                  key={value}
+                  role={undefined}
+                  dense
+                  classes={{
+                    secondaryAction: classes.secondaryAction,
+                  }}
+                >
+                  <ListItemIcon classes={{ root: classes.itemIcon }}>
+                    <EditIcon className={classes.icon} color="secondary" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={value}
+                    primaryTypographyProps={{
+                      variant: 'h3',
+                    }}
+                    className={classes.itemTextRoot}
+                  />
+                  <ListItemSecondaryAction
+                    classes={{
+                      root: classes.action,
                     }}
                   >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
+                    <DeleteIcon
+                      fontSize="large"
+                      color="secondary"
+                      className={classes.icon}
+                      onClick={() => {
+                        this.handleRemove(value);
+                      }}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <Divider key={`${value}1`} />
+              </React.Fragment>
             ))}
           </List>
         </Grid>
-        <Grid item xs={12} className={classes.button}>
-          <Button
-            variant="contained"
-            color="secondary"
-            // className={classes.button}
-            onClick={this.handleRegist}
-          >
+        <Grid item xs={12} className={classes.bottom}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleRegist}>
             登録
           </Button>
         </Grid>
@@ -86,13 +103,47 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 /** Styles */
-const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
-  button: {
-    textAlign: 'right',
-    marginRight: unit * 2,
+const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }: Theme) => ({
+  container: {},
+  root: {
+    paddingLeft: unit,
+    paddingRight: unit * 2,
   },
-  deleteButton: {
-    marginRight: unit * 2,
+  item: {
+    height: unit * 6,
+  },
+  itemIcon: {
+    marginRight: unit,
+  },
+  itemTextRoot: {
+    padding: '0px 16px 0px 8px',
+    fontSize: '1.5rem',
+  },
+  secondaryAction: {
+    paddingRight: unit * 6,
+  },
+  action: {
+    marginRight: unit * 1.5,
+    marginTop: unit / 2,
+  },
+  bottom: {
+    margin: unit * 2,
+    textAlign: 'right',
+    position: 'relative',
+  },
+  button: {
+    width: unit * 15,
+    position: 'absolute',
+    bottom: '0px',
+    right: '0px',
+    '&:hover': {
+      backgroundColor: primary.main,
+    },
+  },
+  icon: {
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
 });
 
