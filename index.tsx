@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import store from './src/store';
 import Router from './src/Router';
 import { register } from './src/serviceWorker';
+import theme from './src/Theme';
+import { MuiThemeProvider } from '@material-ui/core';
 
 const root = document.getElementById('root');
 
@@ -18,9 +20,11 @@ const root = document.getElementById('root');
 
 render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+    <MuiThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </MuiThemeProvider>
   </Provider>,
   root,
 );
