@@ -42,6 +42,7 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   body: {
     minHeight: 'calc(100vh - 128px)',
     maxHeight: 'calc(100vh - 128px)',
+    backgroundColor: 'whitesmoke',
     overflowY: 'auto',
     flexGrow: 1,
     '&::-webkit-scrollbar': {
