@@ -27,6 +27,8 @@ export const failure: A001FailureAction = error => dispatch =>
 
 /** 画像アップロード */
 const uploadImage: UploadImageAction = (type: string, image: string, history?: History<any>) => async (dispatch, _, api) => {
+  const imageSrc = image.replace(/^.*,/, '');
+
   // 画像アップロード開始イベント
   dispatch(request);
 
@@ -36,7 +38,7 @@ const uploadImage: UploadImageAction = (type: string, image: string, history?: H
   try {
     const res = await api.post<D001Response>(D001_URL(), {
       type,
-      image,
+      image: imageSrc,
     } as D001Request);
 
     // データ保存

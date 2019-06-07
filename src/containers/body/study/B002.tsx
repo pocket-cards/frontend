@@ -88,7 +88,7 @@ class B002 extends React.Component<Props, any, any> {
     // Loading中
     if (isLoading) {
       return (
-        <Grid container alignItems="center" justify="center" className={classes.container}>
+        <Grid container alignItems="center" justify="center">
           <Paper className={classes.paper}>
             <CircularProgress size={96} className={classes.progress} />
           </Paper>
@@ -97,7 +97,7 @@ class B002 extends React.Component<Props, any, any> {
     }
 
     return (
-      <Grid container direction="column" className={classes.container}>
+      <Grid container direction="column">
         {(() => {
           if (!word) {
             return undefined;
@@ -134,9 +134,9 @@ class B002 extends React.Component<Props, any, any> {
 }
 
 const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
-  container: {
-    backgroundColor: 'whitesmoke',
-  },
+  // container: {
+  //   backgroundColor: 'whitesmoke',
+  // },
   top: {
     width: '100%',
     height: '280px',
