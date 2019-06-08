@@ -32,11 +32,11 @@ class Footer extends React.Component<Props, any, any> {
         />
         <BottomNavigationAction
           className={classes.action}
-          value={ROUTE_PATH_INDEX.RegistInit}
+          value={ROUTE_PATH_INDEX.History}
           icon={<FaceIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}
+          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.History]} {...props} />}
         />
         <BottomNavigationAction
           className={classes.action}
@@ -48,11 +48,11 @@ class Footer extends React.Component<Props, any, any> {
         />
         <BottomNavigationAction
           className={classes.action}
-          value={ROUTE_PATH_INDEX.RegistInit}
+          value={ROUTE_PATH_INDEX.Settings}
           icon={<SettingsIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}
+          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} {...props} />}
         />
       </BottomNavigation>
     );
@@ -74,6 +74,7 @@ const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }:
     height: unit * 9,
     backgroundColor: primary.light,
     alignItems: 'flex-start',
+    minWidth: 'inherit',
   },
   action: {
     paddingTop: '8px !important',

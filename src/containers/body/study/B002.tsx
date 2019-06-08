@@ -9,7 +9,31 @@ import { IState, WordInfo } from '@models';
 import { MODES } from '@constants/Consts';
 
 /** 単語カメラ画面 */
-class B002 extends React.Component<Props, any, any> {
+class B002 extends React.Component<Props, StateProps, any> {
+  state = {
+    showText: false,
+  };
+
+  /** 音声Tag */
+  private audioRef: React.RefObject<HTMLAudioElement>;
+
+  constructor(props: Readonly<Props>) {
+    super(props);
+
+    this.audioRef = React.createRef<HTMLAudioElement>();
+  }
+
+  componentDidMount() {
+    document.addEventListener('touchstart', () => {
+      if (this.audioRef.current) {
+        this.audioRef.current.play();
+        console.log(33333);
+      }
+    });
+  }
+
+  handleTouchStart = () => this.setState({ showText: true });
+
   /** 新規単語学習 */
   handleNext = () => {
     const { history, actions } = this.props;
@@ -27,7 +51,10 @@ class B002 extends React.Component<Props, any, any> {
     // }
   }
 
-  handleAnswer = (word: string, yes: boolean) => this.props.actions.answer(word, yes);
+  handleAnswer = (word: string, yes: boolean) => {
+    this.props.actions.answer(word, yes);
+    this.setState({ showText: false });
+  }
 
   getButtons = (mode: string, classes: any, word?: WordInfo) => {
     const buttons = [];
@@ -43,6 +70,7 @@ class B002 extends React.Component<Props, any, any> {
           disableFocusRipple
           disableTouchRipple
           disableRipple
+          onTouchStart={this.handleTouchStart}
           onClick={() => {
             this.handleAnswer(word.word, true);
           }}
@@ -59,6 +87,7 @@ class B002 extends React.Component<Props, any, any> {
           disableFocusRipple
           disableTouchRipple
           disableRipple
+          onTouchStart={this.handleTouchStart}
           onClick={() => {
             this.handleAnswer(word.word, false);
           }}
@@ -84,6 +113,7 @@ class B002 extends React.Component<Props, any, any> {
 
   render() {
     const { classes, word, mode, isLoading } = this.props;
+    const { showText } = this.state;
 
     // Loading中
     if (isLoading) {
@@ -106,24 +136,18 @@ class B002 extends React.Component<Props, any, any> {
           return (
             <Grid container alignItems="center" justify="center" className={classes.top}>
               <Card className={classes.card}>
-                <iframe
-                  src="https://raw.githubusercontent.com/anars/blank-audio/master/500-milliseconds-of-silence.mp3"
-                  allow="autoplay"
-                  id="audio"
-                  style={{ display: 'none' }}
-                />
-                <audio autoPlay src={`https://cards.aws-handson.com/${word.mp3}`} />
+                <audio ref={this.audioRef} autoPlay src={`https://cards.aws-handson.com/${word.mp3}`} />
                 <CardContent>
-                  <Typography className={classes.title} variant="h3" gutterBottom align="center">
+                  <Typography className={classes.title} variant="h4" gutterBottom align="center">
                     {word.word}
                   </Typography>
                   <Typography className={classes.pos} variant="h6" align="center">
                     {word.pronounce ? `/${word.pronounce}/` : undefined}
                   </Typography>
-                  <Typography component="p" variant="h6" align="center">
+                  <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
                     {word.vocChn}
                   </Typography>
-                  <Typography component="p" variant="h6" align="center">
+                  <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
                     {word.vocJpn}
                   </Typography>
                 </CardContent>
@@ -131,8 +155,8 @@ class B002 extends React.Component<Props, any, any> {
             </Grid>
           );
         })()}
-        <Grid container justify="center" alignItems={word ? 'flex-start' : 'center'} className={classes.bottom}>
-          {this.getButtons(mode, classes, word)}
+        <Grid container justify="center" alignItems="center" className={classes.bottom}>
+          <Grid item>{this.getButtons(mode, classes, word)}</Grid>
         </Grid>
       </Grid>
     );
@@ -145,8 +169,9 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   // },
   top: {
     width: '100%',
-    height: '280px',
+    height: '380px',
     padding: unit,
+    paddingTop: unit * 4,
   },
   bottom: {
     marginBottom: unit * 2,
@@ -158,13 +183,16 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
     margin: `0px ${unit * 3}px`,
   },
   card: {
-    width: '80%',
-    height: '80%',
+    width: '90%',
+    height: '100%',
     borderRadius: 4,
   },
   paper: {
     boxShadow: 'none',
     backgroundColor: 'transparent',
+  },
+  title: {
+    paddingTop: unit * 8,
   },
 });
 
@@ -189,6 +217,9 @@ export default compose(
   ),
 )(B002) as any;
 
+export interface StateProps {
+  showText: boolean;
+}
 /** Properties */
 export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<{}> {
   actions: StudyActions.Actions;

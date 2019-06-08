@@ -24,8 +24,10 @@ class App extends React.Component<Props, any> {
         >
           <Switch>
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} component={RegistMain} />
+            <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.History]} component={StudyMain} />
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} component={StudyMain} />
-            <Route component={RegistMain} />
+            <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} component={StudyMain} />
+            <Route component={StudyMain} />
           </Switch>
           <Route children={children} />
         </Grid>

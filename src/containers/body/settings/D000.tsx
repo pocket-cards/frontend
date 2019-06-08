@@ -4,7 +4,7 @@ import { WithStyles, StyleRules, withStyles } from '@material-ui/core/styles';
 import { StudyCards, StudyInit } from '@containers/body/study';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
-class B000 extends React.Component<Props, any, any> {
+class D000 extends React.Component<Props, any, any> {
   render() {
     const { match, children } = this.props;
 
@@ -12,7 +12,7 @@ class B000 extends React.Component<Props, any, any> {
       <React.Fragment>
         <Switch>
           <Route path={`${match.path}`} exact component={StudyInit} />
-          <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]} component={StudyCards} />
+          {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]} component={StudyCards} /> */}
           {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyFinish]} component={StudyFinish} /> */}
         </Switch>
         <Route children={children} />
@@ -23,7 +23,7 @@ class B000 extends React.Component<Props, any, any> {
 
 const styles: StyleRules = {};
 
-export default withStyles(styles)(B000);
+export default withStyles(styles)(D000);
 
 /** Properties */
 export interface Props extends WithStyles<StyleRules>, RouteComponentProps<{}> {}

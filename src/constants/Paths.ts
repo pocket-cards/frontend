@@ -5,6 +5,8 @@ export const ROUTE_PATH_INDEX = {
   StudyInit: 21,
   StudyCard: 22,
   StudyFinish: 23,
+  History: 31,
+  Settings: 41,
 };
 
 export const ROUTE_PATHS = {
@@ -14,4 +16,6 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.StudyInit]: '/study',
   [ROUTE_PATH_INDEX.StudyCard]: '/study/card',
   [ROUTE_PATH_INDEX.StudyFinish]: '/study/finish',
+  [ROUTE_PATH_INDEX.History]: '/history',
+  [ROUTE_PATH_INDEX.Settings]: '/settings',
 };
