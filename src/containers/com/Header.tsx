@@ -18,10 +18,10 @@ class Header extends React.Component<Props, any, any> {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <Typography variant="h6" color="inherit" className={classes.title}>
             News
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Ver0.01</Button>
         </Toolbar>
       </AppBar>
     );
@@ -37,6 +37,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 const styles: StyleRulesCallback = () => ({
   app: {
     boxShadow: 'none',
+  },
+  title: {
+    flexGrow: 1,
   },
 });
 
