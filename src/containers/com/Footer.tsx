@@ -74,10 +74,10 @@ const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }:
     height: unit * 9,
     backgroundColor: primary.light,
     alignItems: 'flex-start',
-    minWidth: 'inherit',
   },
   action: {
     paddingTop: '8px !important',
+    minWidth: 'inherit',
   },
   icon: {
     color: 'white',

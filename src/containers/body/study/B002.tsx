@@ -23,37 +23,24 @@ class B002 extends React.Component<Props, StateProps, any> {
     this.audioRef = React.createRef<HTMLAudioElement>();
   }
 
-  componentDidMount() {
-    document.addEventListener('touchstart', () => {
-      if (this.audioRef.current) {
-        this.audioRef.current.play();
-        console.log(33333);
-      }
-    });
-  }
-
   handleTouchStart = () => this.setState({ showText: true });
 
   /** 新規単語学習 */
   handleNext = () => {
     const { history, actions } = this.props;
     actions.startReview(history);
-    // switch (mode) {
-    //   case MODES.New:
-    //     // actions.startNew(history);
-    //     break;
-    //   case MODES.AllTest:
-    //     // actions.startTest(history);
-    //     break;
-    //   case MODES.Review:
-    //     // actions.startReview(history);
-    //     break;
-    // }
   }
 
   handleAnswer = (word: string, yes: boolean) => {
     this.props.actions.answer(word, yes);
     this.setState({ showText: false });
+
+    setTimeout(() => {
+      const audio = this.audioRef.current;
+
+      // 音声再生
+      audio && audio.play();
+    },         100);
   }
 
   getButtons = (mode: string, classes: any, word?: WordInfo) => {
@@ -136,7 +123,7 @@ class B002 extends React.Component<Props, StateProps, any> {
           return (
             <Grid container alignItems="center" justify="center" className={classes.top}>
               <Card className={classes.card}>
-                <audio ref={this.audioRef} autoPlay src={`https://cards.aws-handson.com/${word.mp3}`} />
+                <audio ref={this.audioRef} src={`/${word.mp3}`} />
                 <CardContent>
                   <Typography className={classes.title} variant="h4" gutterBottom align="center">
                     {word.word}
