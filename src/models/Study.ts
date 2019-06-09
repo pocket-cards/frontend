@@ -68,8 +68,9 @@ export default class B000 extends Record<B000Props>({
     this.words.splice(this.index, 1);
     console.log(this.words);
 
-    // １件のみの場合、そのまま表示
-    const newIdx = this.words.length === 1 ? 0 : this.index;
+    // Indexが配列の限界を超えた場合、最初から始まる
+    const newIdx = this.index >= this.words.length ? 0 : this.index;
+
     console.log(newIdx);
 
     return this.set('words', this.words)
