@@ -1,8 +1,8 @@
 import { History } from 'history';
-import { StartNewAction, B006RequestAction, B006SuccessAction, B006FailureAction, StartReviewAction } from '.';
-import { MODES, C006_URL, GROUP_ID, C008_URL } from '@constants/Consts';
+import { B006RequestAction, B006SuccessAction, B006FailureAction, StartReviewAction } from '.';
+import { MODES, GROUP_ID, C008_URL } from '@constants/Consts';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { C006Response, C008Response } from 'typings/api';
+import { C008Response } from 'typings/api';
 import { B0_06_REQUEST, B0_06_SUCCESS, B0_06_FAILURE } from '@constants/ActionTypes';
 
 /** 単語復習 */

@@ -131,9 +131,9 @@ export type B006_SUCCESS_PAYLOAD = {
 export type B006RequestBaseAction = RequestAction<typeof B0_06_REQUEST>;
 export type B006SuccessBaseAction = SuccessAction2<typeof B0_06_SUCCESS, B006_SUCCESS_PAYLOAD>;
 export type B006FailureBaseAction = FailureAction2<typeof B0_06_FAILURE, Error>;
-export type B006RequestAction = ThunkAction<B006RequestBaseAction, void, AxiosInstance, B006RequestBaseAction>;
-export type B006SuccessAction = ActionFunction1<WordInfo[], ThunkAction<B006SuccessBaseAction, void, AxiosInstance, B006SuccessBaseAction>>;
-export type B006FailureAction = ActionFunction1<Error, ThunkAction<B006FailureBaseAction, void, AxiosInstance, B006FailureBaseAction>>;
+export type B006RequestAction = ThunkAction<B006RequestBaseAction, IState, AxiosInstance, B006RequestBaseAction>;
+export type B006SuccessAction = ActionFunction1<WordInfo[], ThunkAction<B006SuccessBaseAction, IState, AxiosInstance, B006SuccessBaseAction>>;
+export type B006FailureAction = ActionFunction1<Error, ThunkAction<B006FailureBaseAction, IState, AxiosInstance, B006FailureBaseAction>>;
 export type B006Actions = B006RequestAction | B006SuccessAction | B006FailureAction;
 
 /** 単語テスト（全部） */
@@ -145,7 +145,7 @@ export type B007_SUCCESS_PAYLOAD = {
 export type B007RequestBaseAction = RequestAction<typeof B0_07_REQUEST>;
 export type B007SuccessBaseAction = SuccessAction2<typeof B0_07_SUCCESS, B007_SUCCESS_PAYLOAD>;
 export type B007FailureBaseAction = FailureAction2<typeof B0_07_FAILURE, Error>;
-export type B007RequestAction = ThunkAction<B007RequestBaseAction, void, AxiosInstance, B007RequestBaseAction>;
-export type B007SuccessAction = ActionFunction1<WordInfo[], ThunkAction<B007SuccessBaseAction, void, AxiosInstance, B007SuccessBaseAction>>;
-export type B007FailureAction = ActionFunction1<Error, ThunkAction<B007FailureBaseAction, void, AxiosInstance, B007FailureBaseAction>>;
+export type B007RequestAction = ThunkAction<B007RequestBaseAction, IState, AxiosInstance, B007RequestBaseAction>;
+export type B007SuccessAction = ActionFunction1<WordInfo[], ThunkAction<B007SuccessBaseAction, IState, AxiosInstance, B007SuccessBaseAction>>;
+export type B007FailureAction = ActionFunction1<Error, ThunkAction<B007FailureBaseAction, IState, AxiosInstance, B007FailureBaseAction>>;
 export type B007Actions = B007RequestAction | B007SuccessAction | B007FailureAction;

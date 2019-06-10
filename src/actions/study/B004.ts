@@ -1,6 +1,7 @@
 import { B004RequestAction, B004SuccessAction, B004FailureAction, AnswerAction } from '.';
 import { B0_04_REQUEST, B0_04_SUCCESS, B0_04_FAILURE } from '@constants/ActionTypes';
 import * as startNew from '@actions/study/B001';
+import * as startTest from '@actions/study/B007';
 import { C006_URL, GROUP_ID, C004_URL, MODES, C007_URL } from '@constants/Consts';
 import { C004Response, C004Request, C006Response, C007Response } from 'typings/api';
 import { AxiosInstance } from 'axios';
@@ -58,7 +59,7 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
   try {
     const times = current.times;
 
-    // 最後の単語ではない場合
+    // 最後の単語ではない場合 或いは　テストの場合
     if (b000.words.length !== 1) {
       // 単語状態を設定する
       updateStatus(api, word, yes, times);
@@ -68,7 +69,7 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
       return;
     }
 
-    // 単語状態更新後、次の対象を取得する
+    // 新規学習の場合、単語状態更新後、次の対象を取得する
     await updateStatus(api, word, yes, times);
 
     let words: WordInfo[];
@@ -80,15 +81,17 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
       const res = await api.get<C006Response>(C006_URL(GROUP_ID));
 
       words = res.data.words;
+
+      // 新規単語の追加
+      dispatch(startNew.success(words));
     } else {
       // テストの場合
       const res = await api.get<C007Response>(C007_URL(GROUP_ID));
 
       words = res.data.words;
-    }
 
-    // 新規単語の追加
-    dispatch(startNew.success(words));
+      dispatch(startTest.success(words));
+    }
   } catch (error) {
     dispatch(failure(error));
     dispatch(startNew.failure(error));
