@@ -143,8 +143,8 @@ class WebCamera extends React.Component<Props, State, any> {
           disableRipple
           onClick={() => {
             this.takePhoto({
-              type: 'image/jpeg',
-              quality: 0.5,
+              type: 'image/png',
+              quality: 0.8,
             });
           }}
         >
