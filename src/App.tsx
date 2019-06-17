@@ -15,13 +15,7 @@ class App extends React.Component<Props, any> {
     return (
       <Grid container direction="column" className={classes.container}>
         <Header />
-        <Grid
-          container
-          spacing={0}
-          classes={{
-            container: classes.body,
-          }}
-        >
+        <div className={classes.body}>
           <Switch>
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} component={RegistMain} />
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.History]} component={StudyMain} />
@@ -30,7 +24,7 @@ class App extends React.Component<Props, any> {
             <Route component={StudyMain} />
           </Switch>
           <Route children={children} />
-        </Grid>
+        </div>
         <Footer />
       </Grid>
     );
@@ -42,11 +36,12 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
     // minHeight: 'calc(100vh - 112px)',
   },
   body: {
-    minHeight: 'calc(100vh - 128px)',
-    maxHeight: 'calc(100vh - 128px)',
+    minHeight: 'calc(100vh - 136px)',
+    maxHeight: 'calc(100vh - 136px)',
+    height: 'calc(100vh - 136px)',
     backgroundColor: 'whitesmoke',
+    position: 'relative',
     overflowY: 'auto',
-    flexGrow: 1,
     '&::-webkit-scrollbar': {
       display: 'none',
     },

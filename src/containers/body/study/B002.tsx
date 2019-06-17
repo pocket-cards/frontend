@@ -3,10 +3,12 @@ import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { WithStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import { withStyles, Grid, Card, CardContent, Typography, Fab, Paper, CircularProgress } from '@material-ui/core';
+import { withStyles, Grid, Card, CardContent, Typography, Fab, IconButton } from '@material-ui/core';
+import { Replay as ReplayIcon } from '@material-ui/icons';
 import * as StudyActions from '@actions/study';
 import { IState, WordInfo } from '@models';
 import { MODES } from '@constants/Consts';
+import Loading from '@components/Loading';
 
 /** 単語カメラ画面 */
 class B002 extends React.Component<Props, StateProps, any> {
@@ -35,12 +37,7 @@ class B002 extends React.Component<Props, StateProps, any> {
     this.props.actions.answer(word, yes);
     this.setState({ showText: false });
 
-    setTimeout(() => {
-      const audio = this.audioRef.current;
-
-      // 音声再生
-      audio && audio.play();
-    },         100);
+    setTimeout(() => this.play(), 100);
   }
 
   getButtons = (mode: string, classes: any, word?: WordInfo) => {
@@ -98,23 +95,31 @@ class B002 extends React.Component<Props, StateProps, any> {
     return buttons;
   }
 
+  /** 音声再生 */
+  play = () => {
+    const audio = this.audioRef.current;
+
+    audio && audio.play();
+  }
+
   render() {
     const { classes, word, mode, isLoading } = this.props;
     const { showText } = this.state;
 
     // Loading中
     if (isLoading) {
-      return (
-        <Grid container alignItems="center" justify="center">
-          <Paper className={classes.paper}>
-            <CircularProgress size={96} className={classes.progress} />
-          </Paper>
-        </Grid>
-      );
+      return <Loading />;
     }
 
     return (
-      <Grid container direction="column">
+      <Grid container direction="column" className={classes.container}>
+        <Grid container justify="flex-end" alignItems="center" className={classes.menubar}>
+          <Grid item>
+            <IconButton className={classes.iconButton} onClick={this.play} disableRipple disableTouchRipple>
+              <ReplayIcon className={classes.icon} />
+            </IconButton>
+          </Grid>
+        </Grid>
         {(() => {
           if (!word) {
             return <div>学習できる単語がありません</div>;
@@ -150,15 +155,29 @@ class B002 extends React.Component<Props, StateProps, any> {
   }
 }
 
-const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
-  // container: {
-  //   backgroundColor: 'whitesmoke',
-  // },
+const styles: StyleRulesCallback = ({ palette, spacing: { unit } }: Theme) => ({
+  container: {
+    height: '100%',
+  },
   top: {
     width: '100%',
     height: '380px',
     padding: unit,
-    paddingTop: unit * 4,
+    paddingTop: unit * 2,
+  },
+  menubar: {
+    padding: `0px ${unit * 2}px`,
+    backgroundColor: palette.secondary.light,
+  },
+  iconButton: {
+    padding: unit / 2,
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+  icon: {
+    fontSize: unit * 4,
+    color: 'white',
   },
   bottom: {
     marginBottom: unit * 2,

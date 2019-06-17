@@ -37,6 +37,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 const styles: StyleRulesCallback = () => ({
   app: {
     boxShadow: 'none',
+    height: '64px',
   },
   title: {
     flexGrow: 1,
