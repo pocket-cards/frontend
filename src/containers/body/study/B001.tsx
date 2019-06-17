@@ -18,19 +18,20 @@ class B001 extends React.Component<Props, any, any> {
 
     console.log(this.props);
     return (
-      <Grid container alignItems="center" className={classes.root} direction="column">
-        <Grid item className={classes.item}>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleTest}>
+      <Grid container className={classes.root} justify="center">
+        <Grid item>
+          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleTest}>
             単語テスト
           </Button>
-        </Grid>
-        <Grid item className={classes.item}>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleNew}>
-            単語の学習
+          <Button variant="contained" color="secondary" className={classes.button}>
+            未定
           </Button>
         </Grid>
         <Grid item className={classes.item}>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleReview}>
+          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleNew}>
+            単語の学習
+          </Button>
+          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleReview}>
             単語の復習
           </Button>
         </Grid>
@@ -48,6 +49,11 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   },
   button: {
     width: unit * 20,
+    height: unit * 20,
+    margin: unit,
+    letterSpacing: unit / 4,
+    fontSize: '1.25rem',
+    fontWeight: 600,
   },
 });
 
