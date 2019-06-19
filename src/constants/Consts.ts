@@ -18,3 +18,5 @@ export const MODES = {
   AllTest: '3',
   Review: '4',
 };
+
+export const PAGE_MAX_WORDS = 10;

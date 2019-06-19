@@ -19,7 +19,7 @@ class B001 extends React.Component<Props, any, any> {
     console.log(this.props);
     return (
       <Grid container className={classes.root} justify="center">
-        <Grid item>
+        <Grid item className={classes.item}>
           <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleTest}>
             単語テスト
           </Button>

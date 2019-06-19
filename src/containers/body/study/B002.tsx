@@ -134,7 +134,7 @@ class B002 extends React.Component<Props, StateProps, any> {
                     {word.word}
                   </Typography>
                   <Typography className={classes.pos} variant="h6" align="center">
-                    {word.pronounce ? `/${word.pronounce}/` : undefined}
+                    {word.pronounce ? `[${word.pronounce}]` : undefined}
                   </Typography>
                   <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
                     {word.vocChn}

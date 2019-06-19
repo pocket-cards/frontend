@@ -1,6 +1,7 @@
 import { Record } from 'immutable';
 import { WordItem } from 'typings/api';
-import { MODES } from '@constants/Consts';
+import { MODES, PAGE_MAX_WORDS } from '@constants/Consts';
+import * as _ from 'lodash';
 
 export type WordInfo = WordItem;
 
@@ -33,12 +34,24 @@ export default class B000 extends Record<B000Props>({
    * 単語情報を登録する
    */
   setWords(mode: string, words: WordInfo[]) {
-    console.log(mode, words, words[0]);
+    // 差分を抽出する
+    const differ = _.differenceBy(words, this.words, 'word');
+    // 足りない単語数を計算する
+    const diffNum = PAGE_MAX_WORDS - this.words.length;
+    // 既存配列と合併する
+    const newArray = _.concat(this.words, differ.splice(0, diffNum));
+
+    // console.log(this.words);
+    // console.log(words);
+    // console.log(differ, differ.length);
+    // console.log(diffNum);
+    // console.log(differ.splice(0, diffNum));
+    // console.log(newArray);
 
     // モード変わった、或いは、既存データ存在しない
-    return this.set('words', words)
-      .set('current', words[0])
-      .set('index', 0)
+    return this.set('words', newArray)
+      .set('current', this.current ? this.current : newArray[0])
+      .set('index', this.index)
       .set('mode', mode);
   }
 

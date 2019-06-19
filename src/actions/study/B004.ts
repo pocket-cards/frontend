@@ -43,54 +43,34 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
     return;
   }
 
-  // 不正解の場合
-  if (!yes) {
-    // 単語状態を設定する
-    updateStatus(api, word, yes, 0);
-    // Client状態管理
-    dispatch(success(yes));
-
-    return;
-  }
-
   // データなしの場合、処理しない
   if (!current) return;
 
   try {
-    const times = current.times;
+    // 正解の場合、現在の回数、不正解の場合は0に戻ります
+    const times = yes ? current.times : 0;
 
-    // 最後の単語ではない場合 或いは　テストの場合
-    if (b000.words.length !== 1) {
-      // 単語状態を設定する
-      updateStatus(api, word, yes, times);
-      // Client状態管理
-      dispatch(success(yes));
+    // 単語状態を設定する
+    updateStatus(api, word, yes, times);
+    // Client状態管理
+    dispatch(success(yes));
 
+    // 一定数以上の場合、再取得しない
+    if (b000.words.length > 7) {
       return;
     }
 
-    // 新規学習の場合、単語状態更新後、次の対象を取得する
-    await updateStatus(api, word, yes, times);
-
-    let words: WordInfo[];
-
-    // Loading
-    dispatch(startNew.request);
     // 新規の場合
     if (mode === MODES.New) {
       const res = await api.get<C006Response>(C006_URL(GROUP_ID));
 
-      words = res.data.words;
-
       // 新規単語の追加
-      dispatch(startNew.success(words));
+      dispatch(startNew.success(res.data.words));
     } else {
       // テストの場合
       const res = await api.get<C007Response>(C007_URL(GROUP_ID));
 
-      words = res.data.words;
-
-      dispatch(startTest.success(words));
+      dispatch(startTest.success(res.data.words));
     }
   } catch (error) {
     dispatch(failure(error));
@@ -98,8 +78,8 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
   }
 };
 
-const updateStatus = (api: AxiosInstance, word: string, yes: boolean, times: number) =>
-  api.put<C004Response>(C004_URL(GROUP_ID, word), {
+const updateStatus = async (api: AxiosInstance, word: string, yes: boolean, times: number) =>
+  await api.put<C004Response>(C004_URL(GROUP_ID, word), {
     correct: yes,
     times,
   } as C004Request);
