@@ -60,6 +60,9 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
       return;
     }
 
+    // 0.1秒待ち
+    await sleep(100);
+
     // 新規の場合
     if (mode === MODES.New) {
       const res = await api.get<C006Response>(C006_URL(GROUP_ID));
@@ -77,6 +80,8 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
     dispatch(startNew.failure(error));
   }
 };
+
+const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
 const updateStatus = async (api: AxiosInstance, word: string, yes: boolean, times: number) =>
   await api.put<C004Response>(C004_URL(GROUP_ID, word), {
