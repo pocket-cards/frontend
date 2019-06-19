@@ -3,9 +3,8 @@ import { B0_04_REQUEST, B0_04_SUCCESS, B0_04_FAILURE } from '@constants/ActionTy
 import * as startNew from '@actions/study/B001';
 import * as startTest from '@actions/study/B007';
 import { C006_URL, GROUP_ID, C004_URL, MODES, C007_URL } from '@constants/Consts';
-import { C004Response, C004Request, C006Response, C007Response } from 'typings/api';
-import { AxiosInstance } from 'axios';
-import { WordInfo } from '@models';
+import { C004Request, C006Response, C007Response } from 'typings/api';
+import { APIClass } from 'typings/types';
 
 /** テスト回答(YES/NO) */
 export const request: B004RequestAction = dispatch =>
@@ -68,12 +67,12 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
       const res = await api.get<C006Response>(C006_URL(GROUP_ID));
 
       // 新規単語の追加
-      dispatch(startNew.success(res.data.words));
+      dispatch(startNew.success(res.words));
     } else {
       // テストの場合
       const res = await api.get<C007Response>(C007_URL(GROUP_ID));
 
-      dispatch(startTest.success(res.data.words));
+      dispatch(startTest.success(res.words));
     }
   } catch (error) {
     dispatch(failure(error));
@@ -83,10 +82,11 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
 
 const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));
 
-const updateStatus = async (api: AxiosInstance, word: string, yes: boolean, times: number) =>
-  await api.put<C004Response>(C004_URL(GROUP_ID, word), {
+const updateStatus = async (api: APIClass, word: string, yes: boolean, times: number) => {
+  await api.put(C004_URL(GROUP_ID, word), {
     correct: yes,
     times,
   } as C004Request);
+};
 
 export default answer;

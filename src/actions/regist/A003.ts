@@ -25,12 +25,13 @@ export const failure: A003FailureAction = error => dispatch =>
   });
 
 /** 画像アップロード */
+// tslint:disable-next-line: ter-arrow-parens
 const registWords: RegistWordsAction = (words: string[], history?: History<any>) => async (dispatch, _, api) => {
   try {
     // 画像アップロード開始イベント
     dispatch(request);
 
-    await api.post<C001Response>(C001_URL(GROUP_ID), {
+    await api.post(C001_URL(GROUP_ID), {
       words,
     } as C001Request);
 

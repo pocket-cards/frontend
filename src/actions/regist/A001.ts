@@ -27,6 +27,7 @@ export const failure: A001FailureAction = error => dispatch =>
   });
 
 /** 画像アップロード */
+// tslint:disable-next-line: ter-arrow-parens
 const uploadImage: UploadImageAction = (image: string, history?: History<any>) => async (dispatch, _, api) => {
   // 画像アップロード開始イベント
   dispatch(request);
@@ -50,7 +51,7 @@ const uploadImage: UploadImageAction = (image: string, history?: History<any>) =
     } as D001Request);
 
     // データ保存
-    dispatch(success(res.data));
+    dispatch(success(res));
   } catch (err) {
     dispatch(failure(err));
   }

@@ -1,5 +1,6 @@
 // API DOMAIN
 export const API_URL = process.env.API_URL as string;
+export const API_NAME = 'api';
 
 export const C001_URL = (groupId: string) => `/groups/${groupId}/words`;
 export const C004_URL = (groupId: string, word: string) => `/groups/${groupId}/words/${word}`;

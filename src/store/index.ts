@@ -3,12 +3,12 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import rootReducer from '../reducers';
-import api from '@utils/API';
+import * as API from '@utils/API';
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api), logger),
+    applyMiddleware(thunk.withExtraArgument(API), logger),
     // other store enhancers if any
   ),
 );

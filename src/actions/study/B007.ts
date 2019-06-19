@@ -29,6 +29,7 @@ export const failure: B007FailureAction = error => dispatch =>
   });
 
 /** 単語テスト */
+// tslint:disable-next-line: ter-arrow-parens
 const startTest: StartTestAction = (history?: History<any>) => async (dispatch, _, api) => {
   // 既存単語クリア
   dispatch(request);
@@ -40,7 +41,7 @@ const startTest: StartTestAction = (history?: History<any>) => async (dispatch, 
     const res = await api.get<C007Response>(C007_URL(GROUP_ID));
 
     // データ保存
-    dispatch(success(res.data.words));
+    dispatch(success(res.words));
   } catch (err) {
     dispatch(failure(err));
   }
