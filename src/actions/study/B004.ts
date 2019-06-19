@@ -42,6 +42,12 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
     return;
   }
 
+  // 新規学習モードの場合、不正解の場合、更新しない
+  if (mode === MODES.New && !yes) {
+    dispatch(success(yes));
+    return;
+  }
+
   // データなしの場合、処理しない
   if (!current) return;
 
