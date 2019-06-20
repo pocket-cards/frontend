@@ -15,7 +15,15 @@ class Header extends React.Component<Props, any, any> {
     return (
       <AppBar position="static" className={classes.app}>
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+          <IconButton
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Reload"
+            onClick={() => {
+              // window.location.href = '/';
+              window.location.reload(true);
+            }}
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.title}>
