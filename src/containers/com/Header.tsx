@@ -21,7 +21,7 @@ class Header extends React.Component<Props, any, any> {
           <Typography variant="h6" color="inherit" className={classes.title}>
             News
           </Typography>
-          <Button color="inherit">Ver0.03</Button>
+          <Button color="inherit">Ver0.04</Button>
         </Toolbar>
       </AppBar>
     );
