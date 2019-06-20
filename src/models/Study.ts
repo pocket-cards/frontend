@@ -13,6 +13,7 @@ export interface B000UIProps {
 
 export interface B000Props extends B000UIProps {
   words: WordInfo[];
+  history: WordInfo[];
   index: number;
 }
 
@@ -25,6 +26,7 @@ export interface IB000 extends B000Props, Record<B000Props> {
  */
 export default class B000 extends Record<B000Props>({
   words: [],
+  history: [],
   index: 0,
   current: undefined,
   mode: undefined,
@@ -35,11 +37,13 @@ export default class B000 extends Record<B000Props>({
    */
   setWords(mode: string, words: WordInfo[]) {
     // 差分を抽出する
-    const differ = _.differenceBy(words, this.words, 'word');
+    const differ = _.differenceBy(words, this.history, 'word');
     // 足りない単語数を計算する
     const diffNum = PAGE_MAX_WORDS - this.words.length;
+    // 追加する単語
+    const added = differ.splice(0, diffNum);
     // 既存配列と合併する
-    const newArray = _.concat(this.words, differ.splice(0, diffNum));
+    const newArray = _.concat(this.words, added);
 
     // console.log(this.words);
     // console.log(words);
@@ -50,6 +54,7 @@ export default class B000 extends Record<B000Props>({
 
     // モード変わった、或いは、既存データ存在しない
     return this.set('words', newArray)
+      .set('history', _.concat(this.history, added))
       .set('current', this.current ? this.current : newArray[0])
       .set('index', this.index)
       .set('mode', mode);
@@ -93,7 +98,9 @@ export default class B000 extends Record<B000Props>({
 
   /** 既存単語をクリアする */
   clear() {
-    return this.set('words', []).set('current', undefined);
+    return this.set('words', [])
+      .set('history', [])
+      .set('current', undefined);
   }
 
   /** 取込中 */

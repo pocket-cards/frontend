@@ -23,11 +23,12 @@ class Header extends React.Component<Props, any, any> {
               onClick={() => {
                 window.location.reload(true);
               }}
+              className={classes.button}
             >
               Reload
             </Button>
           </Typography>
-          <Button color="inherit">Ver0.04</Button>
+          <Button color="inherit">Ver0.05</Button>
         </Toolbar>
       </AppBar>
     );
@@ -47,6 +48,9 @@ const styles: StyleRulesCallback = () => ({
   },
   title: {
     flexGrow: 1,
+  },
+  button: {
+    color: 'white',
   },
 });
 
