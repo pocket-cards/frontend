@@ -1,17 +1,20 @@
 import * as React from 'react';
 import { RouteComponentProps, Switch, Route } from 'react-router-dom';
 import { WithStyles, StyleRules, withStyles } from '@material-ui/core/styles';
-import { StudyInit } from '@containers/body/study';
+import { MypageInit } from '@containers/body/mypage';
+
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 class C000 extends React.Component<Props, any, any> {
   render() {
     const { match, children } = this.props;
 
+    console.log(match, ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]);
     return (
       <React.Fragment>
         <Switch>
-          <Route path={`${match.path}`} exact component={StudyInit} />
-          {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]} component={StudyCards} /> */}
+          <Route path={`${match.path}`} exact component={MypageInit} />
+          {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} component={MypageInit} /> */}
           {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyFinish]} component={StudyFinish} /> */}
         </Switch>
         <Route children={children} />

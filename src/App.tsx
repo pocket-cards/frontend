@@ -3,14 +3,14 @@ import { Footer, Header } from '@containers/com';
 import { Switch, Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Grid, StyleRulesCallback, Theme, WithStyles } from '@material-ui/core';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { RegistMain, StudyMain } from '@containers/body';
+import { RegistMain, StudyMain, MyPageMain } from '@containers/body';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
 class App extends React.Component<Props, any> {
   render() {
-    const { children, classes, match } = this.props;
+    const { children, classes } = this.props;
 
     return (
       <Grid container direction="column" className={classes.container}>
@@ -18,7 +18,7 @@ class App extends React.Component<Props, any> {
         <div className={classes.body}>
           <Switch>
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} component={RegistMain} />
-            <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.History]} component={StudyMain} />
+            <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} component={MyPageMain} />
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} component={StudyMain} />
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} component={StudyMain} />
             <Route component={StudyMain} />

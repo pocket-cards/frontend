@@ -63,3 +63,8 @@ export const B0_06_FAILURE = 'B0_06_FAILURE';
 export const B0_07_REQUEST = 'B0_07_REQUEST';
 export const B0_07_SUCCESS = 'B0_07_SUCCESS';
 export const B0_07_FAILURE = 'B0_07_FAILURE';
+
+/** 学習履歴取得 */
+export const C0_01_REQUEST = 'C0_01_REQUEST';
+export const C0_01_SUCCESS = 'C0_01_SUCCESS';
+export const C0_01_FAILURE = 'C0_01_FAILURE';

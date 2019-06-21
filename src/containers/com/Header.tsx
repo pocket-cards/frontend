@@ -6,6 +6,7 @@ import { AppBar, Toolbar, IconButton, Typography, Button, withStyles } from '@ma
 import { Menu as MenuIcon, Star as StarIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
+import { VERSION } from '@constants/Consts';
 
 class Header extends React.Component<Props, any, any> {
   render() {
@@ -18,17 +19,8 @@ class Header extends React.Component<Props, any, any> {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Reload">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.title}>
-            <Button
-              onClick={() => {
-                window.location.reload(true);
-              }}
-              className={classes.button}
-            >
-              Reload
-            </Button>
-          </Typography>
-          <Button color="inherit">Ver0.05</Button>
+          <Typography variant="h6" color="inherit" className={classes.title} />
+          <Button color="inherit">Ver{VERSION}</Button>
         </Toolbar>
       </AppBar>
     );

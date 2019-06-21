@@ -85,6 +85,7 @@ const start = async () => {
 
   const res = await API.get(API_NAME, '/', {});
 
+  console.log(res);
   if (res && res.version !== VERSION) {
     window.location.reload(true);
     return;
