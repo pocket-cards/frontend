@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps, Switch, Route } from 'react-router-dom';
 import { WithStyles, StyleRules, withStyles } from '@material-ui/core/styles';
-import { MypageInit } from '@containers/body/mypage';
+import { MypageInit, MypageTest } from '@containers/body/mypage';
 
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 

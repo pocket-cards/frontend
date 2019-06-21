@@ -6,6 +6,9 @@
     "valid": "tsc --noEmit"
   },
   "dependencies": {
+    "@devexpress/dx-react-chart": "^1.11.1",
+    "@devexpress/dx-react-chart-material-ui": "^1.11.1",
+    "@devexpress/dx-react-core": "^1.11.1",
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "aws-amplify": "^1.1.29",
