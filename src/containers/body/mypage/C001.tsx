@@ -30,7 +30,7 @@ class C001 extends React.Component<Props, any, any> {
                 今日の学習単語数
               </Typography>
             </CardContent>
-            <CardContent>
+            <CardContent className={classes.content}>
               <Grid container alignItems="center">
                 <Grid item xs>
                   <Typography className={classes.number} color="textPrimary">
@@ -51,7 +51,7 @@ class C001 extends React.Component<Props, any, any> {
                 直近７日の単語数
               </Typography>
             </CardContent>
-            <CardContent>
+            <CardContent className={classes.content}>
               <Grid container alignItems="center">
                 <Grid item xs>
                   <Typography className={classes.number} color="textPrimary">
@@ -74,7 +74,7 @@ class C001 extends React.Component<Props, any, any> {
                 直近３０日の単語数
               </Typography>
             </CardContent>
-            <CardContent>
+            <CardContent className={classes.content}>
               <Grid container alignItems="center">
                 <Grid item xs>
                   <Typography className={classes.number} color="textPrimary">
@@ -95,7 +95,7 @@ class C001 extends React.Component<Props, any, any> {
                 総学習単語数
               </Typography>
             </CardContent>
-            <CardContent>
+            <CardContent className={classes.content}>
               <Grid container alignItems="center">
                 <Grid item xs>
                   <Typography className={classes.number} color="textPrimary">
@@ -123,12 +123,15 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   item: {
     padding: `${unit}px 0px`,
   },
+  content: {
+    padding: `${unit}px ${unit * 2}px`,
+  },
   number: {
-    fontSize: '1.5rem',
+    fontSize: '2rem',
     textAlign: 'center',
   },
   card: {
-    width: '180px',
+    width: '170px',
     height: '120px',
     margin: unit,
   },
