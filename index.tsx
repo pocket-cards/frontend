@@ -8,7 +8,7 @@ import { register } from './src/serviceWorker';
 import theme from './src/Theme';
 import { MuiThemeProvider } from '@material-ui/core';
 import Amplify, { API, Auth, Analytics } from 'aws-amplify';
-import { GROUP_ID, C006_URL, API_NAME, API_URL } from '@constants/Consts';
+import { API_NAME, API_URL, VERSION } from '@constants/Consts';
 
 // 分析禁止
 Analytics.disable();
@@ -16,16 +16,16 @@ Analytics.disable();
 Amplify.configure({
   Auth: {
     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-    identityPoolId: 'ap-northeast-1:af0c0560-0919-4c0e-8783-3e391475df79',
+    identityPoolId: 'ap-northeast-1:160ba17c-fdac-49e1-86a4-75e56f91b236',
 
     // REQUIRED - Amazon Cognito Region
     region: 'ap-northeast-1',
 
     // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolId: 'ap-northeast-1_LuLeXoUA1',
+    userPoolId: 'ap-northeast-1_q9kfLmVsP',
 
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: '15s1vvvj342mgioro8obb8800c',
+    userPoolWebClientId: 'q1ptf41ce6jqeraamhsqhdd43',
 
     // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
     mandatorySignIn: false,
@@ -76,14 +76,19 @@ const start = async () => {
   //   },
   // });
 
-  // const result = await Auth.confirmSignUp('wwalpha', '369899');
+  // const result = await Auth.confirmSignUp('wwalpha', '745771');
 
   await Auth.signIn({
     username: 'wwalpha',
     password: 'session10',
   });
 
-  // const res = await API.get('api', C006_URL(GROUP_ID), {});
+  const res = await API.get(API_NAME, '/', {});
+
+  if (res && res.version !== VERSION) {
+    window.location.reload(true);
+    return;
+  }
 
   render(provider, root);
 
