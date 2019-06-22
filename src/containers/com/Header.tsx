@@ -10,8 +10,13 @@ import { VERSION } from '@constants/Consts';
 
 class Header extends React.Component<Props, any, any> {
   render() {
-    const { actions, classes } = this.props;
+    const { actions, classes, showHeader } = this.props;
     if (!actions) return;
+
+    // ヘッダ非表示
+    if (!showHeader) {
+      return <React.Fragment />;
+    }
 
     return (
       <AppBar position="static" className={classes.app}>
@@ -27,7 +32,9 @@ class Header extends React.Component<Props, any, any> {
   }
 }
 
-const mapStateToProps = (state: IState) => ({});
+const mapStateToProps = (state: IState) => ({
+  showHeader: state.get('App').get('showHeader'),
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(AppActions, dispatch),
@@ -59,4 +66,5 @@ export interface StateFromProps {
 /** Properties */
 export interface Props extends StateFromProps, WithStyles<StyleRulesCallback> {
   actions?: AppActions.Actions;
+  showHeader?: boolean;
 }

@@ -7,15 +7,23 @@ import { RegistMain, StudyMain, MyPageMain } from '@containers/body';
 import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { IState } from '@models';
 
 class App extends React.Component<Props, any> {
   render() {
-    const { children, classes } = this.props;
+    const { children, classes, showHeader } = this.props;
 
     return (
       <Grid container direction="column" className={classes.container}>
         <Header />
-        <div className={classes.body}>
+        <div
+          className={classes.body}
+          style={{
+            minHeight: showHeader ? 'calc(100vh - 136px)' : '100vh',
+            maxHeight: showHeader ? 'calc(100vh - 136px)' : '100vh',
+            height: showHeader ? 'calc(100vh - 136px)' : '100vh',
+          }}
+        >
           <Switch>
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} component={RegistMain} />
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} component={MyPageMain} />
@@ -36,9 +44,6 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
     // minHeight: 'calc(100vh - 112px)',
   },
   body: {
-    minHeight: 'calc(100vh - 136px)',
-    maxHeight: 'calc(100vh - 136px)',
-    height: 'calc(100vh - 136px)',
     backgroundColor: 'whitesmoke',
     position: 'relative',
     overflowY: 'auto',
@@ -51,7 +56,9 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
   },
 });
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state: IState) => ({
+  showHeader: state.get('App').get('showHeader'),
+});
 
 export default compose(
   withRouter,
@@ -60,4 +67,6 @@ export default compose(
 )(App) as any;
 
 /** Properties */
-export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<any> {}
+export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<any> {
+  showHeader?: boolean;
+}

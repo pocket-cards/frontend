@@ -5,13 +5,28 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { WithStyles, StyleRules, StyleRulesCallback, Theme } from '@material-ui/core/styles';
 import { withStyles, Grid } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
+import * as AppActions from '@actions/app';
+
 import Button from '@components/buttons/Button';
 
 /** 単語カメラ画面 */
 class B001 extends React.Component<Props, any, any> {
-  handleNew = () => this.props.actions.startNew(this.props.history);
-  handleReview = () => this.props.actions.startReview(this.props.history);
-  handleTest = () => this.props.actions.startTest(this.props.history);
+  handleNew = () => {
+    this.props.appActions.showHeader(false);
+    this.props.appActions.showFooter(false);
+    this.props.actions.startNew(this.props.history);
+  }
+
+  handleReview = () => {
+    this.props.appActions.showHeader(false);
+    this.props.appActions.showFooter(false);
+    this.props.actions.startReview(this.props.history);
+  }
+  handleTest = () => {
+    this.props.appActions.showHeader(false);
+    this.props.appActions.showFooter(false);
+    this.props.actions.startTest(this.props.history);
+  }
 
   render() {
     const { classes } = this.props;
@@ -60,6 +75,7 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
 /** Props */
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(StudyActions, dispatch),
+  appActions: bindActionCreators(AppActions, dispatch),
 });
 
 export default compose(
@@ -74,4 +90,5 @@ export default compose(
 /** Properties */
 export interface Props extends WithStyles<StyleRules>, RouteComponentProps<{}> {
   actions: StudyActions.Actions;
+  appActions: AppActions.Actions;
 }

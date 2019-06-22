@@ -1,14 +1,16 @@
 import * as React from 'react';
 import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 import { WithStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
 import { withStyles, Grid, Card, CardContent, Typography, Fab, IconButton } from '@material-ui/core';
-import { Replay as ReplayIcon } from '@material-ui/icons';
+import { Replay as ReplayIcon, Clear as ClearIcon, KeyboardArrowLeft as ArrowLeftIcon } from '@material-ui/icons';
 import * as StudyActions from '@actions/study';
+import * as AppActions from '@actions/app';
 import { IState, WordInfo } from '@models';
 import { MODES } from '@constants/Consts';
 import Loading from '@components/Loading';
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 単語カメラ画面 */
 class B002 extends React.Component<Props, StateProps, any> {
@@ -38,6 +40,16 @@ class B002 extends React.Component<Props, StateProps, any> {
     this.setState({ showText: false });
 
     setTimeout(() => this.play(), 100);
+  }
+
+  handleBack = () => {
+    const { appActions, history } = this.props;
+
+    // ヘッダ、フット表示する
+    appActions.showHeader(true);
+    appActions.showFooter(true);
+    // 画面遷移
+    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]);
   }
 
   getButtons = (mode: string, classes: any, word?: WordInfo) => {
@@ -106,50 +118,57 @@ class B002 extends React.Component<Props, StateProps, any> {
     const { classes, word, mode, isLoading } = this.props;
     const { showText } = this.state;
 
-    // Loading中
-    if (isLoading) {
-      return <Loading />;
-    }
-
     return (
       <Grid container direction="column" className={classes.container}>
         <Grid container justify="flex-end" alignItems="center" className={classes.menubar}>
-          <Grid item>
+          <Grid item xs>
+            <IconButton className={classes.iconButton} onClick={this.handleBack} disableRipple disableTouchRipple>
+              <ArrowLeftIcon className={classes.icon} />
+            </IconButton>
+          </Grid>
+          <Grid item xs={2}>
             <IconButton className={classes.iconButton} onClick={this.play} disableRipple disableTouchRipple>
               <ReplayIcon className={classes.icon} />
             </IconButton>
           </Grid>
         </Grid>
         {(() => {
+          // Loading中
+          if (isLoading) {
+            return <Loading className={classes.loading} />;
+          }
+
           if (!word) {
             return <div>学習できる単語がありません</div>;
           }
 
           return (
-            <Grid container alignItems="center" justify="center" className={classes.top}>
-              <Card className={classes.card}>
-                <audio ref={this.audioRef} src={`/${word.mp3}`} />
-                <CardContent>
-                  <Typography className={classes.title} variant="h4" gutterBottom align="center">
-                    {word.word}
-                  </Typography>
-                  <Typography className={classes.pos} variant="h6" align="center">
-                    {word.pronounce ? `[${word.pronounce}]` : undefined}
-                  </Typography>
-                  <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
-                    {word.vocChn}
-                  </Typography>
-                  <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
-                    {word.vocJpn}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+            <React.Fragment>
+              <Grid container alignItems="center" justify="center" className={classes.top}>
+                <Card className={classes.card}>
+                  <audio ref={this.audioRef} src={`/${word.mp3}`} />
+                  <CardContent>
+                    <Typography className={classes.title} variant="h4" gutterBottom align="center">
+                      {word.word}
+                    </Typography>
+                    <Typography className={classes.pos} variant="h6" align="center">
+                      {word.pronounce ? `[${word.pronounce}]` : undefined}
+                    </Typography>
+                    <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
+                      {word.vocChn}
+                    </Typography>
+                    <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
+                      {word.vocJpn}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid container justify="center" alignItems="center" className={classes.bottom}>
+                <Grid item>{this.getButtons(mode, classes, word)}</Grid>
+              </Grid>
+            </React.Fragment>
           );
         })()}
-        <Grid container justify="center" alignItems="center" className={classes.bottom}>
-          <Grid item>{this.getButtons(mode, classes, word)}</Grid>
-        </Grid>
       </Grid>
     );
   }
@@ -158,6 +177,11 @@ class B002 extends React.Component<Props, StateProps, any> {
 const styles: StyleRulesCallback = ({ palette, spacing: { unit } }: Theme) => ({
   container: {
     height: '100%',
+    position: 'relative',
+  },
+  loading: {
+    height: 'calc(100vh - 64px)',
+    marginTop: '64px',
   },
   top: {
     width: '100%',
@@ -166,6 +190,7 @@ const styles: StyleRulesCallback = ({ palette, spacing: { unit } }: Theme) => ({
     paddingTop: unit * 2,
   },
   menubar: {
+    height: unit * 8,
     padding: `0px ${unit * 2}px`,
     backgroundColor: palette.secondary.light,
   },
@@ -176,7 +201,7 @@ const styles: StyleRulesCallback = ({ palette, spacing: { unit } }: Theme) => ({
     },
   },
   icon: {
-    fontSize: unit * 4,
+    fontSize: unit * 5,
     color: 'white',
   },
   bottom: {
@@ -212,6 +237,7 @@ const mapStateToProps = (state: IState) => ({
 /** Actions */
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(StudyActions, dispatch),
+  appActions: bindActionCreators(AppActions, dispatch),
 });
 
 export default compose(
@@ -229,7 +255,8 @@ export interface StateProps {
 /** Properties */
 export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<{}> {
   actions: StudyActions.Actions;
+  appActions: AppActions.Actions;
   word?: WordInfo;
   mode: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 }

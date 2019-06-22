@@ -3,10 +3,15 @@ export const APP_01_REQUEST = 'APP_01_REQUEST';
 export const APP_01_SUCCESS = 'APP_01_SUCCESS';
 export const APP_01_FAILURE = 'APP_01_FAILURE';
 
-/** Study Mode Change */
+/** ヘッダ表示 */
 export const APP_02_REQUEST = 'APP_02_REQUEST';
 export const APP_02_SUCCESS = 'APP_02_SUCCESS';
 export const APP_02_FAILURE = 'APP_02_FAILURE';
+
+/** Footer表示 */
+export const APP_03_REQUEST = 'APP_03_REQUEST';
+export const APP_03_SUCCESS = 'APP_03_SUCCESS';
+export const APP_03_FAILURE = 'APP_03_FAILURE';
 
 /** 単語登録 */
 // export const A000_UPLOAD_IMAGE = 'A000_UPLOAD_IMAGE';

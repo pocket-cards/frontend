@@ -1,8 +1,8 @@
-import { Action, ActionFunction1, ActionFunction0, ActionFunction2 } from 'redux-actions';
+import { Action, ActionFunction1, ActionFunction0 } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
 import { IState } from '@models';
-import { RequestAction, SuccessAction2, FailureAction2, SuccessAction1, APIClass } from 'typings/types';
-import { D001Response, C001Response, A002Response } from 'typings/api';
+import { RequestAction, SuccessAction2, FailureAction2, APIClass } from 'typings/types';
+import { A002Response } from 'typings/api';
 import { C0_01_REQUEST, C0_01_SUCCESS, C0_01_FAILURE } from '@constants/ActionTypes';
 
 export { default as history } from './C001';

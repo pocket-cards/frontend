@@ -18,7 +18,9 @@ class Footer extends React.Component<Props, any, any> {
   }
 
   render() {
-    const { tabIndex, classes } = this.props;
+    const { tabIndex, classes, showHeader } = this.props;
+
+    if (!showHeader) return null;
 
     return (
       <BottomNavigation value={tabIndex} onChange={this.handleChange} className={classes.root}>
@@ -60,7 +62,8 @@ class Footer extends React.Component<Props, any, any> {
 }
 
 const mapStateToProps = (state: IState) => ({
-  tabIndex: state.get('app').get('tabIndex'),
+  tabIndex: state.get('App').get('tabIndex'),
+  showHeader: state.get('App').get('showHeader'),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -93,11 +96,11 @@ export default withRouter(
 );
 
 /** State */
-export interface StateFromProps {
-  tabIndex: number;
-}
+export interface StateFromProps {}
 
 /** Properties */
 export interface Props extends StateFromProps, WithStyles<StyleRules>, RouteComponentProps<any> {
   actions?: AppActions.Actions;
+  tabIndex?: number;
+  showHeader?: boolean;
 }

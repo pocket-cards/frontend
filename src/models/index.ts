@@ -6,7 +6,7 @@ import { IC000 } from './MyPage';
 import { Record } from 'immutable';
 
 export interface State {
-  app: IApp;
+  App: IApp;
   A000: IA000;
   B000: IB000;
   C000: IC000;

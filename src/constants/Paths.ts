@@ -13,9 +13,9 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.RegistInit]: '/regist',
   [ROUTE_PATH_INDEX.RegistList]: '/regist/list',
   [ROUTE_PATH_INDEX.RegistFinish]: '/regist/finish',
-  [ROUTE_PATH_INDEX.StudyInit]: '/study',
-  [ROUTE_PATH_INDEX.StudyCard]: '/study/card',
-  [ROUTE_PATH_INDEX.StudyFinish]: '/study/finish',
+  [ROUTE_PATH_INDEX.StudyInit]: '/home',
+  [ROUTE_PATH_INDEX.StudyCard]: '/home/card',
+  [ROUTE_PATH_INDEX.StudyFinish]: '/home/finish',
   [ROUTE_PATH_INDEX.MyPage]: '/mypage',
   [ROUTE_PATH_INDEX.Settings]: '/settings',
 };
