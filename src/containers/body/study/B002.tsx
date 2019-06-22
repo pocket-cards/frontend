@@ -192,7 +192,7 @@ const styles: StyleRulesCallback = ({ palette, spacing: { unit } }: Theme) => ({
   menubar: {
     height: unit * 8,
     padding: `0px ${unit * 2}px`,
-    backgroundColor: palette.secondary.light,
+    backgroundColor: palette.primary.main,
   },
   iconButton: {
     padding: unit / 2,

@@ -3,6 +3,7 @@ import { WordItem, A002Response } from 'typings/api';
 
 export interface C000UIProps {
   daily: number;
+  dailyNew: number;
   weekly: number;
   monthly: number;
   isLoading: boolean;
@@ -19,6 +20,7 @@ export interface IC000 extends C000Props, Record<C000Props> {
  */
 export default class C000 extends Record<C000Props>({
   daily: 0,
+  dailyNew: 0,
   weekly: 0,
   monthly: 0,
   isLoading: false,
@@ -28,7 +30,8 @@ export default class C000 extends Record<C000Props>({
    */
   setHistory(info: A002Response) {
     // モード変わった、或いは、既存データ存在しない
-    return this.set('daily', info.daily)
+    return this.set('daily', info.daily.total)
+      .set('dailyNew', info.daily.new)
       .set('weekly', info.weekly)
       .set('monthly', info.monthly);
   }
