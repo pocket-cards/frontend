@@ -15,7 +15,7 @@ class C001 extends React.Component<Props, any, any> {
   }
 
   render() {
-    const { classes, daily, dailyNew, weekly, monthly, isLoading } = this.props;
+    const { classes, daily, dailyNew, dailyReview, weekly, monthly, isLoading } = this.props;
     // Loading中
     if (isLoading) {
       return <Loading />;
@@ -27,7 +27,7 @@ class C001 extends React.Component<Props, any, any> {
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary">
-                今日の学習単語数
+                今日の新規単語数
               </Typography>
             </CardContent>
             <CardContent className={classes.content}>
@@ -45,6 +45,29 @@ class C001 extends React.Component<Props, any, any> {
               </Grid>
             </CardContent>
           </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary">
+                今日の復習単語数
+              </Typography>
+            </CardContent>
+            <CardContent className={classes.content}>
+              <Grid container alignItems="center">
+                <Grid item xs>
+                  <Typography className={classes.number} color="textPrimary">
+                    {dailyReview}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography className={classes.title} color="textSecondary">
+                    単語
+                  </Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid container justify="center" className={classes.item}>
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary">
@@ -66,8 +89,6 @@ class C001 extends React.Component<Props, any, any> {
               </Grid>
             </CardContent>
           </Card>
-        </Grid>
-        <Grid container justify="center" className={classes.item}>
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary">
@@ -89,6 +110,8 @@ class C001 extends React.Component<Props, any, any> {
               </Grid>
             </CardContent>
           </Card>
+        </Grid>
+        <Grid container justify="center" className={classes.item}>
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary">
@@ -140,6 +163,7 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
 const mapStateToProps = (state: IState) => ({
   daily: state.get('C000').get('daily'),
   dailyNew: state.get('C000').get('dailyNew'),
+  dailyReview: state.get('C000').get('dailyReview'),
   weekly: state.get('C000').get('weekly'),
   monthly: state.get('C000').get('monthly'),
   isLoading: state.get('C000').get('isLoading'),
@@ -164,6 +188,7 @@ export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentPro
   actions: MyPageActions.Actions;
   daily?: number;
   dailyNew?: number;
+  dailyReview?: number;
   weekly?: number;
   monthly?: number;
   isLoading: boolean;

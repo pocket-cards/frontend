@@ -139,7 +139,11 @@ class B002 extends React.Component<Props, StateProps, any> {
           }
 
           if (!word) {
-            return <div>学習できる単語がありません</div>;
+            return (
+              <Grid container justify="center" alignItems="center" className={classes.bottom}>
+                <Grid item>{this.getButtons(mode, classes, word)}</Grid>
+              </Grid>
+            );
           }
 
           return (
