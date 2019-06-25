@@ -61,7 +61,7 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
     dispatch(success(yes));
 
     // 一定数以上の場合、再取得しない
-    if (b000.words.length > 7) {
+    if (b000.words.length > 5) {
       return;
     }
 

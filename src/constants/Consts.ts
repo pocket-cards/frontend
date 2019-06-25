@@ -24,4 +24,4 @@ export const MODES = {
   Review: '4',
 };
 
-export const PAGE_MAX_WORDS = 10;
+export const PAGE_MAX_WORDS = 7;
