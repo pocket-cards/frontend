@@ -15,7 +15,7 @@ class C001 extends React.Component<Props, any, any> {
   }
 
   render() {
-    const { classes, daily, dailyNew, dailyReview, weekly, monthly, isLoading } = this.props;
+    const { classes, remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly, isLoading } = this.props;
     // Loading中
     if (isLoading) {
       return <Loading />;
@@ -23,6 +23,50 @@ class C001 extends React.Component<Props, any, any> {
 
     return (
       <Grid container justify="center" className={classes.root}>
+        <Grid container justify="center" className={classes.item}>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary">
+                今日の残単語数
+              </Typography>
+            </CardContent>
+            <CardContent className={classes.content}>
+              <Grid container alignItems="center">
+                <Grid item xs>
+                  <Typography className={classes.number} color="textPrimary">
+                    {remainingTest}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography className={classes.title} color="textSecondary">
+                    単語
+                  </Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary">
+                今日の残復習単語数
+              </Typography>
+            </CardContent>
+            <CardContent className={classes.content}>
+              <Grid container alignItems="center">
+                <Grid item xs>
+                  <Typography className={classes.number} color="textPrimary">
+                    {remainingReview}
+                  </Typography>
+                </Grid>
+                <Grid item xs={3}>
+                  <Typography className={classes.title} color="textSecondary">
+                    単語
+                  </Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
         <Grid container justify="center" className={classes.item}>
           <Card className={classes.card}>
             <CardContent>
@@ -161,6 +205,8 @@ const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
 });
 
 const mapStateToProps = (state: IState) => ({
+  remainingTest: state.get('C000').get('remainingTest'),
+  remainingReview: state.get('C000').get('remainingReview'),
   daily: state.get('C000').get('daily'),
   dailyNew: state.get('C000').get('dailyNew'),
   dailyReview: state.get('C000').get('dailyReview'),
@@ -186,6 +232,8 @@ export default compose(
 /** Properties */
 export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<{}> {
   actions: MyPageActions.Actions;
+  remainingTest?: number;
+  remainingReview?: number;
   daily?: number;
   dailyNew?: number;
   dailyReview?: number;
