@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { RouteComponentProps, Switch, Route } from 'react-router-dom';
 import { WithStyles, StyleRules, withStyles } from '@material-ui/core/styles';
-import { StudyCards, StudyInit } from '@containers/body/study';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { SettingsInit } from '@containers/body/settings';
+// import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 class D000 extends React.Component<Props, any, any> {
   render() {
@@ -11,7 +11,7 @@ class D000 extends React.Component<Props, any, any> {
     return (
       <React.Fragment>
         <Switch>
-          <Route path={`${match.path}`} exact component={StudyInit} />
+          <Route path={`${match.path}`} exact component={SettingsInit} />
           {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]} component={StudyCards} /> */}
           {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyFinish]} component={StudyFinish} /> */}
         </Switch>
