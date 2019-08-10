@@ -15,7 +15,7 @@ phases:
       - yarn install
   build:
     commands:
-      - webpack --config configs/webpack/webpack.prod.ts
+      - yarn build:prod
   post_build:
     commands:
       - cd $CODEBUILD_SRC_DIR/build

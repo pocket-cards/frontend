@@ -3,6 +3,7 @@
     "dev": "cross-env API_URL=http://127.0.0.1:3000 ts-node configs/server.ts",
     "prod": "cross-env API_URL=https://api.aws-handson.com/cards ts-node configs/server.ts",
     "build": "cross-env API_URL=https://api.aws-handson.com/cards webpack --config configs/webpack/webpack.prod.ts",
+    "build:prod": "webpack --config configs/webpack/webpack.prod.ts",
     "valid": "tsc --noEmit"
   },
   "dependencies": {
