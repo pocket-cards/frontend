@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  # install:
+  #   commands:
+  #     - apt-get update -y
+  #     - apt-get -y install language-pack-ja-base language-pack-ja locales
+  #     - locale
+  pre_build:
+    commands:
+      - export LC_ALL="ja_JP.UTF-8"
+      - locale-gen ja_JP ja_JP.UTF-8
+      - dpkg-reconfigure locales
+      - locale
+      - cd $CODEBUILD_SRC_DIR_source
+      - npm install
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - cd $CODEBUILD_SRC_DIR_source/build
+      - aws s3 cp . s3://$BUCKET_WEB/ --recursive
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths '/*'
+artifacts:
+  files:
+    - '**/*'
+  base-directory: $CODEBUILD_SRC_DIR_source/build
