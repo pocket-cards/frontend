@@ -6,21 +6,22 @@ phases:
       nodejs: 10
   pre_build:
     commands:
-      - export LC_ALL="ja_JP.UTF-8"
-      - locale-gen ja_JP ja_JP.UTF-8
-      - dpkg-reconfigure locales
-      - locale
-      - cd $CODEBUILD_SRC_DIR_source
-      - npm install
+      # - export LC_ALL="ja_JP.UTF-8"
+      # - locale-gen ja_JP ja_JP.UTF-8
+      # - dpkg-reconfigure locales
+      # - locale
+      # - cd $CODEBUILD_SRC_DIR_source
+      - npm i -g yarn
+      - yarn install
   build:
     commands:
-      - npm run build
+      - webpack --config configs/webpack/webpack.prod.ts
   post_build:
     commands:
-      - cd $CODEBUILD_SRC_DIR_source/build
+      - cd build
       - aws s3 cp . s3://$BUCKET_WEB/ --recursive
       - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths '/*'
 artifacts:
   files:
     - '**/*'
-  base-directory: $CODEBUILD_SRC_DIR_source/build
+  base-directory: build
