@@ -18,10 +18,10 @@ phases:
       - webpack --config configs/webpack/webpack.prod.ts
   post_build:
     commands:
-      - cd build
+      - cd $CODEBUILD_SRC_DIR/build
       - aws s3 cp . s3://$BUCKET_WEB/ --recursive
       - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths '/*'
 artifacts:
   files:
     - '**/*'
-  base-directory: build
+  base-directory: $CODEBUILD_SRC_DIR/build
