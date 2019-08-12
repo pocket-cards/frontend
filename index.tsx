@@ -16,16 +16,16 @@ Analytics.disable();
 Amplify.configure({
   Auth: {
     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-    identityPoolId: 'ap-northeast-1:160ba17c-fdac-49e1-86a4-75e56f91b236',
+    identityPoolId: 'ap-northeast-1:6ca58061-e970-4a07-acb1-a057132d1539',
 
     // REQUIRED - Amazon Cognito Region
     region: 'ap-northeast-1',
 
     // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolId: 'ap-northeast-1_q9kfLmVsP',
+    userPoolId: 'ap-northeast-1_wnNV2siiL',
 
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: 'q1ptf41ce6jqeraamhsqhdd43',
+    userPoolWebClientId: 'eru8m76gpei5anmhf7027etv7',
 
     // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
     mandatorySignIn: false,
@@ -76,7 +76,7 @@ const start = async () => {
   //   },
   // });
 
-  // const result = await Auth.confirmSignUp('wwalpha', '745771');
+  // const result = await Auth.confirmSignUp('wwalpha', '215225');
 
   await Auth.signIn({
     username: 'wwalpha',
