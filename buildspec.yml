@@ -28,4 +28,4 @@ artifacts:
   base-directory: $CODEBUILD_SRC_DIR/build
 cache:
   paths:
-    - $CODEBUILD_SRC_DIR/node_modules/**/*
+    - 'node_modules/**/*'
