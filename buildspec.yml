@@ -11,6 +11,9 @@ phases:
       # - dpkg-reconfigure locales
       # - locale
       # - cd $CODEBUILD_SRC_DIR_source
+      - ls
+      - cd node_modules
+      - ls
       - npm i -g yarn
       - yarn install
   build:
@@ -28,3 +31,4 @@ artifacts:
 cache:
   paths:
     - 'node_modules/**/*'
+    - yarn.lock
