@@ -29,6 +29,18 @@ const configs: Configuration = {
         test: /\.(tsx|ts)$/,
         exclude: /node_modules/,
         use: [
+          // {
+          //   loader: 'thread-loader',
+          //   options: {
+          //     workers: 2,
+          //     workerParallelJobs: 50,
+          //     workerNodeArgs: ['--max-old-space-size=1024'],
+          //     poolRespawn: false,
+          //     poolTimeout: 2000,
+          //     poolParallelJobs: 50,
+          //     name: 'my-pool',
+          //   },
+          // },
           {
             loader: 'babel-loader',
             options: {
@@ -51,6 +63,7 @@ const configs: Configuration = {
     new EnvironmentPlugin(['API_URL']),
     new HappyPack({
       loaders: ['babel-loader', 'ts-loader'],
+      threads: 10,
     }),
     new NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
