@@ -6,14 +6,6 @@ phases:
       nodejs: 10
   pre_build:
     commands:
-      # - export LC_ALL="ja_JP.UTF-8"
-      # - locale-gen ja_JP ja_JP.UTF-8
-      # - dpkg-reconfigure locales
-      # - locale
-      # - cd $CODEBUILD_SRC_DIR_source
-      - ls
-      - cd node_modules
-      - ls
       - npm i -g yarn
       - yarn install
   build:
