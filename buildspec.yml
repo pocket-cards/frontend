@@ -22,5 +22,4 @@ artifacts:
   base-directory: $CODEBUILD_SRC_DIR/build
 cache:
   paths:
-    # - 'node_modules/**/*'
     - yarn.lock

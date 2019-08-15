@@ -60,7 +60,7 @@ const configs: Configuration = {
     ],
   },
   plugins: [
-    new EnvironmentPlugin(['API_URL']),
+    new EnvironmentPlugin(['API_URL', 'AWS_DEFAULT_REGION', 'IDENTITY_POOL_ID', 'USER_POOL_ID', 'USER_POOL_WEB_CLIENT_ID']),
     new HappyPack({
       loaders: ['babel-loader', 'ts-loader'],
       threads: 10,

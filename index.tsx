@@ -13,19 +13,21 @@ import { API_NAME, API_URL, VERSION } from '@constants/Consts';
 // 分析禁止
 Analytics.disable();
 
+console.log(process.env);
+
 Amplify.configure({
   Auth: {
     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-    identityPoolId: 'ap-northeast-1:6ca58061-e970-4a07-acb1-a057132d1539',
+    identityPoolId: process.env.IDENTITY_POOL_ID,
 
     // REQUIRED - Amazon Cognito Region
-    region: 'ap-northeast-1',
+    region: process.env.AWS_DEFAULT_REGION,
 
     // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolId: 'ap-northeast-1_wnNV2siiL',
+    userPoolId: process.env.USER_POOL_ID,
 
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: 'eru8m76gpei5anmhf7027etv7',
+    userPoolWebClientId: process.env.USER_POOL_WEB_CLIENT_ID,
 
     // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
     mandatorySignIn: false,
@@ -49,7 +51,7 @@ Amplify.configure({
       {
         name: API_NAME,
         endpoint: API_URL,
-        region: 'ap-northeast-1',
+        region: process.env.AWS_DEFAULT_REGION,
       },
     ],
   },

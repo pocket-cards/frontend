@@ -3,8 +3,8 @@ import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 import { WithStyles, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import { withStyles, Grid, Card, CardContent, Typography, Fab, IconButton } from '@material-ui/core';
-import { Replay as ReplayIcon, Clear as ClearIcon, KeyboardArrowLeft as ArrowLeftIcon } from '@material-ui/icons';
+import { withStyles, Grid, Card, CardContent, Typography, Fab, IconButton, CardHeader, TextField } from '@material-ui/core';
+import { Replay as ReplayIcon, Edit as EditIcon, KeyboardArrowLeft as ArrowLeftIcon, Done as DoneIcon } from '@material-ui/icons';
 import * as StudyActions from '@actions/study';
 import * as AppActions from '@actions/app';
 import { IState, WordInfo } from '@models';
@@ -16,15 +16,20 @@ import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 class B002 extends React.Component<Props, StateProps, any> {
   state = {
     showText: false,
+    edit: false,
   };
 
   /** 音声Tag */
   private audioRef: React.RefObject<HTMLAudioElement>;
+  private zhRef: React.RefObject<HTMLInputElement>;
+  private jaRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: Readonly<Props>) {
     super(props);
 
     this.audioRef = React.createRef<HTMLAudioElement>();
+    this.zhRef = React.createRef<HTMLInputElement>();
+    this.jaRef = React.createRef<HTMLInputElement>();
   }
 
   handleTouchStart = () => this.setState({ showText: true });
@@ -114,6 +119,24 @@ class B002 extends React.Component<Props, StateProps, any> {
     audio && audio.play();
   }
 
+  setEdit = () => {
+    const { word } = this.props;
+
+    try {
+      if (!word || !this.zhRef.current || !this.jaRef.current) {
+        return;
+      }
+
+      const isChanged = this.zhRef.current.value !== word.vocChn || this.jaRef.current.value !== word.vocJpn;
+
+      if (isChanged) {
+        console.log('do some actions');
+      }
+    } finally {
+      this.setState({ edit: !this.state.edit });
+    }
+  }
+
   render() {
     const { classes, word, mode, isLoading } = this.props;
     const { showText } = this.state;
@@ -151,19 +174,41 @@ class B002 extends React.Component<Props, StateProps, any> {
               <Grid container alignItems="center" justify="center" className={classes.top}>
                 <Card className={classes.card}>
                   <audio ref={this.audioRef} src={`/${word.mp3}`} />
-                  <CardContent>
-                    <Typography className={classes.title} variant="h4" gutterBottom align="center">
+                  <CardHeader
+                    className={classes.header}
+                    action={
+                      <IconButton aria-label="Settings" onClick={this.setEdit}>
+                        {(() => {
+                          return this.state.edit ? <DoneIcon color="secondary" /> : <EditIcon color="secondary" />;
+                        })()}
+                      </IconButton>
+                    }
+                  />
+                  <CardContent className={classes.content}>
+                    <Typography variant="h4" gutterBottom align="center">
                       {word.word}
                     </Typography>
                     <Typography className={classes.pos} variant="h6" align="center">
                       {word.pronounce ? `[${word.pronounce}]` : undefined}
                     </Typography>
-                    <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
-                      {word.vocChn}
-                    </Typography>
-                    <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
-                      {word.vocJpn}
-                    </Typography>
+                    {(() => {
+                      return this.state.edit ? (
+                        <TextField inputRef={this.zhRef} label="中国語" className={classes.textField} value={word.vocChn} margin="normal" variant="outlined" />
+                      ) : (
+                        <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
+                          {word.vocChn}
+                        </Typography>
+                      );
+                    })()}
+                    {(() => {
+                      return this.state.edit ? (
+                        <TextField inputRef={this.jaRef} label="日本語" className={classes.textField} value={word.vocJpn} margin="normal" variant="outlined" />
+                      ) : (
+                        <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
+                          {word.vocJpn}
+                        </Typography>
+                      );
+                    })()}
                   </CardContent>
                 </Card>
               </Grid>
@@ -187,6 +232,8 @@ const styles: StyleRulesCallback = ({ palette, spacing: { unit } }: Theme) => ({
     height: 'calc(100vh - 64px)',
     marginTop: '64px',
   },
+  header: { padding: `${unit}px ${unit * 2}px` },
+  content: { textAlign: 'center' },
   top: {
     width: '100%',
     height: '380px',
@@ -226,9 +273,6 @@ const styles: StyleRulesCallback = ({ palette, spacing: { unit } }: Theme) => ({
     boxShadow: 'none',
     backgroundColor: 'transparent',
   },
-  title: {
-    paddingTop: unit * 8,
-  },
 });
 
 /** Props */
@@ -255,6 +299,7 @@ export default compose(
 
 export interface StateProps {
   showText: boolean;
+  edit: boolean;
 }
 /** Properties */
 export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<{}> {
