@@ -2,8 +2,7 @@ import * as React from 'react';
 import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { WithStyles, StyleRulesCallback, Theme } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/core';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
 import { IState } from '@models';
@@ -23,6 +22,7 @@ class C002 extends React.Component<Props, any, any> {
       return <Loading />;
     }
 
+    const classes = styles();
     const data = [{ year: '2000', words: 6 }, { year: '2010', words: 50 }];
 
     return (
@@ -37,26 +37,28 @@ class C002 extends React.Component<Props, any, any> {
   }
 }
 
-const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
-  root: {
-    padding: `${unit * 2}px 0px`,
-  },
-  item: {
-    padding: `${unit}px 0px`,
-  },
-  content: {
-    padding: `${unit}px ${unit * 2}px`,
-  },
-  number: {
-    fontSize: '2rem',
-    textAlign: 'center',
-  },
-  card: {
-    width: '170px',
-    height: '120px',
-    margin: unit,
-  },
-});
+const styles = makeStyles(({ spacing }: Theme) =>
+  createStyles({
+    root: {
+      padding: `${spacing(2)}px 0px`,
+    },
+    item: {
+      padding: `${spacing()}px 0px`,
+    },
+    content: {
+      padding: `${spacing()}px ${spacing(2)}px`,
+    },
+    number: {
+      fontSize: '2rem',
+      textAlign: 'center',
+    },
+    card: {
+      width: '170px',
+      height: '120px',
+      margin: spacing(),
+    },
+  }),
+);
 
 const mapStateToProps = (state: IState) => ({
   daily: state.get('C000').get('daily'),
@@ -72,7 +74,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 export default compose(
   withRouter,
-  withStyles(styles),
   connect(
     mapStateToProps,
     mapDispatchToProps,
@@ -80,7 +81,7 @@ export default compose(
 )(C002) as any;
 
 /** Properties */
-export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<{}> {
+export interface Props extends RouteComponentProps<{}> {
   actions: MyPageActions.Actions;
   daily?: number;
   weekly?: number;

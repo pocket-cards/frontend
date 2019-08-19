@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "ts-node -r dotenv/config configs/server.ts dotenv_config_path=./configs/env/dev",
-    "prod": "cross-env API_URL=https://api.dev.aws-handson.com ts-node configs/server.ts",
+    "prod": "ts-node -r dotenv/config configs/server.ts dotenv_config_path=./configs/env/prod",
     "build": "cross-env API_URL=https://api.dev.aws-handson.com webpack --config configs/webpack/webpack.prod.ts",
     "build:prod": "webpack --config configs/webpack/webpack.prod.ts",
     "valid": "tsc --noEmit"

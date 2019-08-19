@@ -3,3 +3,4 @@
 /dist
 /build
 /configs/env/dev
+/configs/env/prod

@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { WithStyles, StyleRules, Theme, StyleRulesCallback } from '@material-ui/core/styles';
-import { withStyles, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton, Grid, Button, Avatar, ListItemIcon, Divider } from '@material-ui/core';
-import { Edit as EditIcon, Delete as DeleteIcon, Star as StartIcon } from '@material-ui/icons';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, Grid, Button, ListItemIcon, Divider } from '@material-ui/core';
+import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as RegistActions from '@actions/regist';
 import Loading from '@components/Loading';
@@ -31,7 +31,8 @@ class A002 extends React.Component<Props, any, any> {
   }
 
   render() {
-    const { classes, words, isLoading } = this.props;
+    const { words, isLoading } = this.props;
+    const classes = styles();
 
     // 単語データなし
     if (!isLoading && words.length === 0) {
@@ -44,7 +45,7 @@ class A002 extends React.Component<Props, any, any> {
       <Grid container direction="column" wrap="nowrap" className={classes.container}>
         {(() => (isLoading ? <Loading /> : undefined))()}
         <Grid item xs={12} className={classes.root}>
-          <List className={classes.list}>
+          <List>
             {words.map(value => (
               <React.Fragment>
                 <ListItem
@@ -107,55 +108,56 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 /** Styles */
-const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }: Theme) => ({
-  container: {
-    position: 'relative',
-  },
-  root: {
-    paddingLeft: unit,
-    paddingRight: unit * 2,
-  },
-  item: {
-    height: unit * 6,
-  },
-  itemIcon: {
-    marginRight: unit,
-  },
-  itemTextRoot: {
-    padding: '0px 16px 0px 8px',
-    fontSize: '1.5rem',
-  },
-  secondaryAction: {
-    paddingRight: unit * 6,
-  },
-  action: {
-    marginRight: unit * 1.5,
-    marginTop: unit / 2,
-  },
-  bottom: {
-    margin: unit * 2,
-    textAlign: 'right',
-    position: 'relative',
-  },
-  button: {
-    width: unit * 15,
-    position: 'absolute',
-    bottom: '0px',
-    right: '0px',
-    '&:hover': {
-      backgroundColor: primary.main,
+const styles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
+  createStyles({
+    container: {
+      position: 'relative',
     },
-  },
-  icon: {
-    '&:hover': {
-      cursor: 'pointer',
+    root: {
+      paddingLeft: spacing(),
+      paddingRight: spacing(2),
     },
-  },
-});
+    item: {
+      height: spacing(6),
+    },
+    itemIcon: {
+      marginRight: spacing(),
+    },
+    itemTextRoot: {
+      padding: '0px 16px 0px 8px',
+      fontSize: '1.5rem',
+    },
+    secondaryAction: {
+      paddingRight: spacing(6),
+    },
+    action: {
+      marginRight: spacing(1.5),
+      marginTop: spacing(0.5),
+    },
+    bottom: {
+      margin: spacing(2),
+      textAlign: 'right',
+      position: 'relative',
+    },
+    button: {
+      width: spacing(15),
+      position: 'absolute',
+      bottom: '0px',
+      right: '0px',
+      '&:hover': {
+        backgroundColor: primary.main,
+      },
+    },
+    icon: {
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    },
+  }),
+);
 
 export default compose(
   withRouter,
-  withStyles(styles),
   connect<StateFromProps, void, void, IState>(
     mapStateToProps,
     mapDispatchToProps,
@@ -168,7 +170,7 @@ export interface StateFromProps {
 }
 
 /** Properties */
-export interface Props extends StateFromProps, WithStyles<StyleRules>, RouteComponentProps<{}> {
+export interface Props extends StateFromProps, RouteComponentProps<{}> {
   actions: RegistActions.Actions;
   isLoading: boolean;
 }

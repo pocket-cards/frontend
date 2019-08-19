@@ -1,18 +1,18 @@
 import * as React from 'react';
-import { Footer, Header } from '@containers/com';
-import { Switch, Route, RouteComponentProps, withRouter } from 'react-router-dom';
-import { Grid, StyleRulesCallback, Theme, WithStyles } from '@material-ui/core';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { RegistMain, StudyMain, MyPageMain, SettingsMain } from '@containers/body';
-import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { Switch, Route, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { Footer, Header } from '@containers/com';
+import { RegistMain, StudyMain, MyPageMain, SettingsMain } from '@containers/body';
 import { IState } from '@models';
 
 class App extends React.Component<Props, any> {
   render() {
-    const { children, classes, showHeader } = this.props;
-
+    const { children, showHeader } = this.props;
+    const classes = styles();
     return (
       <Grid container direction="column" className={classes.container}>
         <Header />
@@ -39,22 +39,24 @@ class App extends React.Component<Props, any> {
   }
 }
 
-const styles: StyleRulesCallback = ({ spacing: { unit } }: Theme) => ({
-  container: {
-    // minHeight: 'calc(100vh - 112px)',
-  },
-  body: {
-    backgroundColor: 'whitesmoke',
-    position: 'relative',
-    overflowY: 'auto',
-    '&::-webkit-scrollbar': {
-      display: 'none',
+const styles = makeStyles(() =>
+  createStyles({
+    container: {
+      // minHeight: 'calc(100vh - 112px)',
     },
-  },
-  icon: {
-    color: 'white',
-  },
-});
+    body: {
+      backgroundColor: 'whitesmoke',
+      position: 'relative',
+      overflowY: 'auto',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+      },
+    },
+    icon: {
+      color: 'white',
+    },
+  }),
+);
 
 const mapStateToProps = (state: IState) => ({
   showHeader: state.get('App').get('showHeader'),
@@ -63,10 +65,9 @@ const mapStateToProps = (state: IState) => ({
 export default compose(
   withRouter,
   connect(mapStateToProps),
-  withStyles(styles),
 )(App) as any;
 
 /** Properties */
-export interface Props extends WithStyles<StyleRulesCallback>, RouteComponentProps<any> {
+export interface Props extends RouteComponentProps<any> {
   showHeader?: boolean;
 }

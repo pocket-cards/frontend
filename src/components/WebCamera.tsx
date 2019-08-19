@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Fab, Grid, withStyles } from '@material-ui/core';
+import { Fab, Grid } from '@material-ui/core';
 import { Camera as CameraIcon } from '@material-ui/icons';
-import { StyleRules, WithStyles, StyleRulesCallback } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 const isNotSupport = () => navigator.mediaDevices === undefined || navigator.mediaDevices.getUserMedia === undefined;
 
@@ -127,9 +127,9 @@ class WebCamera extends React.Component<Props, State, any> {
 
   render() {
     const { onAir } = this.state;
-    const { classes } = this.props;
-
+    const classes = styles();
     const isShow = onAir ? '' : 'none';
+
     return (
       <Grid container alignItems="center" direction="column">
         <video className={classes.video} muted autoPlay playsInline style={{ display: isShow }} />
@@ -155,16 +155,18 @@ class WebCamera extends React.Component<Props, State, any> {
   }
 }
 
-const styles: StyleRulesCallback = () => ({
-  video: {
-    width: '100%',
-    height: '450px',
-  },
-});
+const styles = makeStyles(() =>
+  createStyles({
+    video: {
+      width: '100%',
+      height: '450px',
+    },
+  }),
+);
 
-export default withStyles(styles)(WebCamera);
+export default WebCamera;
 
-export interface Props extends WithStyles<StyleRulesCallback> {
+export interface Props {
   onAir?: boolean;
   takePhoto?: (dataUri: string) => void;
   beforeStartCamera?: () => void;

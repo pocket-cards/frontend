@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { bindActionCreators, Dispatch } from 'redux';
 import { Link } from 'react-router-dom';
-import { BottomNavigation, BottomNavigationAction, StyleRulesCallback, Theme, withStyles } from '@material-ui/core';
-import { StyleRules, WithStyles } from '@material-ui/core/styles';
+import { BottomNavigation, BottomNavigationAction, Theme } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Camera as CameraIcon, Home as HomeIcon, Settings as SettingsIcon, Face as FaceIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
@@ -18,7 +18,8 @@ class Footer extends React.Component<Props, any, any> {
   }
 
   render() {
-    const { tabIndex, classes, showHeader } = this.props;
+    const { tabIndex, showHeader } = this.props;
+    const classes = styles();
 
     if (!showHeader) return null;
 
@@ -70,36 +71,38 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(AppActions, dispatch),
 });
 
-const styles: StyleRulesCallback = ({ palette: { primary }, spacing: { unit } }: Theme) => ({
-  root: {
-    bottom: '0',
-    width: '100%',
-    height: unit * 9,
-    backgroundColor: primary.light,
-    alignItems: 'flex-start',
-  },
-  action: {
-    paddingTop: '8px !important',
-    minWidth: 'inherit',
-  },
-  icon: {
-    color: 'white',
-    fontSize: '32px',
-  },
-});
+const styles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
+  createStyles({
+    root: {
+      bottom: '0',
+      width: '100%',
+      height: spacing(9),
+      backgroundColor: primary.light,
+      alignItems: 'flex-start',
+    },
+    action: {
+      paddingTop: '8px !important',
+      minWidth: 'inherit',
+    },
+    icon: {
+      color: 'white',
+      fontSize: '32px',
+    },
+  }),
+);
 
 export default withRouter(
   connect<StateFromProps, void, void, IState>(
     mapStateToProps,
     mapDispatchToProps,
-  )(withStyles(styles)(Footer)),
+  )(Footer),
 );
 
 /** State */
 export interface StateFromProps {}
 
 /** Properties */
-export interface Props extends StateFromProps, WithStyles<StyleRules>, RouteComponentProps<any> {
+export interface Props extends StateFromProps, RouteComponentProps<any> {
   actions?: AppActions.Actions;
   tabIndex?: number;
   showHeader?: boolean;
