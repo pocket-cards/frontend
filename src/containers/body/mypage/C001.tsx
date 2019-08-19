@@ -198,7 +198,7 @@ const styles = ({ spacing }: Theme) => ({
     textAlign: 'center',
   },
   card: {
-    width: '170px',
+    width: '180px',
     height: '120px',
     margin: spacing(),
   },

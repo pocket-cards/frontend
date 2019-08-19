@@ -30,7 +30,9 @@ class Footer extends React.Component<Props, any, any> {
           icon={<HomeIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} {...props} />}
+          component={React.forwardRef((props: any, ref: any) => (
+            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} {...props} />
+          ))}
         />
         <BottomNavigationAction
           className={classes.action}
@@ -38,7 +40,9 @@ class Footer extends React.Component<Props, any, any> {
           icon={<FaceIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} {...props} />}
+          component={React.forwardRef((props: any, ref: any) => (
+            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} {...props} />
+          ))}
         />
         <BottomNavigationAction
           className={classes.action}
@@ -46,7 +50,9 @@ class Footer extends React.Component<Props, any, any> {
           icon={<CameraIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}
+          component={React.forwardRef((props: any, ref: any) => (
+            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />
+          ))}
         />
         <BottomNavigationAction
           className={classes.action}
@@ -54,7 +60,9 @@ class Footer extends React.Component<Props, any, any> {
           icon={<SettingsIcon className={classes.icon} />}
           disableRipple
           disableTouchRipple
-          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} {...props} />}
+          component={React.forwardRef((props: any, ref: any) => (
+            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} {...props} />
+          ))}
         />
       </BottomNavigation>
     );
