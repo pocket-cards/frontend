@@ -1,37 +1,49 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
 import { VERSION } from '@constants/Consts';
 
-class Header extends React.Component<Props, any, any> {
-  render() {
-    const { actions, showHeader } = this.props;
-    if (!actions) return;
+const useStyles = makeStyles({
+  app: {
+    boxShadow: 'none',
+    height: '64px',
+  },
+  title: {
+    flexGrow: 1,
+  },
+  button: {
+    color: 'white',
+  },
+});
 
-    // ヘッダ非表示
-    if (!showHeader) {
-      return <React.Fragment />;
-    }
+const Header = function (props: Props) {
+  const { actions, showHeader } = props;
+  const classes = useStyles();
 
-    const classes = styles();
-    return (
-      <AppBar position="static" className={classes.app}>
-        <Toolbar>
-          <IconButton className={classes.button} color="inherit" aria-label="Reload">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.title} />
-          <Button color="inherit">Ver{VERSION}</Button>
-        </Toolbar>
-      </AppBar>
-    );
+  if (!actions) return <React.Fragment />;
+
+  // ヘッダ非表示
+  if (!showHeader) {
+    return <React.Fragment />;
   }
-}
+
+  return (
+    <AppBar position="static" className={classes.app}>
+      <Toolbar>
+        <IconButton className={classes.button} color="inherit" aria-label="Reload">
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="h6" color="inherit" className={classes.title} />
+        <Button color="inherit">Ver{VERSION}</Button>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 const mapStateToProps = (state: IState) => ({
   showHeader: state.get('App').get('showHeader'),
@@ -40,21 +52,6 @@ const mapStateToProps = (state: IState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(AppActions, dispatch),
 });
-
-const styles = makeStyles(() =>
-  createStyles({
-    app: {
-      boxShadow: 'none',
-      height: '64px',
-    },
-    title: {
-      flexGrow: 1,
-    },
-    button: {
-      color: 'white',
-    },
-  }),
-);
 
 export default connect<StateFromProps, void, void, IState>(
   mapStateToProps,

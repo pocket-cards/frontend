@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemText, ListItemSecondaryAction, Grid, Button, ListItemIcon, Divider } from '@material-ui/core';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import { IState } from '@models';
@@ -31,8 +31,7 @@ class A002 extends React.Component<Props, any, any> {
   }
 
   render() {
-    const { words, isLoading } = this.props;
-    const classes = styles();
+    const { words, isLoading, classes } = this.props;
 
     // 単語データなし
     if (!isLoading && words.length === 0) {
@@ -108,56 +107,55 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 });
 
 /** Styles */
-const styles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
-  createStyles({
-    container: {
-      position: 'relative',
+const styles = ({ palette: { primary }, spacing }: Theme) => ({
+  container: {
+    position: 'relative',
+  },
+  root: {
+    paddingLeft: spacing(),
+    paddingRight: spacing(2),
+  },
+  item: {
+    height: spacing(6),
+  },
+  itemIcon: {
+    marginRight: spacing(),
+  },
+  itemTextRoot: {
+    padding: '0px 16px 0px 8px',
+    fontSize: '1.5rem',
+  },
+  secondaryAction: {
+    paddingRight: spacing(6),
+  },
+  action: {
+    marginRight: spacing(1.5),
+    marginTop: spacing(0.5),
+  },
+  bottom: {
+    margin: spacing(2),
+    textAlign: 'right',
+    position: 'relative',
+  },
+  button: {
+    width: spacing(15),
+    position: 'absolute',
+    bottom: '0px',
+    right: '0px',
+    '&:hover': {
+      backgroundColor: primary.main,
     },
-    root: {
-      paddingLeft: spacing(),
-      paddingRight: spacing(2),
+  },
+  icon: {
+    '&:hover': {
+      cursor: 'pointer',
     },
-    item: {
-      height: spacing(6),
-    },
-    itemIcon: {
-      marginRight: spacing(),
-    },
-    itemTextRoot: {
-      padding: '0px 16px 0px 8px',
-      fontSize: '1.5rem',
-    },
-    secondaryAction: {
-      paddingRight: spacing(6),
-    },
-    action: {
-      marginRight: spacing(1.5),
-      marginTop: spacing(0.5),
-    },
-    bottom: {
-      margin: spacing(2),
-      textAlign: 'right',
-      position: 'relative',
-    },
-    button: {
-      width: spacing(15),
-      position: 'absolute',
-      bottom: '0px',
-      right: '0px',
-      '&:hover': {
-        backgroundColor: primary.main,
-      },
-    },
-    icon: {
-      '&:hover': {
-        cursor: 'pointer',
-      },
-    },
-  }),
-);
+  },
+});
 
 export default compose(
   withRouter,
+  withStyles(styles as any),
   connect<StateFromProps, void, void, IState>(
     mapStateToProps,
     mapDispatchToProps,
@@ -170,7 +168,7 @@ export interface StateFromProps {
 }
 
 /** Properties */
-export interface Props extends StateFromProps, RouteComponentProps<{}> {
+export interface Props extends StateFromProps, RouteComponentProps, WithStyles {
   actions: RegistActions.Actions;
   isLoading: boolean;
 }

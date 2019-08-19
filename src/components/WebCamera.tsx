@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Fab, Grid } from '@material-ui/core';
+import { Fab, Grid, withStyles, WithStyles } from '@material-ui/core';
 import { Camera as CameraIcon } from '@material-ui/icons';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 const isNotSupport = () => navigator.mediaDevices === undefined || navigator.mediaDevices.getUserMedia === undefined;
 
@@ -127,7 +126,7 @@ class WebCamera extends React.Component<Props, State, any> {
 
   render() {
     const { onAir } = this.state;
-    const classes = styles();
+    const { classes } = this.props;
     const isShow = onAir ? '' : 'none';
 
     return (
@@ -155,18 +154,16 @@ class WebCamera extends React.Component<Props, State, any> {
   }
 }
 
-const styles = makeStyles(() =>
-  createStyles({
-    video: {
-      width: '100%',
-      height: '450px',
-    },
-  }),
-);
+const styles = {
+  video: {
+    width: '100%',
+    height: '450px',
+  },
+};
 
-export default WebCamera;
+export default withStyles(styles as any)(WebCamera);
 
-export interface Props {
+export interface Props extends WithStyles {
   onAir?: boolean;
   takePhoto?: (dataUri: string) => void;
   beforeStartCamera?: () => void;

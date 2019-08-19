@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Grid, Paper, CircularProgress, StandardProps } from '@material-ui/core';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { Theme, WithStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/styles';
 
 class Loading extends React.Component<LoadingProps, any, any> {
   render() {
-    const { size = 96, className } = this.props;
-    const classes = styles();
+    const { size = 96, className, classes } = this.props;
+    if (!classes) return;
 
     return (
       <Grid
@@ -25,26 +26,24 @@ class Loading extends React.Component<LoadingProps, any, any> {
   }
 }
 
-const styles = makeStyles(({ palette: { primary } }: Theme) =>
-  createStyles({
-    root: {
-      position: 'absolute',
-      height: '100%',
-      backgroundColor: 'gray',
-      opacity: 0.5,
-      zIndex: 1000,
-    },
-    paper: {
-      boxShadow: 'none',
-      backgroundColor: 'transparent',
-    },
-    progress: {
-      color: primary.dark,
-    },
-  }),
-);
+const styles = ({ palette: { primary } }: Theme) => ({
+  root: {
+    position: 'absolute',
+    height: '100%',
+    backgroundColor: 'gray',
+    opacity: 0.5,
+    zIndex: 1000,
+  },
+  paper: {
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+  },
+  progress: {
+    color: primary.dark,
+  },
+});
 
-export default Loading;
+export default withStyles(styles as any)(Loading);
 
 export interface LoadingProps extends StandardProps<any, any> {
   size?: number;

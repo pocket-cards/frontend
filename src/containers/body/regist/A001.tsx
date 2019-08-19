@@ -2,7 +2,7 @@ import * as React from 'react';
 import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import * as RegistActions from '@actions/regist';
 import Button from '@components/buttons/Button';
@@ -66,9 +66,8 @@ class A001 extends React.Component<Props, any, any> {
 
   render() {
     const { onAir } = this.state;
-
+    const { classes } = this.props;
     const isShow = !onAir;
-    const classes = styles();
 
     return (
       <Grid container alignItems="center" justify="flex-start" direction="column" className={classes.root}>
@@ -102,19 +101,17 @@ class A001 extends React.Component<Props, any, any> {
   }
 }
 
-const styles = makeStyles(({ spacing }: Theme) =>
-  createStyles({
-    root: {
-      padding: `${spacing(2)}px 0px`,
-    },
-    item: {
-      padding: `${spacing()}px 0px`,
-    },
-    button: {
-      width: spacing() * 20,
-    },
-  }),
-);
+const styles = ({ spacing }: Theme) => ({
+  root: {
+    padding: `${spacing(2)}px 0px`,
+  },
+  item: {
+    padding: `${spacing()}px 0px`,
+  },
+  button: {
+    width: spacing(20),
+  },
+});
 
 /** Props */
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -123,6 +120,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 export default compose(
   withRouter,
+  withStyles(styles as any),
   connect(
     null,
     mapDispatchToProps,
@@ -130,7 +128,7 @@ export default compose(
 )(A001) as any;
 
 /** Properties */
-export interface Props extends RouteComponentProps<{}> {
+export interface Props extends RouteComponentProps, WithStyles {
   actions: RegistActions.Actions;
 }
 

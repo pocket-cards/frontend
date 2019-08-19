@@ -3,18 +3,18 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { Footer, Header } from '@containers/com';
+import { Header } from '@containers/com';
 import { RegistMain, StudyMain, MyPageMain, SettingsMain } from '@containers/body';
 import { IState } from '@models';
 
 class App extends React.Component<Props, any> {
   render() {
-    const { children, showHeader } = this.props;
-    const classes = styles();
+    const { children, showHeader, classes } = this.props;
+
     return (
-      <Grid container direction="column" className={classes.container}>
+      <Grid container direction="column">
         <Header />
         <div
           className={classes.body}
@@ -33,30 +33,28 @@ class App extends React.Component<Props, any> {
           </Switch>
           <Route children={children} />
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </Grid>
     );
   }
 }
 
-const styles = makeStyles(() =>
-  createStyles({
-    container: {
-      // minHeight: 'calc(100vh - 112px)',
+const styles = {
+  root: {
+    // minHeight: 'calc(100vh - 112px)',
+  },
+  body: {
+    backgroundColor: 'whitesmoke',
+    position: 'relative',
+    overflowY: 'auto',
+    '&::-webkit-scrollbar': {
+      display: 'none',
     },
-    body: {
-      backgroundColor: 'whitesmoke',
-      position: 'relative',
-      overflowY: 'auto',
-      '&::-webkit-scrollbar': {
-        display: 'none',
-      },
-    },
-    icon: {
-      color: 'white',
-    },
-  }),
-);
+  },
+  icon: {
+    color: 'white',
+  },
+};
 
 const mapStateToProps = (state: IState) => ({
   showHeader: state.get('App').get('showHeader'),
@@ -64,10 +62,11 @@ const mapStateToProps = (state: IState) => ({
 
 export default compose(
   withRouter,
+  withStyles(styles as any),
   connect(mapStateToProps),
 )(App) as any;
 
 /** Properties */
-export interface Props extends RouteComponentProps<any> {
+export interface Props extends WithStyles, RouteComponentProps<any> {
   showHeader?: boolean;
 }

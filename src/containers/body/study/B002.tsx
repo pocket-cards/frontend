@@ -2,7 +2,7 @@ import * as React from 'react';
 import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import { Grid, Card, CardContent, Typography, Fab, IconButton, CardHeader, TextField } from '@material-ui/core';
 import { Replay as ReplayIcon, Edit as EditIcon, KeyboardArrowLeft as ArrowLeftIcon, Done as DoneIcon } from '@material-ui/icons';
 import * as StudyActions from '@actions/study';
@@ -138,9 +138,8 @@ class B002 extends React.Component<Props, StateProps, any> {
   }
 
   render() {
-    const { word, mode, isLoading } = this.props;
+    const { word, mode, isLoading, classes } = this.props;
     const { showText } = this.state;
-    const classes = styles();
 
     return (
       <Grid container direction="column" className={classes.container}>
@@ -224,59 +223,57 @@ class B002 extends React.Component<Props, StateProps, any> {
   }
 }
 
-const styles = makeStyles(({ palette, spacing }: Theme) =>
-  createStyles({
-    container: {
-      height: '100%',
-      position: 'relative',
+const styles = ({ palette, spacing }: Theme) => ({
+  container: {
+    height: '100%',
+    position: 'relative',
+  },
+  loading: {
+    height: 'calc(100vh - 64px)',
+    marginTop: '64px',
+  },
+  header: { padding: `${spacing()}px ${spacing(2)}px` },
+  content: { textAlign: 'center' },
+  top: {
+    width: '100%',
+    height: '380px',
+    padding: spacing(),
+    paddingTop: spacing(2),
+  },
+  menubar: {
+    height: spacing(8),
+    padding: `0px ${spacing(2)}px`,
+    backgroundColor: palette.primary.main,
+  },
+  iconButton: {
+    padding: spacing(0.5),
+    '&:hover': {
+      cursor: 'pointer',
     },
-    loading: {
-      height: 'calc(100vh - 64px)',
-      marginTop: '64px',
-    },
-    header: { padding: `${spacing()}px ${spacing(2)}px` },
-    content: { textAlign: 'center' },
-    top: {
-      width: '100%',
-      height: '380px',
-      padding: spacing(),
-      paddingTop: spacing(2),
-    },
-    menubar: {
-      height: spacing(8),
-      padding: `0px ${spacing(2)}px`,
-      backgroundColor: palette.primary.main,
-    },
-    iconButton: {
-      padding: spacing(0.5),
-      '&:hover': {
-        cursor: 'pointer',
-      },
-    },
-    icon: {
-      fontSize: spacing(5),
-      color: 'white',
-    },
-    bottom: {
-      marginBottom: spacing(2),
-      flexGrow: 1,
-    },
-    button: {
-      width: spacing(12),
-      height: spacing(12),
-      margin: `0px ${spacing(3)}px`,
-    },
-    card: {
-      width: '90%',
-      height: '100%',
-      borderRadius: 4,
-    },
-    paper: {
-      boxShadow: 'none',
-      backgroundColor: 'transparent',
-    },
-  }),
-);
+  },
+  icon: {
+    fontSize: spacing(5),
+    color: 'white',
+  },
+  bottom: {
+    marginBottom: spacing(2),
+    flexGrow: 1,
+  },
+  button: {
+    width: spacing(12),
+    height: spacing(12),
+    margin: `0px ${spacing(3)}px`,
+  },
+  card: {
+    width: '90%',
+    height: '100%',
+    borderRadius: 4,
+  },
+  paper: {
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+  },
+});
 
 /** Props */
 const mapStateToProps = (state: IState) => ({
@@ -293,6 +290,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 export default compose(
   withRouter,
+  withStyles(styles as any),
   connect(
     mapStateToProps,
     mapDispatchToProps,
@@ -304,7 +302,7 @@ export interface StateProps {
   edit: boolean;
 }
 /** Properties */
-export interface Props extends RouteComponentProps<{}> {
+export interface Props extends RouteComponentProps, WithStyles {
   actions: StudyActions.Actions;
   appActions: AppActions.Actions;
   word?: WordInfo;
