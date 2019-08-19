@@ -5,7 +5,7 @@ import { Switch, Route, RouteComponentProps, withRouter } from 'react-router-dom
 import { Grid } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { Header } from '@containers/com';
+import { Header, Footer } from '@containers/com';
 import { RegistMain, StudyMain, MyPageMain, SettingsMain } from '@containers/body';
 import { IState } from '@models';
 
@@ -33,7 +33,7 @@ class App extends React.Component<Props, any> {
           </Switch>
           <Route children={children} />
         </div>
-        {/* <Footer /> */}
+        <Footer />
       </Grid>
     );
   }

@@ -17,7 +17,6 @@ app.use(express.static('public'));
 app.use('*', (req, res, next) => {
   const fileName = path.join(compiler.outputPath, 'index.html');
 
-  console.log(fileName);
   compiler.inputFileSystem.readFile(fileName, (err, contents) => {
     if (err) {
       next(err);

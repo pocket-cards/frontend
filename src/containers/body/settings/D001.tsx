@@ -13,7 +13,6 @@ class D001 extends React.Component<Props, any, any> {
   render() {
     const { classes } = this.props;
 
-    console.log(this.props);
     return (
       <Grid container className={classes.root} justify="center">
         <Grid item className={classes.item}>
@@ -47,7 +46,7 @@ const styles = ({ spacing }: Theme) => ({
   button: {
     width: spacing(20),
     height: spacing(20),
-    margin: spacing,
+    margin: spacing(),
     letterSpacing: spacing(0.25),
     fontSize: '1.25rem',
     fontWeight: 600,
