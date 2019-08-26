@@ -35,18 +35,18 @@ class B001 extends React.Component<Props, any, any> {
     return (
       <Grid container className={classes.root} justify="center">
         <Grid item className={classes.item}>
-          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleTest}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleTest}>
             単語テスト
           </Button>
-          <Button variant="contained" color="secondary" className={classes.button}>
+          <Button variant="contained" color="primary" className={classes.button}>
             未定
           </Button>
         </Grid>
         <Grid item className={classes.item}>
-          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleNew}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleNew}>
             単語の学習
           </Button>
-          <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleReview}>
+          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleReview}>
             単語の復習
           </Button>
         </Grid>
