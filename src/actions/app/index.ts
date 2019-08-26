@@ -12,15 +12,20 @@ import {
   APP_04_REQUEST,
   APP_04_SUCCESS,
   APP_04_FAILURE,
+  APP_05_REQUEST,
+  APP_05_SUCCESS,
+  APP_05_FAILURE,
 } from '@constants/ActionTypes';
 import { ThunkAction } from 'redux-thunk';
 import { IState } from '@models';
-import { ActionFunction1, Action } from 'redux-actions';
+import { ActionFunction1, Action, ActionFunction0 } from 'redux-actions';
+import { CognitoUser } from '@aws-amplify/auth';
 
 export { default as tabChange } from './App01';
 export { default as showHeader } from './App02';
 export { default as showFooter } from './App03';
-export { default as setLoggedIn } from './App04';
+export { default as loggedIn } from './App04';
+export { default as logout } from './App05';
 
 // ------------------------------
 // TypeScript Definetion
@@ -34,7 +39,9 @@ export interface Actions {
   /** Footer Visible */
   showFooter(visible: boolean): ShowFooterAction;
   /** Set loggedin status */
-  setLoggedIn(loggedIn: boolean): ShowFooterAction;
+  loggedIn(user: CognitoUser): LoggedInAction;
+  /** Set loggedin status */
+  logout(): LogoutAction;
 }
 
 export type TabChangeThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<App01Actions>>;
@@ -46,8 +53,11 @@ export type ShowHeaderAction = ActionFunction1<boolean, ShowHeaderThunkAction>;
 export type ShowFooterThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<App03Actions>>;
 export type ShowFooterAction = ActionFunction1<boolean, ShowFooterThunkAction>;
 
-export type SetLoggedInThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<App04Actions>>;
-export type SetLoggedInAction = ActionFunction1<boolean, SetLoggedInThunkAction>;
+export type LoggedInActionThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<App04Actions>>;
+export type LoggedInAction = ActionFunction1<CognitoUser, LoggedInActionThunkAction>;
+
+export type LogoutActionThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<App05Actions>>;
+export type LogoutAction = ActionFunction0<LogoutActionThunkAction>;
 
 /** Tab Change */
 export interface App01Payload {
@@ -85,12 +95,21 @@ export type App03SuccessAction = ActionFunction1<boolean, ThunkAction<App03Succe
 export type App03FailureAction = ActionFunction1<Error, ThunkAction<App03FailureBaseAction, IState, APIClass, App03FailureBaseAction>>;
 
 export interface App04Payload {
-  loggedin: boolean;
+  user: CognitoUser;
 }
 export type App04RequestBaseAction = RequestAction<typeof APP_04_REQUEST>;
 export type App04SuccessBaseAction = SuccessAction2<typeof APP_04_SUCCESS, App04Payload>;
 export type App04FailureBaseAction = FailureAction1<typeof APP_04_FAILURE>;
 export type App04Actions = App04RequestAction | App04SuccessAction | App04FailureAction;
 export type App04RequestAction = ThunkAction<App04RequestBaseAction, IState, APIClass, App04RequestBaseAction>;
-export type App04SuccessAction = ActionFunction1<boolean, ThunkAction<App04SuccessBaseAction, IState, APIClass, App04SuccessBaseAction>>;
+export type App04SuccessAction = ActionFunction1<CognitoUser, ThunkAction<App04SuccessBaseAction, IState, APIClass, App04SuccessBaseAction>>;
 export type App04FailureAction = ActionFunction1<Error, ThunkAction<App04FailureBaseAction, IState, APIClass, App04FailureBaseAction>>;
+
+export interface App05Payload {}
+export type App05RequestBaseAction = RequestAction<typeof APP_05_REQUEST>;
+export type App05SuccessBaseAction = SuccessAction2<typeof APP_05_SUCCESS, App05Payload>;
+export type App05FailureBaseAction = FailureAction1<typeof APP_05_FAILURE>;
+export type App05Actions = App05RequestAction | App05SuccessAction | App05FailureAction;
+export type App05RequestAction = ThunkAction<App05RequestBaseAction, IState, APIClass, App05RequestBaseAction>;
+export type App05SuccessAction = ActionFunction0<ThunkAction<App05SuccessBaseAction, IState, APIClass, App05SuccessBaseAction>>;
+export type App05FailureAction = ActionFunction1<Error, ThunkAction<App05FailureBaseAction, IState, APIClass, App05FailureBaseAction>>;

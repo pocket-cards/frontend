@@ -7,7 +7,7 @@ import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 const Auth = (props: any) => (props.isLoggedIn ? <Route {...props} /> : <Redirect to={ROUTE_PATHS[ROUTE_PATH_INDEX.SignIn]} />);
 
 const mapStateToProps = (state: IState) => ({
-  isLoggedIn: state.get('App').get('isLoggedIn'),
+  isLoggedIn: state.get('App').get('user') !== undefined,
 });
 
 export default connect(mapStateToProps)(Auth);

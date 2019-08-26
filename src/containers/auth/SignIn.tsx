@@ -8,20 +8,23 @@ import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import * as AppActions from '@actions/app';
 import { connect } from 'react-redux';
 import { IState } from '@models';
+import { CognitoUser } from '@aws-amplify/auth';
 
 class SignIn extends React.Component<Props, any, any> {
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      await Auth.signIn({
+      const user = (await Auth.signIn({
         username: this.state.email,
         password: this.state.password,
-      });
+      })) as CognitoUser;
 
-      this.props.actions.setLoggedIn(true);
+      console.log(user);
+      this.props.actions.loggedIn(user);
     } catch (err) {
       console.log(err);
+      this.props.actions.logout();
     }
   }
 
@@ -121,7 +124,7 @@ const styles = ({ spacing, palette }: Theme): any => ({
 
 /** Props */
 const mapStateToProps = (state: IState) => ({
-  isLoggedIn: state.get('App').get('isLoggedIn'),
+  isLoggedIn: state.get('App').get('user') !== undefined,
 });
 /** Actions */
 const mapDispatchToProps = (dispatch: Dispatch) => ({

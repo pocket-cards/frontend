@@ -13,6 +13,9 @@ import {
   APP_04_REQUEST,
   APP_04_SUCCESS,
   APP_04_FAILURE,
+  APP_05_REQUEST,
+  APP_05_SUCCESS,
+  APP_05_FAILURE,
 } from '@constants/ActionTypes';
 import { App01Payload, App02Payload, App03Payload, App04Payload } from '@actions/app';
 
@@ -33,9 +36,15 @@ const reducer = handleActions<App, any>(
     [APP_03_SUCCESS]: (store: App, { payload: { visible } }: Action<App03Payload>) => store.setShowFooter(visible),
     [APP_03_FAILURE]: (store: App) => store,
 
+    /** ユーザ情報設定 */
     [APP_04_REQUEST]: (store: App) => store,
-    [APP_04_SUCCESS]: (store: App, { payload: { loggedin } }: Action<App04Payload>) => store.setLoggedIn(loggedin),
+    [APP_04_SUCCESS]: (store: App, { payload: { user } }: Action<App04Payload>) => store.loggedIn(user),
     [APP_04_FAILURE]: (store: App) => store,
+
+    /** ログアウト */
+    [APP_05_REQUEST]: (store: App) => store,
+    [APP_05_SUCCESS]: (store: App) => store.logout(),
+    [APP_05_FAILURE]: (store: App) => store,
   },
   new App(),
 );

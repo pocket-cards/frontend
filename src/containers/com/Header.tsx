@@ -14,7 +14,8 @@ class Header extends React.Component<Props, any, any> {
 
     if (!actions) return;
 
-    actions.setLoggedIn(false);
+    // ログアウト
+    actions.logout();
   }
 
   render() {

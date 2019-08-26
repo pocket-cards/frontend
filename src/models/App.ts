@@ -1,5 +1,6 @@
 import { Record } from 'immutable';
 import { ROUTE_PATH_INDEX } from '@constants/Paths';
+import { CognitoUser } from '@aws-amplify/auth';
 
 export interface IApp extends AppProps, Record<AppProps> {
   get<K extends keyof AppProps>(key: K): AppProps[K];
@@ -8,7 +9,7 @@ export interface IApp extends AppProps, Record<AppProps> {
 export interface AppUIProps {
   tabIndex: number;
   isLoading: boolean;
-  isLoggedIn: boolean;
+  user: CognitoUser | undefined;
   showHeader: boolean;
   showFooter: boolean;
 }
@@ -21,7 +22,7 @@ export interface AppProps extends AppUIProps {}
 export default class App extends Record<AppProps>({
   tabIndex: ROUTE_PATH_INDEX.RegistInit,
   isLoading: false,
-  isLoggedIn: false,
+  user: undefined,
   showHeader: true,
   showFooter: true,
 }) {
@@ -37,7 +38,11 @@ export default class App extends Record<AppProps>({
     return this.set('showFooter', visible);
   }
 
-  setLoggedIn(loggedin: boolean) {
-    return this.set('isLoggedIn', loggedin);
+  loggedIn(user: CognitoUser) {
+    return this.set('user', user);
+  }
+
+  logout() {
+    return this.set('user', undefined);
   }
 }

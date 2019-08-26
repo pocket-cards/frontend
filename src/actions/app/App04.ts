@@ -1,5 +1,6 @@
-import { App04RequestAction, App04SuccessAction, App04FailureAction, ShowFooterAction, SetLoggedInAction } from '.';
+import { App04RequestAction, App04SuccessAction, App04FailureAction, ShowFooterAction, LoggedInAction } from '.';
 import { APP_04_REQUEST, APP_04_SUCCESS, APP_04_FAILURE } from '@constants/ActionTypes';
+import { CognitoUser } from '@aws-amplify/auth';
 
 /** ログイン状態変更 */
 export const request: App04RequestAction = dispatch =>
@@ -8,10 +9,10 @@ export const request: App04RequestAction = dispatch =>
   });
 
 /** ログイン状態変更 */
-export const success: App04SuccessAction = loggedin => dispatch =>
+export const success: App04SuccessAction = (user: CognitoUser) => dispatch =>
   dispatch({
     type: APP_04_SUCCESS,
-    payload: { loggedin },
+    payload: { user },
   });
 
 /** ログイン状態変更 */
@@ -23,15 +24,15 @@ export const failure: App04FailureAction = error => dispatch =>
 
 /** ログイン状態変更 */
 // tslint:disable-next-line: ter-arrow-parens
-const setLoggedIn: SetLoggedInAction = (loggedin: boolean) => async dispatch => {
+const loggedIn: LoggedInAction = (user: CognitoUser) => async dispatch => {
   dispatch(request);
 
   try {
     // データ保存
-    dispatch(success(loggedin));
+    dispatch(success(user));
   } catch (err) {
     dispatch(failure(err));
   }
 };
 
-export default setLoggedIn;
+export default loggedIn;
