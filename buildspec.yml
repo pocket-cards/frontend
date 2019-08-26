@@ -10,7 +10,7 @@ phases:
       - yarn install
   build:
     commands:
-      - yarn build:prod
+      - yarn build
   post_build:
     commands:
       - cd $CODEBUILD_SRC_DIR/build
