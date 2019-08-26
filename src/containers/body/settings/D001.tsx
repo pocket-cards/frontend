@@ -16,18 +16,18 @@ class D001 extends React.Component<Props, any, any> {
     return (
       <Grid container className={classes.root} justify="center">
         <Grid item className={classes.item}>
-          <Button variant="contained" color="secondary" className={classes.button}>
+          <Button variant="contained" color="primary" className={classes.button}>
             状態更新
           </Button>
-          <Button variant="contained" color="secondary" className={classes.button}>
+          <Button variant="contained" color="primary" className={classes.button}>
             未定
           </Button>
         </Grid>
         <Grid item className={classes.item}>
-          <Button variant="contained" color="secondary" className={classes.button}>
+          <Button variant="contained" color="primary" className={classes.button}>
             未定
           </Button>
-          <Button variant="contained" color="secondary" className={classes.button}>
+          <Button variant="contained" color="primary" className={classes.button}>
             未定
           </Button>
         </Grid>
