@@ -7,13 +7,11 @@ import Router from './src/Router';
 import { register } from './src/serviceWorker';
 import theme from './src/Theme';
 import { MuiThemeProvider } from '@material-ui/core';
-import Amplify, { API, Auth, Analytics } from 'aws-amplify';
+import Amplify, { API, Analytics } from 'aws-amplify';
 import { API_NAME, API_URL, VERSION } from '@constants/Consts';
 
 // 分析禁止
 Analytics.disable();
-
-console.log(process.env);
 
 Amplify.configure({
   Auth: {
@@ -79,11 +77,6 @@ const start = async () => {
   // });
 
   // const result = await Auth.confirmSignUp('wwalpha', '215225');
-
-  await Auth.signIn({
-    username: 'wwalpha',
-    password: 'session10',
-  });
 
   const res = await API.get(API_NAME, '/', {});
 

@@ -3,12 +3,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
-import { Menu as MenuIcon } from '@material-ui/icons';
+import { Menu as MenuIcon, ExitToApp } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
 import { VERSION } from '@constants/Consts';
 
 class Header extends React.Component<Props, any, any> {
+  handleLogout = () => {
+    const { actions } = this.props;
+
+    if (!actions) return;
+
+    actions.setLoggedIn(false);
+  }
+
   render() {
     const { actions, showHeader, classes } = this.props;
 
@@ -27,6 +35,9 @@ class Header extends React.Component<Props, any, any> {
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.title} />
           <Button color="inherit">Ver{VERSION}</Button>
+          <IconButton color="inherit" aria-label="Logout" onClick={this.handleLogout}>
+            <ExitToApp />
+          </IconButton>
         </Toolbar>
       </AppBar>
     );

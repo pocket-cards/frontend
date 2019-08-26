@@ -8,6 +8,7 @@ export interface IApp extends AppProps, Record<AppProps> {
 export interface AppUIProps {
   tabIndex: number;
   isLoading: boolean;
+  isLoggedIn: boolean;
   showHeader: boolean;
   showFooter: boolean;
 }
@@ -20,6 +21,7 @@ export interface AppProps extends AppUIProps {}
 export default class App extends Record<AppProps>({
   tabIndex: ROUTE_PATH_INDEX.RegistInit,
   isLoading: false,
+  isLoggedIn: false,
   showHeader: true,
   showFooter: true,
 }) {
@@ -33,5 +35,9 @@ export default class App extends Record<AppProps>({
 
   setShowFooter(visible: boolean) {
     return this.set('showFooter', visible);
+  }
+
+  setLoggedIn(loggedin: boolean) {
+    return this.set('isLoggedIn', loggedin);
   }
 }

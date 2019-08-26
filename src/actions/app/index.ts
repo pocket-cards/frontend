@@ -9,6 +9,9 @@ import {
   APP_03_REQUEST,
   APP_03_SUCCESS,
   APP_03_FAILURE,
+  APP_04_REQUEST,
+  APP_04_SUCCESS,
+  APP_04_FAILURE,
 } from '@constants/ActionTypes';
 import { ThunkAction } from 'redux-thunk';
 import { IState } from '@models';
@@ -17,6 +20,7 @@ import { ActionFunction1, Action } from 'redux-actions';
 export { default as tabChange } from './App01';
 export { default as showHeader } from './App02';
 export { default as showFooter } from './App03';
+export { default as setLoggedIn } from './App04';
 
 // ------------------------------
 // TypeScript Definetion
@@ -29,6 +33,8 @@ export interface Actions {
   showHeader(visible: boolean): ShowHeaderAction;
   /** Footer Visible */
   showFooter(visible: boolean): ShowFooterAction;
+  /** Set loggedin status */
+  setLoggedIn(loggedIn: boolean): ShowFooterAction;
 }
 
 export type TabChangeThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<App01Actions>>;
@@ -39,6 +45,9 @@ export type ShowHeaderAction = ActionFunction1<boolean, ShowHeaderThunkAction>;
 
 export type ShowFooterThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<App03Actions>>;
 export type ShowFooterAction = ActionFunction1<boolean, ShowFooterThunkAction>;
+
+export type SetLoggedInThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<App04Actions>>;
+export type SetLoggedInAction = ActionFunction1<boolean, SetLoggedInThunkAction>;
 
 /** Tab Change */
 export interface App01Payload {
@@ -74,3 +83,14 @@ export type App03Actions = App03RequestAction | App03SuccessAction | App03Failur
 export type App03RequestAction = ThunkAction<App03RequestBaseAction, IState, APIClass, App03RequestBaseAction>;
 export type App03SuccessAction = ActionFunction1<boolean, ThunkAction<App03SuccessBaseAction, IState, APIClass, App03SuccessBaseAction>>;
 export type App03FailureAction = ActionFunction1<Error, ThunkAction<App03FailureBaseAction, IState, APIClass, App03FailureBaseAction>>;
+
+export interface App04Payload {
+  loggedin: boolean;
+}
+export type App04RequestBaseAction = RequestAction<typeof APP_04_REQUEST>;
+export type App04SuccessBaseAction = SuccessAction2<typeof APP_04_SUCCESS, App04Payload>;
+export type App04FailureBaseAction = FailureAction1<typeof APP_04_FAILURE>;
+export type App04Actions = App04RequestAction | App04SuccessAction | App04FailureAction;
+export type App04RequestAction = ThunkAction<App04RequestBaseAction, IState, APIClass, App04RequestBaseAction>;
+export type App04SuccessAction = ActionFunction1<boolean, ThunkAction<App04SuccessBaseAction, IState, APIClass, App04SuccessBaseAction>>;
+export type App04FailureAction = ActionFunction1<Error, ThunkAction<App04FailureBaseAction, IState, APIClass, App04FailureBaseAction>>;

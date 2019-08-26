@@ -13,6 +13,11 @@ export const APP_03_REQUEST = 'APP_03_REQUEST';
 export const APP_03_SUCCESS = 'APP_03_SUCCESS';
 export const APP_03_FAILURE = 'APP_03_FAILURE';
 
+/** ログインステータス */
+export const APP_04_REQUEST = 'APP_04_REQUEST';
+export const APP_04_SUCCESS = 'APP_04_SUCCESS';
+export const APP_04_FAILURE = 'APP_04_FAILURE';
+
 /** 単語登録 */
 // export const A000_UPLOAD_IMAGE = 'A000_UPLOAD_IMAGE';
 // export const A000_REMOVE_WORD = 'A000_REMOVE_WORD';
