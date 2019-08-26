@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps, Switch, Route } from 'react-router-dom';
 import { WithStyles, StyleRules, withStyles } from '@material-ui/core/styles';
-import { MypageInit, MypageTest } from '@containers/body/mypage';
-
+import { MypageInit } from '@containers/body/mypage';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 class C000 extends React.Component<Props, any, any> {
@@ -28,4 +27,4 @@ const styles: StyleRules = {};
 export default withStyles(styles)(C000);
 
 /** Properties */
-export interface Props extends WithStyles<StyleRules>, RouteComponentProps<{}> {}
+export interface Props extends WithStyles<StyleRules>, RouteComponentProps {}

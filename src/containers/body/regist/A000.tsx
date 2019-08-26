@@ -13,14 +13,8 @@ class A000 extends React.Component<Props, any, any> {
       <React.Fragment>
         <Switch>
           <Route path={`${match.path}`} exact component={RegistInit} />
-          <Route
-            path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistList]}
-            component={RegistList}
-          />
-          <Route
-            path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistFinish]}
-            component={RegistFinish}
-          />
+          <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistList]} component={RegistList} />
+          <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistFinish]} component={RegistFinish} />
         </Switch>
         <Route children={children} />
       </React.Fragment>
@@ -38,6 +32,4 @@ const styles: StyleRules = {
 export default withStyles(styles)(A000);
 
 /** Properties */
-export interface Props
-  extends WithStyles<StyleRules>,
-    RouteComponentProps<{}> {}
+export interface Props extends WithStyles<StyleRules>, RouteComponentProps {}
