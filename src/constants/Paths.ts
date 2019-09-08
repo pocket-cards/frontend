@@ -8,6 +8,9 @@ export const ROUTE_PATH_INDEX = {
   StudyFinish: 23,
   MyPage: 31,
   Settings: 41,
+  GroupList: 51,
+  GroupNew: 52,
+  GroupEdit: 53,
 };
 
 export const ROUTE_PATHS = {
@@ -20,4 +23,7 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.StudyFinish]: '/home/finish',
   [ROUTE_PATH_INDEX.MyPage]: '/mypage',
   [ROUTE_PATH_INDEX.Settings]: '/settings',
+  [ROUTE_PATH_INDEX.GroupList]: '/group',
+  [ROUTE_PATH_INDEX.GroupNew]: '/group/add',
+  [ROUTE_PATH_INDEX.GroupEdit]: '/group/edit',
 };

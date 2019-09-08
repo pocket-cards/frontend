@@ -6,7 +6,7 @@ import { Grid } from '@material-ui/core';
 import { withStyles, WithStyles } from '@material-ui/core/styles';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { Header, Footer } from '@containers/com';
-import { RegistMain, StudyMain, MyPageMain, SettingsMain } from '@containers/body';
+import { RegistMain, StudyMain, MyPageMain, SettingsMain, HomeMain } from '@containers/body';
 import { IState } from '@models';
 
 class App extends React.Component<Props, any> {
@@ -29,7 +29,8 @@ class App extends React.Component<Props, any> {
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} component={MyPageMain} />
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} component={StudyMain} />
             <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} component={SettingsMain} />
-            <Route component={StudyMain} />
+            <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.GroupList]} component={HomeMain} />
+            <Route component={HomeMain} />
           </Switch>
           <Route children={children} />
         </div>
@@ -63,7 +64,7 @@ const mapStateToProps = (state: IState) => ({
 export default compose(
   withRouter,
   withStyles(styles),
-  connect(mapStateToProps),
+  connect(mapStateToProps)
 )(App) as any;
 
 /** Properties */

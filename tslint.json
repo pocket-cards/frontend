@@ -8,6 +8,8 @@
     "semicolon": true,
     "object-shorthand-properties-first": false,
     "variable-name": false,
-    "function-name": false
+    "function-name": false,
+    "ter-arrow-parens": false,
+    "trailing-comma": false
   }
 }

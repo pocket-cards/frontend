@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps, Switch, Route } from 'react-router-dom';
 import { WithStyles, StyleRules, withStyles } from '@material-ui/core/styles';
-import { MypageInit } from '@containers/body/mypage';
+import { GroupList, GroupNew } from '@containers/body/mypage';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 class C000 extends React.Component<Props, any, any> {
@@ -12,7 +12,7 @@ class C000 extends React.Component<Props, any, any> {
     return (
       <React.Fragment>
         <Switch>
-          <Route path={`${match.path}`} exact component={MypageInit} />
+          <Route path={`${match.path}`} exact component={GroupNew} />
           {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} component={MypageInit} /> */}
           {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyFinish]} component={StudyFinish} /> */}
         </Switch>

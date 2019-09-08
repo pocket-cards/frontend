@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { withStyles, WithStyles, Theme } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
-import { Menu as MenuIcon, ExitToApp } from '@material-ui/icons';
+import { Menu as MenuIcon, ExitToApp, AddCircleOutline } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
 import { VERSION } from '@constants/Consts';
@@ -39,16 +39,20 @@ class Header extends React.Component<Props, any, any> {
           <IconButton color="inherit" aria-label="Logout" onClick={this.handleLogout}>
             <ExitToApp />
           </IconButton>
+          <IconButton color="inherit" aria-label="Add">
+            <AddCircleOutline />
+          </IconButton>
         </Toolbar>
       </AppBar>
     );
   }
 }
 
-const styles = {
+const styles = ({ palette: { primary } }: Theme) => ({
   app: {
     boxShadow: 'none',
     height: '64px',
+    backgroudColor: primary.dark,
   },
   title: {
     flexGrow: 1,
@@ -56,7 +60,7 @@ const styles = {
   button: {
     color: 'white',
   },
-};
+});
 
 const mapStateToProps = (state: IState) => ({
   showHeader: state.get('App').get('showHeader'),
