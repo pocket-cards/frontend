@@ -26,7 +26,7 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
       color: 'white',
       fontSize: '32px',
     },
-  }),
+  })
 );
 
 const getApp = (state: IState) => state.get('App');
@@ -48,12 +48,12 @@ export default () => {
     <BottomNavigation value={tabIndex} onChange={handleChange} className={classes.root}>
       <BottomNavigationAction
         className={classes.action}
-        value={ROUTE_PATH_INDEX.GroupList}
+        value={ROUTE_PATH_INDEX.Home}
         icon={<HomeIcon className={classes.icon} />}
         disableRipple
         disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
-          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.GroupList]} {...props} />
+          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Home]} {...props} />
         ))}
       />
       <BottomNavigationAction
