@@ -231,7 +231,7 @@ export default compose(
 )(C001) as any;
 
 /** Properties */
-export interface Props extends RouteComponentProps<{}>, WithStyles {
+export interface Props extends RouteComponentProps, WithStyles {
   actions: MyPageActions.Actions;
   remainingTest?: number;
   remainingReview?: number;

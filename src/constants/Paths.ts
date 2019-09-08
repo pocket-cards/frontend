@@ -1,4 +1,5 @@
 export const ROUTE_PATH_INDEX = {
+  SignIn: 1,
   RegistInit: 11,
   RegistList: 12,
   RegistFinish: 13,
@@ -10,6 +11,7 @@ export const ROUTE_PATH_INDEX = {
 };
 
 export const ROUTE_PATHS = {
+  [ROUTE_PATH_INDEX.SignIn]: '/login',
   [ROUTE_PATH_INDEX.RegistInit]: '/regist',
   [ROUTE_PATH_INDEX.RegistList]: '/regist/list',
   [ROUTE_PATH_INDEX.RegistFinish]: '/regist/finish',

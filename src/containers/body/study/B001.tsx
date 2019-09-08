@@ -88,7 +88,7 @@ export default compose(
 )(B001) as any;
 
 /** Properties */
-export interface Props extends RouteComponentProps<{}>, WithStyles {
+export interface Props extends RouteComponentProps, WithStyles {
   actions: StudyActions.Actions;
   appActions: AppActions.Actions;
 }

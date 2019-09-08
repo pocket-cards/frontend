@@ -39,7 +39,7 @@ class App extends React.Component<Props, any> {
   }
 }
 
-const styles = {
+const styles: any = {
   root: {
     // minHeight: 'calc(100vh - 112px)',
   },
@@ -62,7 +62,7 @@ const mapStateToProps = (state: IState) => ({
 
 export default compose(
   withRouter,
-  withStyles(styles as any),
+  withStyles(styles),
   connect(mapStateToProps),
 )(App) as any;
 

@@ -32,4 +32,4 @@ const styles: StyleRules = {};
 export default withRouter(withStyles(styles)(A003));
 
 /** Properties */
-export interface Props extends WithStyles<StyleRules>, RouteComponentProps<{}> {}
+export interface Props extends WithStyles<StyleRules>, RouteComponentProps {}

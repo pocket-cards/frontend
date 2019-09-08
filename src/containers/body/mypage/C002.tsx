@@ -73,7 +73,7 @@ export default compose(
 )(C002) as any;
 
 /** Properties */
-export interface Props extends RouteComponentProps<{}> {
+export interface Props extends RouteComponentProps {
   actions: MyPageActions.Actions;
   daily?: number;
   weekly?: number;
