@@ -15,7 +15,7 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
     button: {
       paddingTop: spacing(4),
     },
-  }),
+  })
 );
 
 const getC000 = (state: IState) => state.get('C000');
@@ -33,7 +33,7 @@ export default () => {
       </Grid>
       <Grid item xs={12} className={classes.button}>
         <Button fullWidth variant="contained" color="secondary">
-          登 録
+          EDIT
         </Button>
       </Grid>
     </Grid>

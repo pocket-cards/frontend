@@ -8,9 +8,9 @@ export const ROUTE_PATH_INDEX = {
   StudyFinish: 23,
   MyPage: 31,
   Settings: 41,
-  GroupList: 51,
-  GroupNew: 52,
-  GroupEdit: 53,
+  Home: 61,
+  GroupNew: 62,
+  GroupEdit: 63,
 };
 
 export const ROUTE_PATHS = {
@@ -18,12 +18,12 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.RegistInit]: '/regist',
   [ROUTE_PATH_INDEX.RegistList]: '/regist/list',
   [ROUTE_PATH_INDEX.RegistFinish]: '/regist/finish',
-  [ROUTE_PATH_INDEX.StudyInit]: '/home',
-  [ROUTE_PATH_INDEX.StudyCard]: '/home/card',
-  [ROUTE_PATH_INDEX.StudyFinish]: '/home/finish',
   [ROUTE_PATH_INDEX.MyPage]: '/mypage',
   [ROUTE_PATH_INDEX.Settings]: '/settings',
-  [ROUTE_PATH_INDEX.GroupList]: '/group',
-  [ROUTE_PATH_INDEX.GroupNew]: '/group/add',
-  [ROUTE_PATH_INDEX.GroupEdit]: '/group/edit',
+  [ROUTE_PATH_INDEX.Home]: '/home',
+  [ROUTE_PATH_INDEX.GroupNew]: '/home/add',
+  [ROUTE_PATH_INDEX.GroupEdit]: '/home/edit',
+  [ROUTE_PATH_INDEX.StudyInit]: '/home/study',
+  [ROUTE_PATH_INDEX.StudyCard]: '/home/study/card',
+  [ROUTE_PATH_INDEX.StudyFinish]: '/home/study/finish',
 };

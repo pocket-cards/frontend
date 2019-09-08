@@ -1,17 +1,23 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
+import useReactRouter from 'use-react-router';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider, ListItemSecondaryAction, IconButton } from '@material-ui/core';
-import { Image as ImageIcon, Work as WorkIcon, BeachAccess as BeachAccessIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider, Grid } from '@material-ui/core';
+import { Image as ImageIcon } from '@material-ui/icons';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
 import { IState } from '@models';
 import { GroupInfo } from 'typings/types';
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      width: '100%',
+      padding: '0px 16px',
+    },
+    list: {
       width: '100%',
     },
   })
@@ -20,10 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const getC000 = (state: IState) => state.get('C000');
 
 export default () => {
-  console.log('E001');
   const classes = useStyles();
   const actions = bindActionCreators(MyPageActions, useDispatch());
   const { isLoading } = useSelector(getC000);
+  const { history } = useReactRouter();
 
   const groups: GroupInfo[] = [
     {
@@ -47,7 +53,7 @@ export default () => {
   // },            []);
 
   const handleOnClick = () => {
-    // console.log(111);
+    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]);
   };
 
   // Loading中
@@ -56,30 +62,33 @@ export default () => {
   }
 
   return (
-    <List className={classes.root}>
-      {(() => {
-        const items: any[] = [];
+    <Grid container classes={{ root: classes.root }}>
+      <Grid item className={classes.list}>
+        <List>
+          {(() => {
+            const items: any[] = [];
 
-        groups.forEach((item, idx) => {
-          // tslint:disable-next-line: trailing-comma
-          items.push(
-            <ListItem key={`ListItem${idx}`} button disableRipple onClick={handleOnClick}>
-              <ListItemAvatar>
-                <Avatar>
-                  <ImageIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={item.name} secondary={item.description} />
-            </ListItem>
-          );
+            groups.forEach((item, idx) => {
+              items.push(
+                <ListItem key={`ListItem${idx}`} button disableRipple onClick={handleOnClick} className={classes.list}>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <ImageIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={item.name} secondary={item.description} />
+                </ListItem>
+              );
 
-          if (idx !== groups.length - 1) {
-            items.push(<Divider key={`Divider${idx}`} />);
-          }
-        });
+              if (idx !== groups.length - 1) {
+                items.push(<Divider key={`Divider${idx}`} />);
+              }
+            });
 
-        return items;
-      })()}
-    </List>
+            return items;
+          })()}
+        </List>
+      </Grid>
+    </Grid>
   );
 };
