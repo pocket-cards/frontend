@@ -54,6 +54,13 @@ export interface B002Response {
   groups: GroupInfo[];
 }
 
+export interface B003Request {
+  name: string;
+  description: string;
+}
+
+export interface B003Response extends GroupInfo {}
+
 // ------------------------------
 // C001
 // ------------------------------

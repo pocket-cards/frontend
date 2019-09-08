@@ -3,23 +3,21 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider, Grid } from '@material-ui/core';
-import { Image as ImageIcon } from '@material-ui/icons';
+import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider, Grid, ListItemSecondaryAction, IconButton } from '@material-ui/core';
+import { Folder as FolderIcon, Edit as EditIcon } from '@material-ui/icons';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
 import { IState } from '@models';
 import { GroupInfo } from 'typings/types';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(({ palette: { secondary } }: Theme) =>
   createStyles({
-    root: {
-      width: '100%',
-      padding: '0px 16px',
-    },
-    list: {
-      width: '100%',
-    },
+    root: { width: '100%' },
+    list: { width: '100%' },
+    text: { fontSize: '1.5rem' },
+    avatar: { backgroundColor: secondary.main },
+    icon: { color: secondary.light },
   })
 );
 
@@ -72,11 +70,32 @@ export default () => {
               items.push(
                 <ListItem key={`ListItem${idx}`} button disableRipple onClick={handleOnClick} className={classes.list}>
                   <ListItemAvatar>
-                    <Avatar>
-                      <ImageIcon />
+                    <Avatar
+                      classes={{
+                        colorDefault: classes.avatar,
+                      }}
+                    >
+                      <FolderIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary={item.name} secondary={item.description} />
+                  <ListItemText
+                    classes={{
+                      primary: classes.text,
+                    }}
+                    primary={item.name}
+                    secondary={item.description}
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="edit"
+                      classes={{
+                        root: classes.icon,
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
                 </ListItem>
               );
 

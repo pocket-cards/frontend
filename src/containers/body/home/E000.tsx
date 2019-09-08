@@ -7,7 +7,6 @@ import useReactRouter from 'use-react-router';
 export default (props: Props) => {
   const { match } = useReactRouter();
 
-  console.log(match);
   return (
     <React.Fragment>
       <Switch>

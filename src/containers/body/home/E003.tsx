@@ -22,8 +22,8 @@ const getC000 = (state: IState) => state.get('C000');
 
 export default () => {
   const classes = useStyles();
-  const actions = bindActionCreators(MyPageActions, useDispatch());
-  const { isLoading } = useSelector(getC000);
+  // const actions = bindActionCreators(MyPageActions, useDispatch());
+  // const { isLoading } = useSelector(getC000);
 
   return (
     <Grid container className={classes.root}>

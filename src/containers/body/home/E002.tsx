@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { bindActionCreators } from 'redux';
-import { useSelector, useDispatch } from 'react-redux';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider, ListItemSecondaryAction, IconButton, TextField, Grid } from '@material-ui/core';
-import * as MyPageActions from '@actions/mypage';
+import { TextField, Grid } from '@material-ui/core';
 import Button from '@components/buttons/Button';
 import { IState } from '@models';
 
@@ -18,12 +15,10 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const getC000 = (state: IState) => state.get('C000');
-
 export default () => {
   const classes = useStyles();
-  const actions = bindActionCreators(MyPageActions, useDispatch());
-  const { isLoading } = useSelector(getC000);
+  // const actions = bindActionCreators(MyPageActions, useDispatch());
+  // const { isLoading } = useSelector(getC000);
 
   return (
     <Grid container className={classes.root}>

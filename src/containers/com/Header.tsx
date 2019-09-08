@@ -8,6 +8,7 @@ import { Menu as MenuIcon, ExitToApp, AddCircleOutline, KeyboardArrowLeft as Arr
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
 import { VERSION } from '@constants/Consts';
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
   createStyles({
@@ -53,6 +54,8 @@ export default () => {
     history.push(paths.join('/'));
   };
 
+  const handleOnClickAdd = () => history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.GroupNew]);
+
   return (
     <AppBar position="static" className={classes.app}>
       <Toolbar>
@@ -66,7 +69,7 @@ export default () => {
         <IconButton color="inherit" aria-label="Logout" onClick={handleLogout}>
           <ExitToApp />
         </IconButton>
-        <IconButton color="inherit" aria-label="Add">
+        <IconButton color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
           <AddCircleOutline />
         </IconButton>
       </Toolbar>
