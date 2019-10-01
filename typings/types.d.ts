@@ -1,4 +1,8 @@
-// declare module 'redux-api-middleware';
+export interface GroupInfo {
+  id: string;
+  name: string;
+  description?: string;
+}
 
 /** Actions */
 export interface RequestAction<T> {

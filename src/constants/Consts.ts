@@ -6,6 +6,9 @@ export const A001_URL = (userId: string) => `/users/${userId}`;
 export const A002_URL = (userId: string) => `/users/${userId}/history`;
 export const A003_URL = (userId: string) => `/users/${userId}/fixdelay`;
 
+export const B002_URL = (user: string) => `/groups/${user}`;
+export const B003_URL = (user: string) => `/groups/${user}`;
+
 export const C001_URL = (groupId: string) => `/groups/${groupId}/words`;
 export const C004_URL = (groupId: string, word: string) => `/groups/${groupId}/words/${word}`;
 

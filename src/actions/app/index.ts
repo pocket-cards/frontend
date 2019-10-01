@@ -30,7 +30,6 @@ export { default as logout } from './App05';
 // ------------------------------
 // TypeScript Definetion
 // ------------------------------
-
 export interface Actions {
   // タブ画面変更
   tabChange(index: number): TabChangeAction;

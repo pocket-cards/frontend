@@ -1,3 +1,5 @@
+import { GroupInfo } from './types';
+
 // ------------------------------
 // Common
 // ------------------------------
@@ -42,6 +44,22 @@ export interface A002Response {
   weekly: number;
   monthly: number;
 }
+
+// ------------------------------
+// B002
+// ------------------------------
+export interface B002Request {}
+
+export interface B002Response {
+  groups: GroupInfo[];
+}
+
+export interface B003Request {
+  name: string;
+  description: string;
+}
+
+export interface B003Response extends GroupInfo {}
 
 // ------------------------------
 // C001
