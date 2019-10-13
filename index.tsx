@@ -7,7 +7,7 @@ import Router from './src/Router';
 import { register } from './src/serviceWorker';
 import theme from './src/Theme';
 import { MuiThemeProvider } from '@material-ui/core';
-import Amplify, { API, Analytics } from 'aws-amplify';
+import Amplify, { Analytics, Auth } from 'aws-amplify';
 import { API_NAME, API_URL, VERSION } from '@constants/Consts';
 
 // 分析禁止
@@ -50,6 +50,9 @@ Amplify.configure({
         name: API_NAME,
         endpoint: API_URL,
         region: process.env.AWS_DEFAULT_REGION,
+        custom_header: async () => {
+          return { Authorization: (await Auth.currentSession()).getIdToken().getJwtToken() };
+        },
       },
     ],
   },
@@ -76,15 +79,15 @@ const start = async () => {
   //   },
   // });
 
-  // const result = await Auth.confirmSignUp('wwalpha', '215225');
+  // const result = await Auth.confirmSignUp('wwalpha', '642467');
 
-  const res = await API.get(API_NAME, '/', {});
+  // const res = await API.get(API_NAME, '/', {});
 
-  console.log(res);
-  if (res && res.version !== VERSION) {
-    window.location.reload(true);
-    return;
-  }
+  // console.log(res);
+  // if (res && res.version !== VERSION) {
+  //   window.location.reload(true);
+  //   return;
+  // }
 
   render(provider, root);
 
