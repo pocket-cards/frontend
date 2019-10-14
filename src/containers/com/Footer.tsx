@@ -1,116 +1,91 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router';
-import { bindActionCreators, Dispatch, compose } from 'redux';
+import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Theme } from '@material-ui/core';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Camera as CameraIcon, Home as HomeIcon, Settings as SettingsIcon, Face as FaceIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
 import { ROUTE_PATH_INDEX, ROUTE_PATHS } from '@constants/Paths';
 
-class Footer extends React.Component<Props, any, any> {
-  handleChange = (_: any, value: any) => {
-    const { actions } = this.props;
+const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
+  createStyles({
+    root: {
+      bottom: '0',
+      width: '100%',
+      height: spacing(9),
+      backgroundColor: primary.light,
+      alignItems: 'flex-start',
+    },
+    action: {
+      paddingTop: '8px !important',
+      minWidth: 'inherit',
+    },
+    icon: {
+      color: 'white',
+      fontSize: '32px',
+    },
+  })
+);
 
-    actions && actions.tabChange(Number(value));
-  }
+const getApp = (state: IState) => state.get('App');
 
-  render() {
-    const { tabIndex, showHeader, classes } = this.props;
+export default () => {
+  // styles
+  const classes = useStyles();
+  // actions
+  const actions = bindActionCreators(AppActions, useDispatch());
+  // reducer
+  const { tabIndex, showHeader } = useSelector(getApp);
 
-    if (!showHeader) return null;
+  // Bottom menu clicked
+  const handleChange = (_: any, value: any) => actions.tabChange(Number(value));
 
-    return (
-      <BottomNavigation value={tabIndex} onChange={this.handleChange} className={classes.root}>
-        <BottomNavigationAction
-          className={classes.action}
-          value={ROUTE_PATH_INDEX.StudyInit}
-          icon={<HomeIcon className={classes.icon} />}
-          disableRipple
-          disableTouchRipple
-          component={React.forwardRef((props: any, ref: any) => (
-            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]} {...props} />
-          ))}
-        />
-        <BottomNavigationAction
-          className={classes.action}
-          value={ROUTE_PATH_INDEX.MyPage}
-          icon={<FaceIcon className={classes.icon} />}
-          disableRipple
-          disableTouchRipple
-          component={React.forwardRef((props: any, ref: any) => (
-            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} {...props} />
-          ))}
-        />
-        <BottomNavigationAction
-          className={classes.action}
-          value={ROUTE_PATH_INDEX.RegistInit}
-          icon={<CameraIcon className={classes.icon} />}
-          disableRipple
-          disableTouchRipple
-          component={React.forwardRef((props: any, ref: any) => (
-            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />
-          ))}
-        />
-        <BottomNavigationAction
-          className={classes.action}
-          value={ROUTE_PATH_INDEX.Settings}
-          icon={<SettingsIcon className={classes.icon} />}
-          disableRipple
-          disableTouchRipple
-          component={React.forwardRef((props: any, ref: any) => (
-            <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} {...props} />
-          ))}
-        />
-      </BottomNavigation>
-    );
-  }
-}
+  if (!showHeader) return null;
 
-const styles = ({ palette: { primary }, spacing }: Theme) => ({
-  root: {
-    bottom: '0',
-    width: '100%',
-    height: spacing(9),
-    backgroundColor: primary.light,
-    alignItems: 'flex-start',
-  },
-  action: {
-    paddingTop: '8px !important',
-    minWidth: 'inherit',
-  },
-  icon: {
-    color: 'white',
-    fontSize: '32px',
-  },
-});
-
-const mapStateToProps = (state: IState) => ({
-  tabIndex: state.get('App').get('tabIndex'),
-  showHeader: state.get('App').get('showHeader'),
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(AppActions, dispatch),
-});
-
-export default compose(
-  withRouter,
-  withStyles(styles as any),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-)(Footer) as any;
-
-/** State */
-export interface StateFromProps {}
-
-/** Properties */
-export interface Props extends StateFromProps, RouteComponentProps<any>, WithStyles {
-  actions?: AppActions.Actions;
-  tabIndex?: number;
-  showHeader?: boolean;
-}
+  return (
+    <BottomNavigation value={tabIndex} onChange={handleChange} className={classes.root}>
+      <BottomNavigationAction
+        className={classes.action}
+        value={ROUTE_PATH_INDEX.Home}
+        icon={<HomeIcon className={classes.icon} />}
+        disableRipple
+        disableTouchRipple
+        component={React.forwardRef((props: any, ref: any) => (
+          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Home]} {...props} />
+        ))}
+      />
+      <BottomNavigationAction
+        className={classes.action}
+        value={ROUTE_PATH_INDEX.MyPage}
+        icon={<FaceIcon className={classes.icon} />}
+        disableRipple
+        disableTouchRipple
+        component={React.forwardRef((props: any, ref: any) => (
+          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} {...props} />
+        ))}
+      />
+      <BottomNavigationAction
+        className={classes.action}
+        value={ROUTE_PATH_INDEX.RegistInit}
+        icon={<CameraIcon className={classes.icon} />}
+        disableRipple
+        disableTouchRipple
+        component={React.forwardRef((props: any, ref: any) => (
+          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />
+        ))}
+      />
+      <BottomNavigationAction
+        className={classes.action}
+        value={ROUTE_PATH_INDEX.Settings}
+        icon={<SettingsIcon className={classes.icon} />}
+        disableRipple
+        disableTouchRipple
+        component={React.forwardRef((props: any, ref: any) => (
+          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} {...props} />
+        ))}
+      />
+    </BottomNavigation>
+  );
+};

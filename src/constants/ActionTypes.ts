@@ -54,16 +54,6 @@ export const B0_01_REQUEST = 'B0_01_REQUEST';
 export const B0_01_SUCCESS = 'B0_01_SUCCESS';
 export const B0_01_FAILURE = 'B0_01_FAILURE';
 
-// /** 次の単語 */
-// export const B0_02_REQUEST = 'B0_02_REQUEST';
-// export const B0_02_SUCCESS = 'B0_02_SUCCESS';
-// export const B0_02_FAILURE = 'B0_02_FAILURE';
-
-// /** 単語セットのリトライ */
-// export const B0_03_REQUEST = 'B0_03_REQUEST';
-// export const B0_03_SUCCESS = 'B0_03_SUCCESS';
-// export const B0_03_FAILURE = 'B0_03_FAILURE';
-
 /** テスト回答(YES/NO) */
 export const B0_04_REQUEST = 'B0_04_REQUEST';
 export const B0_04_SUCCESS = 'B0_04_SUCCESS';
@@ -83,3 +73,18 @@ export const B0_07_FAILURE = 'B0_07_FAILURE';
 export const C0_01_REQUEST = 'C0_01_REQUEST';
 export const C0_01_SUCCESS = 'C0_01_SUCCESS';
 export const C0_01_FAILURE = 'C0_01_FAILURE';
+
+/** グループ一覧 */
+export const E0_01_REQUEST = 'E0_01_REQUEST';
+export const E0_01_SUCCESS = 'E0_01_SUCCESS';
+export const E0_01_FAILURE = 'E0_01_FAILURE';
+
+/** グループ新規追加 */
+export const E0_02_REQUEST = 'E0_02_REQUEST';
+export const E0_02_SUCCESS = 'E0_02_SUCCESS';
+export const E0_02_FAILURE = 'E0_02_FAILURE';
+
+/** グループ編集 */
+export const E0_03_REQUEST = 'E0_03_REQUEST';
+export const E0_03_SUCCESS = 'E0_03_SUCCESS';
+export const E0_03_FAILURE = 'E0_03_FAILURE';

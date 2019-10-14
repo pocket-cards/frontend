@@ -1,86 +1,78 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch, compose } from 'redux';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import useReactRouter from 'use-react-router';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
-import { Menu as MenuIcon, ExitToApp } from '@material-ui/icons';
+import { Menu as MenuIcon, ExitToApp, AddCircleOutline, KeyboardArrowLeft as ArrowLeftIcon } from '@material-ui/icons';
 import { IState } from '@models';
 import * as AppActions from '@actions/app';
 import { VERSION } from '@constants/Consts';
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
-class Header extends React.Component<Props, any, any> {
-  handleLogout = () => {
-    const { actions } = this.props;
+const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
+  createStyles({
+    app: {
+      boxShadow: 'none',
+      height: '64px',
+      backgroudColor: primary.dark,
+    },
+    title: {
+      flexGrow: 1,
+    },
+    button: {
+      color: 'white',
+    },
+    icon: {
+      fontSize: spacing(5),
+      color: 'white',
+    },
+  })
+);
+const app = (state: IState) => state.get('App');
 
-    if (!actions) return;
+export default () => {
+  const classes = useStyles();
+  const actions = bindActionCreators(AppActions, useDispatch());
+  const { showHeader } = useSelector(app);
+  const { location, history } = useReactRouter();
 
-    // ログアウト
-    actions.logout();
+  console.log(location.pathname.split('/'));
+
+  // ヘッダ非表示
+  if (!showHeader) {
+    return <React.Fragment />;
   }
 
-  render() {
-    const { actions, showHeader, classes } = this.props;
+  const handleLogout = () => actions.logout();
 
-    if (!actions) return <React.Fragment />;
+  // Left Icon action
+  const handleOnClickLeft = () => {
+    const paths = location.pathname.split('/');
+    paths.pop();
 
-    // ヘッダ非表示
-    if (!showHeader) {
-      return <React.Fragment />;
-    }
+    history.push(paths.join('/'));
+  };
 
-    return (
-      <AppBar position="static" className={classes.app}>
-        <Toolbar>
-          <IconButton className={classes.button} color="inherit" aria-label="Reload">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.title} />
-          <Button color="inherit">Ver{VERSION}</Button>
-          <IconButton color="inherit" aria-label="Logout" onClick={this.handleLogout}>
-            <ExitToApp />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    );
-  }
-}
+  const handleOnClickAdd = () => history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.GroupNew]);
 
-const styles = {
-  app: {
-    boxShadow: 'none',
-    height: '64px',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  button: {
-    color: 'white',
-  },
+  return (
+    <AppBar position="static" className={classes.app}>
+      <Toolbar>
+        <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
+          {(() => {
+            return location.pathname.split('/').length <= 2 ? <MenuIcon /> : <ArrowLeftIcon className={classes.icon} />;
+          })()}
+        </IconButton>
+        <Typography variant="h6" color="inherit" className={classes.title} />
+        <Button color="inherit">Ver{VERSION}</Button>
+        <IconButton color="inherit" aria-label="Logout" onClick={handleLogout}>
+          <ExitToApp />
+        </IconButton>
+        <IconButton color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
+          <AddCircleOutline />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
+  );
 };
-
-const mapStateToProps = (state: IState) => ({
-  showHeader: state.get('App').get('showHeader'),
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(AppActions, dispatch),
-});
-
-export default compose(
-  withStyles(styles as any),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-)(Header) as any;
-
-/** State */
-export interface StateFromProps {
-  // tabIndex: number;
-}
-
-/** Properties */
-export interface Props extends StateFromProps, WithStyles {
-  actions?: AppActions.Actions;
-  showHeader?: boolean;
-}

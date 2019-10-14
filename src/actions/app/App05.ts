@@ -1,4 +1,4 @@
-import { App05RequestAction, App05SuccessAction, App05FailureAction, LoggedInAction } from '.';
+import { App05RequestAction, App05SuccessAction, App05FailureAction, LogoutAction } from '.';
 import { APP_05_REQUEST, APP_05_SUCCESS, APP_05_FAILURE } from '@constants/ActionTypes';
 
 /** ログアウト */
@@ -23,7 +23,7 @@ export const failure: App05FailureAction = error => dispatch =>
 
 /** ログアウト */
 // tslint:disable-next-line: ter-arrow-parens
-const logout: LoggedInAction = () => async dispatch => {
+const logout: LogoutAction = () => async dispatch => {
   dispatch(request);
 
   try {

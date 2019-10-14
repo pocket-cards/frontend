@@ -16,14 +16,14 @@ class A002 extends React.Component<Props, any, any> {
     const { actions, words, history } = this.props;
 
     actions.registWords(words, history);
-  }
+  };
 
   /** 単語削除 */
   handleRemove = (word: string) => {
     const { actions } = this.props;
 
     actions.removeWord(word);
-  }
+  };
 
   /** クリア */
   componentWillUnmount() {
@@ -158,8 +158,8 @@ export default compose(
   withStyles(styles as any),
   connect<StateFromProps, void, void, IState>(
     mapStateToProps,
-    mapDispatchToProps,
-  ),
+    mapDispatchToProps
+  )
 )(A002) as any;
 
 /** State */

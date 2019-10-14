@@ -19,20 +19,24 @@ class SignIn extends React.Component<Props, any, any> {
         username: this.state.email,
         password: this.state.password,
       })) as CognitoUser;
-
+      // const user = (await Auth.signIn({
+      //   username: 'wwalpha@gmail.com',
+      //   password: 'session10',
+      // })) as CognitoUser;
       console.log(user);
+
       this.props.actions.loggedIn(user);
     } catch (err) {
       console.log(err);
       this.props.actions.logout();
     }
-  }
+  };
 
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
   render() {
     const { classes, isLoggedIn } = this.props;
@@ -135,8 +139,8 @@ export default compose(
   withStyles(styles),
   connect(
     mapStateToProps,
-    mapDispatchToProps,
-  ),
+    mapDispatchToProps
+  )
 )(SignIn) as any;
 
 export interface Props extends WithStyles, RouteComponentProps {

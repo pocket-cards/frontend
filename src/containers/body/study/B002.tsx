@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { compose, Dispatch, bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-import { Grid, Card, CardContent, Typography, Fab, IconButton, CardHeader, TextField } from '@material-ui/core';
+import { bindActionCreators } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import useReactRouter from 'use-react-router';
+import { Grid, Card, CardContent, Typography, Fab, IconButton, CardHeader, TextField, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { Replay as ReplayIcon, Edit as EditIcon, KeyboardArrowLeft as ArrowLeftIcon, Done as DoneIcon } from '@material-ui/icons';
 import * as StudyActions from '@actions/study';
 import * as AppActions from '@actions/app';
@@ -12,52 +11,97 @@ import { MODES } from '@constants/Consts';
 import Loading from '@components/Loading';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
-/** 単語カメラ画面 */
-class B002 extends React.Component<Props, StateProps, any> {
-  state = {
-    showText: false,
-    edit: false,
-  };
+const useStyles = makeStyles(({ spacing, palette }: Theme) =>
+  createStyles({
+    container: {
+      height: '100%',
+      position: 'relative',
+    },
+    loading: {
+      height: 'calc(100vh - 64px)',
+      marginTop: '64px',
+    },
+    header: { padding: `${spacing()}px ${spacing(2)}px` },
+    content: { textAlign: 'center' },
+    top: {
+      width: '100%',
+      height: '380px',
+      padding: spacing(),
+      paddingTop: spacing(2),
+    },
+    menubar: {
+      height: spacing(8),
+      padding: `0px ${spacing(2)}px`,
+      backgroundColor: palette.primary.main,
+    },
+    iconButton: {
+      padding: spacing(0.5),
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    },
+    icon: {
+      fontSize: spacing(5),
+      color: 'white',
+    },
+    bottom: {
+      marginBottom: spacing(2),
+      flexGrow: 1,
+    },
+    button: {
+      width: spacing(12),
+      height: spacing(12),
+      margin: `0px ${spacing(3)}px`,
+    },
+    card: {
+      width: '90%',
+      height: '100%',
+      borderRadius: 4,
+    },
+    paper: {
+      boxShadow: 'none',
+      backgroundColor: 'transparent',
+    },
+  })
+);
 
-  /** 音声Tag */
-  private audioRef: React.RefObject<HTMLAudioElement>;
-  private zhRef: React.RefObject<HTMLInputElement>;
-  private jaRef: React.RefObject<HTMLInputElement>;
+const getB000 = (state: IState) => state.get('B000');
 
-  constructor(props: Readonly<Props>) {
-    super(props);
+export default () => {
+  const classes = useStyles();
+  const actions = bindActionCreators(StudyActions, useDispatch());
+  const appActions = bindActionCreators(AppActions, useDispatch());
+  const { current: word, mode, isLoading } = useSelector(getB000);
+  const [showText, setShowText] = React.useState(false);
+  const [edit, setEdit] = React.useState(false);
+  const { history } = useReactRouter();
+  const audioRef = React.createRef<HTMLAudioElement>();
+  const zhRef = React.createRef<HTMLInputElement>();
+  const jaRef = React.createRef<HTMLInputElement>();
 
-    this.audioRef = React.createRef<HTMLAudioElement>();
-    this.zhRef = React.createRef<HTMLInputElement>();
-    this.jaRef = React.createRef<HTMLInputElement>();
-  }
-
-  handleTouchStart = () => this.setState({ showText: true });
+  const handleTouchStart = () => setShowText(true);
 
   /** 新規単語学習 */
-  handleNext = () => {
-    const { history, actions } = this.props;
+  const handleNext = () => {
     actions.startReview(history);
-  }
+  };
 
-  handleAnswer = (word: string, yes: boolean) => {
-    this.props.actions.answer(word, yes);
-    this.setState({ showText: false });
+  const handleAnswer = (word: string, yes: boolean) => {
+    actions.answer(word, yes);
+    setShowText(false);
 
-    setTimeout(() => this.play(), 100);
-  }
+    setTimeout(() => play(), 100);
+  };
 
-  handleBack = () => {
-    const { appActions, history } = this.props;
-
+  const handleBack = () => {
     // ヘッダ、フット表示する
     appActions.showHeader(true);
     appActions.showFooter(true);
     // 画面遷移
     history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]);
-  }
+  };
 
-  getButtons = (mode: string, classes: any, word?: WordInfo) => {
+  const getButtons = (mode?: string, word?: WordInfo) => {
     const buttons = [];
 
     // 単語あり
@@ -71,13 +115,13 @@ class B002 extends React.Component<Props, StateProps, any> {
           disableFocusRipple
           disableTouchRipple
           disableRipple
-          onTouchStart={this.handleTouchStart}
+          onTouchStart={handleTouchStart}
           onClick={() => {
-            this.handleAnswer(word.word, true);
+            handleAnswer(word.word, true);
           }}
         >
           知ってる
-        </Fab>,
+        </Fab>
       );
       buttons.push(
         <Fab
@@ -88,224 +132,130 @@ class B002 extends React.Component<Props, StateProps, any> {
           disableFocusRipple
           disableTouchRipple
           disableRipple
-          onTouchStart={this.handleTouchStart}
+          onTouchStart={handleTouchStart}
           onClick={() => {
-            this.handleAnswer(word.word, false);
+            handleAnswer(word.word, false);
           }}
         >
           知らない
-        </Fab>,
+        </Fab>
       );
       return buttons;
     }
 
     // 単語なし
     if (mode === MODES.Review) {
-      console.log(this.handleNext);
+      console.log(handleNext);
       buttons.push(
-        <Fab key={3} className={classes.button} size="large" color="secondary" disableFocusRipple disableTouchRipple disableRipple onClick={this.handleNext}>
+        <Fab key={3} className={classes.button} size="large" color="secondary" disableFocusRipple disableTouchRipple disableRipple onClick={handleNext}>
           Retry
-        </Fab>,
+        </Fab>
       );
     }
 
     return buttons;
-  }
+  };
 
   /** 音声再生 */
-  play = () => {
-    const audio = this.audioRef.current;
+  const play = () => {
+    const audio = audioRef.current;
 
     audio && audio.play();
-  }
+  };
 
-  setEdit = () => {
-    const { word } = this.props;
-
+  const handleSetEdit = () => {
     try {
-      if (!word || !this.zhRef.current || !this.jaRef.current) {
+      if (!word || !zhRef.current || !jaRef.current) {
         return;
       }
 
-      const isChanged = this.zhRef.current.value !== word.vocChn || this.jaRef.current.value !== word.vocJpn;
+      const isChanged = zhRef.current.value !== word.vocChn || jaRef.current.value !== word.vocJpn;
 
       if (isChanged) {
         console.log('do some actions');
       }
     } finally {
-      this.setState({ edit: !this.state.edit });
+      setEdit(!edit);
     }
-  }
+  };
 
-  render() {
-    const { word, mode, isLoading, classes } = this.props;
-    const { showText } = this.state;
-
-    return (
-      <Grid container direction="column" className={classes.container}>
-        <Grid container justify="flex-end" alignItems="center" className={classes.menubar}>
-          <Grid item xs>
-            <IconButton className={classes.iconButton} onClick={this.handleBack} disableRipple disableTouchRipple>
-              <ArrowLeftIcon className={classes.icon} />
-            </IconButton>
-          </Grid>
-          <Grid item xs={2}>
-            <IconButton className={classes.iconButton} onClick={this.play} disableRipple disableTouchRipple>
-              <ReplayIcon className={classes.icon} />
-            </IconButton>
-          </Grid>
+  return (
+    <Grid container direction="column" className={classes.container}>
+      <Grid container justify="flex-end" alignItems="center" className={classes.menubar}>
+        <Grid item xs>
+          <IconButton className={classes.iconButton} onClick={handleBack} disableRipple disableTouchRipple>
+            <ArrowLeftIcon className={classes.icon} />
+          </IconButton>
         </Grid>
-        {(() => {
-          // Loading中
-          if (isLoading) {
-            return <Loading className={classes.loading} />;
-          }
-
-          if (!word) {
-            return (
-              <Grid container justify="center" alignItems="center" className={classes.bottom}>
-                <Grid item>{this.getButtons(mode, classes, word)}</Grid>
-              </Grid>
-            );
-          }
-
-          return (
-            <React.Fragment>
-              <Grid container alignItems="center" justify="center" className={classes.top}>
-                <Card className={classes.card}>
-                  <audio ref={this.audioRef} src={`/${word.mp3}`} />
-                  <CardHeader
-                    className={classes.header}
-                    action={
-                      <IconButton aria-label="Settings" onClick={this.setEdit}>
-                        {(() => {
-                          return this.state.edit ? <DoneIcon color="secondary" /> : <EditIcon color="secondary" />;
-                        })()}
-                      </IconButton>
-                    }
-                  />
-                  <CardContent className={classes.content}>
-                    <Typography variant="h4" gutterBottom align="center">
-                      {word.word}
-                    </Typography>
-                    <Typography className={classes.content} variant="h6" align="center">
-                      {word.pronounce ? `[${word.pronounce}]` : undefined}
-                    </Typography>
-                    {(() => {
-                      return this.state.edit ? (
-                        <TextField inputRef={this.zhRef} label="中国語" className={classes.content} value={word.vocChn} margin="normal" variant="outlined" />
-                      ) : (
-                        <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
-                          {word.vocChn}
-                        </Typography>
-                      );
-                    })()}
-                    {(() => {
-                      return this.state.edit ? (
-                        <TextField inputRef={this.jaRef} label="日本語" className={classes.content} value={word.vocJpn} margin="normal" variant="outlined" />
-                      ) : (
-                        <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
-                          {word.vocJpn}
-                        </Typography>
-                      );
-                    })()}
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid container justify="center" alignItems="center" className={classes.bottom}>
-                <Grid item>{this.getButtons(mode, classes, word)}</Grid>
-              </Grid>
-            </React.Fragment>
-          );
-        })()}
+        <Grid item xs={2}>
+          <IconButton className={classes.iconButton} onClick={play} disableRipple disableTouchRipple>
+            <ReplayIcon className={classes.icon} />
+          </IconButton>
+        </Grid>
       </Grid>
-    );
-  }
-}
+      {(() => {
+        // Loading中
+        if (isLoading) {
+          return <Loading className={classes.loading} />;
+        }
 
-const styles = ({ palette, spacing }: Theme) => ({
-  container: {
-    height: '100%',
-    position: 'relative',
-  },
-  loading: {
-    height: 'calc(100vh - 64px)',
-    marginTop: '64px',
-  },
-  header: { padding: `${spacing()}px ${spacing(2)}px` },
-  content: { textAlign: 'center' },
-  top: {
-    width: '100%',
-    height: '380px',
-    padding: spacing(),
-    paddingTop: spacing(2),
-  },
-  menubar: {
-    height: spacing(8),
-    padding: `0px ${spacing(2)}px`,
-    backgroundColor: palette.primary.main,
-  },
-  iconButton: {
-    padding: spacing(0.5),
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-  icon: {
-    fontSize: spacing(5),
-    color: 'white',
-  },
-  bottom: {
-    marginBottom: spacing(2),
-    flexGrow: 1,
-  },
-  button: {
-    width: spacing(12),
-    height: spacing(12),
-    margin: `0px ${spacing(3)}px`,
-  },
-  card: {
-    width: '90%',
-    height: '100%',
-    borderRadius: 4,
-  },
-  paper: {
-    boxShadow: 'none',
-    backgroundColor: 'transparent',
-  },
-});
+        if (!word) {
+          return (
+            <Grid container justify="center" alignItems="center" className={classes.bottom}>
+              <Grid item>{getButtons(mode, word)}</Grid>
+            </Grid>
+          );
+        }
 
-/** Props */
-const mapStateToProps = (state: IState) => ({
-  word: state.get('B000').get('current'),
-  mode: state.get('B000').get('mode'),
-  isLoading: state.get('B000').get('isLoading'),
-});
-
-/** Actions */
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(StudyActions, dispatch),
-  appActions: bindActionCreators(AppActions, dispatch),
-});
-
-export default compose(
-  withRouter,
-  withStyles(styles as any),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-)(B002) as any;
-
-export interface StateProps {
-  showText: boolean;
-  edit: boolean;
-}
-/** Properties */
-export interface Props extends RouteComponentProps, WithStyles {
-  actions: StudyActions.Actions;
-  appActions: AppActions.Actions;
-  word?: WordInfo;
-  mode: string;
-  isLoading?: boolean;
-}
+        return (
+          <React.Fragment>
+            <Grid container alignItems="center" justify="center" className={classes.top}>
+              <Card className={classes.card}>
+                <audio ref={audioRef} src={`/${word.mp3}`} />
+                <CardHeader
+                  className={classes.header}
+                  action={
+                    <IconButton aria-label="Settings" onClick={handleSetEdit}>
+                      {(() => {
+                        return edit ? <DoneIcon color="secondary" /> : <EditIcon color="secondary" />;
+                      })()}
+                    </IconButton>
+                  }
+                />
+                <CardContent className={classes.content}>
+                  <Typography variant="h4" gutterBottom align="center">
+                    {word.word}
+                  </Typography>
+                  <Typography className={classes.content} variant="h6" align="center">
+                    {word.pronounce ? `[${word.pronounce}]` : undefined}
+                  </Typography>
+                  {(() => {
+                    return edit ? (
+                      <TextField inputRef={zhRef} label="中国語" className={classes.content} value={word.vocChn} margin="normal" variant="outlined" />
+                    ) : (
+                      <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
+                        {word.vocChn}
+                      </Typography>
+                    );
+                  })()}
+                  {(() => {
+                    return edit ? (
+                      <TextField inputRef={jaRef} label="日本語" className={classes.content} value={word.vocJpn} margin="normal" variant="outlined" />
+                    ) : (
+                      <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
+                        {word.vocJpn}
+                      </Typography>
+                    );
+                  })()}
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid container justify="center" alignItems="center" className={classes.bottom}>
+              <Grid item>{getButtons(mode, word)}</Grid>
+            </Grid>
+          </React.Fragment>
+        );
+      })()}
+    </Grid>
+  );
+};

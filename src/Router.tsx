@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { hot } from 'react-hot-loader/root';
+import { hot } from 'react-hot-loader';
 import App from './App';
 import SignIn from './containers/auth/SignIn';
 import Auth from './containers/auth/Auth';
@@ -21,4 +21,4 @@ class Router extends React.Component<any, any> {
   }
 }
 
-export default hot(Router);
+export default hot(module)(Router);
