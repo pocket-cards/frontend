@@ -10,7 +10,6 @@ const prod: Configuration = {
       debug: false,
     }),
     new CleanWebpackPlugin(),
-    new EnvironmentPlugin(['API_URL', 'IDENTITY_POOL_ID', 'USER_POOL_ID', 'USER_POOL_WEB_CLIENT_ID']),
   ],
 };
 
