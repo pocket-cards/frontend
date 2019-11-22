@@ -15,11 +15,11 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
     container: {
       height: '100%',
-      position: 'relative',
+      position: 'relative'
     },
     loading: {
       height: 'calc(100vh - 64px)',
-      marginTop: '64px',
+      marginTop: '64px'
     },
     header: { padding: `${spacing()}px ${spacing(2)}px` },
     content: { textAlign: 'center' },
@@ -27,45 +27,49 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
       width: '100%',
       height: '380px',
       padding: spacing(),
-      paddingTop: spacing(2),
+      paddingTop: spacing(2)
     },
     menubar: {
       height: spacing(8),
       padding: `0px ${spacing(2)}px`,
-      backgroundColor: palette.primary.main,
+      backgroundColor: palette.primary.main
     },
     iconButton: {
       padding: spacing(0.5),
       '&:hover': {
-        cursor: 'pointer',
-      },
+        cursor: 'pointer'
+      }
     },
     icon: {
       fontSize: spacing(5),
-      color: 'white',
+      color: 'white'
     },
     bottom: {
       marginBottom: spacing(2),
-      flexGrow: 1,
+      flexGrow: 1
     },
     button: {
       width: spacing(12),
       height: spacing(12),
-      margin: `0px ${spacing(3)}px`,
+      margin: `0px ${spacing(3)}px`
     },
     card: {
       width: '90%',
       height: '100%',
-      borderRadius: 4,
+      borderRadius: 4
     },
     paper: {
       boxShadow: 'none',
-      backgroundColor: 'transparent',
-    },
+      backgroundColor: 'transparent'
+    }
   })
 );
 
 const getB000 = (state: IState) => state.get('B000');
+
+const audioRef = React.createRef<HTMLAudioElement>();
+const zhRef = React.createRef<HTMLInputElement>();
+const jaRef = React.createRef<HTMLInputElement>();
 
 export default () => {
   const classes = useStyles();
@@ -75,9 +79,6 @@ export default () => {
   const [showText, setShowText] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
   const { history } = useReactRouter();
-  const audioRef = React.createRef<HTMLAudioElement>();
-  const zhRef = React.createRef<HTMLInputElement>();
-  const jaRef = React.createRef<HTMLInputElement>();
 
   const handleTouchStart = () => setShowText(true);
 
