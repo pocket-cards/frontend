@@ -3,6 +3,10 @@ export interface GroupInfo {
   name: string;
   description?: string;
 }
+export interface ErrorPayload {
+  error: Error;
+}
+export interface Payload {}
 
 /** Actions */
 export interface RequestAction<T> {

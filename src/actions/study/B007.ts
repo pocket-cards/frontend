@@ -1,32 +1,17 @@
+import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
+import { ThunkAction } from 'redux-thunk';
 import { History } from 'history';
-import { B007RequestAction, B007SuccessAction, B007FailureAction, StartTestAction } from '.';
 import { MODES, GROUP_ID, C007_URL } from '@constants/Consts';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { C007Response } from 'typings/api';
 import { B0_07_REQUEST, B0_07_SUCCESS, B0_07_FAILURE } from '@constants/ActionTypes';
+import { C007Response, WordItem } from 'typings/api';
+import { Payload, ErrorPayload, APIClass } from 'typings/types';
+import { WordInfo, IState } from '@models';
 
 /** 単語テスト */
-export const request: B007RequestAction = dispatch =>
-  dispatch({
-    type: B0_07_REQUEST,
-  });
-
-/** 単語テスト */
-export const success: B007SuccessAction = data => dispatch =>
-  dispatch({
-    type: B0_07_SUCCESS,
-    payload: {
-      mode: MODES.AllTest,
-      words: data,
-    },
-  });
-
-/** 単語テスト */
-export const failure: B007FailureAction = error => dispatch =>
-  dispatch({
-    type: B0_07_FAILURE,
-    payload: error,
-  });
+export const request: B007RequestAction = createAction(B0_07_REQUEST);
+export const success: B007SuccessAction = createAction(B0_07_SUCCESS, (data: WordItem[]) => ({ mode: MODES.AllTest, words: data }));
+export const failure: B007FailureAction = createAction(B0_07_FAILURE, (error: Error) => ({ error }));
 
 /** 単語テスト */
 // tslint:disable-next-line: ter-arrow-parens
@@ -46,5 +31,17 @@ const startTest: StartTestAction = (history?: History<any>) => async (dispatch, 
     dispatch(failure(err));
   }
 };
+
+export interface B007Payload {
+  mode: string;
+  words: WordInfo[];
+}
+export type B007RequestAction = ActionFunction0<Action<Payload>>;
+export type B007SuccessAction = ActionFunction1<WordInfo[], Action<B007Payload>>;
+export type B007FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
+
+export type StartTestPayload = Payload | B007Payload | ErrorPayload;
+export type StartTestThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<StartTestPayload>>;
+export type StartTestAction = ActionFunction1<History<any>, StartTestThunkAction>;
 
 export default startTest;

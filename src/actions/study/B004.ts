@@ -1,32 +1,17 @@
-import { B004RequestAction, B004SuccessAction, B004FailureAction, AnswerAction } from '.';
+import { createAction, ActionFunction0, ActionFunction1, Action, ActionFunction2 } from 'redux-actions';
+import { ThunkAction } from 'redux-thunk';
 import { B0_04_REQUEST, B0_04_SUCCESS, B0_04_FAILURE } from '@constants/ActionTypes';
-import * as startNew from '@actions/study/B001';
-import * as startTest from '@actions/study/B007';
 import { C006_URL, GROUP_ID, C004_URL, MODES, C007_URL } from '@constants/Consts';
 import { C004Request, C006Response, C007Response } from 'typings/api';
-import { APIClass } from 'typings/types';
+import { APIClass, Payload, ErrorPayload } from 'typings/types';
+import { IState } from '@models';
+import * as StartNew from '@actions/study/B001';
+import * as StartTest from '@actions/study/B007';
 
 /** テスト回答(YES/NO) */
-export const request: B004RequestAction = dispatch =>
-  dispatch({
-    type: B0_04_REQUEST,
-  });
-
-/** テスト回答(YES/NO) */
-export const success: B004SuccessAction = (yes: boolean) => dispatch =>
-  dispatch({
-    type: B0_04_SUCCESS,
-    payload: {
-      yes,
-    },
-  });
-
-/** テスト回答(YES/NO) */
-export const failure: B004FailureAction = error => dispatch =>
-  dispatch({
-    type: B0_04_FAILURE,
-    payload: error,
-  });
+export const request: B004RequestAction = createAction(B0_04_REQUEST);
+export const success: B004SuccessAction = createAction(B0_04_SUCCESS, (yes: boolean) => ({ yes }));
+export const failure: B004FailureAction = createAction(B0_04_FAILURE, (error: Error) => ({ error }));
 
 /** テスト回答(YES/NO) */
 const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, getState, api) => {
@@ -73,16 +58,16 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
       const res = await api.get<C006Response>(C006_URL(GROUP_ID));
 
       // 新規単語の追加
-      dispatch(startNew.success(res.words));
+      dispatch(StartNew.success(res.words));
     } else {
       // テストの場合
       const res = await api.get<C007Response>(C007_URL(GROUP_ID));
 
-      dispatch(startTest.success(res.words));
+      dispatch(StartTest.success(res.words));
     }
   } catch (error) {
     dispatch(failure(error));
-    dispatch(startNew.failure(error));
+    dispatch(StartNew.failure(error));
   }
 };
 
@@ -94,5 +79,16 @@ const updateStatus = async (api: APIClass, word: string, yes: boolean, times: nu
     times,
   } as C004Request);
 };
+
+export interface B004Payload {
+  yes: boolean;
+}
+export type B004RequestAction = ActionFunction0<Action<Payload>>;
+export type B004SuccessAction = ActionFunction1<boolean, Action<B004Payload>>;
+export type B004FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
+
+export type AnswerPayload = Payload | B004Payload | ErrorPayload;
+export type AnswerThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<AnswerPayload>>;
+export type AnswerAction = ActionFunction2<string, boolean, AnswerThunkAction>;
 
 export default answer;
