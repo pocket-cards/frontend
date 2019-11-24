@@ -1,27 +1,13 @@
-import { A002RequestAction, A002SuccessAction, A002FailureAction, RemoveWordAction } from '.';
+import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
+import { ThunkAction } from 'redux-thunk';
 import { A0_02_REQUEST, A0_02_SUCCESS, A0_02_FAILURE } from '@constants/ActionTypes';
+import { ErrorPayload, APIClass } from 'typings/types';
+import { IState } from '@models';
 
 /** 指定単語削除 */
-export const request: A002RequestAction = dispatch =>
-  dispatch({
-    type: A0_02_REQUEST,
-  });
-
-/** 指定単語削除 */
-export const success: A002SuccessAction = word => dispatch =>
-  dispatch({
-    type: A0_02_SUCCESS,
-    payload: {
-      word,
-    },
-  });
-
-/** 指定単語削除 */
-export const failure: A002FailureAction = error => dispatch =>
-  dispatch({
-    type: A0_02_FAILURE,
-    payload: error,
-  });
+export const request: A002RequestAction = createAction(A0_02_REQUEST);
+export const success: A002SuccessAction = createAction(A0_02_SUCCESS, (word: string) => ({ word }));
+export const failure: A002FailureAction = createAction(A0_02_FAILURE, (error: Error) => ({ error }));
 
 /** 指定単語削除 */
 // tslint:disable-next-line: ter-arrow-parens
@@ -35,5 +21,17 @@ const removeWord: RemoveWordAction = (word: string) => dispatch => {
     dispatch(failure(err));
   }
 };
+
+/** 指定単語削除 */
+export interface A002Payload {
+  word: string;
+}
+export type A002RequestAction = ActionFunction0<Action<any>>;
+export type A002SuccessAction = ActionFunction1<string, Action<A002Payload>>;
+export type A002FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
+
+export type RemoveWordPayload = A002Payload | ErrorPayload;
+export type RemoveWordThunkAction = ThunkAction<void, IState, APIClass, Action<RemoveWordPayload>>;
+export type RemoveWordAction = ActionFunction1<string, RemoveWordThunkAction>;
 
 export default removeWord;
