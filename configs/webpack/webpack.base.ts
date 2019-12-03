@@ -12,7 +12,7 @@ const configs: Configuration = {
     publicPath: '/',
   },
   resolve: {
-    // mainFields: ['browser', 'main', 'module'],
+    mainFields: ['browser', 'main', 'module'],
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       '@models': path.resolve(__dirname, '../../src/models'),
