@@ -21,7 +21,6 @@ const configs: Configuration = {
       '@containers': path.resolve(__dirname, '../../src/containers'),
       '@utils': path.resolve(__dirname, '../../src/utils'),
       '@components': path.resolve(__dirname, '../../src/components'),
-      // 'react-dom': '@hot-loader/react-dom',
     },
   },
   module: {
