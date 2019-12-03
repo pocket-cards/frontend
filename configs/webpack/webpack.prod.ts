@@ -1,4 +1,4 @@
-import { LoaderOptionsPlugin, Configuration, EnvironmentPlugin } from 'webpack';
+import { LoaderOptionsPlugin, Configuration } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.base';
