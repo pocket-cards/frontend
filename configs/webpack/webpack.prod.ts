@@ -13,11 +13,11 @@ const prod: Configuration = {
   ],
 };
 
-prod.module.rules.push({
-  test: /\.mjs$/,
-  include: /node_modules/,
-  type: 'javascript/auto',
-});
-prod.resolve.extensions.push('.ejs');
+// prod.module.rules.push({
+//   test: /\.mjs$/,
+//   include: /node_modules/,
+//   type: 'javascript/auto',
+// });
+// prod.resolve.extensions.push('.ejs');
 
 export default merge(baseConfig, prod);
