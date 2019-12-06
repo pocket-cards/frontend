@@ -1,6 +1,6 @@
 import { HistoryAction } from './C001';
 
-export { default as history } from './C001';
+export { default as history, C001Payload } from './C001';
 // export { default as removeWord } from './A002';
 // export { default as registWords } from './A003';
 // export { default as clear } from './A004';

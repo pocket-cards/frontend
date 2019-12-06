@@ -4,8 +4,8 @@ import { RemoveWordAction } from './A002';
 import { RegistWordsAction } from './A003';
 import { ClearAction } from './A004';
 
-export { default as uploadImage } from './A001';
-export { default as removeWord } from './A002';
+export { default as uploadImage, A001Payload } from './A001';
+export { default as removeWord, A002Payload } from './A002';
 export { default as registWords } from './A003';
 export { default as clear } from './A004';
 

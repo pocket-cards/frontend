@@ -5,10 +5,10 @@ import { ShowFooterAction } from './App03';
 import { LoggedInAction } from './App04';
 import { LogoutAction } from './App05';
 
-export { default as tabChange } from './App01';
-export { default as showHeader } from './App02';
-export { default as showFooter } from './App03';
-export { default as loggedIn } from './App04';
+export { default as tabChange, App01Payload } from './App01';
+export { default as showHeader, App02Payload } from './App02';
+export { default as showFooter, App03Payload } from './App03';
+export { default as loggedIn, App04Payload } from './App04';
 export { default as logout } from './App05';
 
 // ------------------------------

@@ -1,6 +1,6 @@
 import { B000 } from '@models';
 import { handleActions, Action } from 'redux-actions';
-import { B001_SUCCESS_PAYLOAD, B006_SUCCESS_PAYLOAD, B007_SUCCESS_PAYLOAD, B004_SUCCESS_PAYLOAD } from '@actions/study';
+import { B001Payload, B006Payload, B004Payload, B007Payload } from '@actions/study';
 import {
   B0_01_REQUEST,
   B0_01_SUCCESS,
@@ -13,14 +13,14 @@ import {
   B0_06_FAILURE,
   B0_07_REQUEST,
   B0_07_SUCCESS,
-  B0_07_FAILURE,
+  B0_07_FAILURE
 } from '@constants/ActionTypes';
 
 const reducer = handleActions<B000, any>(
   {
     /** 新規単語 */
     [B0_01_REQUEST]: (store: B000) => store.clear().startLoading(),
-    [B0_01_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B001_SUCCESS_PAYLOAD>) => store.setWords(mode, words).endLoading(),
+    [B0_01_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B001Payload>) => store.setWords(mode, words).endLoading(),
     [B0_01_FAILURE]: (store: B000) => store.endLoading(),
 
     /** 次の単語 */
@@ -35,7 +35,7 @@ const reducer = handleActions<B000, any>(
 
     /** テスト回答(YES/NO) */
     [B0_04_REQUEST]: (store: B000) => store,
-    [B0_04_SUCCESS]: (store: B000, { payload: { yes } }: Action<B004_SUCCESS_PAYLOAD>) => store.answer(yes),
+    [B0_04_SUCCESS]: (store: B000, { payload: { yes } }: Action<B004Payload>) => store.answer(yes),
     [B0_04_FAILURE]: (store: B000) => store,
 
     /** 単語テスト（当日） */
@@ -45,15 +45,15 @@ const reducer = handleActions<B000, any>(
 
     /** 単語復習 */
     [B0_06_REQUEST]: (store: B000) => store.clear().startLoading(),
-    [B0_06_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B006_SUCCESS_PAYLOAD>) => store.setWords(mode, words).endLoading(),
+    [B0_06_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B006Payload>) => store.setWords(mode, words).endLoading(),
     [B0_06_FAILURE]: (store: B000) => store.endLoading(),
 
     /** 単語テスト */
     [B0_07_REQUEST]: (store: B000) => store.clear().startLoading(),
-    [B0_07_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B007_SUCCESS_PAYLOAD>) => store.setWords(mode, words).endLoading(),
-    [B0_07_FAILURE]: (store: B000) => store.endLoading(),
+    [B0_07_SUCCESS]: (store: B000, { payload: { mode, words } }: Action<B007Payload>) => store.setWords(mode, words).endLoading(),
+    [B0_07_FAILURE]: (store: B000) => store.endLoading()
   },
-  new B000(),
+  new B000()
 );
 
 export default reducer;
