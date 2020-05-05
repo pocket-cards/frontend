@@ -2,24 +2,35 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
-import { Grid, Card, CardContent, Typography, Fab, IconButton, CardHeader, TextField, makeStyles, Theme, createStyles } from '@material-ui/core';
-import { Replay as ReplayIcon, Edit as EditIcon, KeyboardArrowLeft as ArrowLeftIcon, Done as DoneIcon } from '@material-ui/icons';
+import ReplayIcon from '@material-ui/icons/Replay';
+import EditIcon from '@material-ui/icons/Edit';
+import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import DoneIcon from '@material-ui/icons/Done';
 import * as StudyActions from '@actions/study';
 import * as AppActions from '@actions/app';
 import { IState, WordInfo } from '@models';
 import { MODES } from '@constants/Consts';
 import Loading from '@components/Loading';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
     container: {
       height: '100%',
-      position: 'relative'
+      position: 'relative',
     },
     loading: {
       height: 'calc(100vh - 64px)',
-      marginTop: '64px'
+      marginTop: '64px',
     },
     header: { padding: `${spacing()}px ${spacing(2)}px` },
     content: { textAlign: 'center' },
@@ -27,41 +38,41 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
       width: '100%',
       height: '380px',
       padding: spacing(),
-      paddingTop: spacing(2)
+      paddingTop: spacing(2),
     },
     menubar: {
       height: spacing(8),
       padding: `0px ${spacing(2)}px`,
-      backgroundColor: palette.primary.main
+      backgroundColor: palette.primary.main,
     },
     iconButton: {
       padding: spacing(0.5),
       '&:hover': {
-        cursor: 'pointer'
-      }
+        cursor: 'pointer',
+      },
     },
     icon: {
       fontSize: spacing(5),
-      color: 'white'
+      color: 'white',
     },
     bottom: {
       marginBottom: spacing(2),
-      flexGrow: 1
+      flexGrow: 1,
     },
     button: {
       width: spacing(12),
       height: spacing(12),
-      margin: `0px ${spacing(3)}px`
+      margin: `0px ${spacing(3)}px`,
     },
     card: {
       width: '90%',
       height: '100%',
-      borderRadius: 4
+      borderRadius: 4,
     },
     paper: {
       boxShadow: 'none',
-      backgroundColor: 'transparent'
-    }
+      backgroundColor: 'transparent',
+    },
   })
 );
 
@@ -119,8 +130,7 @@ export default () => {
           onTouchStart={handleTouchStart}
           onClick={() => {
             handleAnswer(word.word, true);
-          }}
-        >
+          }}>
           知ってる
         </Fab>
       );
@@ -136,8 +146,7 @@ export default () => {
           onTouchStart={handleTouchStart}
           onClick={() => {
             handleAnswer(word.word, false);
-          }}
-        >
+          }}>
           知らない
         </Fab>
       );
@@ -148,7 +157,15 @@ export default () => {
     if (mode === MODES.Review) {
       console.log(handleNext);
       buttons.push(
-        <Fab key={3} className={classes.button} size="large" color="secondary" disableFocusRipple disableTouchRipple disableRipple onClick={handleNext}>
+        <Fab
+          key={3}
+          className={classes.button}
+          size="large"
+          color="secondary"
+          disableFocusRipple
+          disableTouchRipple
+          disableRipple
+          onClick={handleNext}>
           Retry
         </Fab>
       );
@@ -232,7 +249,14 @@ export default () => {
                   </Typography>
                   {(() => {
                     return edit ? (
-                      <TextField inputRef={zhRef} label="中国語" className={classes.content} value={word.vocChn} margin="normal" variant="outlined" />
+                      <TextField
+                        inputRef={zhRef}
+                        label="中国語"
+                        className={classes.content}
+                        value={word.vocChn}
+                        margin="normal"
+                        variant="outlined"
+                      />
                     ) : (
                       <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
                         {word.vocChn}
@@ -241,7 +265,14 @@ export default () => {
                   })()}
                   {(() => {
                     return edit ? (
-                      <TextField inputRef={jaRef} label="日本語" className={classes.content} value={word.vocJpn} margin="normal" variant="outlined" />
+                      <TextField
+                        inputRef={jaRef}
+                        label="日本語"
+                        className={classes.content}
+                        value={word.vocJpn}
+                        margin="normal"
+                        variant="outlined"
+                      />
                     ) : (
                       <Typography component="p" variant="h6" align="center" style={{ display: showText ? '' : 'none' }}>
                         {word.vocJpn}

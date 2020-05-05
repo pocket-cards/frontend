@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { Fab, Grid, withStyles, WithStyles } from '@material-ui/core';
-import { Camera as CameraIcon } from '@material-ui/icons';
+import CameraIcon from '@material-ui/icons/Camera';
+import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
+import { withStyles, WithStyles } from '@material-ui/core/styles';
 
 const isNotSupport = () => navigator.mediaDevices === undefined || navigator.mediaDevices.getUserMedia === undefined;
 
@@ -56,7 +58,7 @@ class WebCamera extends React.Component<Props, State, any> {
 
     // 画像出力の準備
     context && context.drawImage(video, 0, 0);
-  }
+  };
 
   /** カメラ開始 */
   startCamera = () => {
@@ -82,7 +84,7 @@ class WebCamera extends React.Component<Props, State, any> {
 
         video.onloadedmetadata = () => video.play();
       });
-  }
+  };
 
   /** カメラ終了 */
   stopCamera = () => {
@@ -94,7 +96,7 @@ class WebCamera extends React.Component<Props, State, any> {
       beforeStartCamera && beforeStartCamera();
 
       // カメラ閉じる
-      stream && stream.getTracks().forEach(track => track.stop());
+      stream && stream.getTracks().forEach((track) => track.stop());
       // 状態変更
       this.setState({ onAir: false, stream: undefined });
 
@@ -110,7 +112,7 @@ class WebCamera extends React.Component<Props, State, any> {
       // カメラ終了後イベント
       afterStopCamera && afterStopCamera();
     }
-  }
+  };
 
   /** 写真 */
   takePhoto = ({ type, quality } = { type: 'image/png', quality: 1 }) => {
@@ -122,7 +124,7 @@ class WebCamera extends React.Component<Props, State, any> {
     takePhoto && takePhoto(base64);
 
     this.stopCamera();
-  }
+  };
 
   render() {
     const { onAir } = this.state;
@@ -145,8 +147,7 @@ class WebCamera extends React.Component<Props, State, any> {
               type: 'image/png',
               quality: 0.8,
             });
-          }}
-        >
+          }}>
           <CameraIcon />
         </Fab>
       </Grid>

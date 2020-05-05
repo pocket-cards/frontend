@@ -1,14 +1,21 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { compose, Dispatch, bindActionCreators } from 'redux';
-import { Auth } from 'aws-amplify';
-import { withRouter, RouteComponentProps, Redirect } from 'react-router-dom';
-import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Container, Typography } from '@material-ui/core';
+import { withRouter, RouteComponentProps, Redirect, Link } from 'react-router-dom';
+import { Auth, CognitoUser } from '@aws-amplify/auth';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import * as AppActions from '@actions/app';
-import { connect } from 'react-redux';
 import { IState } from '@models';
-import { CognitoUser } from '@aws-amplify/auth';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 class SignIn extends React.Component<Props, any, any> {
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -84,15 +91,9 @@ class SignIn extends React.Component<Props, any, any> {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+                {/* <Link href="#">Forgot password?</Link> */}
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+              <Grid item>{/* <Link href="#">{"Don't have an account? Sign Up"}</Link> */}</Grid>
             </Grid>
           </form>
         </div>
@@ -134,14 +135,7 @@ const mapStateToProps = (state: IState) => ({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(AppActions, dispatch),
 });
-export default compose(
-  withRouter,
-  withStyles(styles),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )
-)(SignIn) as any;
+export default compose(withRouter, withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(SignIn) as any;
 
 export interface Props extends WithStyles, RouteComponentProps {
   actions: AppActions.Actions;

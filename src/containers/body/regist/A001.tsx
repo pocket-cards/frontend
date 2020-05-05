@@ -3,7 +3,7 @@ import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import * as RegistActions from '@actions/regist';
 import Button from '@components/buttons/Button';
 import WebCamera from '@components/WebCamera';
@@ -22,7 +22,7 @@ class A001 extends React.Component<Props, any, any> {
 
     // 画像アップロード
     actions.uploadImage(test, history);
-  }
+  };
 
   /** カメラ起動 */
   handleCamera = (image: string) => {
@@ -30,7 +30,7 @@ class A001 extends React.Component<Props, any, any> {
 
     // 画像アップロード
     actions.uploadImage(image, history);
-  }
+  };
 
   /** ファイルアップロードイベント */
   handleUpload = () => {
@@ -39,7 +39,7 @@ class A001 extends React.Component<Props, any, any> {
     if (!element) return;
 
     element.click();
-  }
+  };
 
   /** ファイルアップロード */
   handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +62,7 @@ class A001 extends React.Component<Props, any, any> {
     };
 
     fr.readAsDataURL(files[0]);
-  }
+  };
 
   render() {
     const { onAir } = this.state;
@@ -118,14 +118,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   actions: bindActionCreators(RegistActions, dispatch),
 });
 
-export default compose(
-  withRouter,
-  withStyles(styles as any),
-  connect(
-    null,
-    mapDispatchToProps,
-  ),
-)(A001) as any;
+export default compose(withRouter, withStyles(styles as any), connect(null, mapDispatchToProps))(A001) as any;
 
 /** Properties */
 export interface Props extends RouteComponentProps, WithStyles {

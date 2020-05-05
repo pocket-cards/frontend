@@ -1,7 +1,8 @@
 import { Record } from 'immutable';
 import { WordItem } from 'typings/api';
 import { MODES, PAGE_MAX_WORDS } from '@constants/Consts';
-import * as _ from 'lodash';
+import differenceBy from 'lodash/differenceBy';
+import concat from 'lodash/concat';
 
 export type WordInfo = WordItem;
 
@@ -37,13 +38,13 @@ export default class B000 extends Record<B000Props>({
    */
   setWords(mode: string, words: WordInfo[]) {
     // 差分を抽出する
-    const differ = _.differenceBy(words, this.history, 'word');
+    const differ = differenceBy(words, this.history, 'word');
     // 足りない単語数を計算する
     const diffNum = PAGE_MAX_WORDS - this.words.length;
     // 追加する単語
     const added = differ.splice(0, diffNum);
     // 既存配列と合併する
-    const newArray = _.concat(this.words, added);
+    const newArray = concat(this.words, added);
 
     // console.log(this.words);
     // console.log(words);
@@ -91,16 +92,12 @@ export default class B000 extends Record<B000Props>({
 
     console.log(newIdx);
 
-    return this.set('words', this.words)
-      .set('index', newIdx)
-      .set('current', this.words[newIdx]);
+    return this.set('words', this.words).set('index', newIdx).set('current', this.words[newIdx]);
   }
 
   /** 既存単語をクリアする */
   clear() {
-    return this.set('words', [])
-      .set('history', [])
-      .set('current', undefined);
+    return this.set('words', []).set('history', []).set('current', undefined);
   }
 
   /** 取込中 */

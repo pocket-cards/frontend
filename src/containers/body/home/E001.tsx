@@ -3,13 +3,33 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, Divider, Grid, ListItemSecondaryAction, IconButton } from '@material-ui/core';
-import { Folder as FolderIcon, Edit as EditIcon } from '@material-ui/icons';
+import {
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  Divider,
+  Grid,
+  ListItemSecondaryAction,
+  IconButton,
+} from '@material-ui/core';
+import FolderIcon from '@material-ui/icons/Folder';
+import EditIcon from '@material-ui/icons/Edit';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
 import { IState } from '@models';
 import { GroupInfo } from 'typings/types';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+// import Grid from '@material-ui/core/Grid';
+// import List from '@material-ui/core/List';
+// import Divider from '@material-ui/core/Divider';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import Avatar from '@material-ui/core/Avatar';
+// import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+// import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(({ palette: { secondary } }: Theme) =>
   createStyles({
@@ -73,8 +93,7 @@ export default () => {
                     <Avatar
                       classes={{
                         colorDefault: classes.avatar,
-                      }}
-                    >
+                      }}>
                       <FolderIcon />
                     </Avatar>
                   </ListItemAvatar>
@@ -91,8 +110,7 @@ export default () => {
                       aria-label="edit"
                       classes={{
                         root: classes.icon,
-                      }}
-                    >
+                      }}>
                       <EditIcon />
                     </IconButton>
                   </ListItemSecondaryAction>

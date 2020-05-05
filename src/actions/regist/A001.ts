@@ -1,13 +1,13 @@
 import { History } from 'history';
 import { createAction, ActionFunction0, ActionFunction1, Action, ActionFunction2 } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import * as loadsh from 'lodash';
 import { A0_01_REQUEST, A0_01_SUCCESS, A0_01_FAILURE } from '@constants/ActionTypes';
 import { D001_URL } from '@constants/Consts';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { D001Request, D001Response } from 'typings/api';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { IState } from '@models';
+import isEmpty from 'lodash/isEmpty';
 
 /** 画像アップロード */
 export const request: A001RequestAction = createAction(A0_01_REQUEST);
@@ -21,7 +21,7 @@ const uploadImage: UploadImageAction = (image: string, history?: History<any>) =
   dispatch(request);
 
   // データチェック
-  if (loadsh.isEmpty(image) || image.split(';').length <= 1) {
+  if (isEmpty(image) || image.split(';').length <= 1) {
     dispatch(failure((null as unknown) as Error));
     return;
   }

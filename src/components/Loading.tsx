@@ -1,7 +1,10 @@
 import * as React from 'react';
-import { Grid, Paper, CircularProgress, StandardProps } from '@material-ui/core';
 import { Theme, WithStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/styles';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { StandardProps } from '@material-ui/core';
 
 class Loading extends React.Component<LoadingProps, any, any> {
   render() {
@@ -16,8 +19,7 @@ class Loading extends React.Component<LoadingProps, any, any> {
         classes={{
           container: classes.root,
         }}
-        className={className}
-      >
+        className={className}>
         <Paper className={classes.paper}>
           <CircularProgress size={size} />
         </Paper>

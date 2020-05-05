@@ -3,11 +3,19 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, Grid, Button, ListItemIcon, Divider } from '@material-ui/core';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@material-ui/icons';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { IState } from '@models';
 import * as RegistActions from '@actions/regist';
 import Loading from '@components/Loading';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 
 /** 単語登録リスト画面 */
 class A002 extends React.Component<Props, any, any> {
@@ -45,7 +53,7 @@ class A002 extends React.Component<Props, any, any> {
         {(() => (isLoading ? <Loading /> : undefined))()}
         <Grid item xs={12} className={classes.root}>
           <List>
-            {words.map(value => (
+            {words.map((value) => (
               <React.Fragment>
                 <ListItem
                   key={value}
@@ -53,8 +61,7 @@ class A002 extends React.Component<Props, any, any> {
                   dense
                   classes={{
                     secondaryAction: classes.secondaryAction,
-                  }}
-                >
+                  }}>
                   <ListItemIcon classes={{ root: classes.itemIcon }}>
                     <EditIcon className={classes.icon} color="secondary" />
                   </ListItemIcon>
@@ -68,8 +75,7 @@ class A002 extends React.Component<Props, any, any> {
                   <ListItemSecondaryAction
                     classes={{
                       root: classes.action,
-                    }}
-                  >
+                    }}>
                     <DeleteIcon
                       fontSize="large"
                       color="secondary"
@@ -156,10 +162,7 @@ const styles = ({ palette: { primary }, spacing }: Theme) => ({
 export default compose(
   withRouter,
   withStyles(styles as any),
-  connect<StateFromProps, void, void, IState>(
-    mapStateToProps,
-    mapDispatchToProps
-  )
+  connect<StateFromProps, void, void, IState>(mapStateToProps, mapDispatchToProps)
 )(A002) as any;
 
 /** State */

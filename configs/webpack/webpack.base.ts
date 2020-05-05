@@ -3,25 +3,23 @@ import { Configuration, NoEmitOnErrorsPlugin, LoaderOptionsPlugin, EnvironmentPl
 import HappyPack from 'happypack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
+import Dotenv from 'dotenv-webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const configs: Configuration = {
+  target: 'web',
   entry: ['./index'],
   output: {
-    filename: 'bundle.min.js',
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].chunk.js',
     path: path.resolve(__dirname, '../../build'),
     publicPath: '/',
   },
   resolve: {
     mainFields: ['browser', 'main', 'module'],
     extensions: ['.ts', '.tsx', '.js'],
-    alias: {
-      '@models': path.resolve(__dirname, '../../src/models'),
-      '@actions': path.resolve(__dirname, '../../src/actions'),
-      '@constants': path.resolve(__dirname, '../../src/constants'),
-      '@containers': path.resolve(__dirname, '../../src/containers'),
-      '@utils': path.resolve(__dirname, '../../src/utils'),
-      '@components': path.resolve(__dirname, '../../src/components'),
-    },
+    plugins: [new TsconfigPathsPlugin()],
   },
   module: {
     rules: [
@@ -29,23 +27,11 @@ const configs: Configuration = {
         test: /\.(tsx|ts)$/,
         exclude: /node_modules/,
         use: [
-          // {
-          //   loader: 'thread-loader',
-          //   options: {
-          //     workers: 2,
-          //     workerParallelJobs: 50,
-          //     workerNodeArgs: ['--max-old-space-size=1024'],
-          //     poolRespawn: false,
-          //     poolTimeout: 2000,
-          //     poolParallelJobs: 50,
-          //     name: 'my-pool',
-          //   },
-          // },
           {
             loader: 'babel-loader',
             options: {
               cacheDirectory: true,
-              plugins: ['react-hot-loader/babel'],
+              plugins: ['react-hot-loader/babel', '@babel/plugin-proposal-optional-chaining'],
             },
           },
           {
@@ -60,7 +46,8 @@ const configs: Configuration = {
     ],
   },
   plugins: [
-    new EnvironmentPlugin(['API_URL', 'AWS_DEFAULT_REGION', 'IDENTITY_POOL_ID', 'USER_POOL_ID', 'USER_POOL_WEB_CLIENT_ID']),
+    new Dotenv(),
+    new BundleAnalyzerPlugin(),
     new HappyPack({
       loaders: ['babel-loader', 'ts-loader'],
       threads: 10,
@@ -84,6 +71,23 @@ const configs: Configuration = {
       },
     ]),
   ],
+  optimization: {
+    splitChunks: {
+      name: true,
+      cacheGroups: {
+        commons: {
+          chunks: 'initial',
+          minChunks: 2,
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+          priority: -10,
+        },
+      },
+    },
+    runtimeChunk: true,
+  },
   bail: true,
 };
 

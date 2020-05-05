@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { Grid, makeStyles, createStyles } from '@material-ui/core';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { Header, Footer } from '@containers/com';
 import { RegistMain, StudyMain, MyPageMain, SettingsMain, HomeMain } from '@containers/body';
@@ -39,8 +38,7 @@ export default (props: React.ComponentProps<any>) => {
           minHeight: showHeader ? 'calc(100vh - 136px)' : '100vh',
           maxHeight: showHeader ? 'calc(100vh - 136px)' : '100vh',
           height: showHeader ? 'calc(100vh - 136px)' : '100vh',
-        }}
-      >
+        }}>
         <Switch>
           <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} component={RegistMain} />
           <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} component={MyPageMain} />

@@ -2,10 +2,13 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { Grid, Card, CardContent, Typography } from '@material-ui/core';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
 import { IState } from '@models';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -36,7 +39,9 @@ const getC000 = (state: IState) => state.get('C000');
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(MyPageActions, useDispatch());
-  const { remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly, isLoading } = useSelector(getC000);
+  const { remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly, isLoading } = useSelector(
+    getC000
+  );
 
   React.useMemo(() => {
     actions.history();

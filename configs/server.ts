@@ -1,10 +1,10 @@
+require('dotenv').config();
+
 import webpack from 'webpack';
 import express from 'express';
 import dev from 'webpack-dev-middleware';
 import hot from 'webpack-hot-middleware';
 import webpackConfig from './webpack/webpack.dev';
-import https from 'https';
-import * as fs from 'fs';
 import * as path from 'path';
 
 const compiler = webpack(webpackConfig);
@@ -22,16 +22,18 @@ app.use('*', (req, res, next) => {
       next(err);
       return;
     }
-    res.set('content-type', 'text/html');
+    res.set('content-type', 'gzip');
     res.send(contents);
     res.end();
   });
 });
 
-// app.listen(3000, () => console.log('Example app listening on port 3000!'));
-const opt: https.ServerOptions = {
-  key: fs.readFileSync('./configs/certs/server_key.pem'),
-  cert: fs.readFileSync('./configs/certs/server_crt.pem'),
-};
+app.listen(3000, () => console.log('App listening on port 3000!'));
 
-https.createServer(opt, app).listen(443);
+// (async () => {
+//   const ngrok = require('ngrok');
+
+//   const url = await ngrok.connect(3000);
+
+//   console.log(url);
+// })();

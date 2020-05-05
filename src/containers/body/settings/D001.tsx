@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 import Button from '@components/buttons/Button';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({

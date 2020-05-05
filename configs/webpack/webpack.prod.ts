@@ -1,5 +1,6 @@
 import { LoaderOptionsPlugin, Configuration } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.base';
 
@@ -10,14 +11,15 @@ const prod: Configuration = {
       debug: false,
     }),
     new CleanWebpackPlugin(),
+    new CompressionPlugin({
+      test: /\.js$/,
+      filename: '[path].gz[query]',
+      // Build failed: required python
+      // algorithm: (source, compressionOptions, callback) => {
+      //   return zopfli.gzip(Buffer.from(source), compressionOptions, callback);
+      // }
+    }),
   ],
 };
-
-// prod.module.rules.push({
-//   test: /\.mjs$/,
-//   include: /node_modules/,
-//   type: 'javascript/auto',
-// });
-// prod.resolve.extensions.push('.ejs');
 
 export default merge(baseConfig, prod);

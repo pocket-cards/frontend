@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
 import * as AppActions from '@actions/app';
 import Button from '@components/buttons/Button';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({

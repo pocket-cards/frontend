@@ -8,9 +8,9 @@ import * as API from '@utils/API';
 const store = createStore(
   rootReducer,
   composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(API), logger),
+    applyMiddleware(thunk.withExtraArgument(API), logger)
     // other store enhancers if any
-  ),
+  )
 );
 
 if (module.hot) {
