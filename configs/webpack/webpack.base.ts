@@ -4,8 +4,7 @@ import HappyPack from 'happypack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
-import Dotenv from 'dotenv-webpack';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const configs: Configuration = {
   target: 'web',
@@ -46,8 +45,7 @@ const configs: Configuration = {
     ],
   },
   plugins: [
-    new Dotenv(),
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new HappyPack({
       loaders: ['babel-loader', 'ts-loader'],
       threads: 10,

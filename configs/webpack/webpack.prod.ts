@@ -1,4 +1,4 @@
-import { LoaderOptionsPlugin, Configuration } from 'webpack';
+import { LoaderOptionsPlugin, Configuration, EnvironmentPlugin } from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
 import merge from 'webpack-merge';
@@ -7,6 +7,7 @@ import baseConfig from './webpack.base';
 const prod: Configuration = {
   mode: 'production',
   plugins: [
+    new EnvironmentPlugin(['API_URL', 'IDENTITY_POOL_ID', 'USER_POOL_ID', 'USER_POOL_WEB_CLIENT_ID']),
     new LoaderOptionsPlugin({
       debug: false,
     }),
