@@ -2,6 +2,7 @@ import { HotModuleReplacementPlugin, LoaderOptionsPlugin, Configuration } from '
 import merge from 'webpack-merge';
 import baseConfig from './webpack.base';
 import Dotenv from 'dotenv-webpack';
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 const dev: Configuration = {
   mode: 'development',
@@ -13,6 +14,7 @@ const dev: Configuration = {
     },
   },
   plugins: [
+    // new BundleAnalyzerPlugin(),
     new Dotenv(),
     new HotModuleReplacementPlugin(),
     new LoaderOptionsPlugin({

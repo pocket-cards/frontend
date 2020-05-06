@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "ts-node -r dotenv/config configs/server.ts",
     "prod": "ts-node -r dotenv/config configs/server.ts dotenv_config_path=./configs/env/prod",
-    "build": "webpack -w --config configs/webpack/webpack.prod.ts",
+    "build": "webpack --config configs/webpack/webpack.prod.ts",
     "valid": "tsc --noEmit"
   },
   "dependencies": {

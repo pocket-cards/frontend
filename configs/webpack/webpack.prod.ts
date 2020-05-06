@@ -12,14 +12,14 @@ const prod: Configuration = {
       debug: false,
     }),
     new CleanWebpackPlugin(),
-    new CompressionPlugin({
-      test: /\.js$/,
-      filename: '[path].gz[query]',
-      // Build failed: required python
-      // algorithm: (source, compressionOptions, callback) => {
-      //   return zopfli.gzip(Buffer.from(source), compressionOptions, callback);
-      // }
-    }),
+    // new CompressionPlugin({
+    //   test: /\.js$/,
+    //   filename: '[path].gz[query]',
+    //   // Build failed: required python
+    //   // algorithm: (source, compressionOptions, callback) => {
+    //   //   return zopfli.gzip(Buffer.from(source), compressionOptions, callback);
+    //   // }
+    // }),
   ],
 };
 

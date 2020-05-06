@@ -5,3 +5,4 @@
 /configs/env/dev
 /configs/env/prod
 /.vscode
+.env
