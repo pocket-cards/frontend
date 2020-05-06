@@ -2,11 +2,10 @@ import * as React from 'react';
 import { compose, Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import * as RegistActions from '@actions/regist';
 import Button from '@components/buttons/Button';
 import WebCamera from '@components/WebCamera';
+import { Grid, Theme, withStyles, WithStyles } from '@material-ui/core';
 
 /** 単語カメラ画面 */
 class A001 extends React.Component<Props, any, any> {

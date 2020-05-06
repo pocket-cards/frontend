@@ -2,17 +2,18 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import useReactRouter from 'use-react-router';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import {
-  List,
+  makeStyles,
+  Theme,
+  createStyles,
+  Grid,
   ListItem,
   ListItemAvatar,
   Avatar,
   ListItemText,
-  Divider,
-  Grid,
   ListItemSecondaryAction,
   IconButton,
+  Divider,
 } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
 import EditIcon from '@material-ui/icons/Edit';
@@ -21,15 +22,7 @@ import * as MyPageActions from '@actions/mypage';
 import { IState } from '@models';
 import { GroupInfo } from 'typings/types';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-// import Grid from '@material-ui/core/Grid';
-// import List from '@material-ui/core/List';
-// import Divider from '@material-ui/core/Divider';
-// import ListItem from '@material-ui/core/ListItem';
-// import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-// import ListItemText from '@material-ui/core/ListItemText';
-// import Avatar from '@material-ui/core/Avatar';
-// import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-// import IconButton from '@material-ui/core/IconButton';
+import { List } from 'immutable';
 
 const useStyles = makeStyles(({ palette: { secondary } }: Theme) =>
   createStyles({

@@ -2,20 +2,24 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch, compose } from 'redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { IState } from '@models';
 import * as RegistActions from '@actions/regist';
 import Loading from '@components/Loading';
-import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
+import {
+  Grid,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListItemSecondaryAction,
+  Divider,
+  Button,
+  Theme,
+  withStyles,
+  WithStyles,
+} from '@material-ui/core';
+import { List } from 'immutable';
 
 /** 単語登録リスト画面 */
 class A002 extends React.Component<Props, any, any> {

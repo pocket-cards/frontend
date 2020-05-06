@@ -1,5 +1,5 @@
 import * as React from 'react';
-import MButton, { ButtonProps } from '@material-ui/core/Button';
+import { Button as MButton, ButtonProps } from '@material-ui/core';
 
 class Button extends React.Component<ButtonProps, any, any> {
   render() {

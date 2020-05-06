@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import * as MyPageActions from '@actions/mypage';
+import { makeStyles, Theme, createStyles, Grid, TextField } from '@material-ui/core';
 import Button from '@components/buttons/Button';
+import * as MyPageActions from '@actions/mypage';
 import { IState } from '@models';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({

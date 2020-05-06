@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
-import { WithStyles, StyleRules, withStyles } from '@material-ui/core/styles';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Button, StyleRules, withStyles, WithStyles } from '@material-ui/core';
 
 /** 単語登録完了画面 */
 class A003 extends React.Component<Props, any, any> {

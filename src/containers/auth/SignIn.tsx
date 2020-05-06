@@ -4,18 +4,22 @@ import { compose, Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps, Redirect, Link } from 'react-router-dom';
 import { Auth, CognitoUser } from '@aws-amplify/auth';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import { Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import {
+  Container,
+  CssBaseline,
+  Avatar,
+  Typography,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Grid,
+  Theme,
+  withStyles,
+  WithStyles,
+} from '@material-ui/core';
 import * as AppActions from '@actions/app';
 import { IState } from '@models';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 
 class SignIn extends React.Component<Props, any, any> {
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

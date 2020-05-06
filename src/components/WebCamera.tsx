@@ -1,8 +1,6 @@
 import * as React from 'react';
 import CameraIcon from '@material-ui/icons/Camera';
-import Grid from '@material-ui/core/Grid';
-import Fab from '@material-ui/core/Fab';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
+import { Grid, Fab, withStyles, WithStyles } from '@material-ui/core';
 
 const isNotSupport = () => navigator.mediaDevices === undefined || navigator.mediaDevices.getUserMedia === undefined;
 

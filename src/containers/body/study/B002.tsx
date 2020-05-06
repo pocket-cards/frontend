@@ -2,6 +2,19 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import useReactRouter from 'use-react-router';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  Fab,
+  Grid,
+  IconButton,
+  Card,
+  CardHeader,
+  CardContent,
+  Typography,
+  TextField,
+} from '@material-ui/core';
 import ReplayIcon from '@material-ui/icons/Replay';
 import EditIcon from '@material-ui/icons/Edit';
 import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
@@ -12,15 +25,6 @@ import { IState, WordInfo } from '@models';
 import { MODES } from '@constants/Consts';
 import Loading from '@components/Loading';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
