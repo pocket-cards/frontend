@@ -1,9 +1,11 @@
 import { CognitoUser } from '@aws-amplify/auth';
-import { TabChangeAction } from './App01';
-import { ShowHeaderAction } from './App02';
-import { ShowFooterAction } from './App03';
-import { LoggedInAction } from './App04';
-import { LogoutAction } from './App05';
+import tabChange from './App01';
+import showHeader from './App02';
+import showFooter from './App03';
+import loggedIn from './App04';
+import logout from './App05';
+
+import { ThunkActionDispatch } from 'typings/redux-thunk';
 
 export { default as tabChange, App01Payload } from './App01';
 export { default as showHeader, App02Payload } from './App02';
@@ -16,13 +18,13 @@ export { default as logout } from './App05';
 // ------------------------------
 export interface Actions {
   // タブ画面変更
-  tabChange(index: number): TabChangeAction;
+  tabChange(index: number): ThunkActionDispatch<typeof tabChange>;
   /** Header Visible */
-  showHeader(visible: boolean): ShowHeaderAction;
+  showHeader(visible: boolean): ThunkActionDispatch<typeof showHeader>;
   /** Footer Visible */
-  showFooter(visible: boolean): ShowFooterAction;
+  showFooter(visible: boolean): ThunkActionDispatch<typeof showFooter>;
   /** Set loggedin status */
-  loggedIn(user: CognitoUser): LoggedInAction;
+  loggedIn(user: CognitoUser): ThunkActionDispatch<typeof loggedIn>;
   /** Set loggedin status */
-  logout(): LogoutAction;
+  logout(): ThunkActionDispatch<typeof logout>;
 }
