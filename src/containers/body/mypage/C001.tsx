@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles, Grid, Card, CardContent, Typography } from '@material-ui/core';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
-import { IState } from '@models';
+import { State } from '@models';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -30,7 +30,7 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const getC000 = (state: IState) => state.get('C000');
+const getC000 = (state: State) => state.get('C000');
 
 export default () => {
   const classes = useStyles();

@@ -4,11 +4,12 @@ import { bindActionCreators, Dispatch, compose } from 'redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { IState } from '@models';
+import { State } from '@models';
 import * as RegistActions from '@actions/regist';
 import Loading from '@components/Loading';
 import {
   Grid,
+  List,
   ListItem,
   ListItemIcon,
   ListItemText,
@@ -19,7 +20,6 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core';
-import { List } from 'immutable';
 
 /** 単語登録リスト画面 */
 class A002 extends React.Component<Props, any, any> {
@@ -106,7 +106,7 @@ class A002 extends React.Component<Props, any, any> {
 }
 
 /** 単語一覧のProps */
-const mapStateToProps = (state: IState) => ({
+const mapStateToProps = (state: State) => ({
   words: state.get('A000').get('words'),
   isLoading: state.get('A000').get('isLoading'),
 });
@@ -166,7 +166,7 @@ const styles = ({ palette: { primary }, spacing }: Theme) => ({
 export default compose(
   withRouter,
   withStyles(styles as any),
-  connect<StateFromProps, void, void, IState>(mapStateToProps, mapDispatchToProps)
+  connect<StateFromProps, void, void, State>(mapStateToProps, mapDispatchToProps)
 )(A002) as any;
 
 /** State */

@@ -21,7 +21,7 @@ import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import DoneIcon from '@material-ui/icons/Done';
 import * as StudyActions from '@actions/study';
 import * as AppActions from '@actions/app';
-import { IState, WordInfo } from '@models';
+import { State, WordInfo } from '@models';
 import { MODES } from '@constants/Consts';
 import Loading from '@components/Loading';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
@@ -80,7 +80,7 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   })
 );
 
-const getB000 = (state: IState) => state.get('B000');
+const getB000 = (state: State) => state.get('B000');
 
 const audioRef = React.createRef<HTMLAudioElement>();
 const zhRef = React.createRef<HTMLInputElement>();

@@ -7,7 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import { IState } from '@models';
+import { State } from '@models';
 import * as AppActions from '@actions/app';
 import { VERSION } from '@constants/Consts';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
     },
   })
 );
-const app = (state: IState) => state.get('App');
+const app = (state: State) => state.get('App');
 
 export default () => {
   const classes = useStyles();

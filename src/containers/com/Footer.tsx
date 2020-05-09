@@ -7,7 +7,7 @@ import CameraIcon from '@material-ui/icons/Camera';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FaceIcon from '@material-ui/icons/Face';
-import { IState } from '@models';
+import { State } from '@models';
 import * as AppActions from '@actions/app';
 import { ROUTE_PATH_INDEX, ROUTE_PATHS } from '@constants/Paths';
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
   })
 );
 
-const getApp = (state: IState) => state.get('App');
+const getApp = (state: State) => state.get('App');
 
 export default () => {
   // styles

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
-import { IState } from '@models';
+import { State } from '@models';
 import { Animation, ValueScale } from '@devexpress/dx-react-chart';
 import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-chart-material-ui';
 
@@ -52,7 +52,7 @@ const C002 = function (props: Props) {
   );
 };
 
-const mapStateToProps = (state: IState) => ({
+const mapStateToProps = (state: State) => ({
   daily: state.get('C000').get('daily'),
   weekly: state.get('C000').get('weekly'),
   mly: state.get('C000').get('monthly'),

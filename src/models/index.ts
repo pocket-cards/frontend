@@ -5,15 +5,15 @@ import { IC000 } from './MyPage';
 
 import { Record } from 'immutable';
 
-export interface State {
+export interface IState {
   App: IApp;
   A000: IA000;
   B000: IB000;
   C000: IC000;
 }
 
-export interface IState extends Map<keyof State, Record<any>> {
-  get<K extends keyof State>(key: K): State[K];
+export interface State extends Map<keyof IState, Record<any>> {
+  get<K extends keyof IState>(key: K): IState[K];
 }
 
 export { default as App } from './App';
