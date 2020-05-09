@@ -1,25 +1,22 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+
 import { Switch, Route } from 'react-router-dom';
-import useReactRouter from 'use-react-router';
 import { RegistInit, RegistList, RegistFinish } from '@containers/body/regist';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { State } from '@models';
 
-// const useStyles = makeStyles(() =>
-//   createStyles({
-//     root: {
-//       width: '100%',
-//       minHeight: 'calc(100vh - 120px)',
-//     },
-//   })
-// );
+const router = (state: State) => state.get('router');
 
 export default ({ children }: React.ComponentProps<any>) => {
-  const { match } = useReactRouter();
+  const {
+    location: { pathname },
+  } = useSelector(router);
 
   return (
     <React.Fragment>
       <Switch>
-        <Route path={`${match.path}`} exact component={RegistInit} />
+        <Route path={pathname} exact component={RegistInit} />
         <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistList]} component={RegistList} />
         <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistFinish]} component={RegistFinish} />
       </Switch>

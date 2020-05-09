@@ -107,8 +107,8 @@ class A002 extends React.Component<Props, any, any> {
 
 /** 単語一覧のProps */
 const mapStateToProps = (state: State) => ({
-  words: state.get('A000').get('words'),
-  isLoading: state.get('A000').get('isLoading'),
+  words: state.get('a000').get('words'),
+  isLoading: state.get('a000').get('isLoading'),
 });
 
 /** 単語一覧のActions */

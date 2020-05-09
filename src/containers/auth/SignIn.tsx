@@ -48,7 +48,7 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const app = (state: State) => state.get('App');
+const app = (state: State) => state.get('app');
 
 const SignIn = () => {
   const classes = useStyles();

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import useReactRouter from 'use-react-router';
+import { push } from 'connected-react-router/immutable';
 import {
   makeStyles,
   Theme,
@@ -80,7 +80,7 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   })
 );
 
-const getB000 = (state: State) => state.get('B000');
+const getB000 = (state: State) => state.get('b000');
 
 const audioRef = React.createRef<HTMLAudioElement>();
 const zhRef = React.createRef<HTMLInputElement>();
@@ -88,18 +88,18 @@ const jaRef = React.createRef<HTMLInputElement>();
 
 export default () => {
   const classes = useStyles();
-  const actions = bindActionCreators(StudyActions, useDispatch());
-  const appActions = bindActionCreators(AppActions, useDispatch());
+  const dispatch = useDispatch();
+  const actions = bindActionCreators(StudyActions, dispatch);
+  const appActions = bindActionCreators(AppActions, dispatch);
   const { current: word, mode, isLoading } = useSelector(getB000);
   const [showText, setShowText] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
-  const { history } = useReactRouter();
 
   const handleTouchStart = () => setShowText(true);
 
   /** 新規単語学習 */
   const handleNext = () => {
-    actions.startReview(history);
+    actions.startReview();
   };
 
   const handleAnswer = (word: string, yes: boolean) => {
@@ -114,7 +114,7 @@ export default () => {
     appActions.showHeader(true);
     appActions.showFooter(true);
     // 画面遷移
-    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]);
+    dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]));
   };
 
   const getButtons = (mode?: string, word?: WordInfo) => {

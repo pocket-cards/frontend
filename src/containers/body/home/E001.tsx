@@ -1,7 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
-import useReactRouter from 'use-react-router';
+import { push } from 'connected-react-router/immutable';
 import {
   makeStyles,
   Theme,
@@ -37,21 +37,19 @@ const useStyles = makeStyles(({ palette: { secondary, common }, spacing }: Theme
   })
 );
 
-const e000 = (state: State) => state.get('E000');
+const e000 = (state: State) => state.get('e000');
 
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(Actions, useDispatch());
   const { isLoading, groups } = useSelector(e000);
-  const { history } = useReactRouter();
 
   React.useEffect(() => {
-    console.log('groupList');
     actions.groupList();
   }, []);
 
   const handleOnClick = () => {
-    history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]);
+    push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]);
   };
 
   // Loading中

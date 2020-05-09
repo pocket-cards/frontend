@@ -55,7 +55,7 @@ export default class B000 extends Record<B000Props>({
 
     // モード変わった、或いは、既存データ存在しない
     return this.set('words', newArray)
-      .set('history', _.concat(this.history, added))
+      .set('history', concat(this.history, added))
       .set('current', this.current ? this.current : newArray[0])
       .set('index', this.index)
       .set('mode', mode);

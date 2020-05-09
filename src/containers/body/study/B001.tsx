@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
-import useReactRouter from 'use-react-router';
 import * as StudyActions from '@actions/study';
 import * as AppActions from '@actions/app';
 import Button from '@components/buttons/Button';
@@ -30,24 +29,23 @@ export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(StudyActions, useDispatch());
   const appActions = bindActionCreators(AppActions, useDispatch());
-  const { history } = useReactRouter();
 
   const handleNew = () => {
     appActions.showHeader(false);
     appActions.showFooter(false);
-    actions.startNew(history);
+    actions.startNew();
   };
 
   const handleReview = () => {
     appActions.showHeader(false);
     appActions.showFooter(false);
-    actions.startReview(history);
+    actions.startReview();
   };
 
   const handleTest = () => {
     appActions.showHeader(false);
     appActions.showFooter(false);
-    actions.startTest(history);
+    actions.startTest();
   };
 
   return (

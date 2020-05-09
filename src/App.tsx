@@ -23,7 +23,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
   })
 );
 
-const app = (state: State) => state.get('App');
+const app = (state: State) => state.get('app');
 
 export default (props: React.ComponentProps<any>) => {
   const classes = useStyles();

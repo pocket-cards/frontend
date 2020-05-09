@@ -1,20 +1,22 @@
+import { Record } from 'immutable';
+import { RouterState } from 'connected-react-router/immutable';
+import { History } from 'history';
 import { IApp } from './App';
 import { IA000 } from './Regist';
 import { IB000 } from './Study';
 import { IC000 } from './MyPage';
 import { IE000 } from './Group';
 
-import { Record } from 'immutable';
-
 export interface IState {
-  App: IApp;
-  A000: IA000;
-  B000: IB000;
-  C000: IC000;
-  E000: IE000;
+  router: RouterState<History.PoorMansUnknown>;
+  app: IApp;
+  a000: IA000;
+  b000: IB000;
+  c000: IC000;
+  e000: IE000;
 }
 
-export interface State extends Map<keyof IState, Record<any>> {
+export interface State extends Map<keyof IState, Record<any> | RouterState> {
   get<K extends keyof IState>(key: K): IState[K];
 }
 

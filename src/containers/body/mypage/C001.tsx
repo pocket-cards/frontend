@@ -30,13 +30,13 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const getC000 = (state: State) => state.get('C000');
+const c000 = (state: State) => state.get('c000');
 
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(MyPageActions, useDispatch());
   const { remainingTest, remainingReview, daily, dailyNew, dailyReview, weekly, monthly, isLoading } = useSelector(
-    getC000
+    c000
   );
 
   React.useMemo(() => {

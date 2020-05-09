@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { compose, Dispatch, bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Loading from '@components/Loading';
 import * as MyPageActions from '@actions/mypage';
 import { State } from '@models';
@@ -31,15 +30,21 @@ import { ArgumentAxis, Chart, ValueAxis, BarSeries } from '@devexpress/dx-react-
 //   }),
 // );
 /** 単語カメラ画面 */
+const c000 = (state: State) => state.get('c000');
 
-const C002 = function (props: Props) {
-  const { isLoading } = props;
+const C002: React.FunctionComponent<any> = () => {
+  const { daily, weekly, monthly, isLoading } = useSelector(c000);
+  const actions = bindActionCreators(MyPageActions, useDispatch());
+
   // Loading中
   if (isLoading) {
     return <Loading />;
   }
 
-  const data = [{ year: '2000', words: 6 }, { year: '2010', words: 50 }];
+  const data = [
+    { year: '2000', words: 6 },
+    { year: '2010', words: 50 },
+  ];
 
   return (
     <Chart data={data} height={400}>
@@ -52,31 +57,4 @@ const C002 = function (props: Props) {
   );
 };
 
-const mapStateToProps = (state: State) => ({
-  daily: state.get('C000').get('daily'),
-  weekly: state.get('C000').get('weekly'),
-  mly: state.get('C000').get('monthly'),
-  isLoading: state.get('C000').get('isLoading'),
-});
-
-/** Props */
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(MyPageActions, dispatch),
-});
-
-export default compose(
-  withRouter,
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
-)(C002) as any;
-
-/** Properties */
-export interface Props extends RouteComponentProps {
-  actions: MyPageActions.Actions;
-  daily?: number;
-  weekly?: number;
-  monthly?: number;
-  isLoading: boolean;
-}
+export default C002;

@@ -31,7 +31,7 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
   })
 );
 
-const getApp = (state: State) => state.get('App');
+const getApp = (state: State) => state.get('app');
 
 export default () => {
   // styles

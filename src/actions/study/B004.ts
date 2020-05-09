@@ -15,7 +15,7 @@ export const failure: B004FailureAction = createAction(B0_04_FAILURE, (error: Er
 
 /** テスト回答(YES/NO) */
 const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, getState, api) => {
-  const b000 = getState().get('B000');
+  const b000 = getState().get('b000');
   const { mode, current } = b000;
 
   // Request start
@@ -71,7 +71,7 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
   }
 };
 
-const sleep = (time: number) => new Promise(resolve => setTimeout(resolve, time));
+const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
 
 const updateStatus = async (api: APIClass, word: string, yes: boolean, times: number) => {
   await api.put(C004_URL(GROUP_ID, word), {

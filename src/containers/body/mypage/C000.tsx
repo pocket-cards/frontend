@@ -1,15 +1,20 @@
 import * as React from 'react';
-import useReactRouter from 'use-react-router';
 import { Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { MypageInit } from '@containers/body/mypage';
+import { State } from '@models';
+
+const router = (state: State) => state.get('router');
 
 export default ({ children }: React.ComponentProps<any>) => {
-  const { match } = useReactRouter();
+  const {
+    location: { pathname },
+  } = useSelector(router);
 
   return (
     <React.Fragment>
       <Switch>
-        <Route path={`${match.path}`} exact component={MypageInit} />
+        <Route path={pathname} exact component={MypageInit} />
       </Switch>
       <Route children={children} />
     </React.Fragment>

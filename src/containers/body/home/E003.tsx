@@ -17,7 +17,7 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const getC000 = (state: State) => state.get('C000');
+const getC000 = (state: State) => state.get('c000');
 
 export default () => {
   const classes = useStyles();

@@ -1,16 +1,21 @@
 import * as React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { GroupList, GroupNew, GroupEdit } from '@containers/body/home';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { Route, Switch } from 'react-router-dom';
-import useReactRouter from 'use-react-router';
+import { State } from '@models';
+
+const router = (state: State) => state.get('router');
 
 export default (props: Props) => {
-  const { match } = useReactRouter();
+  const {
+    location: { pathname },
+  } = useSelector(router);
 
   return (
     <React.Fragment>
       <Switch>
-        <Route path={`${match.path}`} exact component={GroupList} />
+        <Route path={pathname} exact component={GroupList} />
         <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.GroupNew]} component={GroupNew} />
         <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.GroupEdit]} component={GroupEdit} />
       </Switch>

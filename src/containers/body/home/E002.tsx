@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField } from '@components/inputs';
 import * as Actions from '@actions/group';
 import { State } from '@models';
+import Loading from '@components/Loading';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -17,7 +18,7 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const c000 = (state: State) => state.get('C000');
+const c000 = (state: State) => state.get('c000');
 
 export default () => {
   const classes = useStyles();

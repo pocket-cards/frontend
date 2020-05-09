@@ -1,15 +1,20 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import useReactRouter from 'use-react-router';
 import { SettingsInit } from '@containers/body/settings';
+import { State } from '@models';
+import { useSelector } from 'react-redux';
+
+const router = (state: State) => state.get('router');
 
 export default (props: React.ComponentProps<any>) => {
-  const { match } = useReactRouter();
+  const {
+    location: { pathname },
+  } = useSelector(router);
 
   return (
     <React.Fragment>
       <Switch>
-        <Route path={`${match.path}`} exact component={SettingsInit} />
+        <Route path={pathname} exact component={SettingsInit} />
         {/* <Route path={ROUTE_PATHS[ROUTE_PATH_INDEX.StudyFinish]} component={StudyFinish} /> */}
       </Switch>
       <Route children={props.children} />

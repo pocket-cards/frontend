@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import store from './src/store';
+import { Auth } from '@aws-amplify/auth';
+import { API } from '@aws-amplify/api';
+import { MuiThemeProvider } from '@material-ui/core';
+import { ConnectedRouter } from 'connected-react-router/immutable';
+import { API_NAME, API_URL, VERSION } from '@constants/Consts';
+import store, { history } from './src/store';
 import Router from './src/Router';
 import { register } from './src/serviceWorker';
 import theme from './src/Theme';
-import { Auth } from '@aws-amplify/auth';
-import { API } from '@aws-amplify/api';
-import { API_NAME, API_URL, VERSION } from '@constants/Consts';
-import { MuiThemeProvider } from '@material-ui/core';
 
 // 分析禁止
 // Analytics.disable();
@@ -91,9 +91,9 @@ API.configure({
 const provider = (
   <Provider store={store}>
     <MuiThemeProvider theme={theme}>
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <Router />
-      </BrowserRouter>
+      </ConnectedRouter>
     </MuiThemeProvider>
   </Provider>
 );
@@ -102,14 +102,14 @@ const root = document.getElementById('root');
 
 const start = async () => {
   // const result = await Auth.signUp({
-  //   username: 'wwalpha',
-  //   password: 'session10',
+  //   username: 'wwalpha@gmail.com',
+  //   password: 'Session10+',
   //   attributes: {
   //     email: 'wwalpha@gmail.com',
   //   },
   // });
 
-  // const result = await Auth.confirmSignUp('wwalpha', '642467');
+  // const result = await Auth.confirmSignUp('wwalpha@gmail.com', '867708');
 
   // const res = await API.get(API_NAME, '/', {});
 
