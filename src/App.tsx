@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
-import { Grid, makeStyles, createStyles } from '@material-ui/core';
+import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { Header, Footer } from '@containers/com';
 import { RegistMain, StudyMain, MyPageMain, SettingsMain, HomeMain } from '@containers/body';
-import { IState } from '@models';
+import { State } from '@models';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
     body: {
-      backgroundColor: 'whitesmoke',
+      backgroundColor: palette.grey[300],
       position: 'relative',
       overflowY: 'auto',
       '&::-webkit-scrollbar': {
@@ -23,7 +23,7 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const app = (state: IState) => state.get('App');
+const app = (state: State) => state.get('App');
 
 export default (props: React.ComponentProps<any>) => {
   const classes = useStyles();
