@@ -46,6 +46,18 @@ export interface A002Response {
 }
 
 // ------------------------------
+// B001
+// ------------------------------
+export interface B001Request {
+  name: string;
+  description?: string;
+}
+
+export interface B001Response {
+  groupId: string;
+}
+
+// ------------------------------
 // B002
 // ------------------------------
 export interface B002Request {}

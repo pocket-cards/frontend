@@ -3,8 +3,8 @@ import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles, Grid, TextField } from '@material-ui/core';
 import Button from '@components/buttons/Button';
-import * as MyPageActions from '@actions/mypage';
-import { IState } from '@models';
+import * as Actions from '@actions/group';
+import { State } from '@models';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -17,12 +17,15 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const getC000 = (state: IState) => state.get('C000');
+const getC000 = (state: State) => state.get('C000');
 
 export default () => {
   const classes = useStyles();
-  // const actions = bindActionCreators(MyPageActions, useDispatch());
-  // const { isLoading } = useSelector(getC000);
+  const actions = bindActionCreators(Actions, useDispatch());
+
+  const handleRegist = () => {
+    actions.groupRegist('1111', '2222');
+  };
 
   return (
     <Grid container className={classes.root}>
@@ -47,7 +50,7 @@ export default () => {
         />
       </Grid>
       <Grid item xs={12} className={classes.button}>
-        <Button fullWidth variant="contained" color="secondary">
+        <Button fullWidth variant="contained" color="secondary" onClick={handleRegist}>
           REGIST
         </Button>
       </Grid>
