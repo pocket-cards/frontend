@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { IState } from '@models';
+import { State } from '@models';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 const Auth = (props: any) => (props.isLoggedIn ? <Route {...props} /> : <Redirect to={ROUTE_PATHS[ROUTE_PATH_INDEX.SignIn]} />);
 
-const mapStateToProps = (state: IState) => ({
+const mapStateToProps = (state: State) => ({
   isLoggedIn: state.get('App').get('user') !== undefined,
 });
 

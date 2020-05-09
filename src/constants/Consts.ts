@@ -6,10 +6,15 @@ export const API_NAME = 'api';
 export const A002_URL = () => '/history';
 // export const A003_URL = (userId: string) => `/users/${userId}/fixdelay`;
 
+// グループ新規作成
 export const B001_URL = () => '/groups';
+// グループ一覧取得
 export const B002_URL = () => '/groups';
+// グループ情報取得
 export const B003_URL = (groupId: string) => `groups/${groupId}`;
+// グループ情報変更
 export const B004_URL = (groupId: string) => `groups/${groupId}`;
+// グループ情報削除
 export const B005_URL = (groupId: string) => `groups/${groupId}`;
 
 export const C001_URL = (groupId: string) => `/groups/${groupId}/words`;
