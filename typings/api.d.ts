@@ -63,6 +63,7 @@ export interface B001Response {
 export interface B002Request {}
 
 export interface B002Response {
+  count: number;
   groups: GroupInfo[];
 }
 
