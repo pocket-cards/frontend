@@ -6,7 +6,7 @@ import { D001_URL } from '@constants/Consts';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { D001Request, D001Response } from 'typings/api';
 import { ErrorPayload, APIClass } from 'typings/types';
-import { IState } from '@models';
+import { State } from '@models';
 import isEmpty from 'lodash/isEmpty';
 
 /** 画像アップロード */
@@ -54,7 +54,7 @@ export type A001SuccessAction = ActionFunction1<D001Response, Action<A001Payload
 export type A001FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type UploadImagePayload = A001Payload | ErrorPayload;
-export type UploadImageThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<UploadImagePayload>>;
+export type UploadImageThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<UploadImagePayload>>;
 export type UploadImageAction = ActionFunction2<string, History<any>, UploadImageThunkAction>;
 
 export default uploadImage;

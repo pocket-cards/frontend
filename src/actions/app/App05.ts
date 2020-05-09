@@ -2,7 +2,7 @@ import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-ac
 import { ThunkAction } from 'redux-thunk';
 import { APP_05_REQUEST, APP_05_SUCCESS, APP_05_FAILURE } from '@constants/ActionTypes';
 import { ErrorPayload, APIClass, Payload } from 'typings/types';
-import { IState } from '@models';
+import { State } from '@models';
 
 /** ログアウト */
 export const request: App05RequestAction = createAction(APP_05_REQUEST);
@@ -26,7 +26,7 @@ export type App05SuccessAction = ActionFunction0<Action<Payload>>;
 export type App05FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type LogoutPayload = Payload | ErrorPayload;
-export type LogoutActionThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<LogoutPayload>>;
+export type LogoutActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<LogoutPayload>>;
 export type LogoutAction = ActionFunction0<LogoutActionThunkAction>;
 
 export default logout;

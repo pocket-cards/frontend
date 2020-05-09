@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import { CognitoUser } from '@aws-amplify/auth';
 import { APP_04_REQUEST, APP_04_SUCCESS, APP_04_FAILURE } from '@constants/ActionTypes';
 import { ErrorPayload, APIClass } from 'typings/types';
-import { IState } from '@models';
+import { State } from '@models';
 
 /** ログイン状態変更 */
 export const request: App04RequestAction = createAction(APP_04_REQUEST);
@@ -32,7 +32,7 @@ export type App04SuccessAction = ActionFunction1<CognitoUser, Action<App04Payloa
 export type App04FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type LoggedInPayload = App04Payload | ErrorPayload;
-export type LoggedInActionThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<LoggedInPayload>>;
+export type LoggedInActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<LoggedInPayload>>;
 export type LoggedInAction = ActionFunction1<CognitoUser, LoggedInActionThunkAction>;
 
 export default loggedIn;

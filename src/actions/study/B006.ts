@@ -4,7 +4,7 @@ import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { C008Response } from 'typings/api';
 import { B0_06_REQUEST, B0_06_SUCCESS, B0_06_FAILURE } from '@constants/ActionTypes';
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
-import { WordInfo, IState } from '@models';
+import { WordInfo, State } from '@models';
 import { Payload, ErrorPayload, APIClass } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
 
@@ -40,7 +40,7 @@ export type B006SuccessAction = ActionFunction1<WordInfo[], Action<B006Payload>>
 export type B006FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type StartReviewPayload = Payload | B006Payload | ErrorPayload;
-export type StartReviewThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<StartReviewPayload>>;
+export type StartReviewThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<StartReviewPayload>>;
 export type StartReviewAction = ActionFunction1<History<any>, StartReviewThunkAction>;
 
 export default startReview;

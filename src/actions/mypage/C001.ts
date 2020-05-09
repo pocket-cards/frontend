@@ -4,7 +4,7 @@ import { C0_01_REQUEST, C0_01_SUCCESS, C0_01_FAILURE } from '@constants/ActionTy
 import { A002_URL } from '@constants/Consts';
 import { A002Response } from 'typings/api';
 import { ErrorPayload, APIClass } from 'typings/types';
-import { IState } from '@models';
+import { State } from '@models';
 
 /** 学習履歴取得 */
 export const request: C001RequestAction = createAction(C0_01_REQUEST);
@@ -34,7 +34,7 @@ export type C001SuccessAction = ActionFunction1<A002Response, Action<C001Payload
 export type C001FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type HistoryPayload = C001Payload | ErrorPayload;
-export type HistoryThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<HistoryPayload>>;
+export type HistoryThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<HistoryPayload>>;
 export type HistoryAction = ActionFunction0<HistoryThunkAction>;
 
 export default history;

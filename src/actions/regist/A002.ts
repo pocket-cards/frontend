@@ -2,7 +2,7 @@ import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-ac
 import { ThunkAction } from 'redux-thunk';
 import { A0_02_REQUEST, A0_02_SUCCESS, A0_02_FAILURE } from '@constants/ActionTypes';
 import { ErrorPayload, APIClass } from 'typings/types';
-import { IState } from '@models';
+import { State } from '@models';
 
 /** 指定単語削除 */
 export const request: A002RequestAction = createAction(A0_02_REQUEST);
@@ -31,7 +31,7 @@ export type A002SuccessAction = ActionFunction1<string, Action<A002Payload>>;
 export type A002FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type RemoveWordPayload = A002Payload | ErrorPayload;
-export type RemoveWordThunkAction = ThunkAction<void, IState, APIClass, Action<RemoveWordPayload>>;
+export type RemoveWordThunkAction = ThunkAction<void, State, APIClass, Action<RemoveWordPayload>>;
 export type RemoveWordAction = ActionFunction1<string, RemoveWordThunkAction>;
 
 export default removeWord;

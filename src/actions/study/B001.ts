@@ -4,7 +4,7 @@ import { MODES, C006_URL, GROUP_ID } from '@constants/Consts';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { C006Response, WordItem } from 'typings/api';
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
-import { WordInfo, IState } from '@models';
+import { WordInfo, State } from '@models';
 import { ErrorPayload, APIClass, Payload } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
 
@@ -40,7 +40,7 @@ export type B001SuccessAction = ActionFunction1<WordItem[], Action<B001Payload>>
 export type B001FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type StartNewPayload = Payload | B001Payload | ErrorPayload;
-export type StartNewThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<StartNewPayload>>;
+export type StartNewThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<StartNewPayload>>;
 export type StartNewAction = ActionFunction1<History<any>, StartNewThunkAction>;
 
 export default startNew;

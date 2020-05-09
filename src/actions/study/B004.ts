@@ -4,7 +4,7 @@ import { B0_04_REQUEST, B0_04_SUCCESS, B0_04_FAILURE } from '@constants/ActionTy
 import { C006_URL, GROUP_ID, C004_URL, MODES, C007_URL } from '@constants/Consts';
 import { C004Request, C006Response, C007Response } from 'typings/api';
 import { APIClass, Payload, ErrorPayload } from 'typings/types';
-import { IState } from '@models';
+import { State } from '@models';
 import * as StartNew from '@actions/study/B001';
 import * as StartTest from '@actions/study/B007';
 
@@ -88,7 +88,7 @@ export type B004SuccessAction = ActionFunction1<boolean, Action<B004Payload>>;
 export type B004FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type AnswerPayload = Payload | B004Payload | ErrorPayload;
-export type AnswerThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<AnswerPayload>>;
+export type AnswerThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<AnswerPayload>>;
 export type AnswerAction = ActionFunction2<string, boolean, AnswerThunkAction>;
 
 export default answer;

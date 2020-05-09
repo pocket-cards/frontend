@@ -6,7 +6,7 @@ import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { C001_URL, GROUP_ID } from '@constants/Consts';
 import { C001Request } from 'typings/api';
 import { ErrorPayload, APIClass, Payload } from 'typings/types';
-import { IState } from '@models';
+import { State } from '@models';
 
 /** 画像アップロード */
 export const request: A003RequestAction = createAction(A0_03_REQUEST);
@@ -38,7 +38,7 @@ export type A003SuccessAction = ActionFunction0<Action<Payload>>;
 export type A003FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type RegistWordsPayload = Payload | ErrorPayload;
-export type RegistWordsThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<RegistWordsPayload>>;
+export type RegistWordsThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<RegistWordsPayload>>;
 export type RegistWordsAction = ActionFunction2<string[], History<any>, RegistWordsThunkAction>;
 
 export default registWords;

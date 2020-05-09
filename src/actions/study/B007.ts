@@ -6,7 +6,7 @@ import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { B0_07_REQUEST, B0_07_SUCCESS, B0_07_FAILURE } from '@constants/ActionTypes';
 import { C007Response, WordItem } from 'typings/api';
 import { Payload, ErrorPayload, APIClass } from 'typings/types';
-import { WordInfo, IState } from '@models';
+import { WordInfo, State } from '@models';
 
 /** 単語テスト */
 export const request: B007RequestAction = createAction(B0_07_REQUEST);
@@ -41,7 +41,7 @@ export type B007SuccessAction = ActionFunction1<WordInfo[], Action<B007Payload>>
 export type B007FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type StartTestPayload = Payload | B007Payload | ErrorPayload;
-export type StartTestThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<StartTestPayload>>;
+export type StartTestThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<StartTestPayload>>;
 export type StartTestAction = ActionFunction1<History<any>, StartTestThunkAction>;
 
 export default startTest;

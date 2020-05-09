@@ -2,7 +2,7 @@ import { APP_01_REQUEST, APP_01_SUCCESS, APP_01_FAILURE } from '@constants/Actio
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
-import { IState } from '@models';
+import { State } from '@models';
 
 export const request: App01RequestAction = createAction(APP_01_REQUEST);
 export const success: App01SuccessAction = createAction(APP_01_SUCCESS, (index: number) => ({ index }));
@@ -30,7 +30,7 @@ export type App01SuccessAction = ActionFunction1<number, Action<App01Payload>>;
 export type App01FailureAction = ActionFunction1<Error, Action<ErrorPayload>>;
 
 export type TabChangePayload = App01Payload | ErrorPayload;
-export type TabChangeThunkAction = ThunkAction<Promise<void>, IState, APIClass, Action<TabChangePayload>>;
+export type TabChangeThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<TabChangePayload>>;
 export type TabChangeAction = ActionFunction1<number, TabChangeThunkAction>;
 
 export default tabChange;
