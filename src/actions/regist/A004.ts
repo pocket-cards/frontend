@@ -11,7 +11,7 @@ export const failure: A004FailureAction = createAction(ActionTypes.A0_04_FAILURE
 
 /** 単語クリア */
 const clear: ClearAction = () => (dispatch) => {
-  dispatch(request);
+  dispatch(request());
 
   try {
     dispatch(success);

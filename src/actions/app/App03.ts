@@ -13,7 +13,7 @@ export const failure: App03FailureAction = createAction(ActionTypes.APP_03_FAILU
 
 /** バー表示制御 */
 const showFooter: ShowFooterAction = (visible) => async (dispatch) => {
-  dispatch(request);
+  dispatch(request());
 
   try {
     // データ保存

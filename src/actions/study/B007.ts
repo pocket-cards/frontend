@@ -18,7 +18,7 @@ export const failure: B007FailureAction = createAction(ActionTypes.B0_07_FAILURE
 // tslint:disable-next-line: ter-arrow-parens
 const startTest: StartTestAction = () => async (dispatch, _, api) => {
   // 既存単語クリア
-  dispatch(request);
+  dispatch(request());
 
   // 画面遷移
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));

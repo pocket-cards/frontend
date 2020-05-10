@@ -13,7 +13,7 @@ export const failure: App02FailureAction = createAction(ActionTypes.APP_02_FAILU
 
 /** バー表示制御 */
 const showHeader: ShowHeaderAction = (visible) => async (dispatch) => {
-  dispatch(request);
+  dispatch(request());
 
   try {
     // データ保存

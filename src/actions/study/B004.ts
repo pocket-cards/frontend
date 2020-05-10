@@ -18,7 +18,7 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
   const { mode, current } = b000;
 
   // Request start
-  dispatch(request);
+  dispatch(request());
 
   // 復習モードの場合、サーバ更新しない
   if (mode === Consts.MODES.Review) {

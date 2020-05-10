@@ -13,7 +13,7 @@ export const failure: C001FailureAction = createAction(ActionTypes.C0_01_FAILURE
 /** 学習履歴取得 */
 const history: HistoryAction = () => async (dispatch, _, api) => {
   // 学習履歴取得開始イベント
-  dispatch(request);
+  dispatch(request());
 
   try {
     const res = await api.get<A002Response>(Consts.A002_URL());

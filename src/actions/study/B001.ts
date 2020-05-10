@@ -17,7 +17,7 @@ export const failure: B001FailureAction = createAction(ActionTypes.B0_01_FAILURE
 /** 新規単語学習 */
 const startNew: StartNewAction = () => async (dispatch, _, api) => {
   // 既存単語クリア
-  dispatch(request);
+  dispatch(request());
 
   // 画面遷移
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));

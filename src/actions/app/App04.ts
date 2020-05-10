@@ -11,9 +11,8 @@ export const success: App04SuccessAction = createAction(ActionTypes.APP_04_SUCCE
 export const failure: App04FailureAction = createAction(ActionTypes.APP_04_FAILURE, (error: Error) => ({ error }));
 
 /** ログイン状態変更 */
-// tslint:disable-next-line: ter-arrow-parens
 const loggedIn: LoggedInAction = (user) => async (dispatch) => {
-  dispatch(request);
+  dispatch(request());
 
   try {
     // データ保存

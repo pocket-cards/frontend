@@ -31,7 +31,9 @@ export const APP_05_FAILURE = 'APP_05_FAILURE';
 export const APP_06_SUCCESS = 'APP_06_SUCCESS';
 
 /** Stop Server */
+export const APP_07_REQUEST = 'APP_07_REQUEST';
 export const APP_07_SUCCESS = 'APP_07_SUCCESS';
+export const APP_07_FAILURE = 'APP_07_FAILURE';
 
 /** Status Server */
 export const APP_08_SUCCESS = 'APP_08_SUCCESS';

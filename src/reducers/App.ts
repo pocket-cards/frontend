@@ -25,7 +25,7 @@ const reducer = handleActions<App, any>(
     /** ユーザ情報設定 */
     [ActionTypes.APP_04_REQUEST]: (store: App) => store,
     [ActionTypes.APP_04_SUCCESS]: (store: App, { payload: { user } }: Action<App04Payload>) => store.loggedIn(user),
-    [ActionTypes.APP_04_FAILURE]: (store: App) => store,
+    [ActionTypes.APP_04_FAILURE]: (store: App) => store.endLoading(),
 
     /** ログアウト */
     [ActionTypes.APP_05_REQUEST]: (store: App) => store.startLoading(),
@@ -34,6 +34,11 @@ const reducer = handleActions<App, any>(
 
     [ActionTypes.COM_01_REQUEST]: (store: App) => store.startLoading(),
     [ActionTypes.COM_01_FAILURE]: (store: App) => store.endLoading(),
+
+    /** サーバ関連 */
+    [ActionTypes.APP_05_SUCCESS]: (store: App) => store.endLoading(),
+    [ActionTypes.APP_06_SUCCESS]: (store: App) => store.endLoading(),
+    [ActionTypes.APP_07_SUCCESS]: (store: App) => store.endLoading(),
   },
   new App()
 );

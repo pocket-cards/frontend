@@ -11,7 +11,7 @@ export const failure: App05FailureAction = createAction(ActionTypes.APP_05_FAILU
 
 /** ログアウト */
 const logout: LogoutAction = () => async (dispatch) => {
-  dispatch(request);
+  dispatch(request());
 
   try {
     // データ保存

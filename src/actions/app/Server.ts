@@ -7,10 +7,10 @@ import { ErrorPayload, APIClass } from 'typings/types';
 
 /** サーバー開始 */
 const start: ServerStartAction = () => async (dispatch, _, api) => {
-  dispatch(Loading.request);
+  dispatch(Loading.request());
 
   try {
-    await api.post(Consts.SERVER_START_URL(), {});
+    await api.post(Consts.SERVER_START_URL(), undefined, Consts.API_SERVER_NAME);
 
     dispatch(createAction(ActionTypes.APP_06_SUCCESS));
   } catch (err) {
@@ -20,27 +20,27 @@ const start: ServerStartAction = () => async (dispatch, _, api) => {
 
 /** サーバー停止 */
 const stop: ServerStopAction = () => async (dispatch, _, api) => {
-  dispatch(Loading.request);
+  dispatch(Loading.request());
 
   try {
     // サーバ停止
-    await api.post(Consts.SERVER_STOP_URL());
+    await api.post(Consts.SERVER_STOP_URL(), undefined, Consts.API_SERVER_NAME);
 
-    dispatch(createAction(ActionTypes.APP_07_SUCCESS));
+    dispatch(createAction(ActionTypes.APP_07_SUCCESS)());
   } catch (err) {
     dispatch(Loading.failure(err));
   }
 };
 
-/** サーバー停止 */
+/** サーバーステータス */
 const status: ServerStatusAction = () => async (dispatch, _, api) => {
-  dispatch(Loading.request);
+  dispatch(Loading.request());
 
   try {
     // サーバ停止
-    await api.post(Consts.SERVER_STATUS_URL());
+    await api.post(Consts.SERVER_STATUS_URL(), undefined, Consts.API_SERVER_NAME);
 
-    dispatch(createAction(ActionTypes.APP_08_SUCCESS));
+    dispatch(createAction(ActionTypes.APP_08_SUCCESS)());
   } catch (err) {
     dispatch(Loading.failure(err));
   }

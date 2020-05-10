@@ -15,7 +15,7 @@ export const failure: E001FailureAction = createAction(ActionTypes.E0_01_FAILURE
 /** グループ一覧 */
 const groupList: GroupListAction = () => async (dispatch, store, api) => {
   // 画像アップロード開始イベント
-  dispatch(request);
+  dispatch(request());
 
   try {
     const res = await api.get<B002Response>(Consts.B002_URL());

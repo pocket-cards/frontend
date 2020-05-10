@@ -34,7 +34,7 @@
 // /** グループ一覧 */
 // const groupList: GroupRegistAction = (name: string, description: string) => async (dispatch, store, api) => {
 //   // 画像アップロード開始イベント
-//   dispatch(request);
+//   dispatch(request());;
 //   const user = store()
 //     .get('App')
 //     .get('user');

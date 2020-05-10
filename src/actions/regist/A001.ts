@@ -16,7 +16,7 @@ export const failure: A001FailureAction = createAction(ActionTypes.A0_01_FAILURE
 // tslint:disable-next-line: ter-arrow-parens
 const uploadImage: UploadImageAction = (image: string, history?: History<any>) => async (dispatch, _, api) => {
   // 画像アップロード開始イベント
-  dispatch(request);
+  dispatch(request());
 
   // データチェック
   if (isEmpty(image) || image.split(';').length <= 1) {

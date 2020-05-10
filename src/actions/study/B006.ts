@@ -17,7 +17,7 @@ export const failure: B006FailureAction = createAction(ActionTypes.B0_06_FAILURE
 /** 単語復習 */
 const startReview: StartReviewAction = () => async (dispatch, _, api) => {
   // 既存単語クリア
-  dispatch(request);
+  dispatch(request());
 
   // 画面遷移
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));

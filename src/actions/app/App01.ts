@@ -10,7 +10,7 @@ export const failure: App01FailureAction = createAction(ActionTypes.APP_01_FAILU
 
 /** タブ変更 */
 const tabChange: TabChangeAction = (index: number) => async (dispatch, _, api) => {
-  dispatch(request);
+  dispatch(request());
 
   try {
     // データ保存

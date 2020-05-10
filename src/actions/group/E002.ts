@@ -14,7 +14,7 @@ export const failure: E002FailureAction = createAction(ActionTypes.E0_02_FAILURE
 /** グループ一覧 */
 const groupRegist: GroupRegistAction = (name: string, description?: string) => async (dispatch, store, api) => {
   // 画像アップロード開始イベント
-  dispatch(request);
+  dispatch(request());
 
   try {
     const res = await api.put<B001Response>(Consts.B001_URL(), {

@@ -15,7 +15,7 @@ export const failure: A003FailureAction = createAction(ActionTypes.A0_03_FAILURE
 const registWords: RegistWordsAction = (words: string[]) => async (dispatch, _, api) => {
   try {
     // 画像アップロード開始イベント
-    dispatch(request);
+    dispatch(request());
 
     await api.post(Consts.C001_URL(Consts.GROUP_ID), {
       words,

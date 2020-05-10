@@ -13,7 +13,7 @@ export const failure: A002FailureAction = createAction(ActionTypes.A0_02_FAILURE
 // tslint:disable-next-line: ter-arrow-parens
 const removeWord: RemoveWordAction = (word: string) => (dispatch) => {
   // 画像アップロード開始イベント
-  dispatch(request);
+  dispatch(request());
 
   try {
     dispatch(success(word));
