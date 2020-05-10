@@ -1,16 +1,43 @@
-import * as React from 'react';
-import { Button as MButton, ButtonProps } from '@material-ui/core';
+import React, { FunctionComponent } from 'react';
+import { Button, ButtonProps, CircularProgress, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { green } from '@material-ui/core/colors';
 
-class Button extends React.Component<ButtonProps, any, any> {
-  render() {
-    const { children } = this.props;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    wrapper: {
+      margin: theme.spacing(1),
+      position: 'relative',
+    },
+    buttonProgress: {
+      color: green[500],
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      marginTop: -12,
+      marginLeft: -12,
+    },
+  })
+);
 
-    return (
-      <MButton disableFocusRipple disableTouchRipple disableRipple {...this.props}>
+const button: FunctionComponent<Props> = ({ isLoading, children, ...props }) => {
+  const classes = useStyles();
+
+  return (
+    <React.Fragment>
+      <Button disableFocusRipple disableTouchRipple disableRipple {...props} disabled={isLoading}>
         {children}
-      </MButton>
-    );
-  }
+      </Button>
+      {isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
+    </React.Fragment>
+  );
+};
+
+interface Props extends ButtonProps {
+  isLoading?: boolean;
 }
 
-export default Button;
+export default button;
