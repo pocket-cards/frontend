@@ -1,15 +1,16 @@
 import { createAction, ActionFunction0, Action, ActionFunction1 } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import { E0_01_REQUEST, E0_01_SUCCESS, E0_01_FAILURE } from '@constants/ActionTypes';
-import { B002_URL } from '@constants/Consts';
+import { ActionTypes, Consts } from '@constants';
 import { B002Response } from 'typings/api';
 import { ErrorPayload, APIClass, Payload } from 'typings/types';
 import { State } from '@models';
 
 /** 画像アップロード */
-export const request: E001RequestAction = createAction(E0_01_REQUEST);
-export const success: E001SuccessAction = createAction(E0_01_SUCCESS, (data: B002Response) => ({ ...data }));
-export const failure: E001FailureAction = createAction(E0_01_FAILURE, (error: Error) => ({ error }));
+export const request: E001RequestAction = createAction(ActionTypes.E0_01_REQUEST);
+export const success: E001SuccessAction = createAction(ActionTypes.E0_01_SUCCESS, (data: B002Response) => ({
+  ...data,
+}));
+export const failure: E001FailureAction = createAction(ActionTypes.E0_01_FAILURE, (error: Error) => ({ error }));
 
 /** グループ一覧 */
 const groupList: GroupListAction = () => async (dispatch, store, api) => {
@@ -17,7 +18,7 @@ const groupList: GroupListAction = () => async (dispatch, store, api) => {
   dispatch(request);
 
   try {
-    const res = await api.get<B002Response>(B002_URL());
+    const res = await api.get<B002Response>(Consts.B002_URL());
     // データ保存
     dispatch(success(res));
   } catch (err) {

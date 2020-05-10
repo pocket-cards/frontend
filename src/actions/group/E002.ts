@@ -1,17 +1,15 @@
 import { createAction, ActionFunction0, ActionFunction1, ActionFunction2, Action } from 'redux-actions';
 import { push, CallHistoryMethodAction } from 'connected-react-router/immutable';
-import { E0_02_REQUEST, E0_02_SUCCESS, E0_02_FAILURE } from '@constants/ActionTypes';
+import { ActionTypes, Paths, Consts } from '@constants';
 import { B001Response, B001Request } from 'typings/api';
-import { B001_URL } from '@constants/Consts';
 import { ErrorPayload, APIClass, GroupInfo } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
 import { State } from '@models';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 画像アップロード */
-export const request: E002RequestAction = createAction(E0_02_REQUEST);
-export const success: E002SuccessAction = createAction(E0_02_SUCCESS, (info: GroupInfo) => info);
-export const failure: E002FailureAction = createAction(E0_02_FAILURE, (error: Error) => ({ error }));
+export const request: E002RequestAction = createAction(ActionTypes.E0_02_REQUEST);
+export const success: E002SuccessAction = createAction(ActionTypes.E0_02_SUCCESS, (info: GroupInfo) => info);
+export const failure: E002FailureAction = createAction(ActionTypes.E0_02_FAILURE, (error: Error) => ({ error }));
 
 /** グループ一覧 */
 const groupRegist: GroupRegistAction = (name: string, description?: string) => async (dispatch, store, api) => {
@@ -19,7 +17,7 @@ const groupRegist: GroupRegistAction = (name: string, description?: string) => a
   dispatch(request);
 
   try {
-    const res = await api.put<B001Response>(B001_URL(), {
+    const res = await api.put<B001Response>(Consts.B001_URL(), {
       name,
       description,
     } as B001Request);
@@ -33,7 +31,7 @@ const groupRegist: GroupRegistAction = (name: string, description?: string) => a
       })
     );
 
-    dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.Home]));
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Home]));
   } catch (err) {
     dispatch(failure(err));
   }

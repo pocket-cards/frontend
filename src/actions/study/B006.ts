@@ -1,20 +1,18 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { push } from 'connected-react-router/immutable';
-import { MODES, GROUP_ID, C008_URL } from '@constants/Consts';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { Consts, Paths, ActionTypes } from '@constants';
 import { C008Response } from 'typings/api';
-import { B0_06_REQUEST, B0_06_SUCCESS, B0_06_FAILURE } from '@constants/ActionTypes';
 import { WordInfo, State } from '@models';
 import { Payload, ErrorPayload, APIClass } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
 
 /** 単語復習 */
-export const request: B006RequestAction = createAction(B0_06_REQUEST);
-export const success: B006SuccessAction = createAction(B0_06_SUCCESS, (data: WordInfo[]) => ({
-  mode: MODES.Review,
+export const request: B006RequestAction = createAction(ActionTypes.B0_06_REQUEST);
+export const success: B006SuccessAction = createAction(ActionTypes.B0_06_SUCCESS, (data: WordInfo[]) => ({
+  mode: Consts.MODES.Review,
   words: data,
 }));
-export const failure: B006FailureAction = createAction(B0_06_FAILURE, (error: Error) => ({ error }));
+export const failure: B006FailureAction = createAction(ActionTypes.B0_06_FAILURE, (error: Error) => ({ error }));
 
 /** 単語復習 */
 const startReview: StartReviewAction = () => async (dispatch, _, api) => {
@@ -22,10 +20,10 @@ const startReview: StartReviewAction = () => async (dispatch, _, api) => {
   dispatch(request);
 
   // 画面遷移
-  dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]));
+  dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
 
   try {
-    const res = await api.get<C008Response>(C008_URL(GROUP_ID));
+    const res = await api.get<C008Response>(Consts.C008_URL(Consts.GROUP_ID));
 
     // データ保存
     dispatch(success(res.words));

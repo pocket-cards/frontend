@@ -1,9 +1,8 @@
 import { createAction, ActionFunction0, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import { APP_06_SUCCESS, APP_07_SUCCESS, APP_08_SUCCESS } from '@constants/ActionTypes';
+import { ActionTypes, Consts } from '@constants';
 import { Loading } from '@actions/com';
 import { State } from '@models';
-import { SERVER_START_URL, SERVER_STATUS_URL, SERVER_STOP_URL } from '@constants/Consts';
 import { ErrorPayload, APIClass } from 'typings/types';
 
 /** サーバー開始 */
@@ -11,9 +10,9 @@ const start: ServerStartAction = () => async (dispatch, _, api) => {
   dispatch(Loading.request);
 
   try {
-    await api.post(SERVER_START_URL());
+    await api.post(Consts.SERVER_START_URL(), {});
 
-    dispatch(createAction(APP_06_SUCCESS));
+    dispatch(createAction(ActionTypes.APP_06_SUCCESS));
   } catch (err) {
     dispatch(Loading.failure(err));
   }
@@ -25,9 +24,9 @@ const stop: ServerStopAction = () => async (dispatch, _, api) => {
 
   try {
     // サーバ停止
-    await api.post(SERVER_STOP_URL());
+    await api.post(Consts.SERVER_STOP_URL());
 
-    dispatch(createAction(APP_07_SUCCESS));
+    dispatch(createAction(ActionTypes.APP_07_SUCCESS));
   } catch (err) {
     dispatch(Loading.failure(err));
   }
@@ -39,9 +38,9 @@ const status: ServerStatusAction = () => async (dispatch, _, api) => {
 
   try {
     // サーバ停止
-    await api.post(SERVER_STATUS_URL());
+    await api.post(Consts.SERVER_STATUS_URL());
 
-    dispatch(createAction(APP_08_SUCCESS));
+    dispatch(createAction(ActionTypes.APP_08_SUCCESS));
   } catch (err) {
     dispatch(Loading.failure(err));
   }

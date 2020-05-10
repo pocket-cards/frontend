@@ -1,20 +1,18 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
 import { push } from 'connected-react-router/immutable';
-import { B0_01_REQUEST, B0_01_SUCCESS, B0_01_FAILURE } from '@constants/ActionTypes';
-import { MODES, C006_URL, GROUP_ID } from '@constants/Consts';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { ActionTypes, Consts, Paths } from '@constants';
 import { C006Response, WordItem } from 'typings/api';
 import { WordInfo, State } from '@models';
 import { ErrorPayload, APIClass, Payload } from 'typings/types';
 
 /** 新規単語学習 */
-export const request: B001RequestAction = createAction(B0_01_REQUEST);
-export const success: B001SuccessAction = createAction(B0_01_SUCCESS, (data: WordItem[]) => ({
-  mode: MODES.New,
+export const request: B001RequestAction = createAction(ActionTypes.B0_01_REQUEST);
+export const success: B001SuccessAction = createAction(ActionTypes.B0_01_SUCCESS, (data: WordItem[]) => ({
+  mode: Consts.MODES.New,
   words: data,
 }));
-export const failure: B001FailureAction = createAction(B0_01_FAILURE, (error: Error) => ({ error }));
+export const failure: B001FailureAction = createAction(ActionTypes.B0_01_FAILURE, (error: Error) => ({ error }));
 
 /** 新規単語学習 */
 const startNew: StartNewAction = () => async (dispatch, _, api) => {
@@ -22,10 +20,10 @@ const startNew: StartNewAction = () => async (dispatch, _, api) => {
   dispatch(request);
 
   // 画面遷移
-  dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]));
+  dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
 
   try {
-    const res = await api.get<C006Response>(C006_URL(GROUP_ID));
+    const res = await api.get<C006Response>(Consts.C006_URL(Consts.GROUP_ID));
 
     // データ保存
     dispatch(success(res.words));

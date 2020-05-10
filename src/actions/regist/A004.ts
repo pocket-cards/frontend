@@ -1,16 +1,16 @@
-import { A0_04_REQUEST, A0_04_SUCCESS, A0_04_FAILURE } from '@constants/ActionTypes';
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
-import { ErrorPayload, APIClass, Payload } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
+import { ActionTypes } from '@constants';
 import { State } from '@models';
+import { ErrorPayload, APIClass, Payload } from 'typings/types';
 
 /** 単語クリア */
-export const request: A004RequestAction = createAction(A0_04_REQUEST);
-export const success: A004SuccessAction = createAction(A0_04_SUCCESS);
-export const failure: A004FailureAction = createAction(A0_04_FAILURE, (error: Error) => ({ error }));
+export const request: A004RequestAction = createAction(ActionTypes.A0_04_REQUEST);
+export const success: A004SuccessAction = createAction(ActionTypes.A0_04_SUCCESS);
+export const failure: A004FailureAction = createAction(ActionTypes.A0_04_FAILURE, (error: Error) => ({ error }));
 
 /** 単語クリア */
-const clear: ClearAction = () => dispatch => {
+const clear: ClearAction = () => (dispatch) => {
   dispatch(request);
 
   try {

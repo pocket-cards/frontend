@@ -4,14 +4,14 @@ import { hot } from 'react-hot-loader/root';
 import App from './App';
 import SignIn from './containers/auth/SignIn';
 import Auth from './containers/auth/Auth';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { Paths } from '@constants';
 
 class Router extends React.Component<any, any> {
   render() {
     return (
       <React.Fragment>
         <Switch>
-          <Route exact path={ROUTE_PATHS[ROUTE_PATH_INDEX.SignIn]} component={SignIn} />
+          <Route exact path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.SignIn]} component={SignIn} />
           <Auth>
             <Route path="/" component={App} />
           </Auth>

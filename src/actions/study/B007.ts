@@ -1,20 +1,18 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
 import { push } from 'connected-react-router/immutable';
-import { MODES, GROUP_ID, C007_URL } from '@constants/Consts';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { B0_07_REQUEST, B0_07_SUCCESS, B0_07_FAILURE } from '@constants/ActionTypes';
+import { Consts, Paths, ActionTypes } from '@constants';
 import { C007Response, WordItem } from 'typings/api';
 import { Payload, ErrorPayload, APIClass } from 'typings/types';
 import { WordInfo, State } from '@models';
 
 /** 単語テスト */
-export const request: B007RequestAction = createAction(B0_07_REQUEST);
-export const success: B007SuccessAction = createAction(B0_07_SUCCESS, (data: WordItem[]) => ({
-  mode: MODES.AllTest,
+export const request: B007RequestAction = createAction(ActionTypes.B0_07_REQUEST);
+export const success: B007SuccessAction = createAction(ActionTypes.B0_07_SUCCESS, (data: WordItem[]) => ({
+  mode: Consts.MODES.AllTest,
   words: data,
 }));
-export const failure: B007FailureAction = createAction(B0_07_FAILURE, (error: Error) => ({ error }));
+export const failure: B007FailureAction = createAction(ActionTypes.B0_07_FAILURE, (error: Error) => ({ error }));
 
 /** 単語テスト */
 // tslint:disable-next-line: ter-arrow-parens
@@ -23,10 +21,10 @@ const startTest: StartTestAction = () => async (dispatch, _, api) => {
   dispatch(request);
 
   // 画面遷移
-  dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]));
+  dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
 
   try {
-    const res = await api.get<C007Response>(C007_URL(GROUP_ID));
+    const res = await api.get<C007Response>(Consts.C007_URL(Consts.GROUP_ID));
 
     // データ保存
     dispatch(success(res.words));

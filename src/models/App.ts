@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { ROUTE_PATH_INDEX } from '@constants/Paths';
+import { Paths } from '@constants';
 import { CognitoUser } from '@aws-amplify/auth';
 
 export interface IApp extends AppProps, Record<AppProps> {
@@ -20,7 +20,7 @@ export interface AppProps extends AppUIProps {}
  * App共通ステータス
  */
 export default class App extends Record<AppProps>({
-  tabIndex: ROUTE_PATH_INDEX.RegistInit,
+  tabIndex: Paths.ROUTE_PATH_INDEX.RegistInit,
   isLoading: false,
   user: undefined,
   showHeader: true,

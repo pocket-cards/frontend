@@ -44,8 +44,8 @@
       "@actions/*": [
         "./src/actions/*"
       ],
-      "@constants/*": [
-        "./src/constants/*"
+      "@constants": [
+        "./src/constants/index"
       ],
       "@containers/*": [
         "./src/containers/*"

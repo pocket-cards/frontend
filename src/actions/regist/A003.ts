@@ -1,17 +1,15 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
 import { push } from 'connected-react-router/immutable';
-import { A0_03_REQUEST, A0_03_SUCCESS, A0_03_FAILURE } from '@constants/ActionTypes';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
-import { C001_URL, GROUP_ID } from '@constants/Consts';
+import { ActionTypes, Consts, Paths } from '@constants';
 import { State } from '@models';
 import { C001Request } from 'typings/api';
 import { ErrorPayload, APIClass, Payload } from 'typings/types';
 
 /** 画像アップロード */
-export const request: A003RequestAction = createAction(A0_03_REQUEST);
-export const success: A003SuccessAction = createAction(A0_03_SUCCESS);
-export const failure: A003FailureAction = createAction(A0_03_FAILURE, (error: Error) => ({ error }));
+export const request: A003RequestAction = createAction(ActionTypes.A0_03_REQUEST);
+export const success: A003SuccessAction = createAction(ActionTypes.A0_03_SUCCESS);
+export const failure: A003FailureAction = createAction(ActionTypes.A0_03_FAILURE, (error: Error) => ({ error }));
 
 /** 画像アップロード */
 const registWords: RegistWordsAction = (words: string[]) => async (dispatch, _, api) => {
@@ -19,7 +17,7 @@ const registWords: RegistWordsAction = (words: string[]) => async (dispatch, _, 
     // 画像アップロード開始イベント
     dispatch(request);
 
-    await api.post(C001_URL(GROUP_ID), {
+    await api.post(Consts.C001_URL(Consts.GROUP_ID), {
       words,
     } as C001Request);
 
@@ -29,7 +27,7 @@ const registWords: RegistWordsAction = (words: string[]) => async (dispatch, _, 
     dispatch(failure(err));
   } finally {
     // 画面遷移
-    dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistFinish]));
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistFinish]));
   }
 };
 

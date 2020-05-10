@@ -1,7 +1,11 @@
 import * as React from 'react';
-import Button from '@components/buttons/Button';
+import { bindActionCreators } from 'redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
+import Button from '@components/buttons/Button';
+import { State } from '@models';
+import * as Actions from '@actions/app';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -30,21 +34,41 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
+const app = (state: State) => state.get('app');
+
 export default () => {
   const classes = useStyles();
+  const { isLoading } = useSelector(app);
+  const actions = bindActionCreators(Actions, useDispatch());
 
-  const handleStart = () => {};
+  const handleStart = () => {
+    actions.start();
+  };
 
-  const handleStop = () => {};
+  const handleStop = () => {
+    actions.stop();
+  };
 
   return (
     <Box display="flex" flexDirection="column" margin={2}>
       <Box>Server Status: Stop</Box>
       <Box display="flex" justifyContent="flex-end">
-        <Button variant="contained" color="primary" className={classes.startBtn} size="large" onClick={handleStart}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.startBtn}
+          size="large"
+          onClick={handleStart}
+          isLoading={isLoading}>
           Start
         </Button>
-        <Button variant="contained" color="primary" className={classes.stopBtn} size="large" onClick={handleStop}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.stopBtn}
+          size="large"
+          onClick={handleStop}
+          isLoading={isLoading}>
           Stop
         </Button>
       </Box>

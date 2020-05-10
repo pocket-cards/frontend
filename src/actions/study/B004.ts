@@ -1,7 +1,6 @@
 import { createAction, ActionFunction0, ActionFunction1, Action, ActionFunction2 } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import { B0_04_REQUEST, B0_04_SUCCESS, B0_04_FAILURE } from '@constants/ActionTypes';
-import { C006_URL, GROUP_ID, C004_URL, MODES, C007_URL } from '@constants/Consts';
+import { ActionTypes, Consts } from '@constants';
 import { C004Request, C006Response, C007Response } from 'typings/api';
 import { APIClass, Payload, ErrorPayload } from 'typings/types';
 import { State } from '@models';
@@ -9,9 +8,9 @@ import * as StartNew from '@actions/study/B001';
 import * as StartTest from '@actions/study/B007';
 
 /** テスト回答(YES/NO) */
-export const request: B004RequestAction = createAction(B0_04_REQUEST);
-export const success: B004SuccessAction = createAction(B0_04_SUCCESS, (yes: boolean) => ({ yes }));
-export const failure: B004FailureAction = createAction(B0_04_FAILURE, (error: Error) => ({ error }));
+export const request: B004RequestAction = createAction(ActionTypes.B0_04_REQUEST);
+export const success: B004SuccessAction = createAction(ActionTypes.B0_04_SUCCESS, (yes: boolean) => ({ yes }));
+export const failure: B004FailureAction = createAction(ActionTypes.B0_04_FAILURE, (error: Error) => ({ error }));
 
 /** テスト回答(YES/NO) */
 const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, getState, api) => {
@@ -22,13 +21,13 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
   dispatch(request);
 
   // 復習モードの場合、サーバ更新しない
-  if (mode === MODES.Review) {
+  if (mode === Consts.MODES.Review) {
     dispatch(success(yes));
     return;
   }
 
   // 新規学習モードの場合、不正解の場合、更新しない
-  if (mode === MODES.New && !yes) {
+  if (mode === Consts.MODES.New && !yes) {
     dispatch(success(yes));
     return;
   }
@@ -54,14 +53,14 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
     await sleep(100);
 
     // 新規の場合
-    if (mode === MODES.New) {
-      const res = await api.get<C006Response>(C006_URL(GROUP_ID));
+    if (mode === Consts.MODES.New) {
+      const res = await api.get<C006Response>(Consts.C006_URL(Consts.GROUP_ID));
 
       // 新規単語の追加
       dispatch(StartNew.success(res.words));
     } else {
       // テストの場合
-      const res = await api.get<C007Response>(C007_URL(GROUP_ID));
+      const res = await api.get<C007Response>(Consts.C007_URL(Consts.GROUP_ID));
 
       dispatch(StartTest.success(res.words));
     }
@@ -74,7 +73,7 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
 const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
 
 const updateStatus = async (api: APIClass, word: string, yes: boolean, times: number) => {
-  await api.put(C004_URL(GROUP_ID, word), {
+  await api.put(Consts.C004_URL(Consts.GROUP_ID, word), {
     correct: yes,
     times,
   } as C004Request);

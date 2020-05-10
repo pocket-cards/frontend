@@ -1,15 +1,14 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import { C0_01_REQUEST, C0_01_SUCCESS, C0_01_FAILURE } from '@constants/ActionTypes';
-import { A002_URL } from '@constants/Consts';
+import { ActionTypes, Consts } from '@constants';
+import { State } from '@models';
 import { A002Response } from 'typings/api';
 import { ErrorPayload, APIClass } from 'typings/types';
-import { State } from '@models';
 
 /** 学習履歴取得 */
-export const request: C001RequestAction = createAction(C0_01_REQUEST);
-export const success: C001SuccessAction = createAction(C0_01_SUCCESS, (data: A002Response) => ({ data }));
-export const failure: C001FailureAction = createAction(C0_01_FAILURE, (error: Error) => ({ error }));
+export const request: C001RequestAction = createAction(ActionTypes.C0_01_REQUEST);
+export const success: C001SuccessAction = createAction(ActionTypes.C0_01_SUCCESS, (data: A002Response) => ({ data }));
+export const failure: C001FailureAction = createAction(ActionTypes.C0_01_FAILURE, (error: Error) => ({ error }));
 
 /** 学習履歴取得 */
 const history: HistoryAction = () => async (dispatch, _, api) => {
@@ -17,7 +16,7 @@ const history: HistoryAction = () => async (dispatch, _, api) => {
   dispatch(request);
 
   try {
-    const res = await api.get<A002Response>(A002_URL());
+    const res = await api.get<A002Response>(Consts.A002_URL());
     // データ保存
     dispatch(success(res));
   } catch (err) {

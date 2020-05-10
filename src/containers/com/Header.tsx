@@ -10,8 +10,7 @@ import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import { State } from '@models';
 import * as AppActions from '@actions/app';
-import { VERSION } from '@constants/Consts';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { Consts, Paths } from '@constants';
 
 const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
   createStyles({
@@ -57,7 +56,7 @@ export default () => {
     dispatch(push(paths.join('/')));
   };
 
-  const handleOnClickAdd = () => dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.GroupRegist]));
+  const handleOnClickAdd = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]));
 
   return (
     <AppBar position="static" className={classes.app}>
@@ -68,7 +67,7 @@ export default () => {
           })()}
         </IconButton>
         <Typography variant="h6" color="inherit" className={classes.title} />
-        <Button color="inherit">Ver{VERSION}</Button>
+        <Button color="inherit">Ver{Consts.VERSION}</Button>
         <IconButton color="inherit" aria-label="Logout" onClick={handleLogout}>
           <ExitToApp />
         </IconButton>

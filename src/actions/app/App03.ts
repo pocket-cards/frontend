@@ -1,16 +1,18 @@
-import { APP_03_REQUEST, APP_03_SUCCESS, APP_03_FAILURE } from '@constants/ActionTypes';
+import { ActionTypes } from '@constants';
 import { ActionFunction0, ActionFunction1, createAction, Action } from 'redux-actions';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
 import { State } from '@models';
 
 /** バー表示制御 */
-export const request: App03RequestAction = createAction(APP_03_REQUEST);
-export const success: App03SuccessAction = createAction(APP_03_SUCCESS, (visible: boolean) => ({ visible }));
-export const failure: App03FailureAction = createAction(APP_03_FAILURE, (error: Error) => ({ error }));
+export const request: App03RequestAction = createAction(ActionTypes.APP_03_REQUEST);
+export const success: App03SuccessAction = createAction(ActionTypes.APP_03_SUCCESS, (visible: boolean) => ({
+  visible,
+}));
+export const failure: App03FailureAction = createAction(ActionTypes.APP_03_FAILURE, (error: Error) => ({ error }));
 
 /** バー表示制御 */
-const showFooter: ShowFooterAction = visible => async dispatch => {
+const showFooter: ShowFooterAction = (visible) => async (dispatch) => {
   dispatch(request);
 
   try {

@@ -1,6 +1,6 @@
 import { Record } from 'immutable';
 import { WordItem } from 'typings/api';
-import { MODES, PAGE_MAX_WORDS } from '@constants/Consts';
+import { Consts } from '@constants';
 import differenceBy from 'lodash/differenceBy';
 import concat from 'lodash/concat';
 
@@ -40,7 +40,7 @@ export default class B000 extends Record<B000Props>({
     // 差分を抽出する
     const differ = differenceBy(words, this.history, 'word');
     // 足りない単語数を計算する
-    const diffNum = PAGE_MAX_WORDS - this.words.length;
+    const diffNum = Consts.PAGE_MAX_WORDS - this.words.length;
     // 追加する単語
     const added = differ.splice(0, diffNum);
     // 既存配列と合併する
@@ -77,7 +77,7 @@ export default class B000 extends Record<B000Props>({
 
   /** テスト回答(YES/NO) */
   answer(yes: boolean) {
-    if (!yes && this.mode !== MODES.AllTest) {
+    if (!yes && this.mode !== Consts.MODES.AllTest) {
       return this.next();
     }
 

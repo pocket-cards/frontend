@@ -7,9 +7,9 @@ import CameraIcon from '@material-ui/icons/Camera';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FaceIcon from '@material-ui/icons/Face';
-import { State } from '@models';
 import * as AppActions from '@actions/app';
-import { ROUTE_PATH_INDEX, ROUTE_PATHS } from '@constants/Paths';
+import { State } from '@models';
+import { Paths } from '@constants';
 
 const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
   createStyles({
@@ -51,42 +51,42 @@ export default () => {
     <BottomNavigation value={tabIndex} onChange={handleChange} className={classes.root}>
       <BottomNavigationAction
         className={classes.action}
-        value={ROUTE_PATH_INDEX.Home}
+        value={Paths.ROUTE_PATH_INDEX.Home}
         icon={<HomeIcon className={classes.icon} />}
         disableRipple
         disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
-          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Home]} {...props} />
+          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Home]} {...props} />
         ))}
       />
       <BottomNavigationAction
         className={classes.action}
-        value={ROUTE_PATH_INDEX.MyPage}
+        value={Paths.ROUTE_PATH_INDEX.MyPage}
         icon={<FaceIcon className={classes.icon} />}
         disableRipple
         disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
-          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.MyPage]} {...props} />
+          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.MyPage]} {...props} />
         ))}
       />
       <BottomNavigationAction
         className={classes.action}
-        value={ROUTE_PATH_INDEX.RegistInit}
+        value={Paths.ROUTE_PATH_INDEX.RegistInit}
         icon={<CameraIcon className={classes.icon} />}
         disableRipple
         disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
-          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />
+          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistInit]} {...props} />
         ))}
       />
       <BottomNavigationAction
         className={classes.action}
-        value={ROUTE_PATH_INDEX.Settings}
+        value={Paths.ROUTE_PATH_INDEX.Settings}
         icon={<SettingsIcon className={classes.icon} />}
         disableRipple
         disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
-          <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]} {...props} />
+          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]} {...props} />
         ))}
       />
     </BottomNavigation>

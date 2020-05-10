@@ -1,18 +1,18 @@
 import { ActionFunction0, ActionFunction1, Action, createAction } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
 import { CognitoUser } from '@aws-amplify/auth';
-import { APP_04_REQUEST, APP_04_SUCCESS, APP_04_FAILURE } from '@constants/ActionTypes';
+import { ActionTypes } from '@constants';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { State } from '@models';
 
 /** ログイン状態変更 */
-export const request: App04RequestAction = createAction(APP_04_REQUEST);
-export const success: App04SuccessAction = createAction(APP_04_SUCCESS, (user: CognitoUser) => ({ user }));
-export const failure: App04FailureAction = createAction(APP_04_FAILURE, (error: Error) => ({ error }));
+export const request: App04RequestAction = createAction(ActionTypes.APP_04_REQUEST);
+export const success: App04SuccessAction = createAction(ActionTypes.APP_04_SUCCESS, (user: CognitoUser) => ({ user }));
+export const failure: App04FailureAction = createAction(ActionTypes.APP_04_FAILURE, (error: Error) => ({ error }));
 
 /** ログイン状態変更 */
 // tslint:disable-next-line: ter-arrow-parens
-const loggedIn: LoggedInAction = user => async dispatch => {
+const loggedIn: LoggedInAction = (user) => async (dispatch) => {
   dispatch(request);
 
   try {

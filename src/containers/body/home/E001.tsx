@@ -16,7 +16,7 @@ import FolderIcon from '@material-ui/icons/Folder';
 import Loading from '@components/Loading';
 import * as Actions from '@actions/group';
 import { State } from '@models';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { Paths } from '@constants';
 
 const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing }: Theme) =>
   createStyles({
@@ -58,7 +58,7 @@ export default () => {
   }
 
   // Folder click
-  const handleOnClick = () => dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]));
+  const handleOnClick = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyInit]));
 
   return (
     <List>

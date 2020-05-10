@@ -1,12 +1,12 @@
-import { APP_01_REQUEST, APP_01_SUCCESS, APP_01_FAILURE } from '@constants/ActionTypes';
+import { ActionTypes } from '@constants';
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
 import { State } from '@models';
 
-export const request: App01RequestAction = createAction(APP_01_REQUEST);
-export const success: App01SuccessAction = createAction(APP_01_SUCCESS, (index: number) => ({ index }));
-export const failure: App01FailureAction = createAction(APP_01_FAILURE, (error: Error) => ({ error }));
+export const request: App01RequestAction = createAction(ActionTypes.APP_01_REQUEST);
+export const success: App01SuccessAction = createAction(ActionTypes.APP_01_SUCCESS, (index: number) => ({ index }));
+export const failure: App01FailureAction = createAction(ActionTypes.APP_01_FAILURE, (error: Error) => ({ error }));
 
 /** タブ変更 */
 const tabChange: TabChangeAction = (index: number) => async (dispatch, _, api) => {

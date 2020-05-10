@@ -1,7 +1,7 @@
 // import { History } from 'history';
-// import { E0_02_REQUEST, E0_02_SUCCESS, E0_02_FAILURE } from '@constants/ActionTypes';
-// import { D001_URL, B002_URL, B003_URL } from '@constants/Consts';
-// import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+// import { E0_02_REQUEST, E0_02_SUCCESS, E0_02_FAILURE } from '@constants';
+// import { D001_URL, B002_URL, B003_URL } from '@constants';
+// import { Paths } from '@constants';
 // import { D001Request, D001Response, B002Response, B003Response, B003Request } from 'typings/api';
 // import * as loadsh from 'lodash';
 // import { E002RequestAction, E002SuccessAction, E002FailureAction, GroupListAction, GroupRegistAction } from '.';

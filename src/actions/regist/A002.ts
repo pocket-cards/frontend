@@ -1,17 +1,17 @@
 import { createAction, ActionFunction0, ActionFunction1, Action } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import { A0_02_REQUEST, A0_02_SUCCESS, A0_02_FAILURE } from '@constants/ActionTypes';
+import { ActionTypes } from '@constants';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { State } from '@models';
 
 /** 指定単語削除 */
-export const request: A002RequestAction = createAction(A0_02_REQUEST);
-export const success: A002SuccessAction = createAction(A0_02_SUCCESS, (word: string) => ({ word }));
-export const failure: A002FailureAction = createAction(A0_02_FAILURE, (error: Error) => ({ error }));
+export const request: A002RequestAction = createAction(ActionTypes.A0_02_REQUEST);
+export const success: A002SuccessAction = createAction(ActionTypes.A0_02_SUCCESS, (word: string) => ({ word }));
+export const failure: A002FailureAction = createAction(ActionTypes.A0_02_FAILURE, (error: Error) => ({ error }));
 
 /** 指定単語削除 */
 // tslint:disable-next-line: ter-arrow-parens
-const removeWord: RemoveWordAction = (word: string) => dispatch => {
+const removeWord: RemoveWordAction = (word: string) => (dispatch) => {
   // 画像アップロード開始イベント
   dispatch(request);
 

@@ -22,9 +22,8 @@ import DoneIcon from '@material-ui/icons/Done';
 import * as StudyActions from '@actions/study';
 import * as AppActions from '@actions/app';
 import { State, WordInfo } from '@models';
-import { MODES } from '@constants/Consts';
+import { Consts, Paths } from '@constants';
 import Loading from '@components/Loading';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 const useStyles = makeStyles(({ spacing, palette }: Theme) =>
   createStyles({
@@ -114,7 +113,7 @@ export default () => {
     appActions.showHeader(true);
     appActions.showFooter(true);
     // 画面遷移
-    dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]));
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyInit]));
   };
 
   const getButtons = (mode?: string, word?: WordInfo) => {
@@ -158,7 +157,7 @@ export default () => {
     }
 
     // 単語なし
-    if (mode === MODES.Review) {
+    if (mode === Consts.MODES.Review) {
       console.log(handleNext);
       buttons.push(
         <Fab

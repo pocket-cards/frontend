@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 import { Grid, Button, StyleRules, withStyles, WithStyles } from '@material-ui/core';
+import { Paths } from '@constants';
 
 /** 単語登録完了画面 */
 class A003 extends React.Component<Props, any, any> {
@@ -17,7 +17,7 @@ class A003 extends React.Component<Props, any, any> {
           variant="contained"
           color="primary"
           // className={classes.button}
-          component={(props: any) => <Link to={ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]} {...props} />}>
+          component={(props: any) => <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistInit]} {...props} />}>
           登録完了
         </Button>
       </Grid>

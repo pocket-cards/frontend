@@ -1,18 +1,16 @@
 import { History } from 'history';
 import { createAction, ActionFunction0, ActionFunction1, Action, ActionFunction2 } from 'redux-actions';
 import { ThunkAction } from 'redux-thunk';
-import { A0_01_REQUEST, A0_01_SUCCESS, A0_01_FAILURE } from '@constants/ActionTypes';
-import { D001_URL } from '@constants/Consts';
-import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
+import { ActionTypes, Consts, Paths } from '@constants';
 import { D001Request, D001Response } from 'typings/api';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { State } from '@models';
 import isEmpty from 'lodash/isEmpty';
 
 /** 画像アップロード */
-export const request: A001RequestAction = createAction(A0_01_REQUEST);
-export const success: A001SuccessAction = createAction(A0_01_SUCCESS, (data: D001Response) => ({ data }));
-export const failure: A001FailureAction = createAction(A0_01_FAILURE, (error: Error) => ({ error }));
+export const request: A001RequestAction = createAction(ActionTypes.A0_01_REQUEST);
+export const success: A001SuccessAction = createAction(ActionTypes.A0_01_SUCCESS, (data: D001Response) => ({ data }));
+export const failure: A001FailureAction = createAction(ActionTypes.A0_01_FAILURE, (error: Error) => ({ error }));
 
 /** 画像アップロード */
 // tslint:disable-next-line: ter-arrow-parens
@@ -30,10 +28,10 @@ const uploadImage: UploadImageAction = (image: string, history?: History<any>) =
   const imageSrc = image.replace(/^.*,/, '');
 
   // 画面遷移
-  history && history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistList]);
+  history && history.push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistList]);
 
   try {
-    const res = await api.post<D001Response>(D001_URL(), {
+    const res = await api.post<D001Response>(Consts.D001_URL(), {
       type,
       image: imageSrc,
     } as D001Request);
