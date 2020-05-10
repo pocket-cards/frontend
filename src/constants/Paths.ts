@@ -9,7 +9,7 @@ export const ROUTE_PATH_INDEX = {
   MyPage: 31,
   Settings: 41,
   Home: 61,
-  GroupNew: 62,
+  GroupRegist: 62,
   GroupEdit: 63,
 };
 
@@ -21,7 +21,7 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.MyPage]: '/mypage',
   [ROUTE_PATH_INDEX.Settings]: '/settings',
   [ROUTE_PATH_INDEX.Home]: '/home',
-  [ROUTE_PATH_INDEX.GroupNew]: '/home/add',
+  [ROUTE_PATH_INDEX.GroupRegist]: '/home/regist',
   [ROUTE_PATH_INDEX.GroupEdit]: '/home/edit',
   [ROUTE_PATH_INDEX.StudyInit]: '/home/study',
   [ROUTE_PATH_INDEX.StudyCard]: '/home/study/card',
