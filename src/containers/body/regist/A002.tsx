@@ -1,181 +1,72 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch, compose } from 'redux';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+import React, { FunctionComponent } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { List, Divider, Button, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
 import { State } from '@models';
 import * as RegistActions from '@actions/regist';
 import Loading from '@components/Loading';
-import {
-  Grid,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListItemSecondaryAction,
-  Divider,
-  Button,
-  Theme,
-  withStyles,
-  WithStyles,
-} from '@material-ui/core';
+import { WordEdit } from '@components/functions';
 
-/** 単語登録リスト画面 */
-class A002 extends React.Component<Props, any, any> {
+const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
+  createStyles({
+    root: {
+      margin: spacing(1),
+      padding: spacing(0),
+    },
+    item: {
+      height: spacing(6),
+    },
+    bottom: {
+      margin: spacing(2),
+      textAlign: 'right',
+      position: 'relative',
+    },
+    button: {
+      width: spacing(15),
+    },
+  })
+);
+
+const a000 = (state: State) => state.get('a000');
+
+const a002: FunctionComponent<any> = () => {
+  const classes = useStyles();
+  const { isLoading, words } = useSelector(a000);
+  const actions = bindActionCreators(RegistActions, useDispatch());
+
   /** 単語登録 */
-  handleRegist = () => {
-    const { actions, words, history } = this.props;
-
-    actions.registWords(words, history);
+  const handleRegist = () => {
+    actions.registWords(words);
   };
 
   /** 単語削除 */
-  handleRemove = (word: string) => {
-    const { actions } = this.props;
-
+  const handleRemove = (word: string) => {
     actions.removeWord(word);
   };
 
-  /** クリア */
-  componentWillUnmount() {
-    this.props.actions.clear();
+  // 単語データなし
+  if (!isLoading && words.length === 0) {
+    console.log('Do no have any more words');
+    return <div />;
   }
 
-  render() {
-    const { words, isLoading, classes } = this.props;
+  return (
+    <Box>
+      <List className={classes.root}>
+        {words.map((value, idx) => (
+          <React.Fragment>
+            <WordEdit key={idx} word={value} onDelete={handleRemove} />
+            <Divider key={`${value}1`} />
+          </React.Fragment>
+        ))}
+      </List>
+      <Box padding={2} display="flex" justifyContent="flex-end">
+        <Button variant="contained" color="secondary" className={classes.button} onClick={handleRegist} size="large">
+          登録
+        </Button>
+      </Box>
+    </Box>
+  );
+};
 
-    // 単語データなし
-    if (!isLoading && words.length === 0) {
-      // history.push(ROUTE_PATHS[ROUTE_PATH_INDEX.RegistInit]);
-      console.log('Do no have any more words');
-      return <div />;
-    }
-
-    return (
-      <Grid container direction="column" wrap="nowrap" className={classes.container}>
-        {(() => (isLoading ? <Loading /> : undefined))()}
-        <Grid item xs={12} className={classes.root}>
-          <List>
-            {words.map((value) => (
-              <React.Fragment>
-                <ListItem
-                  key={value}
-                  role={undefined}
-                  dense
-                  classes={{
-                    secondaryAction: classes.secondaryAction,
-                  }}>
-                  <ListItemIcon classes={{ root: classes.itemIcon }}>
-                    <EditIcon className={classes.icon} color="secondary" />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={value}
-                    primaryTypographyProps={{
-                      variant: 'h3',
-                    }}
-                    className={classes.itemTextRoot}
-                  />
-                  <ListItemSecondaryAction
-                    classes={{
-                      root: classes.action,
-                    }}>
-                    <DeleteIcon
-                      fontSize="large"
-                      color="secondary"
-                      className={classes.icon}
-                      onClick={() => {
-                        this.handleRemove(value);
-                      }}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-                <Divider key={`${value}1`} />
-              </React.Fragment>
-            ))}
-          </List>
-        </Grid>
-        <Grid item xs={12} className={classes.bottom}>
-          <Button variant="contained" color="primary" className={classes.button} onClick={this.handleRegist}>
-            登録
-          </Button>
-        </Grid>
-      </Grid>
-    );
-  }
-}
-
-/** 単語一覧のProps */
-const mapStateToProps = (state: State) => ({
-  words: state.get('a000').get('words'),
-  isLoading: state.get('a000').get('isLoading'),
-});
-
-/** 単語一覧のActions */
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  actions: bindActionCreators(RegistActions, dispatch),
-});
-
-/** Styles */
-const styles = ({ palette: { primary }, spacing }: Theme) => ({
-  container: {
-    position: 'relative',
-  },
-  root: {
-    paddingLeft: spacing(),
-    paddingRight: spacing(2),
-  },
-  item: {
-    height: spacing(6),
-  },
-  itemIcon: {
-    marginRight: spacing(),
-  },
-  itemTextRoot: {
-    padding: '0px 16px 0px 8px',
-    fontSize: '1.5rem',
-  },
-  secondaryAction: {
-    paddingRight: spacing(6),
-  },
-  action: {
-    marginRight: spacing(1.5),
-    marginTop: spacing(0.5),
-  },
-  bottom: {
-    margin: spacing(2),
-    textAlign: 'right',
-    position: 'relative',
-  },
-  button: {
-    width: spacing(15),
-    position: 'absolute',
-    bottom: '0px',
-    right: '0px',
-    '&:hover': {
-      backgroundColor: primary.main,
-    },
-  },
-  icon: {
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-});
-
-export default compose(
-  withRouter,
-  withStyles(styles as any),
-  connect<StateFromProps, void, void, State>(mapStateToProps, mapDispatchToProps)
-)(A002) as any;
-
-/** State */
-export interface StateFromProps {
-  words: string[];
-}
-
-/** Properties */
-export interface Props extends StateFromProps, RouteComponentProps, WithStyles {
-  actions: RegistActions.Actions;
-  isLoading: boolean;
-}
+export default a002;
