@@ -19,6 +19,7 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
       height: spacing(9),
       backgroundColor: primary.light,
       alignItems: 'flex-start',
+      position: 'fixed',
     },
     action: {
       paddingTop: '8px !important',

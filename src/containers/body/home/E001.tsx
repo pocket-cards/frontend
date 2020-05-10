@@ -41,16 +41,15 @@ const e000 = (state: State) => state.get('e000');
 
 export default () => {
   const classes = useStyles();
-  const actions = bindActionCreators(Actions, useDispatch());
+  const dispatch = useDispatch();
+  const actions = bindActionCreators(Actions, dispatch);
   const { isLoading, groups } = useSelector(e000);
 
   React.useEffect(() => {
     actions.groupList();
   }, []);
 
-  const handleOnClick = () => {
-    push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]);
-  };
+  const handleOnClick = () => dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]));
 
   // Loading中
   if (isLoading) {

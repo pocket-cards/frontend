@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { push, getLocation } from 'connected-react-router/immutable';
+import { push } from 'connected-react-router/immutable';
 import { makeStyles, Theme, createStyles, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToApp from '@material-ui/icons/ExitToApp';
@@ -17,7 +18,7 @@ const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
     app: {
       boxShadow: 'none',
       height: '64px',
-      backgroudColor: primary.dark,
+      backgroundColor: primary.dark,
     },
     title: {
       flexGrow: 1,
@@ -38,6 +39,7 @@ export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(AppActions, dispatch);
   const { showHeader } = useSelector(app);
+  const location = useLocation();
 
   // ヘッダ非表示
   if (!showHeader) {
@@ -48,13 +50,14 @@ export default () => {
 
   // Left Icon action
   const handleOnClickLeft = () => {
+    console.log(111);
     const paths = location.pathname.split('/');
     paths.pop();
 
     dispatch(push(paths.join('/')));
   };
 
-  const handleOnClickAdd = () => push(ROUTE_PATHS[ROUTE_PATH_INDEX.GroupNew]);
+  const handleOnClickAdd = () => dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.GroupNew]));
 
   return (
     <AppBar position="static" className={classes.app}>

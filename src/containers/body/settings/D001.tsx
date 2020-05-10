@@ -23,8 +23,6 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
 
 export default () => {
   const classes = useStyles();
-  // const actions = bindActionCreators(StudyActions, useDispatch());
-  // const appActions = bindActionCreators(AppActions, useDispatch());
 
   return (
     <Grid container className={classes.root} justify="center">
