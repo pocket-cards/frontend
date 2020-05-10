@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, makeStyles, Theme, createStyles } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/Camera';
-import HomeIcon from '@material-ui/icons/Home';
-import SettingsIcon from '@material-ui/icons/Settings';
-import PersonIcon from '@material-ui/icons/Person';
+import HomeIcon from '@material-ui/icons/HomeOutlined';
+import SettingsIcon from '@material-ui/icons/SettingsOutlined';
+import PersonIcon from '@material-ui/icons/PersonOutlineOutlined';
 import { Actions } from '@actions/app';
 import { State } from '@models';
 import { Paths } from '@constants';
@@ -17,7 +17,7 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
       bottom: '0',
       width: '100%',
       height: spacing(9),
-      backgroundColor: primary.light,
+      // backgroundColor: primary.light,
       alignItems: 'flex-start',
       position: 'fixed',
     },
@@ -26,8 +26,8 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
       minWidth: 'inherit',
     },
     icon: {
-      color: 'white',
-      fontSize: '2.5rem',
+      // color: 'white',
+      fontSize: '3rem',
     },
   })
 );
@@ -53,8 +53,6 @@ export default () => {
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.Groups}
         icon={<HomeIcon className={classes.icon} />}
-        disableRipple
-        disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} {...props} />
         ))}
@@ -63,8 +61,6 @@ export default () => {
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.MyPage}
         icon={<PersonIcon className={classes.icon} />}
-        disableRipple
-        disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.MyPage]} {...props} />
         ))}
@@ -83,8 +79,6 @@ export default () => {
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.Settings}
         icon={<SettingsIcon className={classes.icon} />}
-        disableRipple
-        disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]} {...props} />
         ))}

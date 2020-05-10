@@ -19,6 +19,7 @@ import {
   Start,
 } from './Actions';
 import { Consts } from '@constants';
+import { Actions } from '@actions/group';
 
 /** タブ変更 */
 export const tabChange: TabChangeAction = (index: number) => async (dispatch, _, api) => {
@@ -61,6 +62,8 @@ export const loggedIn: LoggedInAction = (user) => async (dispatch) => {
   dispatch(LoggedIn.request());
 
   try {
+    // 画面初期化
+    dispatch(Actions.list());
     // データ保存
     dispatch(LoggedIn.success(user));
   } catch (err) {
