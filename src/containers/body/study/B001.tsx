@@ -1,22 +1,16 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
+import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
 import * as AppActions from '@actions/app';
 import Button from '@components/buttons/Button';
-import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
-    root: {
-      padding: `${spacing(2)}px 0px`,
-    },
-    item: {
-      padding: `${spacing()}px 0px`,
-    },
     button: {
-      width: spacing(20),
-      height: spacing(20),
+      // width: spacing(20),
+      // height: spacing(20),
       margin: spacing(),
       letterSpacing: spacing(0.25),
       fontSize: '1.25rem',
@@ -49,23 +43,16 @@ export default () => {
   };
 
   return (
-    <Grid container className={classes.root} justify="center">
-      <Grid item className={classes.item}>
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleTest}>
-          単語テスト
-        </Button>
-        <Button variant="contained" color="primary" className={classes.button}>
-          未定
-        </Button>
-      </Grid>
-      <Grid item className={classes.item}>
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleNew}>
-          単語の学習
-        </Button>
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleReview}>
-          単語の復習
-        </Button>
-      </Grid>
-    </Grid>
+    <Box display="flex" flexDirection="column" margin={2}>
+      <Button variant="contained" color="primary" className={classes.button} onClick={handleTest} size="large">
+        単語のテスト
+      </Button>
+      <Button variant="contained" color="primary" className={classes.button} onClick={handleNew} size="large">
+        単語の学習
+      </Button>
+      <Button variant="contained" color="primary" className={classes.button} onClick={handleReview} size="large">
+        単語の復習
+      </Button>
+    </Box>
   );
 };
