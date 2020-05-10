@@ -1,22 +1,31 @@
 import * as React from 'react';
 import Button from '@components/buttons/Button';
-import { makeStyles, Theme, createStyles, Grid } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
+import { green, red } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
-    root: {
-      padding: `${spacing(2)}px 0px`,
-    },
-    item: {
-      padding: `${spacing()}px 0px`,
-    },
     button: {
-      width: spacing(20),
-      height: spacing(20),
       margin: spacing(),
       letterSpacing: spacing(0.25),
       fontSize: '1.25rem',
       fontWeight: 600,
+    },
+    startBtn: {
+      width: spacing(15),
+      margin: spacing(),
+      backgroundColor: green[600],
+      '&:hover': {
+        backgroundColor: green[800],
+      },
+    },
+    stopBtn: {
+      width: spacing(15),
+      margin: spacing(),
+      backgroundColor: red[700],
+      '&:hover': {
+        backgroundColor: red[900],
+      },
     },
   })
 );
@@ -24,24 +33,21 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
 export default () => {
   const classes = useStyles();
 
+  const handleStart = () => {};
+
+  const handleStop = () => {};
+
   return (
-    <Grid container className={classes.root} justify="center">
-      <Grid item className={classes.item}>
-        <Button variant="contained" color="primary" className={classes.button}>
-          状態更新
+    <Box display="flex" flexDirection="column" margin={2}>
+      <Box>Server Status: Stop</Box>
+      <Box display="flex" justifyContent="flex-end">
+        <Button variant="contained" color="primary" className={classes.startBtn} size="large" onClick={handleStart}>
+          Start
         </Button>
-        <Button variant="contained" color="primary" className={classes.button}>
-          未定
+        <Button variant="contained" color="primary" className={classes.stopBtn} size="large" onClick={handleStop}>
+          Stop
         </Button>
-      </Grid>
-      <Grid item className={classes.item}>
-        <Button variant="contained" color="primary" className={classes.button}>
-          未定
-        </Button>
-        <Button variant="contained" color="primary" className={classes.button}>
-          未定
-        </Button>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };

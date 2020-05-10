@@ -57,7 +57,7 @@ export default () => {
     dispatch(push(paths.join('/')));
   };
 
-  const handleOnClickAdd = () => dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.GroupNew]));
+  const handleOnClickAdd = () => dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.GroupRegist]));
 
   return (
     <AppBar position="static" className={classes.app}>

@@ -45,4 +45,13 @@ export default class App extends Record<AppProps>({
   logout() {
     return this.set('user', undefined);
   }
+
+  /** 取込中 */
+  startLoading() {
+    return this.set('isLoading', true);
+  }
+
+  endLoading() {
+    return this.set('isLoading', false);
+  }
 }

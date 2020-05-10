@@ -2,6 +2,11 @@
 export const API_URL = process.env.API_URL as string;
 export const API_NAME = 'api';
 
+// サーバー
+export const SERVER_START_URL = () => '/start';
+export const SERVER_STOP_URL = () => '/stop';
+export const SERVER_STATUS_URL = () => '/status';
+
 // export const A001_URL = (userId: string) => `/users/${userId}`;
 export const A002_URL = () => '/history';
 // export const A003_URL = (userId: string) => `/users/${userId}/fixdelay`;

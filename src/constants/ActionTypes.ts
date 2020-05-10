@@ -1,3 +1,7 @@
+/** Loading status */
+export const COM_01_REQUEST = 'COM_01_REQUEST';
+export const COM_01_FAILURE = 'COM_01_FAILURE';
+
 /** Tab Change */
 export const APP_01_REQUEST = 'APP_01_REQUEST';
 export const APP_01_SUCCESS = 'APP_01_SUCCESS';
@@ -22,6 +26,15 @@ export const APP_04_FAILURE = 'APP_04_FAILURE';
 export const APP_05_REQUEST = 'APP_05_REQUEST';
 export const APP_05_SUCCESS = 'APP_05_SUCCESS';
 export const APP_05_FAILURE = 'APP_05_FAILURE';
+
+/** Start Server */
+export const APP_06_SUCCESS = 'APP_06_SUCCESS';
+
+/** Stop Server */
+export const APP_07_SUCCESS = 'APP_07_SUCCESS';
+
+/** Status Server */
+export const APP_08_SUCCESS = 'APP_08_SUCCESS';
 
 /** 単語登録 */
 // export const A000_UPLOAD_IMAGE = 'A000_UPLOAD_IMAGE';

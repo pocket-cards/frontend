@@ -15,7 +15,9 @@ import {
   APP_04_FAILURE,
   APP_05_REQUEST,
   APP_05_SUCCESS,
-  APP_05_FAILURE
+  APP_05_FAILURE,
+  COM_01_REQUEST,
+  COM_01_FAILURE,
 } from '@constants/ActionTypes';
 import { App01Payload, App02Payload, App03Payload, App04Payload } from '@actions/app';
 
@@ -42,9 +44,12 @@ const reducer = handleActions<App, any>(
     [APP_04_FAILURE]: (store: App) => store,
 
     /** ログアウト */
-    [APP_05_REQUEST]: (store: App) => store,
+    [APP_05_REQUEST]: (store: App) => store.startLoading(),
     [APP_05_SUCCESS]: (store: App) => store.logout(),
-    [APP_05_FAILURE]: (store: App) => store
+    [APP_05_FAILURE]: (store: App) => store.endLoading(),
+
+    [COM_01_REQUEST]: (store: App) => store.startLoading(),
+    [COM_01_FAILURE]: (store: App) => store.endLoading(),
   },
   new App()
 );
