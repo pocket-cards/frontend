@@ -73,8 +73,6 @@ const SignIn = () => {
         password: values.passwd,
       })) as CognitoUser;
 
-      console.log(user);
-
       actions.loggedIn(user);
     } catch (err) {
       console.log(err);
@@ -125,7 +123,7 @@ const SignIn = () => {
             onChange={handleChange}
           />
           <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+          <Button type="submit" size="large" fullWidth variant="contained" color="primary" className={classes.submit}>
             Sign In
           </Button>
           <Grid container>
