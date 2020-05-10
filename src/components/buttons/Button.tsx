@@ -1,13 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import {
-  Button,
-  ButtonProps,
-  ButtonBaseProps,
-  CircularProgress,
-  makeStyles,
-  Theme,
-  createStyles,
-} from '@material-ui/core';
+import { Button, ButtonProps, CircularProgress, makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,12 +27,12 @@ const button: FunctionComponent<Props> = ({ isLoading, children, ...props }) => 
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      <Button disableFocusRipple disableTouchRipple disableRipple {...props} disabled={isLoading}>
+    <Box margin={1} position="relative">
+      <Button disableFocusRipple disableTouchRipple fullWidth {...props} disabled={isLoading}>
         {children}
       </Button>
       {isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
-    </React.Fragment>
+    </Box>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router/immutable';
 import {
   makeStyles,
@@ -9,23 +10,20 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  Avatar,
   ListItemText,
+  Avatar,
+  Box,
 } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
 import Loading from '@components/Loading';
+import Button from '@components/buttons/Button';
 import { Actions as AppActions } from '@actions/app';
-import * as Actions from '@actions/group';
-import { State } from '@models';
+import { Actions as GroupActions } from '@actions/group';
 import { Paths } from '@constants';
+import { State } from '@models';
 
 const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing }: Theme) =>
   createStyles({
-    root: {},
-    row: {
-      margin: spacing(2),
-      height: spacing(8),
-    },
     list: {
       width: 'auto',
       margin: spacing(2),
@@ -38,6 +36,9 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing
     text: { fontSize: '1.5rem' },
     avatar: { backgroundColor: secondary.main },
     icon: { color: secondary.light },
+    button: {
+      fontSize: '2rem',
+    },
   })
 );
 
@@ -46,7 +47,7 @@ const e000 = (state: State) => state.get('e000');
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const actions = bindActionCreators(Actions, dispatch);
+  const actions = bindActionCreators(GroupActions, dispatch);
   const appActions = bindActionCreators(AppActions, dispatch);
   const { isLoading, groups } = useSelector(e000);
 
@@ -67,6 +68,24 @@ export default () => {
     // 画面遷移
     dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
   };
+
+  // フォルダなしの場合
+  if (groups.length === 0) {
+    return (
+      <Box margin={4} display="flex" justifyContent="center">
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          className={classes.button}
+          // @ts-ignore
+          component={Link}
+          to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]}>
+          フォルダを新規作成
+        </Button>
+      </Box>
+    );
+  }
 
   return (
     <List>

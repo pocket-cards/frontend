@@ -7,32 +7,37 @@ import { State } from '@models';
 import { D001Response } from 'typings/api';
 import { CallHistoryMethodAction } from 'connected-react-router';
 
+export const request = (actionType: string): ActionFunction0<Action<any>> => createAction(actionType);
+
+export const failure = (actionType: string): ActionFunction1<Error, Action<ErrorPayload>> =>
+  createAction(actionType, (error: Error) => ({ error }));
+
 /** 画像アップロード */
 export const UploadImage = {
-  request: Loading.request,
+  request: request(ActionTypes.A0_01_REQUEST),
   success: createAction(ActionTypes.A0_01_SUCCESS, (data: D001Response) => ({ data })),
-  failure: Loading.failure,
+  failure: failure(ActionTypes.A0_01_FAILURE),
 };
 
 /** 指定単語削除 */
 export const RemoveWord = {
-  request: Nothing.request,
+  request: request(ActionTypes.A0_02_REQUEST),
   success: createAction(ActionTypes.A0_02_SUCCESS, (word: string) => ({ word })),
-  failure: createAction(ActionTypes.A0_02_FAILURE, (error: Error) => ({ error })),
+  failure: failure(ActionTypes.A0_02_FAILURE),
 };
 
 /** 単語登録 */
 export const RegistWords = {
-  request: Loading.request,
+  request: request(ActionTypes.A0_03_REQUEST),
   success: createAction(ActionTypes.A0_03_SUCCESS),
-  failure: Loading.failure,
+  failure: failure(ActionTypes.A0_03_FAILURE),
 };
 
 /** 単語クリア */
 export const Clear = {
-  request: Nothing.request,
+  request: request(ActionTypes.A0_04_REQUEST),
   success: createAction(ActionTypes.A0_04_SUCCESS),
-  failure: Nothing.failure,
+  failure: failure(ActionTypes.A0_04_FAILURE),
 };
 
 /** 画像アップロード */

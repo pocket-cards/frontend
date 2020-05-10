@@ -3,7 +3,7 @@ import { makeStyles, Theme, createStyles, Grid, Button } from '@material-ui/core
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField } from '@components/inputs';
-import * as Actions from '@actions/group';
+import { Actions } from '@actions/group';
 import { State } from '@models';
 import Loading from '@components/Loading';
 

@@ -32,13 +32,24 @@ export const APP_05_SUCCESS = 'APP_05_SUCCESS';
 export const APP_05_FAILURE = 'APP_05_FAILURE';
 
 /** Start Server */
+export const APP_06_REQUEST = 'APP_06_REQUEST';
 export const APP_06_SUCCESS = 'APP_06_SUCCESS';
+export const APP_06_FAILURE = 'APP_06_FAILURE';
+
 /** Stop Server */
+export const APP_07_REQUEST = 'APP_07_REQUEST';
 export const APP_07_SUCCESS = 'APP_07_SUCCESS';
+export const APP_07_FAILURE = 'APP_07_FAILURE';
+
 /** Status Server */
+export const APP_08_REQUEST = 'APP_08_REQUEST';
 export const APP_08_SUCCESS = 'APP_08_SUCCESS';
+export const APP_08_FAILURE = 'APP_08_FAILURE';
+
 /** Group Select */
+export const APP_09_REQUEST = 'APP_09_REQUEST';
 export const APP_09_SUCCESS = 'APP_09_SUCCESS';
+export const APP_09_FAILURE = 'APP_09_FAILURE';
 
 /** 単語登録 */
 // export const A000_UPLOAD_IMAGE = 'A000_UPLOAD_IMAGE';

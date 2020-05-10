@@ -1,15 +1,13 @@
-import list from './E001';
-import regist from './E002';
-
 import { ThunkActionDispatch } from 'typings/redux-thunk';
+import { list, regist } from './App';
 
-export { default as list, E001Payload } from './E001';
-export { default as regist, E002Payload } from './E002';
+export * as Actions from './App';
+export { E001Payload, E002Payload } from './Actions';
 
 // ------------------------------
 // TypeScript Definetion
 // ------------------------------
-export interface Actions {
+export interface GroupActions {
   // グループ一覧取得
   list(): ThunkActionDispatch<typeof list>;
   /** Header Visible */

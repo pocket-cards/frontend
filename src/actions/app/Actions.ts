@@ -1,4 +1,3 @@
-import { Loading, Nothing } from '@actions/com';
 import { createAction, Action, ActionFunction1, ActionFunction0 } from 'redux-actions';
 import { ActionTypes } from '@constants';
 import { ErrorPayload, APIClass } from 'typings/types';
@@ -6,70 +5,75 @@ import { ThunkAction } from 'redux-thunk';
 import { State } from '@models';
 import { CognitoUser } from '@aws-amplify/auth';
 
+export const request = (actionType: string): ActionFunction0<Action<any>> => createAction(actionType);
+
+export const failure = (actionType: string): ActionFunction1<Error, Action<ErrorPayload>> =>
+  createAction(actionType, (error: Error) => ({ error }));
+
 export const TabChange = {
-  request: Nothing.request,
+  request: request(ActionTypes.APP_01_REQUEST),
   success: createAction(ActionTypes.APP_01_SUCCESS, (index: number): App01Payload => ({ index })),
-  failure: Nothing.failure,
+  failure: failure(ActionTypes.APP_01_FAILURE),
 };
 
 export const ShowHeader = {
-  request: Nothing.request,
+  request: request(ActionTypes.APP_02_REQUEST),
   success: createAction(ActionTypes.APP_02_SUCCESS, (visible: boolean) => ({
     visible,
   })),
-  failure: Nothing.failure,
+  failure: failure(ActionTypes.APP_02_FAILURE),
 };
 
 export const ShowFooter = {
-  request: Nothing.request,
+  request: request(ActionTypes.APP_03_REQUEST),
   success: createAction(ActionTypes.APP_03_SUCCESS, (visible: boolean) => ({
     visible,
   })),
-  failure: Nothing.failure,
+  failure: failure(ActionTypes.APP_03_FAILURE),
 };
 
 /** ログイン状態変更 */
 export const LoggedIn = {
-  request: Loading.request,
+  request: request(ActionTypes.APP_04_REQUEST),
   success: createAction(ActionTypes.APP_04_SUCCESS, (user: CognitoUser) => ({ user })),
-  failure: Loading.failure,
+  failure: failure(ActionTypes.APP_04_FAILURE),
 };
 
 /** ログアウト */
 export const Logout = {
-  request: Loading.request,
+  request: request(ActionTypes.APP_05_REQUEST),
   success: createAction(ActionTypes.APP_05_SUCCESS),
-  failure: Loading.failure,
+  failure: failure(ActionTypes.APP_05_FAILURE),
 };
 
 /** グループ選択 */
 export const GroupSelect = {
-  request: Loading.request,
+  request: request(ActionTypes.APP_09_REQUEST),
   success: createAction(ActionTypes.APP_09_SUCCESS, (groupId: string) => ({
     groupId,
   })),
-  failure: Loading.failure,
+  failure: failure(ActionTypes.APP_09_FAILURE),
 };
 
 /** サーバ開始 */
 export const Start = {
-  request: Loading.request,
+  request: request(ActionTypes.APP_06_REQUEST),
   success: createAction(ActionTypes.APP_06_SUCCESS),
-  failure: Loading.failure,
+  failure: failure(ActionTypes.APP_06_FAILURE),
 };
 
 /** サーバ終了 */
 export const Stop = {
-  request: Loading.request,
+  request: request(ActionTypes.APP_07_REQUEST),
   success: createAction(ActionTypes.APP_07_SUCCESS),
-  failure: Loading.failure,
+  failure: failure(ActionTypes.APP_07_FAILURE),
 };
 
 /** サーバステータス */
 export const Status = {
-  request: Loading.request,
+  request: request(ActionTypes.APP_08_REQUEST),
   success: createAction(ActionTypes.APP_08_SUCCESS),
-  failure: Loading.failure,
+  failure: failure(ActionTypes.APP_08_FAILURE),
 };
 
 /** Tab Change */

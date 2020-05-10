@@ -2,9 +2,10 @@ import React, { FunctionComponent, useState } from 'react';
 import { Actions } from '@actions/regist';
 import Button from '@components/buttons/Button';
 import WebCamera from '@components/WebCamera';
-import { Grid, Theme, makeStyles, createStyles } from '@material-ui/core';
+import { Grid, Theme, makeStyles, createStyles, Box } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { State } from '@models';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -14,14 +15,14 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
     item: {
       padding: `${spacing()}px 0px`,
     },
-    button: {
-      width: spacing(20),
-    },
   })
 );
 
+const app = (state: State) => state.get('app');
+
 const a001: FunctionComponent<any> = () => {
   const classes = useStyles();
+  const { isLoading } = useSelector(app);
   const [onAir, setOnAir] = useState(false);
   const actions = bindActionCreators(Actions, useDispatch());
 
@@ -66,33 +67,19 @@ const a001: FunctionComponent<any> = () => {
   const isShow = !onAir;
 
   return (
-    <Grid container alignItems="center" justify="flex-start" direction="column" className={classes.root}>
+    <Box display="flex" flexDirection="column" margin={2}>
       <input type="file" id="upload" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
-      {(() => {
-        if (!isShow) return <div />;
-
-        return (
-          <React.Fragment>
-            <Grid item className={classes.item}>
-              <Button variant="contained" color="primary" className={classes.button} onClick={handleTest}>
-                Test
-              </Button>
-            </Grid>
-            <Grid item className={classes.item}>
-              <Button variant="contained" color="primary" className={classes.button} onClick={startCamera}>
-                Take Photo
-              </Button>
-            </Grid>
-            <Grid item className={classes.item}>
-              <Button variant="contained" color="primary" className={classes.button} onClick={handleUpload}>
-                Upload Photo
-              </Button>
-            </Grid>
-          </React.Fragment>
-        );
-      })()}
+      {/* <Button variant="contained" color="primary" className={classes.button} onClick={handleTest} size="large">
+        Test
+      </Button> */}
+      <Button variant="contained" color="primary" fullWidth onClick={startCamera} size="large" isLoading={isLoading}>
+        Take Photo
+      </Button>
+      <Button variant="contained" color="primary" fullWidth onClick={handleUpload} size="large" isLoading={isLoading}>
+        Upload Photo
+      </Button>
       <WebCamera onAir={onAir} takePhoto={handleCamera} afterStopCamera={afterStopCamera} />
-    </Grid>
+    </Box>
   );
 };
 

@@ -13,7 +13,6 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
     button: {
       // width: spacing(20),
       // height: spacing(20),
-      margin: spacing(),
       letterSpacing: spacing(0.25),
       fontSize: '1.25rem',
       fontWeight: 600,

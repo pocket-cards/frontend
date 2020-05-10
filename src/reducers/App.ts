@@ -5,38 +5,52 @@ import { App01Payload, App02Payload, App03Payload, App04Payload, App09Payload } 
 
 const reducer = handleActions<App, any>(
   {
-    [ActionTypes.COM_01_REQUEST]: (store: App) => store.startLoading(),
-    [ActionTypes.COM_01_FAILURE]: (store: App) => store.endLoading(),
-
-    [ActionTypes.COM_02_REQUEST]: (store: App) => store,
-    [ActionTypes.COM_02_FAILURE]: (store: App) => store,
-
     /** タブ変更 */
+    [ActionTypes.APP_01_REQUEST]: (store: App) => store,
     [ActionTypes.APP_01_SUCCESS]: (store: App, { payload: { index } }: Action<App01Payload>) => store.tabChange(index),
+    [ActionTypes.APP_01_FAILURE]: (store: App) => store,
 
     /** ヘッダ表示 */
+    [ActionTypes.APP_02_REQUEST]: (store: App) => store,
     [ActionTypes.APP_02_SUCCESS]: (store: App, { payload: { visible } }: Action<App02Payload>) =>
       store.setShowHeader(visible),
+    [ActionTypes.APP_02_FAILURE]: (store: App) => store,
 
     /** Footer表示 */
+    [ActionTypes.APP_03_REQUEST]: (store: App) => store,
     [ActionTypes.APP_03_SUCCESS]: (store: App, { payload: { visible } }: Action<App03Payload>) =>
       store.setShowFooter(visible),
+    [ActionTypes.APP_03_FAILURE]: (store: App) => store,
 
     /** ユーザ情報設定 */
+    [ActionTypes.APP_04_REQUEST]: (store: App) => store.startLoading(),
     [ActionTypes.APP_04_SUCCESS]: (store: App, { payload: { user } }: Action<App04Payload>) =>
       store.loggedIn(user).endLoading(),
+    [ActionTypes.APP_04_FAILURE]: (store: App) => store.endLoading(),
 
     /** ログアウト */
+    [ActionTypes.APP_05_REQUEST]: (store: App) => store.startLoading(),
     [ActionTypes.APP_05_SUCCESS]: (store: App) => store.logout(),
+    [ActionTypes.APP_05_FAILURE]: (store: App) => store.endLoading(),
 
     /** サーバ関連 */
+    [ActionTypes.APP_06_REQUEST]: (store: App) => store.startLoading(),
     [ActionTypes.APP_06_SUCCESS]: (store: App) => store.endLoading(),
+    [ActionTypes.APP_06_FAILURE]: (store: App) => store.endLoading(),
+
+    [ActionTypes.APP_07_REQUEST]: (store: App) => store.startLoading(),
     [ActionTypes.APP_07_SUCCESS]: (store: App) => store.endLoading(),
+    [ActionTypes.APP_07_FAILURE]: (store: App) => store.endLoading(),
+
+    [ActionTypes.APP_08_REQUEST]: (store: App) => store.startLoading(),
     [ActionTypes.APP_08_SUCCESS]: (store: App) => store.endLoading(),
+    [ActionTypes.APP_08_FAILURE]: (store: App) => store.endLoading(),
 
     /** グループ選択 */
+    [ActionTypes.APP_09_REQUEST]: (store: App) => store,
     [ActionTypes.APP_09_SUCCESS]: (store: App, { payload: { groupId } }: Action<App09Payload>) =>
       store.setGroupId(groupId),
+    [ActionTypes.APP_09_FAILURE]: (store: App) => store,
   },
   new App()
 );

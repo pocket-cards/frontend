@@ -3,8 +3,7 @@ import { bindActionCreators } from 'redux';
 import { useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles, TextField, Box } from '@material-ui/core';
 import Button from '@components/buttons/Button';
-import * as Actions from '@actions/group';
-import { State } from '@models';
+import { Actions } from '@actions/group';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
