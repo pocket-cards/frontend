@@ -6,6 +6,7 @@ import { B001_URL } from '@constants/Consts';
 import { ErrorPayload, APIClass, GroupInfo } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
 import { State } from '@models';
+import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
 /** 画像アップロード */
 export const request: E002RequestAction = createAction(E0_02_REQUEST);
@@ -32,7 +33,7 @@ const groupRegist: GroupRegistAction = (name: string, description?: string) => a
       })
     );
 
-    dispatch(push('/111'));
+    dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.Home]));
   } catch (err) {
     dispatch(failure(err));
   }
@@ -51,6 +52,6 @@ export type GroupRegistThunkAction = ThunkAction<
   APIClass,
   Action<GroupRegistPayload> | CallHistoryMethodAction
 >;
-export type GroupRegistAction = ActionFunction2<string, string, GroupRegistThunkAction>;
+export type GroupRegistAction = ActionFunction2<string, string | undefined, GroupRegistThunkAction>;
 
 export default groupRegist;
