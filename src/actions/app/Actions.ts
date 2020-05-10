@@ -18,24 +18,30 @@ export const TabChange = {
 
 export const ShowHeader = {
   request: request(ActionTypes.APP_02_REQUEST),
-  success: createAction(ActionTypes.APP_02_SUCCESS, (visible: boolean) => ({
-    visible,
-  })),
+  success: createAction(
+    ActionTypes.APP_02_SUCCESS,
+    (visible: boolean): App02Payload => ({
+      visible,
+    })
+  ),
   failure: failure(ActionTypes.APP_02_FAILURE),
 };
 
 export const ShowFooter = {
   request: request(ActionTypes.APP_03_REQUEST),
-  success: createAction(ActionTypes.APP_03_SUCCESS, (visible: boolean) => ({
-    visible,
-  })),
+  success: createAction(
+    ActionTypes.APP_03_SUCCESS,
+    (visible: boolean): App03Payload => ({
+      visible,
+    })
+  ),
   failure: failure(ActionTypes.APP_03_FAILURE),
 };
 
 /** ログイン状態変更 */
 export const LoggedIn = {
   request: request(ActionTypes.APP_04_REQUEST),
-  success: createAction(ActionTypes.APP_04_SUCCESS, (user: CognitoUser) => ({ user })),
+  success: createAction(ActionTypes.APP_04_SUCCESS, (user: CognitoUser): App04Payload => ({ user })),
   failure: failure(ActionTypes.APP_04_FAILURE),
 };
 
@@ -49,30 +55,48 @@ export const Logout = {
 /** グループ選択 */
 export const GroupSelect = {
   request: request(ActionTypes.APP_09_REQUEST),
-  success: createAction(ActionTypes.APP_09_SUCCESS, (groupId: string) => ({
-    groupId,
-  })),
+  success: createAction(
+    ActionTypes.APP_09_SUCCESS,
+    (groupId: string): App09Payload => ({
+      groupId,
+    })
+  ),
   failure: failure(ActionTypes.APP_09_FAILURE),
 };
 
 /** サーバ開始 */
 export const Start = {
   request: request(ActionTypes.APP_06_REQUEST),
-  success: createAction(ActionTypes.APP_06_SUCCESS),
+  success: createAction(
+    ActionTypes.APP_06_SUCCESS,
+    (status: string): App06Payload => ({
+      status,
+    })
+  ),
   failure: failure(ActionTypes.APP_06_FAILURE),
 };
 
 /** サーバ終了 */
 export const Stop = {
   request: request(ActionTypes.APP_07_REQUEST),
-  success: createAction(ActionTypes.APP_07_SUCCESS),
+  success: createAction(
+    ActionTypes.APP_07_SUCCESS,
+    (status: string): App07Payload => ({
+      status,
+    })
+  ),
   failure: failure(ActionTypes.APP_07_FAILURE),
 };
 
 /** サーバステータス */
 export const Status = {
   request: request(ActionTypes.APP_08_REQUEST),
-  success: createAction(ActionTypes.APP_08_SUCCESS),
+  success: createAction(
+    ActionTypes.APP_08_SUCCESS,
+    (status: string): App08Payload => ({
+      status,
+    })
+  ),
   failure: failure(ActionTypes.APP_08_FAILURE),
 };
 
@@ -127,16 +151,28 @@ type GroupSelectActionThunkAction = ThunkAction<Promise<void>, State, APIClass, 
 export type GroupSelectAction = ActionFunction1<string, GroupSelectActionThunkAction>;
 
 /** サーバ開始 */
-type ServerStartPayload = ErrorPayload;
+export interface App06Payload {
+  status: string;
+}
+
+type ServerStartPayload = ErrorPayload | App06Payload;
 type ServerStartActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<ServerStartPayload>>;
 export type ServerStartAction = ActionFunction0<ServerStartActionThunkAction>;
 
 /** サーバ終了 */
-type ServerStopPayload = ErrorPayload;
+export interface App07Payload {
+  status: string;
+}
+
+type ServerStopPayload = App07Payload | ErrorPayload;
 type ServerStopActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<ServerStopPayload>>;
 export type ServerStopAction = ActionFunction0<ServerStopActionThunkAction>;
 
 /** サーバステータス */
-type ServerStatusPayload = ErrorPayload;
+export interface App08Payload {
+  status: string;
+}
+
+type ServerStatusPayload = ErrorPayload | App08Payload;
 type ServerStatusActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<ServerStatusPayload>>;
 export type ServerStatusAction = ActionFunction0<ServerStatusActionThunkAction>;

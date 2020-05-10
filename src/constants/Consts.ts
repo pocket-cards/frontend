@@ -1,6 +1,8 @@
+import defaultTo from 'lodash/defaultTo';
+
 // API DOMAIN
 export const API_URL = process.env.API_URL as string;
-export const API_SERVER_URL = process.env.API_SERVER_URL as string;
+export const API_SERVER_URL = defaultTo(process.env.API_SERVER_URL, process.env.API_URL);
 export const API_NAME = 'api';
 export const API_SERVER_NAME = 'server';
 
@@ -42,3 +44,12 @@ export const MODES = {
 };
 
 export const PAGE_MAX_WORDS = 7;
+
+export const SERVER_STATUS = {
+  RUNNING: 'RUNNING',
+  STOPPED: 'STOPPED',
+  PROVISIONING: 'PROVISIONING',
+  ACTIVATING: 'ACTIVATING',
+  PENDING: 'PENDING',
+  STOPPING: 'STOPPING',
+};

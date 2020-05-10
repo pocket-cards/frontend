@@ -1,6 +1,7 @@
 import { Record } from 'immutable';
-import { Paths } from '@constants';
+import { Paths, Consts } from '@constants';
 import { CognitoUser } from '@aws-amplify/auth';
+import { string } from 'yup';
 
 export interface IApp extends AppProps, Record<AppProps> {
   get<K extends keyof AppProps>(key: K): AppProps[K];
@@ -8,11 +9,18 @@ export interface IApp extends AppProps, Record<AppProps> {
 
 export interface AppUIProps {
   tabIndex: number;
+  // loading
   isLoading: boolean;
+  // User info
   user: CognitoUser | undefined;
+  // show / hide header
   showHeader: boolean;
+  // show / hide footer
   showFooter: boolean;
+  // selected group id
   groupId: string;
+  // server status
+  status: string;
 }
 
 export interface AppProps extends AppUIProps {}
@@ -27,6 +35,7 @@ export default class App extends Record<AppProps>({
   showHeader: true,
   showFooter: true,
   groupId: '',
+  status: Consts.SERVER_STATUS.STOPPED,
 }) {
   tabChange(index: number) {
     return this.set('tabIndex', index);
@@ -59,5 +68,9 @@ export default class App extends Record<AppProps>({
 
   endLoading() {
     return this.set('isLoading', false);
+  }
+
+  updateStatus(status: string) {
+    return this.set('status', status);
   }
 }

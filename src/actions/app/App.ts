@@ -63,7 +63,7 @@ export const loggedIn: LoggedInAction = (user) => async (dispatch) => {
 
   try {
     // 画面初期化
-    dispatch(Actions.list());
+    dispatch(status());
     // データ保存
     dispatch(LoggedIn.success(user));
   } catch (err) {
@@ -99,9 +99,9 @@ export const start: ServerStartAction = () => async (dispatch, _, api) => {
   dispatch(Start.request());
 
   try {
-    await api.post(Consts.SERVER_START_URL(), undefined, Consts.API_SERVER_NAME);
+    const res = await api.post(Consts.SERVER_START_URL(), undefined, Consts.API_SERVER_NAME);
 
-    dispatch(Start.success());
+    dispatch(Start.success(res.status));
   } catch (err) {
     dispatch(Start.failure(err));
   }
@@ -113,9 +113,9 @@ export const stop: ServerStopAction = () => async (dispatch, _, api) => {
 
   try {
     // サーバ停止
-    await api.post(Consts.SERVER_STOP_URL(), undefined, Consts.API_SERVER_NAME);
+    const res = await api.post(Consts.SERVER_STOP_URL(), undefined, Consts.API_SERVER_NAME);
 
-    dispatch(Stop.success());
+    dispatch(Stop.success(res.status));
   } catch (err) {
     dispatch(Stop.failure(err));
   }
@@ -127,9 +127,13 @@ export const status: ServerStatusAction = () => async (dispatch, _, api) => {
 
   try {
     // サーバ停止
-    await api.post(Consts.SERVER_STATUS_URL(), undefined, Consts.API_SERVER_NAME);
+    const res = await api.get(Consts.SERVER_STATUS_URL(), undefined, Consts.API_SERVER_NAME);
 
-    dispatch(Status.success());
+    if (res.status === Consts.SERVER_STATUS.RUNNING) {
+      dispatch(Actions.list());
+    }
+
+    dispatch(Status.success(res.status));
   } catch (err) {
     dispatch(Status.failure(err));
   }

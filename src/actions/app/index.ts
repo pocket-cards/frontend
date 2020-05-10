@@ -3,7 +3,16 @@ import { ThunkActionDispatch } from 'typings/redux-thunk';
 import { groupSelect, loggedIn, logout, showFooter, showHeader, tabChange, start, status, stop } from './App';
 
 export * as Actions from './App';
-export { App01Payload, App02Payload, App03Payload, App04Payload, App09Payload } from './Actions';
+export {
+  App01Payload,
+  App02Payload,
+  App03Payload,
+  App04Payload,
+  App09Payload,
+  App07Payload,
+  App06Payload,
+  App08Payload,
+} from './Actions';
 
 // ------------------------------
 // TypeScript Definetion

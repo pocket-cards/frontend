@@ -37,7 +37,7 @@ const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing
     avatar: { backgroundColor: secondary.main },
     icon: { color: secondary.light },
     button: {
-      fontSize: '2rem',
+      fontSize: '1.5rem',
     },
   })
 );
@@ -63,7 +63,7 @@ export default () => {
   // フォルダなしの場合
   if (groups.length === 0) {
     return (
-      <Box margin={4} display="flex" justifyContent="center">
+      <Box margin={2} ml={4} mr={4} display="flex" justifyContent="center">
         <Button
           variant="contained"
           color="primary"

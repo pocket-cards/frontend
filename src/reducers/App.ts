@@ -1,7 +1,16 @@
 import { handleActions, Action } from 'redux-actions';
 import { App } from '@models';
 import { ActionTypes } from '@constants';
-import { App01Payload, App02Payload, App03Payload, App04Payload, App09Payload } from '@actions/app';
+import {
+  App01Payload,
+  App02Payload,
+  App03Payload,
+  App04Payload,
+  App07Payload,
+  App09Payload,
+  App08Payload,
+  App06Payload,
+} from '@actions/app';
 
 const reducer = handleActions<App, any>(
   {
@@ -24,8 +33,8 @@ const reducer = handleActions<App, any>(
 
     /** ユーザ情報設定 */
     [ActionTypes.APP_04_REQUEST]: (store: App) => store.startLoading(),
-    [ActionTypes.APP_04_SUCCESS]: (store: App, { payload: { user } }: Action<App04Payload>) =>
-      store.loggedIn(user).endLoading(),
+    [ActionTypes.APP_04_SUCCESS]: (store: App, { payload }: Action<App04Payload>) =>
+      store.loggedIn(payload.user).endLoading(),
     [ActionTypes.APP_04_FAILURE]: (store: App) => store.endLoading(),
 
     /** ログアウト */
@@ -35,21 +44,23 @@ const reducer = handleActions<App, any>(
 
     /** サーバ関連 */
     [ActionTypes.APP_06_REQUEST]: (store: App) => store.startLoading(),
-    [ActionTypes.APP_06_SUCCESS]: (store: App) => store.endLoading(),
+    [ActionTypes.APP_06_SUCCESS]: (store: App, { payload }: Action<App06Payload>) =>
+      store.updateStatus(payload.status).endLoading(),
     [ActionTypes.APP_06_FAILURE]: (store: App) => store.endLoading(),
 
     [ActionTypes.APP_07_REQUEST]: (store: App) => store.startLoading(),
-    [ActionTypes.APP_07_SUCCESS]: (store: App) => store.endLoading(),
+    [ActionTypes.APP_07_SUCCESS]: (store: App, { payload }: Action<App07Payload>) =>
+      store.updateStatus(payload.status).endLoading(),
     [ActionTypes.APP_07_FAILURE]: (store: App) => store.endLoading(),
 
     [ActionTypes.APP_08_REQUEST]: (store: App) => store.startLoading(),
-    [ActionTypes.APP_08_SUCCESS]: (store: App) => store.endLoading(),
+    [ActionTypes.APP_08_SUCCESS]: (store: App, { payload }: Action<App08Payload>) =>
+      store.updateStatus(payload.status).endLoading(),
     [ActionTypes.APP_08_FAILURE]: (store: App) => store.endLoading(),
 
     /** グループ選択 */
     [ActionTypes.APP_09_REQUEST]: (store: App) => store,
-    [ActionTypes.APP_09_SUCCESS]: (store: App, { payload: { groupId } }: Action<App09Payload>) =>
-      store.setGroupId(groupId),
+    [ActionTypes.APP_09_SUCCESS]: (store: App, { payload }: Action<App09Payload>) => store.setGroupId(payload.groupId),
     [ActionTypes.APP_09_FAILURE]: (store: App) => store,
   },
   new App()
