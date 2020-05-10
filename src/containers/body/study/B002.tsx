@@ -20,7 +20,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import DoneIcon from '@material-ui/icons/Done';
 import * as StudyActions from '@actions/study';
-import * as AppActions from '@actions/app';
+import { Actions } from '@actions/app';
 import { State, WordInfo } from '@models';
 import { Consts, Paths } from '@constants';
 import Loading from '@components/Loading';
@@ -89,7 +89,7 @@ export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const actions = bindActionCreators(StudyActions, dispatch);
-  const appActions = bindActionCreators(AppActions, dispatch);
+  const appActions = bindActionCreators(Actions, dispatch);
   const { current: word, mode, isLoading } = useSelector(getB000);
   const [showText, setShowText] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
@@ -113,7 +113,7 @@ export default () => {
     appActions.showHeader(true);
     appActions.showFooter(true);
     // 画面遷移
-    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyInit]));
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
   };
 
   const getButtons = (mode?: string, word?: WordInfo) => {

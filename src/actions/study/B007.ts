@@ -16,7 +16,7 @@ export const failure: B007FailureAction = createAction(ActionTypes.B0_07_FAILURE
 
 /** 単語テスト */
 // tslint:disable-next-line: ter-arrow-parens
-const startTest: StartTestAction = () => async (dispatch, _, api) => {
+const startTest: StartTestAction = () => async (dispatch, store, api) => {
   // 既存単語クリア
   dispatch(request());
 
@@ -24,7 +24,8 @@ const startTest: StartTestAction = () => async (dispatch, _, api) => {
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
 
   try {
-    const res = await api.get<C007Response>(Consts.C007_URL(Consts.GROUP_ID));
+    const { groupId } = store().get('app');
+    const res = await api.get<C007Response>(Consts.C007_URL(groupId));
 
     // データ保存
     dispatch(success(res.words));

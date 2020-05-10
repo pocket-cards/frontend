@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { push } from 'connected-react-router/immutable';
-import { makeStyles, Theme, createStyles, AppBar, Toolbar, IconButton, Typography, Button } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import MoreIcon from '@material-ui/icons/MoreVert';
 import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import { State } from '@models';
-import * as AppActions from '@actions/app';
-import { Consts, Paths } from '@constants';
+import { Actions } from '@actions/app';
+import { Paths } from '@constants';
 
 const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
   createStyles({
@@ -36,7 +37,7 @@ const app = (state: State) => state.get('app');
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const actions = bindActionCreators(AppActions, dispatch);
+  const actions = bindActionCreators(Actions, dispatch);
   const { showHeader } = useSelector(app);
   const location = useLocation();
 
@@ -59,22 +60,42 @@ export default () => {
   const handleOnClickAdd = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]));
 
   return (
-    <AppBar position="static" className={classes.app}>
-      <Toolbar>
-        <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
-          {(() => {
-            return location.pathname.split('/').length <= 2 ? <MenuIcon /> : <ArrowLeftIcon className={classes.icon} />;
-          })()}
-        </IconButton>
-        <Typography variant="h6" color="inherit" className={classes.title} />
-        <Button color="inherit">Ver{Consts.VERSION}</Button>
-        <IconButton color="inherit" aria-label="Logout" onClick={handleLogout}>
+    <React.Fragment>
+      <AppBar position="static" className={classes.app}>
+        <Toolbar>
+          <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
+            {(() => {
+              return location.pathname.split('/').length <= 2 ? (
+                <MenuIcon />
+              ) : (
+                <ArrowLeftIcon className={classes.icon} />
+              );
+            })()}
+          </IconButton>
+          <Typography variant="h6" color="inherit" className={classes.title} />
+          {/* <Button color="inherit">Ver{Consts.VERSION}</Button> */}
+          {/* <IconButton color="inherit" aria-label="Logout" onClick={handleLogout}>
           <ExitToApp />
-        </IconButton>
-        <IconButton color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
+        </IconButton> */}
+          {/* <IconButton color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
           <AddCircleOutline />
-        </IconButton>
-      </Toolbar>
-    </AppBar>
+        </IconButton> */}
+          <IconButton aria-label="display more actions" edge="end" color="inherit">
+            <MoreIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      {/* <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        id={menuId}
+        keepMounted
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}>
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      </Menu> */}
+    </React.Fragment>
   );
 };

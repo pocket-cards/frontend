@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
 import Loading from '@components/Loading';
+import { Actions as AppActions } from '@actions/app';
 import * as Actions from '@actions/group';
 import { State } from '@models';
 import { Paths } from '@constants';
@@ -46,10 +47,11 @@ export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const actions = bindActionCreators(Actions, dispatch);
+  const appActions = bindActionCreators(AppActions, dispatch);
   const { isLoading, groups } = useSelector(e000);
 
   React.useEffect(() => {
-    actions.groupList();
+    actions.list();
   }, []);
 
   // Loading中
@@ -58,12 +60,25 @@ export default () => {
   }
 
   // Folder click
-  const handleOnClick = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyInit]));
+  const handleOnClick = (groupId: string) => {
+    // 選択値を保存する
+    appActions.groupSelect(groupId);
+
+    // 画面遷移
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
+  };
 
   return (
     <List>
       {groups.map((item, idx) => (
-        <ListItem key={idx} button disableRipple onClick={handleOnClick} className={classes.list}>
+        <ListItem
+          key={idx}
+          button
+          disableRipple
+          onClick={() => {
+            handleOnClick(item.id);
+          }}
+          className={classes.list}>
           <ListItemAvatar>
             <Avatar
               classes={{

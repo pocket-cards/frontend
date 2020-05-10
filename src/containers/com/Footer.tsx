@@ -7,7 +7,7 @@ import CameraIcon from '@material-ui/icons/Camera';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FaceIcon from '@material-ui/icons/Face';
-import * as AppActions from '@actions/app';
+import { Actions } from '@actions/app';
 import { State } from '@models';
 import { Paths } from '@constants';
 
@@ -38,7 +38,7 @@ export default () => {
   // styles
   const classes = useStyles();
   // actions
-  const actions = bindActionCreators(AppActions, useDispatch());
+  const actions = bindActionCreators(Actions, useDispatch());
   // reducer
   const { tabIndex, showHeader } = useSelector(getApp);
 
@@ -51,12 +51,12 @@ export default () => {
     <BottomNavigation value={tabIndex} onChange={handleChange} className={classes.root}>
       <BottomNavigationAction
         className={classes.action}
-        value={Paths.ROUTE_PATH_INDEX.Home}
+        value={Paths.ROUTE_PATH_INDEX.Groups}
         icon={<HomeIcon className={classes.icon} />}
         disableRipple
         disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
-          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Home]} {...props} />
+          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} {...props} />
         ))}
       />
       <BottomNavigationAction
@@ -71,12 +71,12 @@ export default () => {
       />
       <BottomNavigationAction
         className={classes.action}
-        value={Paths.ROUTE_PATH_INDEX.RegistInit}
+        value={Paths.ROUTE_PATH_INDEX.Regist}
         icon={<CameraIcon className={classes.icon} />}
         disableRipple
         disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
-          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistInit]} {...props} />
+          <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]} {...props} />
         ))}
       />
       <BottomNavigationAction

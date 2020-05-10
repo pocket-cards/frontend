@@ -32,7 +32,7 @@ export default () => {
   });
 
   const onSubmit = handleSubmit((datas) => {
-    actions.groupRegist(datas.name, datas.description);
+    actions.regist(datas.name, datas.description);
   });
 
   return (

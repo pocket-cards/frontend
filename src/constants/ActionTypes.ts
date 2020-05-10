@@ -2,6 +2,10 @@
 export const COM_01_REQUEST = 'COM_01_REQUEST';
 export const COM_01_FAILURE = 'COM_01_FAILURE';
 
+/** Do Nothing */
+export const COM_02_REQUEST = 'COM_02_REQUEST';
+export const COM_02_FAILURE = 'COM_02_FAILURE';
+
 /** Tab Change */
 export const APP_01_REQUEST = 'APP_01_REQUEST';
 export const APP_01_SUCCESS = 'APP_01_SUCCESS';
@@ -29,14 +33,12 @@ export const APP_05_FAILURE = 'APP_05_FAILURE';
 
 /** Start Server */
 export const APP_06_SUCCESS = 'APP_06_SUCCESS';
-
 /** Stop Server */
-export const APP_07_REQUEST = 'APP_07_REQUEST';
 export const APP_07_SUCCESS = 'APP_07_SUCCESS';
-export const APP_07_FAILURE = 'APP_07_FAILURE';
-
 /** Status Server */
 export const APP_08_SUCCESS = 'APP_08_SUCCESS';
+/** Group Select */
+export const APP_09_SUCCESS = 'APP_09_SUCCESS';
 
 /** 単語登録 */
 // export const A000_UPLOAD_IMAGE = 'A000_UPLOAD_IMAGE';

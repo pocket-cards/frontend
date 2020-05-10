@@ -13,9 +13,9 @@ export const success: B004SuccessAction = createAction(ActionTypes.B0_04_SUCCESS
 export const failure: B004FailureAction = createAction(ActionTypes.B0_04_FAILURE, (error: Error) => ({ error }));
 
 /** テスト回答(YES/NO) */
-const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, getState, api) => {
-  const b000 = getState().get('b000');
-  const { mode, current } = b000;
+const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, store, api) => {
+  const { mode, current, words } = store().get('b000');
+  const { groupId } = store().get('app');
 
   // Request start
   dispatch(request());
@@ -40,12 +40,12 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
     const times = yes ? current.times : 0;
 
     // 単語状態を設定する
-    updateStatus(api, word, yes, times);
+    updateStatus(api, groupId, word, yes, times);
     // Client状態管理
     dispatch(success(yes));
 
     // 一定数以上の場合、再取得しない
-    if (b000.words.length > 5) {
+    if (words.length > 5) {
       return;
     }
 
@@ -54,13 +54,13 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
 
     // 新規の場合
     if (mode === Consts.MODES.New) {
-      const res = await api.get<C006Response>(Consts.C006_URL(Consts.GROUP_ID));
+      const res = await api.get<C006Response>(Consts.C006_URL(groupId));
 
       // 新規単語の追加
       dispatch(StartNew.success(res.words));
     } else {
       // テストの場合
-      const res = await api.get<C007Response>(Consts.C007_URL(Consts.GROUP_ID));
+      const res = await api.get<C007Response>(Consts.C007_URL(groupId));
 
       dispatch(StartTest.success(res.words));
     }
@@ -72,8 +72,8 @@ const answer: AnswerAction = (word: string, yes: boolean) => async (dispatch, ge
 
 const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
 
-const updateStatus = async (api: APIClass, word: string, yes: boolean, times: number) => {
-  await api.put(Consts.C004_URL(Consts.GROUP_ID, word), {
+const updateStatus = async (api: APIClass, groupId: string, word: string, yes: boolean, times: number) => {
+  await api.put(Consts.C004_URL(groupId, word), {
     correct: yes,
     times,
   } as C004Request);

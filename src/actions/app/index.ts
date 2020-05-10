@@ -2,13 +2,13 @@ import { CognitoUser } from '@aws-amplify/auth';
 import { ThunkActionDispatch } from 'typings/redux-thunk';
 import { groupSelect, loggedIn, logout, showFooter, showHeader, tabChange, start, status, stop } from './App';
 
-export * from './App';
-export * from './Actions';
+export * as Actions from './App';
+export { App01Payload, App02Payload, App03Payload, App04Payload, App09Payload } from './Actions';
 
 // ------------------------------
 // TypeScript Definetion
 // ------------------------------
-export interface Actions {
+export interface AppActions {
   // タブ画面変更
   tabChange(index: number): ThunkActionDispatch<typeof tabChange>;
   /** Header Visible */

@@ -1,24 +1,19 @@
-import { History } from 'history';
-import { UploadImageAction } from './A001';
-import { RemoveWordAction } from './A002';
-import { RegistWordsAction } from './A003';
-import { ClearAction } from './A004';
+import { ThunkActionDispatch } from 'typings/redux-thunk';
+import { clear, registWords, removeWord, uploadImage } from './App';
 
-export { default as uploadImage, A001Payload } from './A001';
-export { default as removeWord, A002Payload } from './A002';
-export { default as registWords } from './A003';
-export { default as clear } from './A004';
+export * as Actions from './App';
+export { A001Payload, A002Payload } from './Actions';
 
 /** 単語登録画面のActions */
-export interface Actions {
-  uploadImage: (image: string, history?: History<any>) => UploadImageAction;
+export interface AppActions {
+  uploadImage(image: string): ThunkActionDispatch<typeof uploadImage>;
 
   // 指定単語削除
-  removeWord: (word: string) => RemoveWordAction;
+  removeWord(word: string): ThunkActionDispatch<typeof removeWord>;
 
   // 単語一括登録
-  registWords: (words: string[], history?: History<any>) => RegistWordsAction;
+  registWords(words: string[]): ThunkActionDispatch<typeof registWords>;
 
   // 単語クリア
-  clear: () => ClearAction;
+  clear(): ThunkActionDispatch<typeof clear>;
 }

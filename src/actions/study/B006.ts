@@ -15,7 +15,7 @@ export const success: B006SuccessAction = createAction(ActionTypes.B0_06_SUCCESS
 export const failure: B006FailureAction = createAction(ActionTypes.B0_06_FAILURE, (error: Error) => ({ error }));
 
 /** 単語復習 */
-const startReview: StartReviewAction = () => async (dispatch, _, api) => {
+const startReview: StartReviewAction = () => async (dispatch, store, api) => {
   // 既存単語クリア
   dispatch(request());
 
@@ -23,7 +23,8 @@ const startReview: StartReviewAction = () => async (dispatch, _, api) => {
   dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]));
 
   try {
-    const res = await api.get<C008Response>(Consts.C008_URL(Consts.GROUP_ID));
+    const { groupId } = store().get('app');
+    const res = await api.get<C008Response>(Consts.C008_URL(groupId));
 
     // データ保存
     dispatch(success(res.words));

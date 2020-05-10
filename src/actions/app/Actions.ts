@@ -1,4 +1,4 @@
-import { Loading } from '@actions/com';
+import { Loading, Nothing } from '@actions/com';
 import { createAction, Action, ActionFunction1, ActionFunction0 } from 'redux-actions';
 import { ActionTypes } from '@constants';
 import { ErrorPayload, APIClass } from 'typings/types';
@@ -7,25 +7,25 @@ import { State } from '@models';
 import { CognitoUser } from '@aws-amplify/auth';
 
 export const TabChange = {
-  request: Loading.request,
+  request: Nothing.request,
   success: createAction(ActionTypes.APP_01_SUCCESS, (index: number): App01Payload => ({ index })),
-  failure: Loading.failure,
+  failure: Nothing.failure,
 };
 
 export const ShowHeader = {
-  request: Loading.request,
+  request: Nothing.request,
   success: createAction(ActionTypes.APP_02_SUCCESS, (visible: boolean) => ({
     visible,
   })),
-  failure: Loading.failure,
+  failure: Nothing.failure,
 };
 
 export const ShowFooter = {
-  request: Loading.request,
+  request: Nothing.request,
   success: createAction(ActionTypes.APP_03_SUCCESS, (visible: boolean) => ({
     visible,
   })),
-  failure: Loading.failure,
+  failure: Nothing.failure,
 };
 
 /** ログイン状態変更 */

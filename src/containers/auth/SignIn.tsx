@@ -18,7 +18,7 @@ import {
   makeStyles,
   createStyles,
 } from '@material-ui/core';
-import * as Actions from '@actions/app';
+import { Actions } from '@actions/app';
 import { State } from '@models';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>

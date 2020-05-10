@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Grid, makeStyles, createStyles, Theme } from '@material-ui/core';
 import { Paths } from '@constants';
 import { Header, Footer } from '@containers/com';
-import { RegistMain, StudyMain, MyPageMain, SettingsMain, HomeMain } from '@containers/body';
+import { RegistMain, StudyMain, MyPageMain, Settings, Home } from '@containers/body';
 
 const useStyles = makeStyles(({ palette }: Theme) =>
   createStyles({
@@ -30,12 +30,12 @@ export default (props: React.ComponentProps<any>) => {
       <Header />
       <div className={classes.body}>
         <Switch>
-          <Route exact path="/" component={HomeMain} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.RegistInit]} component={RegistMain} />
+          <Route exact path="/" component={Settings} />
+          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]} component={RegistMain} />
           <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.MyPage]} component={MyPageMain} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyInit]} component={StudyMain} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]} component={SettingsMain} />
-          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Home]} component={HomeMain} />
+          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]} component={StudyMain} />
+          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]} component={Settings} />
+          <Route path={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} component={Home} />
         </Switch>
       </div>
       <Footer />

@@ -12,6 +12,7 @@ export interface AppUIProps {
   user: CognitoUser | undefined;
   showHeader: boolean;
   showFooter: boolean;
+  groupId: string;
 }
 
 export interface AppProps extends AppUIProps {}
@@ -20,11 +21,12 @@ export interface AppProps extends AppUIProps {}
  * App共通ステータス
  */
 export default class App extends Record<AppProps>({
-  tabIndex: Paths.ROUTE_PATH_INDEX.RegistInit,
+  tabIndex: Paths.ROUTE_PATH_INDEX.Regist,
   isLoading: false,
   user: undefined,
   showHeader: true,
   showFooter: true,
+  groupId: '',
 }) {
   tabChange(index: number) {
     return this.set('tabIndex', index);
@@ -36,6 +38,10 @@ export default class App extends Record<AppProps>({
 
   setShowFooter(visible: boolean) {
     return this.set('showFooter', visible);
+  }
+
+  setGroupId(groupId: string) {
+    return this.set('groupId', groupId);
   }
 
   loggedIn(user: CognitoUser) {

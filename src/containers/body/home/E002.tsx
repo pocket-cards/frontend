@@ -30,7 +30,7 @@ export default () => {
   }
 
   const handleRegist = () => {
-    actions.groupRegist('1111', '2222');
+    // actions.regist();
   };
 
   return (

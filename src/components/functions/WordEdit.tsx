@@ -54,7 +54,7 @@ const edit: FunctionComponent<WordEditProps> = ({ word, onDelete }) => {
           <ListItemText
             primary={word}
             primaryTypographyProps={{
-              variant: 'h3',
+              variant: 'h4',
             }}
             className={classes.itemTextRoot}
           />

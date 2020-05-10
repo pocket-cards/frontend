@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List, Divider, Button, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
 import { State } from '@models';
-import * as RegistActions from '@actions/regist';
+import { Actions } from '@actions/regist';
 import Loading from '@components/Loading';
 import { WordEdit } from '@components/functions';
 
@@ -32,7 +32,7 @@ const a000 = (state: State) => state.get('a000');
 const a002: FunctionComponent<any> = () => {
   const classes = useStyles();
   const { isLoading, words } = useSelector(a000);
-  const actions = bindActionCreators(RegistActions, useDispatch());
+  const actions = bindActionCreators(Actions, useDispatch());
 
   /** 単語登録 */
   const handleRegist = () => {
@@ -51,10 +51,10 @@ const a002: FunctionComponent<any> = () => {
   }
 
   return (
-    <Box>
+    <Box margin={2}>
       <List className={classes.root}>
         {words.map((value, idx) => (
-          <React.Fragment>
+          <React.Fragment key={idx}>
             <WordEdit key={idx} word={value} onDelete={handleRemove} />
             <Divider key={`${value}1`} />
           </React.Fragment>

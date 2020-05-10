@@ -33,7 +33,6 @@ export const C008_URL = (groupId: string) => `/groups/${groupId}/review`;
 export const D001_URL = () => '/image2text';
 export const D002_URL = () => '/image2line';
 
-export const GROUP_ID = 'x001';
 export const VERSION = '0.07';
 
 export const MODES = {

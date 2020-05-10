@@ -5,7 +5,7 @@ import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import Button from '@components/buttons/Button';
 import { State } from '@models';
-import * as Actions from '@actions/app';
+import { Actions } from '@actions/app';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
