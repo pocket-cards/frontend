@@ -51,15 +51,6 @@ export default () => {
   const appActions = bindActionCreators(AppActions, dispatch);
   const { isLoading, groups } = useSelector(e000);
 
-  React.useEffect(() => {
-    actions.list();
-  }, []);
-
-  // Loading中
-  if (isLoading) {
-    return <Loading />;
-  }
-
   // Folder click
   const handleOnClick = (groupId: string) => {
     // 選択値を保存する

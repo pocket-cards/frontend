@@ -1,10 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { List, Divider, Button, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
+import { List, Divider, Theme, Box, makeStyles, createStyles } from '@material-ui/core';
 import { State } from '@models';
 import { Actions } from '@actions/regist';
-import Loading from '@components/Loading';
+import { Button } from '@components/buttons';
 import { WordEdit } from '@components/functions';
 
 const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
@@ -61,7 +61,13 @@ const a002: FunctionComponent<any> = () => {
         ))}
       </List>
       <Box padding={2} display="flex" justifyContent="flex-end">
-        <Button variant="contained" color="secondary" className={classes.button} onClick={handleRegist} size="large">
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          onClick={handleRegist}
+          size="large"
+          isLoading={isLoading}>
           登録
         </Button>
       </Box>

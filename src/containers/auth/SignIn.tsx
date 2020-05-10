@@ -55,8 +55,8 @@ const SignIn = () => {
   const actions = bindActionCreators(Actions, useDispatch());
   const { user } = useSelector(app);
   const [values, setValues] = useState({
-    username: 'wwalpha@gmail.com',
-    passwd: 'Session10+',
+    username: '',
+    passwd: '',
   });
 
   const isLoggedIn = user !== undefined;

@@ -18,11 +18,11 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const app = (state: State) => state.get('app');
+const a000 = (state: State) => state.get('a000');
 
 const a001: FunctionComponent<any> = () => {
   const classes = useStyles();
-  const { isLoading } = useSelector(app);
+  const { isLoading } = useSelector(a000);
   const [onAir, setOnAir] = useState(false);
   const actions = bindActionCreators(Actions, useDispatch());
 

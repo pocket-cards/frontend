@@ -6,7 +6,7 @@ import { BottomNavigation, BottomNavigationAction, makeStyles, Theme, createStyl
 import CameraIcon from '@material-ui/icons/Camera';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
-import FaceIcon from '@material-ui/icons/Face';
+import PersonIcon from '@material-ui/icons/Person';
 import { Actions } from '@actions/app';
 import { State } from '@models';
 import { Paths } from '@constants';
@@ -27,7 +27,7 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
     },
     icon: {
       color: 'white',
-      fontSize: '32px',
+      fontSize: '2.5rem',
     },
   })
 );
@@ -62,14 +62,14 @@ export default () => {
       <BottomNavigationAction
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.MyPage}
-        icon={<FaceIcon className={classes.icon} />}
+        icon={<PersonIcon className={classes.icon} />}
         disableRipple
         disableTouchRipple
         component={React.forwardRef((props: any, ref: any) => (
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.MyPage]} {...props} />
         ))}
       />
-      <BottomNavigationAction
+      {/* <BottomNavigationAction
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.Regist}
         icon={<CameraIcon className={classes.icon} />}
@@ -78,7 +78,7 @@ export default () => {
         component={React.forwardRef((props: any, ref: any) => (
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]} {...props} />
         ))}
-      />
+      /> */}
       <BottomNavigationAction
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.Settings}
