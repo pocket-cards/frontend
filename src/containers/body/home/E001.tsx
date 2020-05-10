@@ -18,7 +18,7 @@ import * as Actions from '@actions/group';
 import { State } from '@models';
 import { ROUTE_PATHS, ROUTE_PATH_INDEX } from '@constants/Paths';
 
-const useStyles = makeStyles(({ palette: { secondary, common }, spacing }: Theme) =>
+const useStyles = makeStyles(({ palette: { primary, secondary, common }, spacing }: Theme) =>
   createStyles({
     root: {},
     row: {
@@ -30,6 +30,9 @@ const useStyles = makeStyles(({ palette: { secondary, common }, spacing }: Theme
       margin: spacing(2),
       backgroundColor: common.white,
       borderRadius: 8,
+      '&:hover': {
+        backgroundColor: 'rgba(94, 146, 243, 0.5)',
+      },
     },
     text: { fontSize: '1.5rem' },
     avatar: { backgroundColor: secondary.main },
@@ -49,12 +52,13 @@ export default () => {
     actions.groupList();
   }, []);
 
-  const handleOnClick = () => dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]));
-
   // Loading中
   if (isLoading) {
     return <Loading />;
   }
+
+  // Folder click
+  const handleOnClick = () => dispatch(push(ROUTE_PATHS[ROUTE_PATH_INDEX.StudyInit]));
 
   return (
     <List>

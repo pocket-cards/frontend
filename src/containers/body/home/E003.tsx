@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
-import { useSelector, useDispatch } from 'react-redux';
-import { makeStyles, Theme, createStyles, Grid, TextField } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { makeStyles, Theme, createStyles, TextField, Box } from '@material-ui/core';
 import Button from '@components/buttons/Button';
 import * as Actions from '@actions/group';
 import { State } from '@models';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -17,19 +19,25 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
-const getC000 = (state: State) => state.get('c000');
+const schema = yup.object().shape<GroupRegistForm>({
+  name: yup.string().required(),
+});
 
 export default () => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const actions = bindActionCreators(Actions, useDispatch());
+  const { handleSubmit, register } = useForm<GroupRegistForm>({
+    mode: 'onChange',
+    validationSchema: schema,
+  });
 
-  const handleRegist = () => {
-    actions.groupRegist('1111', '2222');
-  };
+  const onSubmit = handleSubmit((datas) => {
+    actions.groupRegist(datas.name, datas.description);
+  });
 
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={12}>
+    <form onSubmit={onSubmit}>
+      <Box margin={2}>
         <TextField
           variant="outlined"
           margin="normal"
@@ -39,6 +47,7 @@ export default () => {
           label="Group Name"
           name="name"
           autoFocus
+          inputRef={register}
         />
         <TextField
           variant="outlined"
@@ -47,13 +56,19 @@ export default () => {
           id="description"
           label="Group Description"
           name="description"
+          inputRef={register}
         />
-      </Grid>
-      <Grid item xs={12} className={classes.button}>
-        <Button fullWidth variant="contained" color="secondary" onClick={handleRegist}>
-          REGIST
-        </Button>
-      </Grid>
-    </Grid>
+        <Box mt={2}>
+          <Button size="large" fullWidth variant="contained" color="secondary" type="submit">
+            REGIST
+          </Button>
+        </Box>
+      </Box>
+    </form>
   );
 };
+
+interface GroupRegistForm {
+  name: string;
+  description?: string;
+}
