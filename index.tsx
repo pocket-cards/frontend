@@ -91,7 +91,7 @@ const start = async () => {
 
   render(provider, root);
 
-  register();
+  // register();
 };
 
 start();
