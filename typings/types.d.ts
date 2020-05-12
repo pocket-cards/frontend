@@ -1,3 +1,8 @@
+declare module '*.svg' {
+  const content: string;
+  export default content;
+}
+
 export interface GroupInfo {
   id: string;
   name: string;

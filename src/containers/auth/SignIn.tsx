@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useState, Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withRouter, RouteComponentProps, Redirect, Link } from 'react-router-dom';
-import { Auth, CognitoUser } from '@aws-amplify/auth';
+import { Hub } from '@aws-amplify/core';
+import { Auth, CognitoUser, CognitoHostedUIIdentityProvider } from '@aws-amplify/auth';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import {
   Container,
@@ -45,6 +45,9 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
     submit: {
       margin: spacing(3, 0, 2),
     },
+    button: {
+      padding: spacing(0),
+    },
   })
 );
 
@@ -59,10 +62,24 @@ const SignIn = () => {
     passwd: '',
   });
 
-  const isLoggedIn = user !== undefined;
+  const handleAuth = ({ payload }: any) => {
+    switch (payload.event) {
+      case 'signIn':
+        actions.loggedIn(payload.data as CognitoUser);
+        break;
+      case 'signOut':
+        actions.logout();
+      default:
+    }
+  };
 
-  // ログイン済み
-  if (isLoggedIn) return <Redirect to={'/'} />;
+  useEffect(() => {
+    Auth.currentAuthenticatedUser().then(console.log).catch(console.error);
+
+    Hub.listen('auth', handleAuth);
+
+    return () => Hub.remove('auth', handleAuth);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -93,7 +110,7 @@ const SignIn = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Sign in to PocketCards
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
@@ -126,11 +143,17 @@ const SignIn = () => {
           <Button type="submit" size="large" fullWidth variant="contained" color="primary" className={classes.submit}>
             Sign In
           </Button>
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.button}
+            onClick={() => Auth.federatedSignIn({ provider: CognitoHostedUIIdentityProvider.Google })}>
+            <img src="./img/btn_google_signin_dark_normal_web.png" />
+          </Button>
           <Grid container>
-            <Grid item xs>
-              {/* <Link href="#">Forgot password?</Link> */}
-            </Grid>
-            <Grid item>{/* <Link href="#">{"Don't have an account? Sign Up"}</Link> */}</Grid>
+            <Grid item xs></Grid>
           </Grid>
         </form>
       </div>

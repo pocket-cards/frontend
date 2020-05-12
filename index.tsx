@@ -11,8 +11,6 @@ import Router from './src/Router';
 import { register } from './src/serviceWorker';
 import theme from './src/Theme';
 
-// 分析禁止
-// Analytics.disable();
 Auth.configure({
   // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
   identityPoolId: process.env.IDENTITY_POOL_ID,
@@ -28,6 +26,15 @@ Auth.configure({
 
   // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
   mandatorySignIn: false,
+
+  oauth: {
+    domain: process.env.AUTH_DOMAIN,
+    redirectSignIn: process.env.AUTH_SIGN_IN_URL,
+    redirectSignOut: process.env.AUTH_SIGN_OUT_URL,
+    clientID: process.env.USER_POOL_WEB_CLIENT_ID,
+    scope: ['email', 'openid', 'profile'],
+    responseType: 'code',
+  },
 });
 
 API.configure({

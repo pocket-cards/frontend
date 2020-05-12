@@ -7,7 +7,16 @@ import baseConfig from './webpack.base';
 const prod: Configuration = {
   mode: 'production',
   plugins: [
-    new EnvironmentPlugin(['API_URL', 'IDENTITY_POOL_ID', 'USER_POOL_ID', 'USER_POOL_WEB_CLIENT_ID']),
+    new EnvironmentPlugin([
+      'API_URL',
+      'API_SERVER_URL',
+      'IDENTITY_POOL_ID',
+      'USER_POOL_ID',
+      'USER_POOL_WEB_CLIENT_ID',
+      'AUTH_DOMAIN',
+      'AUTH_SIGN_IN_URL',
+      'AUTH_SIGN_OUT_URL',
+    ]),
     new LoaderOptionsPlugin({
       debug: false,
     }),

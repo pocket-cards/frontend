@@ -1,19 +1,28 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { State } from '@models';
+import { bindActionCreators } from 'redux';
+import Auth from '@aws-amplify/auth';
 import { Paths } from '@constants';
+import { Actions } from '@actions/app';
 
-const Auth = (props: any) =>
-  props.isLoggedIn ? <Route {...props} /> : <Redirect to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.SignIn]} />;
+const auth: React.FunctionComponent<any> = (props) => {
+  const [user, setUser] = React.useState();
+  const [isLoading, setLoading] = React.useState(true);
+  const actions = bindActionCreators(Actions, useDispatch());
 
-const mapStateToProps = (state: State) => ({
-  isLoggedIn: state.get('app').get('user') !== undefined,
-});
+  React.useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        setUser(user);
+        actions.loggedIn(user);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
-export default connect(mapStateToProps)(Auth);
+  if (isLoading) return <div />;
 
-/** Properties */
-export interface Props {
-  isLoggedIn: boolean;
-}
+  return user ? <Route {...props} /> : <Redirect to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.SignIn]} />;
+};
+
+export default auth;
