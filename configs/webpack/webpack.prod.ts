@@ -8,6 +8,7 @@ const prod: Configuration = {
   mode: 'production',
   plugins: [
     new EnvironmentPlugin([
+      'AWS_REGION',
       'API_URL',
       'API_SERVER_URL',
       'IDENTITY_POOL_ID',

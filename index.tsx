@@ -16,7 +16,7 @@ Auth.configure({
   identityPoolId: process.env.IDENTITY_POOL_ID,
 
   // REQUIRED - Amazon Cognito Region
-  region: process.env.AWS_DEFAULT_REGION,
+  region: process.env.AWS_REGION,
 
   // OPTIONAL - Amazon Cognito User Pool ID
   userPoolId: process.env.USER_POOL_ID,
@@ -42,7 +42,7 @@ API.configure({
     {
       name: Consts.API_NAME,
       endpoint: Consts.API_URL,
-      region: process.env.AWS_DEFAULT_REGION,
+      region: process.env.AWS_REGION,
       custom_header: async () => {
         return { Authorization: (await Auth.currentSession()).getIdToken().getJwtToken() };
       },
@@ -50,7 +50,7 @@ API.configure({
     {
       name: Consts.API_SERVER_NAME,
       endpoint: Consts.API_SERVER_URL,
-      region: process.env.AWS_DEFAULT_REGION,
+      region: process.env.AWS_REGION,
       custom_header: async () => {
         return { Authorization: (await Auth.currentSession()).getIdToken().getJwtToken() };
       },
