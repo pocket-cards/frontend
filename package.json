@@ -36,6 +36,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-optional-chaining": "^7.9.0",
+    "@svgr/webpack": "^5.4.0",
     "@types/compression-webpack-plugin": "^2.0.1",
     "@types/copy-webpack-plugin": "^5.0.0",
     "@types/dotenv-webpack": "^1.7.0",
@@ -72,6 +73,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "express": "^4.17.1",
+    "file-loader": "^6.0.0",
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^4.3.0",
     "ngrok": "^3.2.7",
