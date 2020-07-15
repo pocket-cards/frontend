@@ -65,7 +65,6 @@ const SignIn = () => {
   const handleAuth = ({ payload }: any) => {
     switch (payload.event) {
       case 'signIn':
-        actions.loggedIn(payload.data as CognitoUser);
         break;
       case 'signOut':
         actions.logout();

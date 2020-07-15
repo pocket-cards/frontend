@@ -14,6 +14,11 @@ app.use(dev(compiler));
 app.use(hot(compiler));
 app.use(express.static('public'));
 
+// test api
+app.post('/start', express.json(), (req, res) => res.json({ status: 'RUNNING' }).send());
+app.post('/stop', express.json(), (req, res) => res.json({ status: 'STOPPED' }).send());
+app.get('/status', express.json(), (req, res) => res.json({ status: 'RUNNING' }).send());
+
 app.use('*', (req, res, next) => {
   const fileName = path.join(compiler.outputPath, 'index.html');
 
