@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles, Theme, createStyles, Box, IconButton, Typography } from '@material-ui/core';
