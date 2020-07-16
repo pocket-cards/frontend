@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
+import Auth from '@aws-amplify/auth';
 import { makeStyles, Theme, createStyles, Box, IconButton, Typography } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
@@ -42,9 +43,21 @@ export default () => {
   const { isLoading, status } = useSelector(app);
   const actions = bindActionCreators(Actions, useDispatch());
 
+  // server start
   const handleStart = () => actions.start();
+
+  // server stop
   const handleStop = () => actions.stop();
+
+  // Refresh server status
   const handleStatus = () => actions.status();
+
+  // Logout
+  const handleLogout = async () => {
+    await Auth.signOut();
+
+    actions.logout();
+  };
 
   return (
     <Box display="flex" flexDirection="column" margin={2}>
@@ -74,6 +87,17 @@ export default () => {
           onClick={handleStop}
           isLoading={isLoading}>
           Stop
+        </Button>
+      </Box>
+      <Box display="flex" justifyContent="center">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.stopBtn}
+          size="large"
+          onClick={handleLogout}
+          isLoading={isLoading}>
+          Logout
         </Button>
       </Box>
     </Box>
