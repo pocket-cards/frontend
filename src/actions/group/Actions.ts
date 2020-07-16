@@ -25,6 +25,12 @@ export const Regist = {
   failure: failure(ActionTypes.E0_02_FAILURE),
 };
 
+export const Delete = {
+  request: request(ActionTypes.E0_04_REQUEST),
+  success: createAction(ActionTypes.E0_04_SUCCESS, (info: GroupInfo) => info),
+  failure: failure(ActionTypes.E0_04_FAILURE),
+};
+
 /** Group List */
 export type E001Payload = B002Response;
 
@@ -38,3 +44,10 @@ export type E002Payload = GroupInfo;
 type GroupRegistPayload = E002Payload | ErrorPayload;
 type GroupRegistThunkAction = ThunkAction<void, State, APIClass, Action<GroupRegistPayload> | CallHistoryMethodAction>;
 export type GroupRegistAction = ActionFunction2<string, string | undefined, GroupRegistThunkAction>;
+
+/** Group Delete */
+export type E003Payload = GroupInfo;
+
+type GroupDeletePayload = E003Payload | ErrorPayload;
+type GroupDeleteThunkAction = ThunkAction<void, State, APIClass, Action<GroupDeletePayload> | CallHistoryMethodAction>;
+export type GroupDeleteAction = ActionFunction0<GroupDeleteThunkAction>;

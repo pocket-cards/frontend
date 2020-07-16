@@ -116,3 +116,8 @@ export const E0_02_FAILURE = 'E0_02_FAILURE';
 export const E0_03_REQUEST = 'E0_03_REQUEST';
 export const E0_03_SUCCESS = 'E0_03_SUCCESS';
 export const E0_03_FAILURE = 'E0_03_FAILURE';
+
+/** グループ削除 */
+export const E0_04_REQUEST = 'E0_04_REQUEST';
+export const E0_04_SUCCESS = 'E0_04_SUCCESS';
+export const E0_04_FAILURE = 'E0_04_FAILURE';

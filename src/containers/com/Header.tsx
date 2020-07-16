@@ -13,17 +13,19 @@ import {
   Typography,
   Menu,
   MenuItem,
+  ListItemText,
+  ListItemIcon,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import ExitToApp from '@material-ui/icons/ExitToApp';
-import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+// import MenuIcon from '@material-ui/icons/Menu';
+// import ExitToApp from '@material-ui/icons/ExitToApp';
+// import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
+import FolderIcon from '@material-ui/icons/Folder';
 import { State } from '@models';
-import { Actions } from '@actions/app';
+import { Actions as AppActions } from '@actions/app';
+import { Actions as GroupActions } from '@actions/group';
 import { Paths } from '@constants';
-import Auth from '@aws-amplify/auth';
 
 const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
   createStyles({
@@ -33,12 +35,8 @@ const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
       backgroundColor: primary.dark,
     },
     toolbar: { minHeight: spacing(8) },
-    title: {
-      flexGrow: 1,
-    },
-    button: {
-      color: 'white',
-    },
+    title: { flexGrow: 1 },
+    button: { color: 'white' },
     icon: {
       fontSize: spacing(5),
       color: 'white',
@@ -51,12 +49,12 @@ const app = (state: State) => state.get('app');
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const actions = bindActionCreators(Actions, dispatch);
+  const actions = bindActionCreators(AppActions, dispatch);
+  const grpActions = bindActionCreators(GroupActions, dispatch);
   const { showHeader } = useSelector(app);
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  console.log(location);
   const isMenuOpen = Boolean(anchorEl);
 
   // ヘッダ非表示
@@ -66,7 +64,6 @@ export default () => {
 
   // Left Icon action
   const handleOnClickLeft = () => {
-    console.log(111);
     const paths = location.pathname.split('/');
     paths.pop();
 
@@ -75,6 +72,14 @@ export default () => {
 
   // switch group regist screen
   const handleOnClickAdd = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]));
+
+  // group delete
+  const handleOnGroupDelete = () => {
+    // close dialog
+    handleMenuClose();
+    // delete group
+    grpActions.del();
+  };
 
   // Menu Open
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
@@ -103,23 +108,23 @@ export default () => {
           {(() => {
             if (location.pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
               return (
-                <IconButton color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
+                <IconButton color="inherit" aria-label="Add" edge="end" onClick={handleOnClickAdd}>
                   <AddIcon fontSize="large" />
                 </IconButton>
               );
             }
+
+            if (location.pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
+              return (
+                <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={handleMenuOpen}>
+                  <MoreIcon fontSize="large" />
+                </IconButton>
+              );
+            }
           })()}
-          {/* <IconButton
-            className={classes.edgeButton}
-            aria-label="display more actions"
-            edge="end"
-            color="inherit"
-            onClick={handleMenuOpen}>
-            <MoreIcon fontSize="large" />
-          </IconButton> */}
         </Toolbar>
       </AppBar>
-      {/* <Menu
+      <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         getContentAnchorEl={null}
@@ -127,8 +132,13 @@ export default () => {
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-      </Menu> */}
+        <MenuItem onClick={handleOnGroupDelete}>
+          <ListItemIcon>
+            <FolderIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="フォルダ削除" />
+        </MenuItem>
+      </Menu>
     </React.Fragment>
   );
 };

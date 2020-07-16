@@ -18,11 +18,11 @@ export const B001_URL = () => '/groups';
 // グループ一覧取得
 export const B002_URL = () => '/groups';
 // グループ情報取得
-export const B003_URL = (groupId: string) => `groups/${groupId}`;
+export const B003_URL = (groupId: string) => `/groups/${groupId}`;
 // グループ情報変更
-export const B004_URL = (groupId: string) => `groups/${groupId}`;
+export const B004_URL = (groupId: string) => `/groups/${groupId}`;
 // グループ情報削除
-export const B005_URL = (groupId: string) => `groups/${groupId}`;
+export const B005_URL = (groupId: string) => `/groups/${groupId}`;
 
 export const C001_URL = (groupId: string) => `/groups/${groupId}/words`;
 export const C003_URL = (groupId: string, word: string) => `/groups/${groupId}/words/${word}`;
