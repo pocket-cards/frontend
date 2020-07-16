@@ -3,23 +3,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { push } from 'connected-react-router/immutable';
-import { makeStyles, Theme, createStyles, AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  MenuItem,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
+import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import { State } from '@models';
 import { Actions } from '@actions/app';
 import { Paths } from '@constants';
+import Auth from '@aws-amplify/auth';
 
 const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
   createStyles({
     app: {
       boxShadow: 'none',
-      height: '64px',
+      height: spacing(8),
       backgroundColor: primary.dark,
     },
+    toolbar: { minHeight: spacing(8) },
     title: {
       flexGrow: 1,
     },
@@ -30,6 +43,7 @@ const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
       fontSize: spacing(5),
       color: 'white',
     },
+    edgeButton: { margin: spacing(0) },
   })
 );
 const app = (state: State) => state.get('app');
@@ -40,13 +54,15 @@ export default () => {
   const actions = bindActionCreators(Actions, dispatch);
   const { showHeader } = useSelector(app);
   const location = useLocation();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  console.log(location);
+  const isMenuOpen = Boolean(anchorEl);
 
   // ヘッダ非表示
   if (!showHeader) {
     return <React.Fragment />;
   }
-
-  const handleLogout = () => actions.logout();
 
   // Left Icon action
   const handleOnClickLeft = () => {
@@ -57,44 +73,61 @@ export default () => {
     dispatch(push(paths.join('/')));
   };
 
+  // switch group regist screen
   const handleOnClickAdd = () => dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupRegist]));
+
+  // Menu Open
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
+  // Menu Close
+  const handleMenuClose = () => setAnchorEl(null);
 
   return (
     <React.Fragment>
       <AppBar position="static" className={classes.app}>
-        <Toolbar>
-          <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
+        <Toolbar className={classes.toolbar}>
+          {/* <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
             {(() => {
               return location.pathname.split('/').length <= 2 ? (
-                <MenuIcon />
+                <MenuIcon fontSize="large" />
               ) : (
                 <ArrowLeftIcon className={classes.icon} />
               );
             })()}
-          </IconButton>
+          </IconButton> */}
           <Typography variant="h6" color="inherit" className={classes.title} />
           {/* <Button color="inherit">Ver{Consts.VERSION}</Button> */}
           {/* <IconButton color="inherit" aria-label="Logout" onClick={handleLogout}>
           <ExitToApp />
         </IconButton> */}
-          {/* <IconButton color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
-          <AddCircleOutline />
-        </IconButton> */}
-          <IconButton aria-label="display more actions" edge="end" color="inherit">
-            <MoreIcon />
-          </IconButton>
+
+          {(() => {
+            if (location.pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
+              return (
+                <IconButton color="inherit" aria-label="Add" onClick={handleOnClickAdd}>
+                  <AddIcon fontSize="large" />
+                </IconButton>
+              );
+            }
+          })()}
+          {/* <IconButton
+            className={classes.edgeButton}
+            aria-label="display more actions"
+            edge="end"
+            color="inherit"
+            onClick={handleMenuOpen}>
+            <MoreIcon fontSize="large" />
+          </IconButton> */}
         </Toolbar>
       </AppBar>
       {/* <Menu
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        id={menuId}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        getContentAnchorEl={null}
         keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu> */}
     </React.Fragment>
   );

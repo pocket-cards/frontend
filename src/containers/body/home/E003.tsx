@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Theme, createStyles, TextField, Box } from '@material-ui/core';
 import Button from '@components/buttons/Button';
 import { Actions } from '@actions/group';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { State } from '@models';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -22,9 +23,12 @@ const schema = yup.object().shape<GroupRegistForm>({
   name: yup.string().required(),
 });
 
+const e000 = (state: State) => state.get('e000');
+
 export default () => {
   // const classes = useStyles();
   const actions = bindActionCreators(Actions, useDispatch());
+  const { isLoading } = useSelector(e000);
   const { handleSubmit, register } = useForm<GroupRegistForm>({
     mode: 'onChange',
     validationSchema: schema,
@@ -58,7 +62,7 @@ export default () => {
           inputRef={register}
         />
         <Box mt={2}>
-          <Button size="large" fullWidth variant="contained" color="secondary" type="submit">
+          <Button size="large" fullWidth variant="contained" color="secondary" type="submit" isLoading={isLoading}>
             REGIST
           </Button>
         </Box>

@@ -57,14 +57,14 @@ export default () => {
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} {...props} />
         ))}
       />
-      <BottomNavigationAction
+      {/* <BottomNavigationAction
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.MyPage}
         icon={<PersonIcon className={classes.icon} />}
         component={React.forwardRef((props: any, ref: any) => (
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.MyPage]} {...props} />
         ))}
-      />
+      /> */}
       {/* <BottomNavigationAction
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.Regist}
