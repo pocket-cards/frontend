@@ -1,5 +1,5 @@
 import { ThunkActionDispatch } from 'typings/redux-thunk';
-import { list, regist, del } from './App';
+import { list, regist, del, edit } from './App';
 
 export * as Actions from './App';
 export { E001Payload, E002Payload } from './Actions';
@@ -14,4 +14,6 @@ export interface GroupActions {
   regist(name: string, description?: string): ThunkActionDispatch<typeof regist>;
   // グループ削除
   delete(): ThunkActionDispatch<typeof del>;
+  // グループ編集
+  edit(): ThunkActionDispatch<typeof edit>;
 }

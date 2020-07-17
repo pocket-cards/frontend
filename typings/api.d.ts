@@ -66,13 +66,23 @@ export interface B002Response {
   count: number;
   groups: GroupInfo[];
 }
-
+// ------------------------------
+// B003
+// ------------------------------
 export interface B003Request {
   name: string;
   description: string;
 }
 
 export interface B003Response extends GroupInfo {}
+
+// ------------------------------
+// B004
+// ------------------------------
+export interface B004Request {
+  name?: string;
+  description?: string;
+}
 
 // ------------------------------
 // C001

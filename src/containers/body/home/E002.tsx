@@ -1,50 +1,54 @@
 import * as React from 'react';
-import { makeStyles, Theme, createStyles, Grid, Button } from '@material-ui/core';
+import { TextField, Box } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField } from '@components/inputs';
+import { useForm } from 'react-hook-form';
+import { Button } from '@components/buttons';
 import { Actions } from '@actions/group';
 import { State } from '@models';
-import Loading from '@components/Loading';
 
-const useStyles = makeStyles(({ spacing }: Theme) =>
-  createStyles({
-    root: {
-      padding: '0px 16px',
-    },
-    button: {
-      paddingTop: spacing(4),
-    },
-  })
-);
-
-const c000 = (state: State) => state.get('c000');
+const e000 = (state: State) => state.get('e000');
+const app = (state: State) => state.get('app');
 
 export default () => {
-  const classes = useStyles();
   const actions = bindActionCreators(Actions, useDispatch());
-  const { isLoading } = useSelector(c000);
+  const { groups, isLoading } = useSelector(e000);
+  const { groupId } = useSelector(app);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // 選択中のGroup情報取得
+  const groupInfo = groups.find((item) => item.id === groupId);
 
-  const handleRegist = () => {
-    // actions.regist();
-  };
+  // 初期値設定
+  const { handleSubmit, register } = useForm<GroupEditForm>({
+    mode: 'onChange',
+    defaultValues: {
+      name: groupInfo?.name,
+      description: groupInfo?.description,
+    },
+  });
+
+  // 編集
+  const onSubmit = handleSubmit((datas) => {
+    console.log(datas);
+
+    actions.edit({
+      id: groupId,
+      name: datas.name,
+      description: datas.description,
+    });
+  });
 
   return (
-    <Grid container className={classes.root}>
-      <Grid item xs={12}>
+    <form onSubmit={onSubmit}>
+      <Box margin={2}>
         <TextField
           variant="outlined"
           margin="normal"
-          required
           fullWidth
           id="name"
           label="Group Name"
           name="name"
-          autoFocus
+          inputRef={register}
         />
         <TextField
           variant="outlined"
@@ -53,13 +57,19 @@ export default () => {
           id="description"
           label="Group Description"
           name="description"
+          inputRef={register}
         />
-      </Grid>
-      <Grid item xs={12} className={classes.button}>
-        <Button fullWidth variant="contained" color="secondary" size="large" onClick={handleRegist}>
-          EDIT
-        </Button>
-      </Grid>
-    </Grid>
+        <Box mt={2}>
+          <Button size="large" fullWidth variant="contained" color="secondary" type="submit" isLoading={isLoading}>
+            EDIT
+          </Button>
+        </Box>
+      </Box>
+    </form>
   );
 };
+
+interface GroupEditForm {
+  name: string;
+  description?: string;
+}

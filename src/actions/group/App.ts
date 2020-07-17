@@ -1,7 +1,17 @@
-import { GroupListAction, List, GroupRegistAction, Regist, GroupDeleteAction, Delete } from './Actions';
-import { B002Response, B001Response, B001Request } from 'typings/api';
+import {
+  GroupListAction,
+  List,
+  GroupRegistAction,
+  Regist,
+  GroupDeleteAction,
+  Delete,
+  Edit,
+  GroupEditAction,
+} from './Actions';
+import { B002Response, B001Response, B001Request, B004Request } from 'typings/api';
 import { Consts, Paths } from '@constants';
 import { push } from 'connected-react-router';
+import { GroupInfo } from 'typings/types';
 
 /** グループ一覧 */
 export const list: GroupListAction = () => async (dispatch, _, api) => {
@@ -43,6 +53,29 @@ export const regist: GroupRegistAction = (name: string, description?: string) =>
   }
 };
 
+/** グループ編集 */
+export const edit: GroupEditAction = (info: GroupInfo) => async (dispatch, store, api) => {
+  // 開始イベント
+  dispatch(Edit.request());
+
+  try {
+    // グループ編集API
+    await api.put(Consts.B004_URL(info.id), {
+      name: info.name,
+      description: info.description,
+    } as B004Request);
+
+    // グループ再取得
+    dispatch(list());
+    // グループ一覧画面に遷移する
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
+    // 正常終了
+    dispatch(Edit.success());
+  } catch (err) {
+    dispatch(Edit.failure(err));
+  }
+};
+
 /** グループ削除 */
 export const del: GroupDeleteAction = () => async (dispatch, store, api) => {
   // 画像アップロード開始イベント
@@ -52,7 +85,6 @@ export const del: GroupDeleteAction = () => async (dispatch, store, api) => {
     // 選択中のGroupId
     const groupId = store().get('app').get('groupId');
 
-    console.log(Consts.B005_URL(groupId));
     // グループ削除API
     await api.del(Consts.B005_URL(groupId));
 
@@ -60,6 +92,8 @@ export const del: GroupDeleteAction = () => async (dispatch, store, api) => {
     dispatch(list());
     // グループ一覧画面に遷移する
     dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
+    // 正常終了
+    dispatch(Delete.success());
   } catch (err) {
     dispatch(Delete.failure(err));
   }

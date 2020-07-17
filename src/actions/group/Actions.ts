@@ -25,9 +25,15 @@ export const Regist = {
   failure: failure(ActionTypes.E0_02_FAILURE),
 };
 
+export const Edit = {
+  request: request(ActionTypes.E0_03_REQUEST),
+  success: createAction(ActionTypes.E0_03_SUCCESS),
+  failure: failure(ActionTypes.E0_03_FAILURE),
+};
+
 export const Delete = {
   request: request(ActionTypes.E0_04_REQUEST),
-  success: createAction(ActionTypes.E0_04_SUCCESS, (info: GroupInfo) => info),
+  success: createAction(ActionTypes.E0_04_SUCCESS),
   failure: failure(ActionTypes.E0_04_FAILURE),
 };
 
@@ -45,9 +51,16 @@ type GroupRegistPayload = E002Payload | ErrorPayload;
 type GroupRegistThunkAction = ThunkAction<void, State, APIClass, Action<GroupRegistPayload> | CallHistoryMethodAction>;
 export type GroupRegistAction = ActionFunction2<string, string | undefined, GroupRegistThunkAction>;
 
-/** Group Delete */
-export type E003Payload = GroupInfo;
+/** Group Edit */
+export type E003Payload = void;
 
-type GroupDeletePayload = E003Payload | ErrorPayload;
+type GroupEditPayload = E003Payload | ErrorPayload;
+type GroupEditThunkAction = ThunkAction<void, State, APIClass, Action<GroupEditPayload> | CallHistoryMethodAction>;
+export type GroupEditAction = ActionFunction1<GroupInfo, GroupEditThunkAction>;
+
+/** Group Delete */
+export type E004Payload = void;
+
+type GroupDeletePayload = E004Payload | ErrorPayload;
 type GroupDeleteThunkAction = ThunkAction<void, State, APIClass, Action<GroupDeletePayload> | CallHistoryMethodAction>;
 export type GroupDeleteAction = ActionFunction0<GroupDeleteThunkAction>;

@@ -21,13 +21,15 @@ import {
 // import AddCircleOutline from '@material-ui/icons/AddCircleOutline';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import FolderIcon from '@material-ui/icons/Folder';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+
 import { State } from '@models';
 import { Actions as AppActions } from '@actions/app';
 import { Actions as GroupActions } from '@actions/group';
 import { Paths } from '@constants';
 
-const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
+const useStyles = makeStyles(({ spacing, palette: { primary, common } }: Theme) =>
   createStyles({
     app: {
       boxShadow: 'none',
@@ -42,6 +44,17 @@ const useStyles = makeStyles(({ spacing, palette: { primary } }: Theme) =>
       color: 'white',
     },
     edgeButton: { margin: spacing(0) },
+    menuItem: {
+      '&:hover': {
+        backgroundColor: primary.light,
+        '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+          color: common.white,
+        },
+      },
+    },
+    listItemIcon: {
+      minWidth: spacing(4),
+    },
   })
 );
 const app = (state: State) => state.get('app');
@@ -79,6 +92,13 @@ export default () => {
     handleMenuClose();
     // delete group
     grpActions.del();
+  };
+
+  const handleOnGroupEdit = () => {
+    // close dialog
+    handleMenuClose();
+    // switch to group edit
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.GroupEdit]));
   };
 
   // Menu Open
@@ -132,11 +152,17 @@ export default () => {
         transformOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={isMenuOpen}
         onClose={handleMenuClose}>
-        <MenuItem onClick={handleOnGroupDelete}>
-          <ListItemIcon>
-            <FolderIcon fontSize="small" />
+        <MenuItem className={classes.menuItem} onClick={handleOnGroupDelete}>
+          <ListItemIcon className={classes.listItemIcon}>
+            <DeleteIcon fontSize="small" />
           </ListItemIcon>
           <ListItemText primary="フォルダ削除" />
+        </MenuItem>
+        <MenuItem className={classes.menuItem} onClick={handleOnGroupEdit}>
+          <ListItemIcon className={classes.listItemIcon}>
+            <EditIcon fontSize="small" />
+          </ListItemIcon>
+          <ListItemText primary="フォルダ編集" />
         </MenuItem>
       </Menu>
     </React.Fragment>
