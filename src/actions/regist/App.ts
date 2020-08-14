@@ -12,6 +12,7 @@ import {
   ClearAction,
   Clear,
 } from './Actions';
+import { Actions } from '@actions/word';
 
 /** 画像アップロード */
 export const uploadImage: UploadImageAction = (image: string) => async (dispatch, _, api) => {
@@ -65,6 +66,8 @@ export const registWords: RegistWordsAction = (words: string[]) => async (dispat
       words,
     } as C001Request);
 
+    // 単語リスト再取得する
+    dispatch(Actions.list(groupId));
     // データ保存
     dispatch(RegistWords.success());
   } catch (err) {
