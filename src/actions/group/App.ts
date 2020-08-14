@@ -1,3 +1,4 @@
+import { push } from 'connected-react-router';
 import {
   GroupListAction,
   List,
@@ -8,9 +9,9 @@ import {
   Edit,
   GroupEditAction,
 } from './Actions';
-import { B002Response, B001Response, B001Request, B004Request } from 'typings/api';
 import { Consts, Paths } from '@constants';
-import { push } from 'connected-react-router';
+import { Actions } from '@actions/word';
+import { B002Response, B001Response, B001Request, B004Request } from 'typings/api';
 import { GroupInfo } from 'typings/types';
 
 /** グループリスト */
@@ -22,6 +23,11 @@ export const list: GroupListAction = () => async (dispatch, _, api) => {
     const res = await api.get<B002Response>(Consts.B002_URL());
     // データ保存
     dispatch(List.success(res));
+
+    // グループの単語一覧を取得する
+    res.groups.forEach((item) => {
+      dispatch(Actions.list(item.id));
+    });
   } catch (err) {
     dispatch(List.failure(err));
   }

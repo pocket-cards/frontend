@@ -54,3 +54,6 @@ export const SERVER_STATUS = {
   PENDING: 'PENDING',
   STOPPING: 'STOPPING',
 };
+
+export const HEADER_HEIGHT = 64;
+export const FOOT_HEIGHT = 72;

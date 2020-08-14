@@ -24,13 +24,12 @@ export const uploadImage: UploadImageAction = (image: string) => async (dispatch
     return;
   }
 
-  const type = image.split(';')[0].split(':')[1];
   const imageSrc = image.replace(/^.*,/, '');
 
   try {
     const res = await api.post<D001Response>(Consts.D001_URL(), {
-      type,
-      image: imageSrc,
+      language: 'en',
+      content: imageSrc,
     } as D001Request);
 
     // データ保存

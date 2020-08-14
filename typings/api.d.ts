@@ -1,4 +1,5 @@
 import { GroupInfo } from './types';
+import { Request } from 'express';
 
 // ------------------------------
 // Common
@@ -11,6 +12,8 @@ export interface BaseResponse {
   isBase64Encoded: boolean;
   body?: string;
 }
+
+export type Callback = (req: Request) => Promise<any>;
 
 export interface WordItem {
   // 単語
@@ -96,10 +99,6 @@ export interface C001Response {}
 // ------------------------------
 // C002
 // ------------------------------
-export interface C002Request {
-  words: string[];
-}
-
 export type C002Response = string[];
 
 // ------------------------------
@@ -110,12 +109,24 @@ export interface C004Request {
   times: number;
 }
 
-export interface C004Response {}
+export type C004Response = void;
+
+// ------------------------------
+// C005
+// ------------------------------
+export interface C005Params {
+  groupId: string;
+  word: string;
+}
+
+export type C005Response = void;
 
 // ------------------------------
 // C006
 // ------------------------------
-export interface C006Request {}
+export interface C006Params {
+  groupId: string;
+}
 
 export interface C006Response {
   count: number;
@@ -124,7 +135,9 @@ export interface C006Response {
 // ------------------------------
 // C007
 // ------------------------------
-export interface C007Request {}
+export interface C007Params {
+  groupId: string;
+}
 
 export interface C007Response {
   count: number;
@@ -133,8 +146,6 @@ export interface C007Response {
 // ------------------------------
 // C008
 // ------------------------------
-export interface C008Request {}
-
 export interface C008Response {
   count: number;
   words: WordItem[];
@@ -143,8 +154,8 @@ export interface C008Response {
 // D001
 // ------------------------------
 export interface D001Request {
-  type: string;
-  image: string;
+  content: string;
+  language?: string;
 }
 
 export interface D001Response {

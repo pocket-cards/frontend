@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
 import { Actions } from '@actions/app';
 import Button from '@components/buttons/Button';
+import { WordList } from '@components/functions';
 import { Paths } from '@constants';
+import { State } from '@models';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
@@ -20,10 +22,15 @@ const useStyles = makeStyles(({ spacing }: Theme) =>
   })
 );
 
+const e000 = (state: State) => state.get('e000');
+const app = (state: State) => state.get('app');
+
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(StudyActions, useDispatch());
   const appActions = bindActionCreators(Actions, useDispatch());
+  const { words } = useSelector(e000);
+  const { groupId } = useSelector(app);
 
   const handleNew = () => {
     appActions.showHeader(false);
@@ -45,32 +52,38 @@ export default () => {
 
   const handleRegist = () => {};
 
+  const groupWords = words.filter((item) => item.groupId === groupId);
+
   return (
-    <Box display="flex" flexDirection="column" margin={2}>
+    <Box display="flex" flexDirection="column" marginTop={1} marginBottom={1} marginLeft={2} marginRight={2}>
       <Box display="flex" justifyContent="center">
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
           onClick={handleRegist}
-          size="large"
           // @ts-ignore
           component={Link}
           to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
           新規登録
         </Button>
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleTest} size="large">
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleTest}>
           テスト
         </Button>
       </Box>
       <Box display="flex" justifyContent="center">
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleNew} size="large">
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleNew}>
           学習
         </Button>
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleReview} size="large">
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleReview}>
           復習
         </Button>
       </Box>
+      {(() => {
+        if (groupWords.length === 0) return;
+
+        return <WordList list={groupWords[0].words}></WordList>;
+      })()}
     </Box>
   );
 };

@@ -45,10 +45,18 @@ export default class E000 extends Record<E000Props>({
 
   /** 単語一覧追加 */
   addWordList(payload: E005Payload) {
-    this.words.push({
-      groupId: payload.groupId,
-      words: payload.words,
-    });
+    const item = this.words.find((item) => item.groupId === payload.groupId);
+
+    // 存在する
+    if (item) {
+      item.words = payload.words;
+    } else {
+      // 存在しない
+      this.words.push({
+        groupId: payload.groupId,
+        words: payload.words,
+      });
+    }
 
     return this.set('words', this.words);
   }
