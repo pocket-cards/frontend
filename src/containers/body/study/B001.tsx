@@ -11,7 +11,7 @@ import { Paths } from '@constants';
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
     button: {
-      // width: spacing(20),
+      width: spacing(25),
       // height: spacing(20),
       letterSpacing: spacing(0.25),
       fontSize: '1.25rem',
@@ -47,26 +47,30 @@ export default () => {
 
   return (
     <Box display="flex" flexDirection="column" margin={2}>
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        onClick={handleRegist}
-        size="large"
-        // @ts-ignore
-        component={Link}
-        to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
-        単語新規登録
-      </Button>
-      <Button variant="contained" color="primary" className={classes.button} onClick={handleTest} size="large">
-        単語のテスト
-      </Button>
-      <Button variant="contained" color="primary" className={classes.button} onClick={handleNew} size="large">
-        単語の学習
-      </Button>
-      <Button variant="contained" color="primary" className={classes.button} onClick={handleReview} size="large">
-        単語の復習
-      </Button>
+      <Box display="flex" justifyContent="center">
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={handleRegist}
+          size="large"
+          // @ts-ignore
+          component={Link}
+          to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
+          新規登録
+        </Button>
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleTest} size="large">
+          テスト
+        </Button>
+      </Box>
+      <Box display="flex" justifyContent="center">
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleNew} size="large">
+          学習
+        </Button>
+        <Button variant="contained" color="primary" className={classes.button} onClick={handleReview} size="large">
+          復習
+        </Button>
+      </Box>
     </Box>
   );
 };

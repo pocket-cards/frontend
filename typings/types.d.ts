@@ -8,6 +8,12 @@ export interface GroupInfo {
   name: string;
   description?: string;
 }
+
+export interface GroupWordsItem {
+  groupId: string;
+  words: string[];
+}
+
 export interface ErrorPayload {
   error: Error;
 }

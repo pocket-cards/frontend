@@ -1,7 +1,6 @@
 import { Record } from 'immutable';
 import { Paths, Consts } from '@constants';
 import { CognitoUser } from '@aws-amplify/auth';
-import { string } from 'yup';
 
 export interface IApp extends AppProps, Record<AppProps> {
   get<K extends keyof AppProps>(key: K): AppProps[K];

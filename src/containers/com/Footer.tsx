@@ -9,7 +9,7 @@ import SettingsIcon from '@material-ui/icons/SettingsOutlined';
 import PersonIcon from '@material-ui/icons/PersonOutlineOutlined';
 import { Actions } from '@actions/app';
 import { State } from '@models';
-import { Paths } from '@constants';
+import { Paths, Consts } from '@constants';
 
 const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
   createStyles({
@@ -40,7 +40,7 @@ export default () => {
   // actions
   const actions = bindActionCreators(Actions, useDispatch());
   // reducer
-  const { tabIndex, showHeader } = useSelector(getApp);
+  const { tabIndex, showHeader, status } = useSelector(getApp);
 
   // Bottom menu clicked
   const handleChange = (_: any, value: any) => actions.tabChange(Number(value));
@@ -53,6 +53,7 @@ export default () => {
         className={classes.action}
         value={Paths.ROUTE_PATH_INDEX.Groups}
         icon={<HomeIcon className={classes.icon} />}
+        disabled={status !== Consts.SERVER_STATUS.RUNNING}
         component={React.forwardRef((props: any, ref: any) => (
           <Link to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]} {...props} />
         ))}

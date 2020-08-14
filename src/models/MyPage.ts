@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { WordItem, A002Response } from 'typings/api';
+import { A002Response } from 'typings/api';
 
 export interface C000UIProps {
   remainingTest: number;

@@ -33,7 +33,7 @@ export const Edit = {
 
 export const Delete = {
   request: request(ActionTypes.E0_04_REQUEST),
-  success: createAction(ActionTypes.E0_04_SUCCESS),
+  success: createAction(ActionTypes.E0_04_SUCCESS, (groupId: string) => ({ groupId })),
   failure: failure(ActionTypes.E0_04_FAILURE),
 };
 
@@ -59,7 +59,9 @@ type GroupEditThunkAction = ThunkAction<void, State, APIClass, Action<GroupEditP
 export type GroupEditAction = ActionFunction1<GroupInfo, GroupEditThunkAction>;
 
 /** Group Delete */
-export type E004Payload = void;
+export type E004Payload = {
+  groupId: string;
+};
 
 type GroupDeletePayload = E004Payload | ErrorPayload;
 type GroupDeleteThunkAction = ThunkAction<void, State, APIClass, Action<GroupDeletePayload> | CallHistoryMethodAction>;

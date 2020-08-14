@@ -15,7 +15,6 @@ import {
   Box,
 } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
-import Loading from '@components/Loading';
 import Button from '@components/buttons/Button';
 import { Actions as AppActions } from '@actions/app';
 import { Actions as GroupActions } from '@actions/group';
@@ -49,7 +48,7 @@ export default () => {
   const dispatch = useDispatch();
   const actions = bindActionCreators(GroupActions, dispatch);
   const appActions = bindActionCreators(AppActions, dispatch);
-  const { isLoading, groups } = useSelector(e000);
+  const { groups } = useSelector(e000);
 
   // Folder click
   const handleOnClick = (groupId: string) => {

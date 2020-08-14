@@ -1,9 +1,11 @@
 import { Record } from 'immutable';
-import { E002Payload, E001Payload } from '@actions/group';
-import { GroupInfo } from 'typings/types';
+import { E002Payload, E001Payload, E004Payload } from '@actions/group';
+import { GroupInfo, GroupWordsItem } from 'typings/types';
+import { E005Payload } from '@actions/word';
 
 export interface E000Props {
   groups: GroupInfo[];
+  words: GroupWordsItem[];
   isLoading: boolean;
 }
 
@@ -16,22 +18,39 @@ export interface IE000 extends E000Props, Record<E000Props> {
  */
 export default class E000 extends Record<E000Props>({
   groups: [],
+  words: [],
   isLoading: false,
 }) {
   /**
    * グループ一覧追加
    */
-  addList(payload: E001Payload) {
+  addGroupList(payload: E001Payload) {
     return this.set('groups', payload.groups);
   }
 
-  /**
-   * グループ新規登録
-   */
-  add(payload: E002Payload) {
+  /** グループ新規登録 */
+  addGroup(payload: E002Payload) {
     this.groups.push(payload);
 
     return this.set('groups', this.groups);
+  }
+
+  /** グループ削除 */
+  delGroup(payload: E004Payload) {
+    const groups = this.groups.filter((item) => item.id !== payload.groupId);
+    const words = this.words.filter((item) => item.groupId !== payload.groupId);
+
+    return this.set('groups', groups).set('words', words);
+  }
+
+  /** 単語一覧追加 */
+  addWordList(payload: E005Payload) {
+    this.words.push({
+      groupId: payload.groupId,
+      words: payload.words,
+    });
+
+    return this.set('words', this.words);
   }
 
   /** 取込中 */

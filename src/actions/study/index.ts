@@ -8,9 +8,9 @@ export { default as answer, B004Payload } from './B004';
 export { default as startReview, B006Payload } from './B006';
 export { default as startTest, B007Payload } from './B007';
 
-// ------------------------------
+// ------------------------------------------------------------
 // TypeScript Definetion
-// ------------------------------
+// ------------------------------------------------------------
 
 /** 単語学習画面のActions */
 export interface Actions {

@@ -25,6 +25,7 @@ export const B004_URL = (groupId: string) => `/groups/${groupId}`;
 export const B005_URL = (groupId: string) => `/groups/${groupId}`;
 
 export const C001_URL = (groupId: string) => `/groups/${groupId}/words`;
+export const C002_URL = (groupId: string) => `/groups/${groupId}/words`;
 export const C003_URL = (groupId: string, word: string) => `/groups/${groupId}/words/${word}`;
 export const C004_URL = (groupId: string, word: string) => `/groups/${groupId}/words/${word}`;
 export const C005_URL = (groupId: string, word: string) => `/groups/${groupId}/words/${word}`;

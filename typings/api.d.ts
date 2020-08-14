@@ -94,6 +94,15 @@ export interface C001Request {
 export interface C001Response {}
 
 // ------------------------------
+// C002
+// ------------------------------
+export interface C002Request {
+  words: string[];
+}
+
+export type C002Response = string[];
+
+// ------------------------------
 // C004
 // ------------------------------
 export interface C004Request {

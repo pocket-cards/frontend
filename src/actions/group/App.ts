@@ -13,9 +13,9 @@ import { Consts, Paths } from '@constants';
 import { push } from 'connected-react-router';
 import { GroupInfo } from 'typings/types';
 
-/** グループ一覧 */
+/** グループリスト */
 export const list: GroupListAction = () => async (dispatch, _, api) => {
-  // 画像アップロード開始イベント
+  // グループリスト開始イベント
   dispatch(List.request());
 
   try {
@@ -29,7 +29,7 @@ export const list: GroupListAction = () => async (dispatch, _, api) => {
 
 /** グループ登録 */
 export const regist: GroupRegistAction = (name: string, description?: string) => async (dispatch, _, api) => {
-  // 画像アップロード開始イベント
+  // グループ登録開始イベント
   dispatch(Regist.request());
 
   try {
@@ -67,7 +67,7 @@ export const edit: GroupEditAction = (info: GroupInfo) => async (dispatch, store
 
     // グループ再取得
     dispatch(list());
-    // グループ一覧画面に遷移する
+    // グループリスト画面に遷移する
     dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
     // 正常終了
     dispatch(Edit.success());
@@ -78,7 +78,7 @@ export const edit: GroupEditAction = (info: GroupInfo) => async (dispatch, store
 
 /** グループ削除 */
 export const del: GroupDeleteAction = () => async (dispatch, store, api) => {
-  // 画像アップロード開始イベント
+  // グループリスト開始イベント
   dispatch(Delete.request());
 
   try {
@@ -88,12 +88,11 @@ export const del: GroupDeleteAction = () => async (dispatch, store, api) => {
     // グループ削除API
     await api.del(Consts.B005_URL(groupId));
 
-    // グループ再取得
-    dispatch(list());
-    // グループ一覧画面に遷移する
-    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
     // 正常終了
-    dispatch(Delete.success());
+    dispatch(Delete.success(groupId));
+
+    // グループリスト画面に遷移する
+    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]));
   } catch (err) {
     dispatch(Delete.failure(err));
   }

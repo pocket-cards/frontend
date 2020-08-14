@@ -121,3 +121,23 @@ export const E0_03_FAILURE = 'E0_03_FAILURE';
 export const E0_04_REQUEST = 'E0_04_REQUEST';
 export const E0_04_SUCCESS = 'E0_04_SUCCESS';
 export const E0_04_FAILURE = 'E0_04_FAILURE';
+
+/** 単語リスト追加 */
+export const E0_05_REQUEST = 'E0_05_REQUEST';
+export const E0_05_SUCCESS = 'E0_05_SUCCESS';
+export const E0_05_FAILURE = 'E0_05_FAILURE';
+
+/** 単語追加 */
+export const E0_06_REQUEST = 'E0_07_REQUEST';
+export const E0_06_SUCCESS = 'E0_07_SUCCESS';
+export const E0_06_FAILURE = 'E0_07_FAILURE';
+
+/** 単語編集 */
+export const E0_07_REQUEST = 'E0_07_REQUEST';
+export const E0_07_SUCCESS = 'E0_07_SUCCESS';
+export const E0_07_FAILURE = 'E0_07_FAILURE';
+
+/** 単語削除 */
+export const E0_08_REQUEST = 'E0_08_REQUEST';
+export const E0_08_SUCCESS = 'E0_08_SUCCESS';
+export const E0_08_FAILURE = 'E0_08_FAILURE';
