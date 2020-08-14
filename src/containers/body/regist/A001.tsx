@@ -35,6 +35,9 @@ const a001: FunctionComponent<any> = () => {
   const handleCamera = (image: string) => actions.uploadImage(image);
   /** ファイルアップロードイベント */
   const handleUpload = () => {
+    // カメラ停止
+    afterStopCamera();
+
     const element = document.getElementById('upload') as HTMLInputElement;
 
     if (!element) return;
@@ -67,7 +70,7 @@ const a001: FunctionComponent<any> = () => {
   const isShow = !onAir;
 
   return (
-    <Box display="flex" flexDirection="column" margin={2}>
+    <Box display="flex" flexDirection="column" margin="8px 16px">
       <input type="file" id="upload" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
       {/* <Button variant="contained" color="primary" className={classes.button} onClick={handleTest} size="large">
         Test
@@ -78,7 +81,9 @@ const a001: FunctionComponent<any> = () => {
       <Button variant="contained" color="primary" fullWidth onClick={handleUpload} size="large" isLoading={isLoading}>
         Upload Photo
       </Button>
-      <WebCamera onAir={onAir} takePhoto={handleCamera} afterStopCamera={afterStopCamera} />
+      <Box margin={1}>
+        <WebCamera onAir={onAir} takePhoto={handleCamera} afterStopCamera={afterStopCamera} />
+      </Box>
     </Box>
   );
 };

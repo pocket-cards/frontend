@@ -1,32 +1,28 @@
 import React, { FunctionComponent, useState, Fragment } from 'react';
-import {
-  ListItem,
-  ListItemIcon,
-  makeStyles,
-  Theme,
-  createStyles,
-  ListItemText,
-  ListItemSecondaryAction,
-} from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
+import { ListItem, makeStyles, Theme, createStyles, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { TextField } from '@components/inputs';
 
-const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
+const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
-    secondaryAction: {
-      paddingRight: spacing(6),
+    listItem: {
+      paddingLeft: spacing(0.5),
+      paddingRight: spacing(1),
     },
-    itemIcon: {
-      justifyContent: 'center',
-    },
+    itemIcon: { justifyContent: 'center' },
     itemTextRoot: {
       padding: '0px 16px 0px 8px',
       fontSize: '1.5rem',
     },
     action: {
-      marginRight: spacing(3),
+      top: '0px',
+      right: '0px',
+      position: 'inherit',
+      transform: 'none',
+      display: 'flex',
+      alignItems: 'center',
     },
+    icon: { color: palette.secondary.light },
   })
 );
 
@@ -39,27 +35,19 @@ const edit: FunctionComponent<WordEditProps> = ({ word, onDelete }) => {
   const handleEdit = () => setEdit(true);
 
   return (
-    <ListItem
-      role={undefined}
-      dense
-      classes={{
-        secondaryAction: classes.secondaryAction,
-      }}>
+    <ListItem dense className={classes.listItem}>
       {isEdit && <TextField value={word} fullWidth />}
       {!isEdit && (
         <Fragment>
-          {/* <ListItemIcon classes={{ root: classes.itemIcon }} onClick={handleEdit}>
-            <EditIcon color="secondary" fontSize="large" />
-          </ListItemIcon> */}
           <ListItemText
             primary={word}
             primaryTypographyProps={{
-              variant: 'h4',
+              variant: 'h5',
             }}
             className={classes.itemTextRoot}
           />
           <ListItemSecondaryAction className={classes.action}>
-            <DeleteIcon fontSize="large" color="secondary" onClick={handleOnDelete} />
+            <DeleteIcon fontSize="large" className={classes.icon} onClick={handleOnDelete} />
           </ListItemSecondaryAction>
         </Fragment>
       )}

@@ -13,7 +13,7 @@ import { State } from '@models';
 const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
     button: {
-      width: spacing(25),
+      width: spacing(20),
       // height: spacing(20),
       letterSpacing: spacing(0.25),
       fontSize: '1.25rem',

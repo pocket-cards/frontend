@@ -1,4 +1,5 @@
 import { Theme, createMuiTheme } from '@material-ui/core';
+import { orange } from '@material-ui/core/colors';
 
 const theme: Theme = createMuiTheme({
   palette: {
@@ -18,9 +19,15 @@ const theme: Theme = createMuiTheme({
       light: '#5e92f3',
     },
     secondary: {
-      dark: '#8e0000',
-      main: '#c62828',
-      light: '#ff5f52',
+      // dark: '#8e0000',
+      // main: '#c62828',
+      // light: '#ff5f52',
+      // dark: '#ffb74d',
+      // main: '#ffcc80',
+      // light: '#ffe0b2',
+      dark: orange.A700,
+      main: orange.A400,
+      light: orange.A200,
     },
   },
 });

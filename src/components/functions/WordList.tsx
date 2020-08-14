@@ -53,9 +53,9 @@ const list: FunctionComponent<WordListProps> = ({ list }) => {
 
   return (
     <List dense className={classes.root}>
-      {list.map((item) => (
+      {list.map((item, idx) => (
         <Fragment>
-          <ListItem className={classes.item}>
+          <ListItem key={idx} className={classes.item}>
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
                 <Button className={classes.avatarBtn}>詳細</Button>

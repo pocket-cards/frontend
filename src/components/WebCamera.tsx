@@ -1,6 +1,6 @@
 import * as React from 'react';
 import CameraIcon from '@material-ui/icons/Camera';
-import { Grid, Fab, withStyles, WithStyles } from '@material-ui/core';
+import { Box, Fab, withStyles, WithStyles } from '@material-ui/core';
 
 const isNotSupport = () => navigator.mediaDevices === undefined || navigator.mediaDevices.getUserMedia === undefined;
 
@@ -130,34 +130,33 @@ class WebCamera extends React.Component<Props, State, any> {
     const isShow = onAir ? '' : 'none';
 
     return (
-      <Grid container alignItems="center" direction="column">
+      <Box>
         <video className={classes.video} muted autoPlay playsInline style={{ display: isShow }} />
-        <Fab
-          style={{ display: isShow }}
-          aria-label="Camera"
-          size="large"
-          color="secondary"
-          disableFocusRipple
-          disableTouchRipple
-          disableRipple
-          onClick={() => {
-            this.takePhoto({
-              type: 'image/png',
-              quality: 0.8,
-            });
-          }}>
-          <CameraIcon />
-        </Fab>
-      </Grid>
+        <Box display="flex" justifyContent="center" margin={2}>
+          <Fab
+            style={{ display: isShow }}
+            aria-label="Camera"
+            size="large"
+            color="secondary"
+            disableFocusRipple
+            disableTouchRipple
+            disableRipple
+            onClick={() => {
+              this.takePhoto({
+                type: 'image/png',
+                quality: 0.7,
+              });
+            }}>
+            <CameraIcon />
+          </Fab>
+        </Box>
+      </Box>
     );
   }
 }
 
 const styles = {
-  video: {
-    width: '100%',
-    height: '450px',
-  },
+  video: { width: '100%' },
 };
 
 export default withStyles(styles as any)(WebCamera);

@@ -6,12 +6,18 @@ import { State } from '@models';
 import { Actions } from '@actions/regist';
 import { Button } from '@components/buttons';
 import { WordEdit } from '@components/functions';
+import { Consts } from '@constants';
 
-const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
+const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
-    root: {
-      margin: spacing(1),
+    list: {
+      margin: spacing(0),
       padding: spacing(0),
+      height: `calc(100vh - ${Consts.HEADER_HEIGHT + Consts.FOOT_HEIGHT + 96}px)`,
+      overflowY: 'auto',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+      },
     },
     item: {
       height: spacing(6),
@@ -21,9 +27,7 @@ const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
       textAlign: 'right',
       position: 'relative',
     },
-    button: {
-      width: spacing(15),
-    },
+    button: { width: spacing(15) },
   })
 );
 
@@ -51,8 +55,8 @@ const a002: FunctionComponent<any> = () => {
   }
 
   return (
-    <Box margin={2}>
-      <List className={classes.root}>
+    <Box margin="8px 16px">
+      <List className={classes.list}>
         {words.map((value, idx) => (
           <React.Fragment key={idx}>
             <WordEdit key={idx} word={value} onDelete={handleRemove} />
@@ -60,7 +64,7 @@ const a002: FunctionComponent<any> = () => {
           </React.Fragment>
         ))}
       </List>
-      <Box padding={2} display="flex" justifyContent="flex-end">
+      <Box padding={1} display="flex" justifyContent="flex-end">
         <Button
           variant="contained"
           color="secondary"
@@ -68,7 +72,7 @@ const a002: FunctionComponent<any> = () => {
           onClick={handleRegist}
           size="large"
           isLoading={isLoading}>
-          登録
+          登　録
         </Button>
       </Box>
     </Box>
