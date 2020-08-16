@@ -55,35 +55,37 @@ export default () => {
   const groupWords = words.filter((item) => item.groupId === groupId);
 
   return (
-    <Box display="flex" flexDirection="column" marginTop={1} marginBottom={1} marginLeft={2} marginRight={2}>
-      <Box display="flex" justifyContent="center">
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={handleRegist}
-          // @ts-ignore
-          component={Link}
-          to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
-          新規登録
-        </Button>
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleTest}>
-          テスト
-        </Button>
-      </Box>
-      <Box display="flex" justifyContent="center">
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleNew}>
-          学習
-        </Button>
-        <Button variant="contained" color="primary" className={classes.button} onClick={handleReview}>
-          復習
-        </Button>
+    <React.Fragment>
+      <Box display="flex" flexDirection="column" alignItems="center" margin={1} height="128px">
+        <Box display="flex" justifyContent="center">
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={handleRegist}
+            // @ts-ignore
+            component={Link}
+            to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
+            新規登録
+          </Button>
+          <Button variant="contained" color="primary" className={classes.button} onClick={handleTest}>
+            テスト
+          </Button>
+        </Box>
+        <Box display="flex" justifyContent="center">
+          <Button variant="contained" color="primary" className={classes.button} onClick={handleNew}>
+            学習
+          </Button>
+          <Button variant="contained" color="primary" className={classes.button} onClick={handleReview}>
+            復習
+          </Button>
+        </Box>
       </Box>
       {(() => {
         if (groupWords.length === 0) return;
 
         return <WordList list={groupWords[0].words}></WordList>;
       })()}
-    </Box>
+    </React.Fragment>
   );
 };

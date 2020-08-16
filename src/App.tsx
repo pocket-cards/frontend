@@ -21,6 +21,7 @@ const useStyles = makeStyles(({ palette }: Theme) =>
         display: 'none',
       },
       maxHeight: 'calc(100vh - 136px)',
+      height: 'calc(100vh - 136px)',
     },
   })
 );

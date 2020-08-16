@@ -18,9 +18,9 @@ import { Consts } from '@constants';
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
     root: {
-      paddingTop: spacing(2),
-      paddingBottom: spacing(2),
-      height: `calc(100vh - ${Consts.HEADER_HEIGHT + Consts.FOOT_HEIGHT + 182}px)`,
+      paddingTop: spacing(1),
+      paddingBottom: spacing(0),
+      height: `calc(100vh - ${Consts.HEADER_HEIGHT + Consts.FOOT_HEIGHT + 152}px)`,
       overflowY: 'auto',
       '&::-webkit-scrollbar': {
         display: 'none',
@@ -52,7 +52,7 @@ const list: FunctionComponent<WordListProps> = ({ list }) => {
   const classes = useStyles();
 
   return (
-    <List dense className={classes.root}>
+    <List className={classes.root}>
       {list.map((item, idx) => (
         <Fragment>
           <ListItem key={idx} className={classes.item}>
