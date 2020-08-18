@@ -127,12 +127,12 @@ export const E0_05_REQUEST = 'E0_05_REQUEST';
 export const E0_05_SUCCESS = 'E0_05_SUCCESS';
 export const E0_05_FAILURE = 'E0_05_FAILURE';
 
-/** 単語追加 */
+/** 単語編集 */
 export const E0_06_REQUEST = 'E0_07_REQUEST';
 export const E0_06_SUCCESS = 'E0_07_SUCCESS';
 export const E0_06_FAILURE = 'E0_07_FAILURE';
 
-/** 単語編集 */
+/** 単語追加 */
 export const E0_07_REQUEST = 'E0_07_REQUEST';
 export const E0_07_SUCCESS = 'E0_07_SUCCESS';
 export const E0_07_FAILURE = 'E0_07_FAILURE';

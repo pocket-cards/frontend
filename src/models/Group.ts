@@ -2,6 +2,7 @@ import { Record } from 'immutable';
 import { E002Payload, E001Payload, E004Payload } from '@actions/group';
 import { GroupInfo, GroupWordsItem } from 'typings/types';
 import { E005Payload } from '@actions/word';
+import { E008Payload } from '@actions/word/Actions';
 
 export interface E000Props {
   groups: GroupInfo[];
@@ -56,6 +57,18 @@ export default class E000 extends Record<E000Props>({
         groupId: payload.groupId,
         words: payload.words,
       });
+    }
+
+    return this.set('words', this.words);
+  }
+
+  /** 単語削除 */
+  delWord(payload: E008Payload) {
+    const group = this.words.find((item) => item.groupId === payload.groupId);
+
+    if (group) {
+      const words = group?.words.filter((item) => item !== payload.word);
+      group.words = words;
     }
 
     return this.set('words', this.words);

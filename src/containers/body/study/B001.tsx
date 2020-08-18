@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import * as StudyActions from '@actions/study';
-import { Actions } from '@actions/app';
+import { Actions as AppActions } from '@actions/app';
+import { Actions as WrdActions } from '@actions/word';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
 import { Paths } from '@constants';
@@ -28,9 +29,12 @@ const app = (state: State) => state.get('app');
 export default () => {
   const classes = useStyles();
   const actions = bindActionCreators(StudyActions, useDispatch());
-  const appActions = bindActionCreators(Actions, useDispatch());
+  const appActions = bindActionCreators(AppActions, useDispatch());
+  const wrdActions = bindActionCreators(WrdActions, useDispatch());
   const { words } = useSelector(e000);
   const { groupId } = useSelector(app);
+
+  const groupWords = words.filter((item) => item.groupId === groupId);
 
   const handleNew = () => {
     appActions.showHeader(false);
@@ -50,9 +54,9 @@ export default () => {
     actions.startTest();
   };
 
-  const handleRegist = () => {};
-
-  const groupWords = words.filter((item) => item.groupId === groupId);
+  const handleDetail = (word: string) => {
+    wrdActions.detail(word);
+  };
 
   return (
     <React.Fragment>
@@ -62,7 +66,6 @@ export default () => {
             variant="contained"
             color="primary"
             className={classes.button}
-            onClick={handleRegist}
             // @ts-ignore
             component={Link}
             to={Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Regist]}>
@@ -84,7 +87,7 @@ export default () => {
       {(() => {
         if (groupWords.length === 0) return;
 
-        return <WordList list={groupWords[0].words}></WordList>;
+        return <WordList list={groupWords[0].words} onDetail={handleDetail}></WordList>;
       })()}
     </React.Fragment>
   );

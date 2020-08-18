@@ -8,6 +8,7 @@ export const ROUTE_PATH_INDEX = {
   StudyRegist: 22,
   StudyCard: 23,
   StudyFinish: 24,
+  StudyEdit: 25,
   MyPage: 31,
   Settings: 41,
   Groups: 61,
@@ -28,6 +29,7 @@ export const ROUTE_PATHS = {
   [ROUTE_PATH_INDEX.GroupEdit]: '/group/edit',
   [ROUTE_PATH_INDEX.Study]: '/study',
   [ROUTE_PATH_INDEX.StudyRegist]: '/study/regist',
+  [ROUTE_PATH_INDEX.StudyEdit]: '/study/edit/:word',
   [ROUTE_PATH_INDEX.StudyCard]: '/study/card',
   [ROUTE_PATH_INDEX.StudyFinish]: '/study/finish',
 };

@@ -1,4 +1,5 @@
 import React, { FunctionComponent, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ListItem,
   makeStyles,
@@ -6,16 +7,11 @@ import {
   createStyles,
   ListItemText,
   List,
-  Divider,
   ListItemAvatar,
   Avatar,
   Button,
-  Box,
-  Typography,
 } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
-import SwipeableViews, { OnSwitchingCallbackTypeDescriptor } from 'react-swipeable-views';
-import { Consts } from '@constants';
+import { Consts, Paths } from '@constants';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
@@ -39,7 +35,6 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
     },
     item: {
       backgroundColor: palette.grey[100],
-      padding: spacing(0),
     },
     avatar: {
       backgroundColor: palette.primary.light,
@@ -48,61 +43,38 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
       color: palette.common.white,
       fontSize: '0.75rem',
     },
-    swipe: { width: '100%' },
-    button: {
-      color: palette.common.white,
-      fontWeight: 600,
-      height: spacing(7),
-      backgroundColor: red.A700,
-      borderRadius: '0px',
-    },
   })
 );
 
-const list: FunctionComponent<WordListProps> = ({ list, onRemove }) => {
+const list: FunctionComponent<WordListProps> = ({ list, onDetail }) => {
   const classes = useStyles();
 
-  const handleOnChangeIndex = (index: number, indexLatest: number) => (row: number) => {
-    if (index === 1 && indexLatest === 0) {
-      onRemove?.(row);
-    }
-  };
+  const handleOnClick = (word: string) => onDetail?.(word);
 
   return (
     <List className={classes.root}>
       {list.map((item, idx) => (
         <Fragment key={idx}>
-          <ListItem className={classes.item}>
-            <SwipeableViews
-              enableMouseEvents
-              onChangeIndex={(index: number, indexLatest: number) => {
-                handleOnChangeIndex(index, indexLatest)(idx);
-              }}
-              className={classes.swipe}>
-              <Box display="flex" alignItems="center" padding="8px 16px">
-                <ListItemAvatar>
-                  <Avatar className={classes.avatar}>
-                    <Button className={classes.avatarBtn}>詳細</Button>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={item}
-                  primaryTypographyProps={{
-                    variant: 'body1',
-                  }}
-                  className={classes.itemTextRoot}
-                />
-              </Box>
-              <Box>
-                <Button fullWidth disableRipple disableTouchRipple disableFocusRipple className={classes.button}>
-                  <Typography variant="button" component="h2">
-                    DELETE
-                  </Typography>
+          <ListItem className={classes.item} divider>
+            <ListItemAvatar>
+              <Avatar className={classes.avatar}>
+                <Button
+                  className={classes.avatarBtn}
+                  onClick={() => {
+                    handleOnClick(item);
+                  }}>
+                  詳細
                 </Button>
-              </Box>
-            </SwipeableViews>
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={item}
+              primaryTypographyProps={{
+                variant: 'body1',
+              }}
+              className={classes.itemTextRoot}
+            />
           </ListItem>
-          <Divider />
         </Fragment>
       ))}
     </List>
@@ -111,7 +83,7 @@ const list: FunctionComponent<WordListProps> = ({ list, onRemove }) => {
 
 interface WordListProps {
   list: string[];
-  onRemove?: (index: number) => void;
+  onDetail?: (word: string) => void;
 }
 
 export default list;
