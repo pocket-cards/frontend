@@ -1,16 +1,7 @@
 import { handleActions, Action } from 'redux-actions';
 import { App } from '@models';
 import { ActionTypes } from '@constants';
-import {
-  App01Payload,
-  App02Payload,
-  App03Payload,
-  App04Payload,
-  App07Payload,
-  App09Payload,
-  App08Payload,
-  App06Payload,
-} from '@actions/app';
+import { App01Payload, App04Payload, App07Payload, App09Payload, App08Payload, App06Payload } from '@actions/app';
 
 const reducer = handleActions<App, any>(
   {
