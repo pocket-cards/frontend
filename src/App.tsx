@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Box, makeStyles, Theme, createStyles } from '@material-ui/core';
-import { Paths } from '@constants';
+import { Paths, Consts } from '@constants';
 import { Header, Footer } from '@containers/com';
 import { RegistMain, StudyMain, MyPageMain, Settings, Home } from '@containers/body';
 
@@ -20,8 +20,16 @@ const useStyles = makeStyles(({ palette }: Theme) =>
       '&::-webkit-scrollbar': {
         display: 'none',
       },
-      maxHeight: 'calc(100vh - 136px)',
-      height: 'calc(100vh - 136px)',
+      maxHeight: `calc(100vh - ${Consts.HEADER_HEIGHT + Consts.FOOT_HEIGHT}px)`,
+      height: `calc(100vh - ${Consts.HEADER_HEIGHT + Consts.FOOT_HEIGHT}px)`,
+    },
+    noFooter: {
+      overflowY: 'auto',
+      '&::-webkit-scrollbar': {
+        display: 'none',
+      },
+      maxHeight: `calc(100vh - ${Consts.HEADER_HEIGHT}px)`,
+      height: `calc(100vh - ${Consts.HEADER_HEIGHT}px)`,
     },
   })
 );

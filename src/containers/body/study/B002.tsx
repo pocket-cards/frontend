@@ -8,9 +8,7 @@ import {
   createStyles,
   Fab,
   Grid,
-  IconButton,
   Card,
-  CardHeader,
   CardContent,
   Typography,
   TextField,
@@ -36,7 +34,7 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
       marginTop: '64px',
     },
     header: { padding: `${spacing()}px ${spacing(2)}px` },
-    content: { textAlign: 'center' },
+    content: { textAlign: 'center', paddingTop: spacing(6) },
     top: {
       width: '100%',
       height: '380px',
@@ -66,6 +64,7 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
       width: spacing(12),
       height: spacing(12),
       margin: `0px ${spacing(3)}px`,
+      color: palette.common.white,
     },
     card: {
       width: '90%',
@@ -106,14 +105,6 @@ export default () => {
     setShowText(false);
 
     setTimeout(() => play(), 100);
-  };
-
-  const handleBack = () => {
-    // ヘッダ、フット表示する
-    appActions.showHeader(true);
-    appActions.showFooter(true);
-    // 画面遷移
-    dispatch(push(Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]));
   };
 
   const getButtons = (mode?: string, word?: WordInfo) => {
@@ -202,7 +193,7 @@ export default () => {
 
   return (
     <Grid container direction="column" className={classes.container}>
-      <Grid container justify="flex-end" alignItems="center" className={classes.menubar}>
+      {/* <Grid container justify="flex-end" alignItems="center" className={classes.menubar}>
         <Grid item xs>
           <IconButton className={classes.iconButton} onClick={handleBack} disableRipple disableTouchRipple>
             <ArrowLeftIcon className={classes.icon} />
@@ -213,7 +204,7 @@ export default () => {
             <ReplayIcon className={classes.icon} />
           </IconButton>
         </Grid>
-      </Grid>
+      </Grid> */}
       {(() => {
         // Loading中
         if (isLoading) {
@@ -233,7 +224,7 @@ export default () => {
             <Grid container alignItems="center" justify="center" className={classes.top}>
               <Card className={classes.card}>
                 <audio ref={audioRef} src={`/${word.mp3}`} />
-                <CardHeader
+                {/* <CardHeader
                   className={classes.header}
                   action={
                     <IconButton aria-label="Settings" onClick={handleSetEdit}>
@@ -242,12 +233,12 @@ export default () => {
                       })()}
                     </IconButton>
                   }
-                />
+                /> */}
                 <CardContent className={classes.content}>
                   <Typography variant="h4" gutterBottom align="center">
                     {word.word}
                   </Typography>
-                  <Typography className={classes.content} variant="h6" align="center">
+                  <Typography variant="h6" align="center">
                     {word.pronounce ? `[${word.pronounce}]` : undefined}
                   </Typography>
                   {(() => {

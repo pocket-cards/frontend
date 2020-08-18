@@ -1,10 +1,6 @@
 import {
   TabChange,
-  ShowHeader,
-  ShowFooter,
   TabChangeAction,
-  ShowHeaderAction,
-  ShowFooterAction,
   LoggedInAction,
   LoggedIn,
   LogoutAction,
@@ -30,30 +26,6 @@ export const tabChange: TabChangeAction = (index: number) => async (dispatch, _,
     dispatch(TabChange.success(index));
   } catch (err) {
     dispatch(TabChange.failure(err));
-  }
-};
-
-/** バー表示制御 */
-export const showHeader: ShowHeaderAction = (visible) => async (dispatch) => {
-  dispatch(ShowHeader.request());
-
-  try {
-    // データ保存
-    dispatch(ShowHeader.success(visible));
-  } catch (err) {
-    dispatch(ShowHeader.failure(err));
-  }
-};
-
-/** バー表示制御 */
-export const showFooter: ShowFooterAction = (visible) => async (dispatch) => {
-  dispatch(ShowFooter.request());
-
-  try {
-    // データ保存
-    dispatch(ShowFooter.success(visible));
-  } catch (err) {
-    dispatch(ShowFooter.failure(err));
   }
 };
 

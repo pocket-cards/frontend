@@ -52,3 +52,10 @@ export interface APIClass {
 export type GET_ACTION<T = any> = (path: string, headers?: any, name?: string) => Promise<T>;
 export type PUT_ACTION<T = any> = (path: string, body?: any, name?: string) => Promise<T>;
 export type POST_ACTION<T = any> = (path: string, body?: any, name?: string) => Promise<T>;
+
+export type PathInfo = { [key: string]: ScreenInfo };
+
+export interface ScreenInfo {
+  showFooter: boolean;
+  showBack: boolean;
+}

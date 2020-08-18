@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, makeStyles, Theme, createStyles } from '@material-ui/core';
 import CameraIcon from '@material-ui/icons/Camera';
+import PersonIcon from '@material-ui/icons/PersonOutlineOutlined';
 import HomeIcon from '@material-ui/icons/HomeOutlined';
 import SettingsIcon from '@material-ui/icons/SettingsOutlined';
-import PersonIcon from '@material-ui/icons/PersonOutlineOutlined';
 import { Actions } from '@actions/app';
 import { State } from '@models';
 import { Paths, Consts } from '@constants';
@@ -40,12 +40,15 @@ export default () => {
   // actions
   const actions = bindActionCreators(Actions, useDispatch());
   // reducer
-  const { tabIndex, showHeader, status } = useSelector(getApp);
+  const { tabIndex, status } = useSelector(getApp);
+  // location
+  const { pathname } = useLocation();
 
   // Bottom menu clicked
   const handleChange = (_: any, value: any) => actions.tabChange(Number(value));
 
-  if (!showHeader) return null;
+  // フット表示しない
+  if (!Paths.ROUTE_INFO[pathname]?.showFooter) return null;
 
   return (
     <BottomNavigation value={tabIndex} onChange={handleChange} className={classes.root}>

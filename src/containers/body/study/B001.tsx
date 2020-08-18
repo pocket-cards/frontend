@@ -36,23 +36,11 @@ export default () => {
 
   const groupWords = words.filter((item) => item.groupId === groupId);
 
-  const handleNew = () => {
-    appActions.showHeader(false);
-    appActions.showFooter(false);
-    actions.startNew();
-  };
+  const handleNew = () => actions.startNew();
 
-  const handleReview = () => {
-    appActions.showHeader(false);
-    appActions.showFooter(false);
-    actions.startReview();
-  };
+  const handleReview = () => actions.startReview();
 
-  const handleTest = () => {
-    appActions.showHeader(false);
-    appActions.showFooter(false);
-    actions.startTest();
-  };
+  const handleTest = () => actions.startTest();
 
   const handleDetail = (word: string) => {
     wrdActions.detail(word);

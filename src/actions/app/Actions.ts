@@ -16,28 +16,6 @@ export const TabChange = {
   failure: failure(ActionTypes.APP_01_FAILURE),
 };
 
-export const ShowHeader = {
-  request: request(ActionTypes.APP_02_REQUEST),
-  success: createAction(
-    ActionTypes.APP_02_SUCCESS,
-    (visible: boolean): App02Payload => ({
-      visible,
-    })
-  ),
-  failure: failure(ActionTypes.APP_02_FAILURE),
-};
-
-export const ShowFooter = {
-  request: request(ActionTypes.APP_03_REQUEST),
-  success: createAction(
-    ActionTypes.APP_03_SUCCESS,
-    (visible: boolean): App03Payload => ({
-      visible,
-    })
-  ),
-  failure: failure(ActionTypes.APP_03_FAILURE),
-};
-
 /** ログイン状態変更 */
 export const LoggedIn = {
   request: request(ActionTypes.APP_04_REQUEST),
@@ -108,24 +86,6 @@ export interface App01Payload {
 type TabChangePayload = App01Payload | ErrorPayload;
 type TabChangeThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<TabChangePayload>>;
 export type TabChangeAction = ActionFunction1<number, TabChangeThunkAction>;
-
-/** Hide Bar Header */
-export interface App02Payload {
-  visible: boolean;
-}
-
-type ShowHeaderPayload = App02Payload | ErrorPayload;
-type ShowHeaderThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<ShowHeaderPayload>>;
-export type ShowHeaderAction = ActionFunction1<boolean, ShowHeaderThunkAction>;
-
-/** Hide Bar Header */
-export interface App03Payload {
-  visible: boolean;
-}
-
-type ShowFooterPayload = App03Payload | ErrorPayload;
-type ShowFooterThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<ShowFooterPayload>>;
-export type ShowFooterAction = ActionFunction1<boolean, ShowFooterThunkAction>;
 
 /** ログイン状態変更 */
 export interface App04Payload {

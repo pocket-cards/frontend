@@ -19,18 +19,6 @@ const reducer = handleActions<App, any>(
     [ActionTypes.APP_01_SUCCESS]: (store: App, { payload: { index } }: Action<App01Payload>) => store.tabChange(index),
     [ActionTypes.APP_01_FAILURE]: (store: App) => store,
 
-    /** ヘッダ表示 */
-    [ActionTypes.APP_02_REQUEST]: (store: App) => store,
-    [ActionTypes.APP_02_SUCCESS]: (store: App, { payload: { visible } }: Action<App02Payload>) =>
-      store.setShowHeader(visible),
-    [ActionTypes.APP_02_FAILURE]: (store: App) => store,
-
-    /** Footer表示 */
-    [ActionTypes.APP_03_REQUEST]: (store: App) => store,
-    [ActionTypes.APP_03_SUCCESS]: (store: App, { payload: { visible } }: Action<App03Payload>) =>
-      store.setShowFooter(visible),
-    [ActionTypes.APP_03_FAILURE]: (store: App) => store,
-
     /** ユーザ情報設定 */
     [ActionTypes.APP_04_REQUEST]: (store: App) => store.startLoading(),
     [ActionTypes.APP_04_SUCCESS]: (store: App, { payload }: Action<App04Payload>) =>

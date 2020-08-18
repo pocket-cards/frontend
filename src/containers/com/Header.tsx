@@ -15,6 +15,7 @@ import {
   MenuItem,
   ListItemText,
   ListItemIcon,
+  Button,
 } from '@material-ui/core';
 // import MenuIcon from '@material-ui/icons/Menu';
 // import ExitToApp from '@material-ui/icons/ExitToApp';
@@ -23,13 +24,14 @@ import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import ReplayIcon from '@material-ui/icons/Replay';
+import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 
 import { State } from '@models';
-import { Actions as AppActions } from '@actions/app';
 import { Actions as GroupActions } from '@actions/group';
 import { Paths } from '@constants';
 
-const useStyles = makeStyles(({ spacing, palette: { primary, common } }: Theme) =>
+const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common } }: Theme) =>
   createStyles({
     app: {
       boxShadow: 'none',
@@ -39,11 +41,9 @@ const useStyles = makeStyles(({ spacing, palette: { primary, common } }: Theme) 
     toolbar: { minHeight: spacing(8) },
     title: { flexGrow: 1 },
     button: { color: 'white' },
-    icon: {
-      fontSize: spacing(5),
-      color: 'white',
-    },
+    icon: { color: common.white, fontSize: spacing(5) },
     edgeButton: { margin: spacing(0) },
+    replyButton: { padding: spacing(0.5) },
     menuItem: {
       '&:hover': {
         backgroundColor: primary.light,
@@ -52,28 +52,25 @@ const useStyles = makeStyles(({ spacing, palette: { primary, common } }: Theme) 
         },
       },
     },
-    listItemIcon: {
-      minWidth: spacing(4),
-    },
+    backButton: { padding: spacing(0.5) },
+    listItemIcon: { minWidth: spacing(4) },
   })
 );
+
+const audioRef = React.createRef<HTMLAudioElement>();
+
 const app = (state: State) => state.get('app');
+const b000 = (state: State) => state.get('b000');
 
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const actions = bindActionCreators(AppActions, dispatch);
   const grpActions = bindActionCreators(GroupActions, dispatch);
-  const { showHeader } = useSelector(app);
   const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { current: word } = useSelector(b000);
 
   const isMenuOpen = Boolean(anchorEl);
-
-  // ヘッダ非表示
-  if (!showHeader) {
-    return <React.Fragment />;
-  }
 
   // Left Icon action
   const handleOnClickLeft = () => {
@@ -106,25 +103,30 @@ export default () => {
   // Menu Close
   const handleMenuClose = () => setAnchorEl(null);
 
+  /** 音声再生 */
+  const handleReply = () => audioRef.current?.play();
+
   return (
     <React.Fragment>
       <AppBar position="static" className={classes.app}>
         <Toolbar className={classes.toolbar}>
-          {/* <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
+          <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
             {(() => {
-              return location.pathname.split('/').length <= 2 ? (
-                <MenuIcon fontSize="large" />
-              ) : (
-                <ArrowLeftIcon className={classes.icon} />
+              return location.pathname.split('/').length <= 2 ? null : (
+                // <Button
+                //   variant="contained"
+                //   color="secondary"
+                //   className={classes.backButton}
+                //   endIcon={<ArrowBackIcon fontSize="large" className={classes.backIcon} />}
+                // />
+                <IconButton className={classes.backButton}>
+                  <ArrowBackIcon className={classes.icon} />
+                </IconButton>
               );
             })()}
-          </IconButton> */}
+          </IconButton>
           <Typography variant="h6" color="inherit" className={classes.title} />
           {/* <Button color="inherit">Ver{Consts.VERSION}</Button> */}
-          {/* <IconButton color="inherit" aria-label="Logout" onClick={handleLogout}>
-          <ExitToApp />
-        </IconButton> */}
-
           {(() => {
             if (location.pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
               return (
@@ -140,6 +142,20 @@ export default () => {
                   <MoreIcon fontSize="large" />
                 </IconButton>
               );
+            }
+
+            if (location.pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]) {
+              const draw = [
+                <IconButton className={classes.replyButton} onClick={handleReply}>
+                  <ReplayIcon className={classes.icon} />
+                </IconButton>,
+              ];
+
+              if (word) {
+                draw.push(<audio ref={audioRef} src={`/${word.mp3}`} />);
+              }
+
+              return draw;
             }
           })()}
         </Toolbar>

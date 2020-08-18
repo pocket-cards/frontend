@@ -12,10 +12,6 @@ export interface AppUIProps {
   isLoading: boolean;
   // User info
   user: CognitoUser | undefined;
-  // show / hide header
-  showHeader: boolean;
-  // show / hide footer
-  showFooter: boolean;
   // selected group id
   groupId: string;
   // server status
@@ -31,21 +27,11 @@ export default class App extends Record<AppProps>({
   tabIndex: Paths.ROUTE_PATH_INDEX.Regist,
   isLoading: false,
   user: undefined,
-  showHeader: true,
-  showFooter: true,
   groupId: '',
   status: Consts.SERVER_STATUS.STOPPED,
 }) {
   tabChange(index: number) {
     return this.set('tabIndex', index);
-  }
-
-  setShowHeader(visible: boolean) {
-    return this.set('showHeader', visible);
-  }
-
-  setShowFooter(visible: boolean) {
-    return this.set('showFooter', visible);
   }
 
   setGroupId(groupId: string) {
