@@ -67,7 +67,7 @@ export default class E000 extends Record<E000Props>({
     const group = this.words.find((item) => item.groupId === payload.groupId);
 
     if (group) {
-      const words = group?.words.filter((item) => item !== payload.word);
+      const words = group?.words.filter((item) => item.word !== payload.word);
       group.words = words;
     }
 

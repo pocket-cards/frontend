@@ -1,5 +1,4 @@
 import React, { FunctionComponent, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import {
   ListItem,
   makeStyles,
@@ -11,7 +10,8 @@ import {
   Avatar,
   Button,
 } from '@material-ui/core';
-import { Consts, Paths } from '@constants';
+import { Consts } from '@constants';
+import { C002ResItem } from 'typings/api';
 
 const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   createStyles({
@@ -24,25 +24,16 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
         display: 'none',
       },
     },
-    itemIcon: {
-      justifyContent: 'center',
-    },
+    itemIcon: { justifyContent: 'center' },
     itemTextRoot: {
       margin: '0px',
-      '& .MuiTypography-root': {
+      '& .MuiTypography-subtitle1': {
         fontSize: '1.25rem',
       },
     },
-    item: {
-      backgroundColor: palette.grey[100],
-    },
-    avatar: {
-      backgroundColor: palette.primary.light,
-    },
-    avatarBtn: {
-      color: palette.common.white,
-      fontSize: '0.75rem',
-    },
+    item: { backgroundColor: palette.grey[100] },
+    avatar: { backgroundColor: palette.primary.light },
+    avatarBtn: { color: palette.common.white, fontSize: '0.75rem' },
   })
 );
 
@@ -61,16 +52,20 @@ const list: FunctionComponent<WordListProps> = ({ list, onDetail }) => {
                 <Button
                   className={classes.avatarBtn}
                   onClick={() => {
-                    handleOnClick(item);
+                    handleOnClick(item.word);
                   }}>
                   詳細
                 </Button>
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary={item}
+              primary={item.word}
               primaryTypographyProps={{
-                variant: 'body1',
+                variant: 'subtitle1',
+              }}
+              secondary={item.vocabulary}
+              secondaryTypographyProps={{
+                variant: 'body2',
               }}
               className={classes.itemTextRoot}
             />
@@ -82,7 +77,7 @@ const list: FunctionComponent<WordListProps> = ({ list, onDetail }) => {
 };
 
 interface WordListProps {
-  list: string[];
+  list: C002ResItem[];
   onDetail?: (word: string) => void;
 }
 

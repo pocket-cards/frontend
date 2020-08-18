@@ -99,7 +99,12 @@ export interface C001Response {}
 // ------------------------------
 // C002
 // ------------------------------
-export type C002Response = string[];
+export interface C002ResItem {
+  word: string;
+  vocabulary: string;
+}
+
+export type C002Response = C002ResItem[];
 
 // ------------------------------
 // C004

@@ -1,3 +1,5 @@
+import { C002ResItem } from './api';
+
 declare module '*.svg' {
   const content: string;
   export default content;
@@ -11,7 +13,7 @@ export interface GroupInfo {
 
 export interface GroupWordsItem {
   groupId: string;
-  words: string[];
+  words: C002ResItem[];
 }
 
 export interface ErrorPayload {

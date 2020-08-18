@@ -175,22 +175,6 @@ export default () => {
     audio && audio.play();
   };
 
-  const handleSetEdit = () => {
-    try {
-      if (!word || !zhRef.current || !jaRef.current) {
-        return;
-      }
-
-      const isChanged = zhRef.current.value !== word.vocChn || jaRef.current.value !== word.vocJpn;
-
-      if (isChanged) {
-        console.log('do some actions');
-      }
-    } finally {
-      setEdit(!edit);
-    }
-  };
-
   return (
     <Grid container direction="column" className={classes.container}>
       {/* <Grid container justify="flex-end" alignItems="center" className={classes.menubar}>
