@@ -41,8 +41,7 @@ const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common }
     },
     toolbar: { minHeight: spacing(8) },
     title: { flexGrow: 1, fontWeight: 600, textAlign: 'center', letterSpacing: '2px' },
-    button: { color: 'white' },
-    icon: { color: common.white, fontSize: spacing(5) },
+    icon: { color: common.white, fontSize: spacing(4) },
     edgeButton: { margin: spacing(0) },
     replyButton: { padding: spacing(0.5) },
     menuItem: {
@@ -72,7 +71,7 @@ export default () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { groupId } = useSelector(app);
   const { current: word } = useSelector(b000);
-  const { groups, isLoading } = useSelector(e000);
+  const { groups } = useSelector(e000);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -112,23 +111,17 @@ export default () => {
   // 表示中画面情報
   const screen = Paths.ROUTE_INFO[pathname];
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <React.Fragment>
       <AppBar position="static" className={classes.app}>
         <Toolbar className={classes.toolbar}>
-          <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
-            {(() => {
-              return pathname.split('/').length <= 2 ? null : (
-                <IconButton className={classes.backButton}>
-                  <ArrowBackIcon className={classes.icon} />
-                </IconButton>
-              );
-            })()}
-          </IconButton>
+          {(() => {
+            return pathname.split('/').length <= 2 ? null : (
+              <IconButton className={classes.backButton} onClick={handleOnClickLeft}>
+                <ArrowBackIcon className={classes.icon} />
+              </IconButton>
+            );
+          })()}
           <Typography variant="h5" color="inherit" className={classes.title}>
             {(() => {
               if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {

@@ -55,16 +55,26 @@ export default () => {
           </Typography>
         </CardContent>
       </Card>
-      <Box margin={2}>
+      <Box margin={2} display="flex" justifyContent="center">
+        <Button
+          size="large"
+          fullWidth
+          variant="contained"
+          color="secondary"
+          type="button"
+          isLoading={isLoading}
+          onClick={handleOnDelete}>
+          DELETE
+        </Button>
         <Button
           size="large"
           fullWidth
           variant="contained"
           color="primary"
-          type="submit"
+          type="button"
           isLoading={isLoading}
           onClick={handleOnDelete}>
-          DELETE
+          UPDATE
         </Button>
       </Box>
     </Box>
