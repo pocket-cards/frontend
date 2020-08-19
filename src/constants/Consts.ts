@@ -39,7 +39,7 @@ export const D002_URL = () => '/image2line';
 export const E001_URL = (word: string) => `/words/${word}`;
 export const E002_URL = (word: string) => `/words/${word}`;
 
-export const VERSION = 'Ver0.6.1';
+export const VERSION = 'Ver0.6.2';
 
 export const MODES = {
   New: '1',
