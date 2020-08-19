@@ -75,6 +75,11 @@ export const ROUTE_INFO: PathInfo = {
     showFooter: false,
     title: 'STUDY CARD',
   },
+  [ROUTE_PATHS[ROUTE_PATH_INDEX.StudyEdit]]: {
+    showBack: false,
+    showFooter: true,
+    title: 'WORD DETAIL',
+  },
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]]: {
     showBack: false,
     showFooter: true,

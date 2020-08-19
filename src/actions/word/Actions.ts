@@ -4,7 +4,7 @@ import { CallHistoryMethodAction } from 'connected-react-router';
 import { ActionTypes } from '@constants';
 import { State } from '@models';
 import { ErrorPayload, APIClass } from 'typings/types';
-import { C002Response } from 'typings/api';
+import { C002Response, E001Response } from 'typings/api';
 
 export const request = (actionType: string): ActionFunction0<Action<any>> => createAction(actionType);
 
@@ -27,9 +27,8 @@ export const Detail = {
   request: request(ActionTypes.E0_06_REQUEST),
   success: createAction(
     ActionTypes.E0_06_SUCCESS,
-    (groupId: string, word: string): E006Payload => ({
-      groupId,
-      word,
+    (res: E001Response): E006Payload => ({
+      res,
     })
   ),
   failure: failure(ActionTypes.E0_06_FAILURE),
@@ -59,8 +58,7 @@ export type WordListAction = ActionFunction1<string, WordListThunkAction>;
 
 /** Word Details */
 export type E006Payload = {
-  groupId: string;
-  word: string;
+  res: E001Response;
 };
 
 type WordDetailPayload = E006Payload | ErrorPayload;

@@ -11,7 +11,7 @@ import { Actions } from '@actions/app';
 import { State } from '@models';
 import { Paths, Consts } from '@constants';
 
-const useStyles = makeStyles(({ palette: { primary }, spacing }: Theme) =>
+const useStyles = makeStyles(({ spacing }: Theme) =>
   createStyles({
     root: {
       bottom: '0',
@@ -47,8 +47,11 @@ export default () => {
   // Bottom menu clicked
   const handleChange = (_: any, value: any) => actions.tabChange(Number(value));
 
+  // 表示中画面情報
+  const screen = Paths.ROUTE_INFO[pathname];
+
   // フット表示しない
-  if (!Paths.ROUTE_INFO[pathname]?.showFooter) return null;
+  if (screen && !screen.showFooter) return null;
 
   return (
     <BottomNavigation value={tabIndex} onChange={handleChange} className={classes.root}>

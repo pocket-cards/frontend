@@ -2,12 +2,14 @@ import { Record } from 'immutable';
 import { E002Payload, E001Payload, E004Payload } from '@actions/group';
 import { GroupInfo, GroupWordsItem } from 'typings/types';
 import { E005Payload } from '@actions/word';
-import { E008Payload } from '@actions/word/Actions';
+import { E008Payload, E006Payload } from '@actions/word/Actions';
+import { E001Response } from 'typings/api';
 
 export interface E000Props {
   groups: GroupInfo[];
   words: GroupWordsItem[];
   isLoading: boolean;
+  wordDetail?: E001Response;
 }
 
 export interface IE000 extends E000Props, Record<E000Props> {
@@ -21,6 +23,7 @@ export default class E000 extends Record<E000Props>({
   groups: [],
   words: [],
   isLoading: false,
+  wordDetail: undefined,
 }) {
   /**
    * グループ一覧追加
@@ -60,6 +63,16 @@ export default class E000 extends Record<E000Props>({
     }
 
     return this.set('words', this.words);
+  }
+
+  /** 単語詳細情報取得 */
+  setWordDetail(payload: E006Payload) {
+    return this.set('wordDetail', payload.res);
+  }
+
+  /** 単語詳細情報クリア */
+  clearWordDetail() {
+    return this.set('wordDetail', undefined);
   }
 
   /** 単語削除 */

@@ -41,15 +41,13 @@ export const detail: WordDetailAction = (word: string) => async (dispatch, _, ap
   dispatch(Detail.request());
 
   try {
-    // グループリスト画面に遷移する
+    // 単語詳細画面へ遷移する
     const prefix = Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyEdit].split(':')[0];
 
     dispatch(push(`${prefix}${word}`));
 
-    // api.del<C005Response>(Consts.C005_URL(groupId, word)).then(() => {
-    //   // データ保存
-    //   dispatch(Delete.success(groupId, word));
-    // });
+    // 単語詳細情報を取得する
+    api.get(Consts.E001_URL(word)).then((res) => dispatch(Detail.success(res)));
   } catch (err) {
     dispatch(Delete.failure(err));
   }

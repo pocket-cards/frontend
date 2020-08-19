@@ -2,7 +2,7 @@ import * as React from 'react';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { makeStyles, Theme, createStyles, Box, Typography } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Box, Typography, Card, CardContent } from '@material-ui/core';
 import { State } from '@models';
 import { Actions } from '@actions/word';
 import { Button } from '@components/buttons';
@@ -13,6 +13,7 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
       height: '100%',
       position: 'relative',
     },
+    root: { margin: spacing(2), textAlign: 'center' },
   })
 );
 
@@ -27,33 +28,45 @@ export default () => {
   const classes = useStyles();
   const { word } = useParams<B003Params>();
   const { groupId } = useSelector(app);
-  const { isLoading } = useSelector(e000);
+  const { isLoading, wordDetail } = useSelector(e000);
 
   const actions = bindActionCreators(Actions, useDispatch());
 
-  // const dispatch = useDispatch();
-  // const actions = bindActionCreators(StudyActions, dispatch);
-  // const appActions = bindActionCreators(Actions, dispatch);
-  // const { current: word, mode, isLoading } = useSelector(getB000);
-  // const [showText, setShowText] = React.useState(false);
-  // const [edit, setEdit] = React.useState(false);
   const handleOnDelete = () => {
     actions.del(groupId, word);
   };
 
   return (
     <Box>
-      <Typography>{word}</Typography>
-      <Button
-        size="large"
-        fullWidth
-        variant="contained"
-        color="primary"
-        type="submit"
-        isLoading={isLoading}
-        onClick={handleOnDelete}>
-        DELETE
-      </Button>
+      <Card className={classes.root}>
+        <CardContent>
+          <Typography variant="h4" component="h2">
+            {wordDetail?.id}
+          </Typography>
+          <Typography variant="h5" color="textSecondary">
+            /{wordDetail?.pronounce}/
+          </Typography>
+
+          <Typography variant="h5" component="p">
+            <br />
+            {wordDetail?.vocChn}
+            <br />
+            {wordDetail?.vocJpn}
+          </Typography>
+        </CardContent>
+      </Card>
+      <Box margin={2}>
+        <Button
+          size="large"
+          fullWidth
+          variant="contained"
+          color="primary"
+          type="submit"
+          isLoading={isLoading}
+          onClick={handleOnDelete}>
+          DELETE
+        </Button>
+      </Box>
     </Box>
   );
 };

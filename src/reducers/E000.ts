@@ -3,7 +3,7 @@ import { E000 } from '@models';
 import { ActionTypes } from '@constants';
 import { E001Payload, E002Payload, E004Payload } from '@actions/group';
 import { E005Payload } from '@actions/word';
-import { E008Payload } from '@actions/word/Actions';
+import { E008Payload, E006Payload } from '@actions/word/Actions';
 
 const reducer = handleActions<E000, any>(
   {
@@ -35,6 +35,12 @@ const reducer = handleActions<E000, any>(
     [ActionTypes.E0_05_SUCCESS]: (store: E000, { payload }: Action<E005Payload>) =>
       store.addWordList(payload).endLoading(),
     [ActionTypes.E0_05_FAILURE]: (store: E000) => store.endLoading(),
+
+    /** 単語詳細取得 */
+    [ActionTypes.E0_06_REQUEST]: (store: E000) => store.clearWordDetail().startLoading(),
+    [ActionTypes.E0_06_SUCCESS]: (store: E000, { payload }: Action<E006Payload>) =>
+      store.setWordDetail(payload).endLoading(),
+    [ActionTypes.E0_06_FAILURE]: (store: E000) => store.endLoading(),
 
     /** 単語削除 */
     [ActionTypes.E0_08_REQUEST]: (store: E000) => store.startLoading(),

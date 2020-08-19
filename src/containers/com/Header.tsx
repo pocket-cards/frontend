@@ -30,6 +30,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 import { State } from '@models';
 import { Actions as GroupActions } from '@actions/group';
 import { Paths, Consts } from '@constants';
+import Loading from '@components/Loading';
 
 const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common } }: Theme) =>
   createStyles({
@@ -71,7 +72,7 @@ export default () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { groupId } = useSelector(app);
   const { current: word } = useSelector(b000);
-  const { groups } = useSelector(e000);
+  const { groups, isLoading } = useSelector(e000);
 
   const isMenuOpen = Boolean(anchorEl);
 
@@ -108,6 +109,12 @@ export default () => {
 
   /** 音声再生 */
   const handleReply = () => audioRef.current?.play();
+  // 表示中画面情報
+  const screen = Paths.ROUTE_INFO[pathname];
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <React.Fragment>
@@ -130,7 +137,7 @@ export default () => {
                 return groupInfo?.name;
               }
 
-              return Paths.ROUTE_INFO[pathname].title;
+              return screen?.title;
             })()}
           </Typography>
           {(() => {
