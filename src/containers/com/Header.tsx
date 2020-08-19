@@ -39,7 +39,7 @@ const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common }
       backgroundColor: primary.dark,
     },
     toolbar: { minHeight: spacing(8) },
-    title: { flexGrow: 1 },
+    title: { flexGrow: 1, fontWeight: 600, textAlign: 'center', letterSpacing: '2px' },
     button: { color: 'white' },
     icon: { color: common.white, fontSize: spacing(5) },
     edgeButton: { margin: spacing(0) },
@@ -61,20 +61,23 @@ const audioRef = React.createRef<HTMLAudioElement>();
 
 const app = (state: State) => state.get('app');
 const b000 = (state: State) => state.get('b000');
+const e000 = (state: State) => state.get('e000');
 
 export default () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const grpActions = bindActionCreators(GroupActions, dispatch);
-  const location = useLocation();
+  const { pathname } = useLocation();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { groupId } = useSelector(app);
   const { current: word } = useSelector(b000);
+  const { groups } = useSelector(e000);
 
   const isMenuOpen = Boolean(anchorEl);
 
   // Left Icon action
   const handleOnClickLeft = () => {
-    const paths = location.pathname.split('/');
+    const paths = pathname.split('/');
     paths.pop();
 
     dispatch(push(paths.join('/')));
@@ -112,7 +115,7 @@ export default () => {
         <Toolbar className={classes.toolbar}>
           <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
             {(() => {
-              return location.pathname.split('/').length <= 2 ? null : (
+              return pathname.split('/').length <= 2 ? null : (
                 // <Button
                 //   variant="contained"
                 //   color="secondary"
@@ -125,10 +128,20 @@ export default () => {
               );
             })()}
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.title} />
+          <Typography variant="h5" color="inherit" className={classes.title}>
+            {(() => {
+              if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
+                const groupInfo = groups.find((item) => item.id === groupId);
+
+                return groupInfo?.name;
+              }
+
+              return Paths.ROUTE_INFO[pathname].title;
+            })()}
+          </Typography>
           {/* <Button color="inherit">Ver{Consts.VERSION}</Button> */}
           {(() => {
-            if (location.pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
+            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
               return (
                 <IconButton color="inherit" aria-label="Add" edge="end" onClick={handleOnClickAdd}>
                   <AddIcon fontSize="large" />
@@ -136,7 +149,7 @@ export default () => {
               );
             }
 
-            if (location.pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
+            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Study]) {
               return (
                 <IconButton aria-label="display more actions" edge="end" color="inherit" onClick={handleMenuOpen}>
                   <MoreIcon fontSize="large" />
@@ -144,7 +157,7 @@ export default () => {
               );
             }
 
-            if (location.pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]) {
+            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.StudyCard]) {
               const draw = [
                 <IconButton className={classes.replyButton} onClick={handleReply}>
                   <ReplayIcon className={classes.icon} />

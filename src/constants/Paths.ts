@@ -50,10 +50,12 @@ export const ROUTE_INFO: PathInfo = {
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Regist]]: {
     showBack: false,
     showFooter: true,
+    title: 'NEW WORDS REGIST',
   },
   [ROUTE_PATHS[ROUTE_PATH_INDEX.RegistList]]: {
     showBack: false,
     showFooter: true,
+    title: 'NEW WORDS REGIST LIST',
   },
   [ROUTE_PATHS[ROUTE_PATH_INDEX.RegistFinish]]: {
     showBack: false,
@@ -62,6 +64,7 @@ export const ROUTE_INFO: PathInfo = {
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Groups]]: {
     showBack: false,
     showFooter: true,
+    title: 'HOME',
   },
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Study]]: {
     showBack: true,
@@ -70,10 +73,12 @@ export const ROUTE_INFO: PathInfo = {
   [ROUTE_PATHS[ROUTE_PATH_INDEX.StudyCard]]: {
     showBack: true,
     showFooter: false,
+    title: 'STUDY CARD',
   },
   [ROUTE_PATHS[ROUTE_PATH_INDEX.Settings]]: {
     showBack: false,
     showFooter: true,
+    title: 'SETTINGS',
   },
   // [ROUTE_PATH_INDEX.Login]: '/login',
   // [ROUTE_PATH_INDEX.Regist]: '/regist',

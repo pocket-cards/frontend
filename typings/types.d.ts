@@ -60,4 +60,5 @@ export type PathInfo = { [key: string]: ScreenInfo };
 export interface ScreenInfo {
   showFooter: boolean;
   showBack: boolean;
+  title?: string;
 }

@@ -28,10 +28,11 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
     itemTextRoot: {
       margin: '0px',
       '& .MuiTypography-subtitle1': {
-        fontSize: '1.25rem',
+        fontSize: '1.5rem',
+        lineHeight: '1.5',
       },
     },
-    item: { backgroundColor: palette.grey[100] },
+    item: { backgroundColor: palette.grey[100], paddingTop: spacing(0.5), paddingBottom: spacing(0.5) },
     avatar: { backgroundColor: palette.primary.light },
     avatarBtn: { color: palette.common.white, fontSize: '0.75rem' },
   })
