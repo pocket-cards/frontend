@@ -4,12 +4,15 @@ import {
   makeStyles,
   Theme,
   createStyles,
-  ListItemText,
   List,
+  ListItemText,
   ListItemAvatar,
+  ListItemSecondaryAction,
   Avatar,
   Button,
+  IconButton,
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import { Consts } from '@constants';
 import { C002ResItem } from 'typings/api';
 
@@ -38,10 +41,11 @@ const useStyles = makeStyles(({ palette, spacing }: Theme) =>
   })
 );
 
-const list: FunctionComponent<WordListProps> = ({ list, onDetail }) => {
+const list: FunctionComponent<WordListProps> = ({ list, showDelete, onDetail, onDelete }) => {
   const classes = useStyles();
 
   const handleOnClick = (word: string) => onDetail?.(word);
+  const handleOnDelete = (word: string) => onDelete?.(word);
 
   return (
     <List className={classes.root}>
@@ -70,6 +74,17 @@ const list: FunctionComponent<WordListProps> = ({ list, onDetail }) => {
               }}
               className={classes.itemTextRoot}
             />
+            {showDelete ? (
+              <ListItemSecondaryAction>
+                <IconButton
+                  color="secondary"
+                  onClick={() => {
+                    handleOnDelete(item.word);
+                  }}>
+                  <DeleteIcon fontSize="large" />
+                </IconButton>
+              </ListItemSecondaryAction>
+            ) : undefined}
           </ListItem>
         </Fragment>
       ))}
@@ -80,6 +95,8 @@ const list: FunctionComponent<WordListProps> = ({ list, onDetail }) => {
 interface WordListProps {
   list: C002ResItem[];
   onDetail?: (word: string) => void;
+  onDelete?: (word: string) => void;
+  showDelete?: boolean;
 }
 
 export default list;

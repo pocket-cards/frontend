@@ -8,7 +8,7 @@ import { Actions as AppActions } from '@actions/app';
 import { Actions as WrdActions } from '@actions/word';
 import Button from '@components/buttons/Button';
 import { WordList } from '@components/functions';
-import { Paths } from '@constants';
+import { Paths, Consts } from '@constants';
 import { State } from '@models';
 
 const useStyles = makeStyles(({ spacing }: Theme) =>
@@ -32,19 +32,21 @@ export default () => {
   const appActions = bindActionCreators(AppActions, useDispatch());
   const wrdActions = bindActionCreators(WrdActions, useDispatch());
   const { words } = useSelector(e000);
-  const { groupId } = useSelector(app);
+  const { groupId, displayCtrl } = useSelector(app);
 
   const groupWords = words.filter((item) => item.groupId === groupId);
 
+  // 学習
   const handleNew = () => actions.startNew();
-
+  // 復習
   const handleReview = () => actions.startReview();
-
+  // テスト
   const handleTest = () => actions.startTest();
 
-  const handleDetail = (word: string) => {
-    wrdActions.detail(word);
-  };
+  // 詳細
+  const handleDetail = (word: string) => wrdActions.detail(word);
+  // 削除
+  const handleDelete = (word: string) => wrdActions.delRow(groupId, word);
 
   return (
     <React.Fragment>
@@ -75,7 +77,14 @@ export default () => {
       {(() => {
         if (groupWords.length === 0) return;
 
-        return <WordList list={groupWords[0].words} onDetail={handleDetail}></WordList>;
+        return (
+          <WordList
+            list={groupWords[0].words}
+            onDetail={handleDetail}
+            onDelete={handleDelete}
+            showDelete={displayCtrl[Consts.ShowTypes.REMOVE_WORD]}
+          />
+        );
       })()}
     </React.Fragment>
   );

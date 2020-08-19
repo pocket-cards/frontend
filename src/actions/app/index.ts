@@ -1,8 +1,17 @@
 import { CognitoUser } from '@aws-amplify/auth';
 import { ThunkActionDispatch } from 'typings/redux-thunk';
-import { groupSelect, loggedIn, logout, tabChange, start, status, stop } from './App';
+import { groupSelect, loggedIn, logout, tabChange, start, status, stop, show } from './App';
+import { Consts } from '@constants';
 export * as Actions from './App';
-export { App01Payload, App04Payload, App09Payload, App07Payload, App06Payload, App08Payload } from './Actions';
+export {
+  App01Payload,
+  App04Payload,
+  App09Payload,
+  App07Payload,
+  App06Payload,
+  App08Payload,
+  App10Payload,
+} from './Actions';
 
 // ------------------------------------------------------------------------------------------
 // TypeScript Definetion
@@ -22,4 +31,6 @@ export interface AppActions {
   status(): ThunkActionDispatch<typeof status>;
   /** group select */
   groupSelect(): ThunkActionDispatch<typeof groupSelect>;
+  /** display control */
+  show(type: Consts.ShowTypes, value: boolean): ThunkActionDispatch<typeof show>;
 }

@@ -1,6 +1,7 @@
 import { Record } from 'immutable';
 import { Paths, Consts } from '@constants';
 import { CognitoUser } from '@aws-amplify/auth';
+import { App10Payload } from '@actions/app/Actions';
 
 export interface IApp extends AppProps, Record<AppProps> {
   get<K extends keyof AppProps>(key: K): AppProps[K];
@@ -16,6 +17,8 @@ export interface AppUIProps {
   groupId: string;
   // server status
   status: string;
+  // グループ一覧画面の削除ボタン表示フラグ
+  displayCtrl: { [key: number]: boolean };
 }
 
 export interface AppProps extends AppUIProps {}
@@ -29,6 +32,7 @@ export default class App extends Record<AppProps>({
   user: undefined,
   groupId: '',
   status: Consts.SERVER_STATUS.STOPPED,
+  displayCtrl: {},
 }) {
   tabChange(index: number) {
     return this.set('tabIndex', index);
@@ -44,6 +48,12 @@ export default class App extends Record<AppProps>({
 
   logout() {
     return this.set('user', undefined);
+  }
+
+  setShow({ type, value }: App10Payload) {
+    this.displayCtrl[type] = value;
+
+    return this.set('displayCtrl', this.displayCtrl);
   }
 
   /** 取込中 */

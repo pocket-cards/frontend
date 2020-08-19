@@ -2,6 +2,7 @@ import { handleActions, Action } from 'redux-actions';
 import { App } from '@models';
 import { ActionTypes } from '@constants';
 import { App01Payload, App04Payload, App07Payload, App09Payload, App08Payload, App06Payload } from '@actions/app';
+import { App10Payload } from '@actions/app/Actions';
 
 const reducer = handleActions<App, any>(
   {
@@ -41,6 +42,11 @@ const reducer = handleActions<App, any>(
     [ActionTypes.APP_09_REQUEST]: (store: App) => store,
     [ActionTypes.APP_09_SUCCESS]: (store: App, { payload }: Action<App09Payload>) => store.setGroupId(payload.groupId),
     [ActionTypes.APP_09_FAILURE]: (store: App) => store,
+
+    /** 画面表示制御 */
+    [ActionTypes.APP_10_REQUEST]: (store: App) => store,
+    [ActionTypes.APP_10_SUCCESS]: (store: App, { payload }: Action<App10Payload>) => store.setShow(payload),
+    [ActionTypes.APP_10_FAILURE]: (store: App) => store,
   },
   new App()
 );

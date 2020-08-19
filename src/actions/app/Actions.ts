@@ -1,4 +1,4 @@
-import { createAction, Action, ActionFunction1, ActionFunction0 } from 'redux-actions';
+import { createAction, Action, ActionFunction1, ActionFunction0, ActionFunction2 } from 'redux-actions';
 import { ActionTypes } from '@constants';
 import { ErrorPayload, APIClass } from 'typings/types';
 import { ThunkAction } from 'redux-thunk';
@@ -78,6 +78,19 @@ export const Status = {
   failure: failure(ActionTypes.APP_08_FAILURE),
 };
 
+/** サーバステータス */
+export const Show = {
+  request: request(ActionTypes.APP_10_REQUEST),
+  success: createAction(
+    ActionTypes.APP_10_SUCCESS,
+    (type: number, value: boolean): App10Payload => ({
+      type,
+      value,
+    })
+  ),
+  failure: failure(ActionTypes.APP_10_FAILURE),
+};
+
 /** Tab Change */
 export interface App01Payload {
   index: number;
@@ -100,15 +113,6 @@ export type LoggedInAction = ActionFunction1<CognitoUser, LoggedInActionThunkAct
 type LogoutPayload = ErrorPayload;
 type LogoutActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<LogoutPayload>>;
 export type LogoutAction = ActionFunction0<LogoutActionThunkAction>;
-
-/** グループ選択 */
-export interface App09Payload {
-  groupId: string;
-}
-
-type GroupSelectPayload = ErrorPayload | App09Payload;
-type GroupSelectActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<GroupSelectPayload>>;
-export type GroupSelectAction = ActionFunction1<string, GroupSelectActionThunkAction>;
 
 /** サーバ開始 */
 export interface App06Payload {
@@ -136,3 +140,22 @@ export interface App08Payload {
 type ServerStatusPayload = ErrorPayload | App08Payload;
 type ServerStatusActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<ServerStatusPayload>>;
 export type ServerStatusAction = ActionFunction0<ServerStatusActionThunkAction>;
+
+/** グループ選択 */
+export interface App09Payload {
+  groupId: string;
+}
+
+type GroupSelectPayload = ErrorPayload | App09Payload;
+type GroupSelectActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<GroupSelectPayload>>;
+export type GroupSelectAction = ActionFunction1<string, GroupSelectActionThunkAction>;
+
+/** 表示フラグ制御 */
+export interface App10Payload {
+  type: number;
+  value: boolean;
+}
+
+type ShowPayload = ErrorPayload | App10Payload;
+type ShowActionThunkAction = ThunkAction<Promise<void>, State, APIClass, Action<ShowPayload>>;
+export type ShowAction = ActionFunction2<number, boolean, ShowActionThunkAction>;

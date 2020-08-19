@@ -51,6 +51,11 @@ export const APP_09_REQUEST = 'APP_09_REQUEST';
 export const APP_09_SUCCESS = 'APP_09_SUCCESS';
 export const APP_09_FAILURE = 'APP_09_FAILURE';
 
+/** Display Control */
+export const APP_10_REQUEST = 'APP_10_REQUEST';
+export const APP_10_SUCCESS = 'APP_10_SUCCESS';
+export const APP_10_FAILURE = 'APP_10_FAILURE';
+
 /** 単語登録 */
 // export const A000_UPLOAD_IMAGE = 'A000_UPLOAD_IMAGE';
 // export const A000_REMOVE_WORD = 'A000_REMOVE_WORD';

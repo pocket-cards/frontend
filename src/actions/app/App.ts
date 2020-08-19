@@ -13,6 +13,8 @@ import {
   Status,
   Stop,
   Start,
+  ShowAction,
+  Show,
 } from './Actions';
 import { Consts } from '@constants';
 import { Actions } from '@actions/group';
@@ -108,5 +110,16 @@ export const status: ServerStatusAction = () => async (dispatch, _, api) => {
     dispatch(Status.success(res.status));
   } catch (err) {
     dispatch(Status.failure(err));
+  }
+};
+
+/** 画面表示制御 */
+export const show: ShowAction = (type: number, value: boolean) => async (dispatch) => {
+  dispatch(Show.request());
+
+  try {
+    dispatch(Show.success(type, value));
+  } catch (err) {
+    dispatch(Show.failure(err));
   }
 };

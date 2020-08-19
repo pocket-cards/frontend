@@ -36,6 +36,21 @@ export const del: WordDeleteAction = (groupId: string, word: string) => async (d
   }
 };
 
+/** 単語削除 */
+export const delRow: WordDeleteAction = (groupId: string, word: string) => async (dispatch, _, api) => {
+  // 単語削除開始イベント
+  dispatch(Delete.request());
+
+  try {
+    // データ保存
+    dispatch(Delete.success(groupId, word));
+
+    await api.del<C005Response>(Consts.C005_URL(groupId, word));
+  } catch (err) {
+    dispatch(Delete.failure(err));
+  }
+};
+
 /** 単語詳細 */
 export const detail: WordDetailAction = (word: string) => async (dispatch, _, api) => {
   dispatch(Detail.request());
@@ -49,6 +64,6 @@ export const detail: WordDetailAction = (word: string) => async (dispatch, _, ap
     // 単語詳細情報を取得する
     api.get(Consts.E001_URL(word)).then((res) => dispatch(Detail.success(res)));
   } catch (err) {
-    dispatch(Delete.failure(err));
+    dispatch(Detail.failure(err));
   }
 };

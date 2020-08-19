@@ -60,3 +60,7 @@ export const SERVER_STATUS = {
 
 export const HEADER_HEIGHT = 64;
 export const FOOT_HEIGHT = 72;
+
+export enum ShowTypes {
+  REMOVE_WORD,
+}
