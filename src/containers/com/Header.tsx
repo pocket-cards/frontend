@@ -29,7 +29,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 
 import { State } from '@models';
 import { Actions as GroupActions } from '@actions/group';
-import { Paths } from '@constants';
+import { Paths, Consts } from '@constants';
 
 const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common } }: Theme) =>
   createStyles({
@@ -116,12 +116,6 @@ export default () => {
           <IconButton className={classes.button} color="inherit" aria-label="Reload" onClick={handleOnClickLeft}>
             {(() => {
               return pathname.split('/').length <= 2 ? null : (
-                // <Button
-                //   variant="contained"
-                //   color="secondary"
-                //   className={classes.backButton}
-                //   endIcon={<ArrowBackIcon fontSize="large" className={classes.backIcon} />}
-                // />
                 <IconButton className={classes.backButton}>
                   <ArrowBackIcon className={classes.icon} />
                 </IconButton>
@@ -139,7 +133,13 @@ export default () => {
               return Paths.ROUTE_INFO[pathname].title;
             })()}
           </Typography>
-          {/* <Button color="inherit">Ver{Consts.VERSION}</Button> */}
+          {(() => {
+            if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Settings]) {
+              return <Button color="inherit">{Consts.VERSION}</Button>;
+            }
+
+            return null;
+          })()}
           {(() => {
             if (pathname === Paths.ROUTE_PATHS[Paths.ROUTE_PATH_INDEX.Groups]) {
               return (
