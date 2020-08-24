@@ -110,8 +110,10 @@ export type C002Response = C002ResItem[];
 // C004
 // ------------------------------
 export interface C004Request {
-  correct: boolean;
-  times: number;
+  type: string;
+  correct?: boolean;
+  times?: number;
+  newWord?: string;
 }
 
 export type C004Response = void;

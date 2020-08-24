@@ -74,6 +74,7 @@ const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, tim
 
 const updateStatus = async (api: APIClass, groupId: string, word: string, yes: boolean, times: number) => {
   await api.put(Consts.C004_URL(groupId, word), {
+    type: '1',
     correct: yes,
     times,
   } as C004Request);
