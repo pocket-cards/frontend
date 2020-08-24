@@ -38,6 +38,7 @@ const useStyles = makeStyles(({ spacing, palette: { primary, secondary, common }
       boxShadow: 'none',
       height: spacing(8),
       backgroundColor: primary.dark,
+      userSelect: 'none',
     },
     toolbar: { minHeight: spacing(8) },
     title: { flexGrow: 1, fontWeight: 600, textAlign: 'center', letterSpacing: '2px' },

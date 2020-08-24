@@ -70,6 +70,7 @@ const useStyles = makeStyles(({ spacing, palette }: Theme) =>
       width: '90%',
       height: '100%',
       borderRadius: 4,
+      userSelect: 'none',
     },
     paper: {
       boxShadow: 'none',
@@ -96,9 +97,7 @@ export default () => {
   const handleTouchStart = () => setShowText(true);
 
   /** 新規単語学習 */
-  const handleNext = () => {
-    actions.startReview();
-  };
+  const handleNext = () => actions.startReview();
 
   const handleAnswer = (word: string, yes: boolean) => {
     actions.answer(word, yes);
